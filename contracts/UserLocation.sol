@@ -35,23 +35,11 @@ contract UserLocation {
     mapping(address => Location) public userCityInfo;
     mapping(address => Location) public userCountyInfo;
 
-    // user address => userLocationHash
-    mapping(address => bytes32) public userLocationHash;
-
     // cityId => userNumber
     mapping(bytes32 => uint256) public userNumberOfCity;
 
     function compareStr(string calldata _str, string memory str) private pure returns (bool) {
         return keccak256(abi.encodePacked(_str)) == keccak256(abi.encodePacked(str));
-    }
-
-    function getKeccak256(string calldata _str) public pure returns (bytes32) {
-        return keccak256(abi.encodePacked(_str));
-    }
-
-    function getKeccak2562() external pure returns (bytes32) {
-        bytes32 bytes320;
-        return keccak256(abi.encodePacked(bytes320));
     }
 
     function setUserLocation(bytes32 cityId_, string calldata country_, string calldata city_, string calldata county_) public {
