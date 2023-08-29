@@ -1,76 +1,52 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-contract UserLocation {
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-    enum LocationType{
-        none,
-        global,
-        city,
-        county
-    }
+contract UserLocation is Initializable {
 
     event UserLocationRecord(
         address user,
-        string country,
-        string city,
-        string county,
         bytes32 cityId,
-        LocationType locationType
+        string location
     );
 
-    struct Location {
-        string country;
-        string city;
-        string county;
-        bytes32 cityId;
-        LocationType locationType;
-    }
+    // 城市ID => 位置信息（加密）
+    mapping(bytes32 => string) public cityInfo;
 
-    // user address => location info
-    mapping(address => Location) public userCityInfo;
-    mapping(address => Location) public userCountyInfo;
+    // 城市ID集合
+    bytes32[] public cityIds;
 
-    // cityId => userNumber
+    // 城市ID数量
+    uint256 public cityIdNum;
+
+    // 城市ID => 城市用户数量
     mapping(bytes32 => uint256) public userNumberOfCity;
+
+    // 用户设置信息
+    mapping(address => bool) private userHaveSetLocation;
+
+    uint256[50] private __gap;
+
+    function initialize() public initializer {}
 
     function compareStr(string calldata _str, string memory str) private pure returns (bool) {
         return keccak256(abi.encodePacked(_str)) == keccak256(abi.encodePacked(str));
     }
 
-    function setUserLocation(bytes32 cityId_, string calldata country_, string calldata city_, string calldata county_) public {
-
-        require(!compareStr(country_, "") && !compareStr(city_, ""), "country or city is empty");
-        LocationType locationType;
-        string memory county = "";
-        if (!compareStr(county_, "")) {
-            require(userCountyInfo[msg.sender].locationType == LocationType.none, "can not set any more");
-            county = county_;
-            userCountyInfo[msg.sender].county = county;
-            locationType = LocationType.county;
-            userCountyInfo[msg.sender].country = country_;
-            userCountyInfo[msg.sender].city = city_;
-            userCountyInfo[msg.sender].cityId = cityId_;
-            userCountyInfo[msg.sender].locationType = locationType;
-        } else {
-            require(userCityInfo[msg.sender].locationType == LocationType.none, "can not set any more");
-            locationType = LocationType.city;
-            userCityInfo[msg.sender].country = country_;
-            userCityInfo[msg.sender].city = city_;
-            userCityInfo[msg.sender].cityId = cityId_;
-            userCityInfo[msg.sender].locationType = locationType;
-        }
-
+    function setUserLocation(bytes32 cityId_, string calldata location_) public {
+        require(!userHaveSetLocation[msg.sender], "cant not set any more");
+        require(!compareStr(location_, ""), "location is empty");
         userNumberOfCity[cityId_] += 1;
+        cityIds.push(cityId_);
+        cityInfo[cityId_] = location_;
+        userHaveSetLocation[msg.sender] = true;
+        cityIdNum++;
 
-        bytes32 cityId = cityId_;
         emit UserLocationRecord(
             msg.sender,
-            country_,
-            city_,
-            county,
-            cityId,
-            locationType
+            cityId_,
+            location_
         );
     }
 }
