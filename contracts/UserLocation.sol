@@ -28,6 +28,9 @@ contract UserLocation is Initializable {
 
     uint256[50] private __gap;
 
+    // 用户地址 => 位置信息（加密）
+    mapping(address => string) public userLocationInfo;
+
     function initialize() public initializer {}
 
     function compareStr(string calldata _str, string memory str) private pure returns (bool) {
@@ -40,6 +43,7 @@ contract UserLocation is Initializable {
         userNumberOfCity[cityId_] += 1;
         cityIds.push(cityId_);
         cityInfo[cityId_] = location_;
+        userLocationInfo[msg.sender] = location_;
         userHaveSetLocation[msg.sender] = true;
         cityIdNum++;
 
