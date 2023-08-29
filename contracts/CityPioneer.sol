@@ -15,10 +15,38 @@ contract CityPioneer is RoleAccess, Events, Initializable {
     address public cityAddress; // 城市合约地址
     uint256 public termOfOffice; // 任期，单位秒
 
-    struct Pioneer {
-       uint256 ctime; // 成为城市节点的时间
+    enum Month {
+        none,
+        firstMonth,
+        secondMonth,
+        thirdMonth
     }
-//mapping(address => )  ;
+
+    event newDelegate(
+        address pioneerAddress, // 先锋地址
+        uint256 amount, // 新增质押金额
+        uint256 ctime // 新增质押的时间
+    );
+
+    struct Pioneer {
+        address pioneerAddress;
+        uint256 ctime; // 成为城市节点的时间
+        uint256 firstMonth; // 第1个月累计质押量
+        uint256 secondMonth; // 第2个月累计质押量
+        uint256 thirdMonth; // 第3个月累计质押量
+        bool testStatus; // 最终考核状态
+    }
+
+    struct Delegate {
+        address pioneer; // 先锋地址
+        uint256 amount; // 质押金额
+        uint256 ctime; // 质押时间（每天新增质押）
+    }
+
+    // 先锋地址 => 先锋信息， 先锋信息
+    mapping(address => Pioneer) public pioneerInfo;
+
+    mapping(address => mapping(Month => uint256[])) public pioneerDelegateInfo;
 
     uint256[50] private __gap;
 
@@ -44,5 +72,8 @@ contract CityPioneer is RoleAccess, Events, Initializable {
         uint256 userBalance = TOXContract.balanceOf(msg.sender);
         require(userBalance >= earnestMoney, "your balance is insufficient"); // 余额不足
         TOXContract.transfer(address(this), earnestMoney);
+        pioneerInfo[msg.sender].ctime = block.timestamp;
+        pioneerInfo[msg.sender].pioneerAddress = msg.sender;
+        pioneerInfo[msg.sender].testStatus = true;
     }
 }
