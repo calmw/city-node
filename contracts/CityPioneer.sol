@@ -6,6 +6,7 @@ import "./Events.sol";
 import "./RoleAccess.sol";
 import "./CityNodeVote.sol";
 import "./Withdrawal.sol";
+import "./utils/DateTime.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
@@ -31,6 +32,7 @@ contract CityPioneer is RoleAccess, Events, Initializable {
     struct Pioneer {
         address pioneerAddress;
         uint256 ctime; // 成为城市节点的时间
+        uint day; // 成为城市节点的时间(天数)
         uint256 firstMonth; // 第1个月累计质押量
         uint256 secondMonth; // 第2个月累计质押量
         uint256 thirdMonth; // 第3个月累计质押量
@@ -46,7 +48,7 @@ contract CityPioneer is RoleAccess, Events, Initializable {
     // 先锋地址 => 先锋信息， 先锋信息
     mapping(address => Pioneer) public pioneerInfo;
 
-    mapping(address => mapping(Month => uint256[])) public pioneerDelegateInfo;
+    mapping(address => uint256[]) public pioneerDelegateInfo;
 
     uint256[50] private __gap;
 
@@ -57,6 +59,18 @@ contract CityPioneer is RoleAccess, Events, Initializable {
     // 管理员设置TOX代币地址
     function adminSetTOXAddress(address TOX_) public onlyAdmin {
         TOX = TOX_;
+    }
+
+    // 管理员设置先锋每天新增质押量
+    function adminSetPioneerDelegate(address pioneer_, uint256 amount_) public onlyAdmin {
+        Pioneer storage pioneer = pioneerInfo[pioneer_];
+        uint day = getDay();
+        uint256 delegateDay = day - pioneer.day; // 第几天质押
+        pioneerDelegateInfo[pioneer_][delegateDay] = amount_;
+    }
+
+    function getDay() public view returns (uint){
+        return DateTime.getDay(now);
     }
 
     // 缴纳保证金
@@ -75,5 +89,6 @@ contract CityPioneer is RoleAccess, Events, Initializable {
         pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].pioneerAddress = msg.sender;
         pioneerInfo[msg.sender].testStatus = true;
+        pioneerInfo[msg.sender].day = getDay();
     }
 }

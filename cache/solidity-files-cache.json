@@ -295,8 +295,8 @@
       ]
     },
     "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/CityPioneer.sol": {
-      "lastModificationDate": 1693299666422,
-      "contentHash": "ffe20b5da60dc8954566736815cdc790",
+      "lastModificationDate": 1693303136858,
+      "contentHash": "4424539b6063871d108c2daf2181a98f",
       "sourceName": "contracts/CityPioneer.sol",
       "solcConfig": {
         "version": "0.8.13",
