@@ -295,8 +295,8 @@
       ]
     },
     "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/CityPioneer.sol": {
-      "lastModificationDate": 1693297347907,
-      "contentHash": "69088a8c7ed38e03c831569121e3c3b2",
+      "lastModificationDate": 1693298555086,
+      "contentHash": "b8b662fac4f58e25812b5cba59397057",
       "sourceName": "contracts/CityPioneer.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -338,8 +338,8 @@
       ]
     },
     "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/CityNodeVote.sol": {
-      "lastModificationDate": 1693289789271,
-      "contentHash": "131639500abf292e355927edf47e34d6",
+      "lastModificationDate": 1693298240219,
+      "contentHash": "ab848f4b6e3eed6420a5b54dfc6c9d84",
       "sourceName": "contracts/CityNodeVote.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -378,8 +378,8 @@
       ]
     },
     "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/UserLocation.sol": {
-      "lastModificationDate": 1693296529450,
-      "contentHash": "47c77bd3d5c71aa6c735a625db163792",
+      "lastModificationDate": 1693299128758,
+      "contentHash": "e89f7011c797a1e366b3754faf695797",
       "sourceName": "contracts/UserLocation.sol",
       "solcConfig": {
         "version": "0.8.13",
@@ -415,8 +415,8 @@
       ]
     },
     "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/CityNodeReward.sol": {
-      "lastModificationDate": 1693289789295,
-      "contentHash": "845c632bb28e06f74a0b24e41377a803",
+      "lastModificationDate": 1693298240215,
+      "contentHash": "ed91d1cf79571ea49e2248545d7be343",
       "sourceName": "contracts/CityNodeReward.sol",
       "solcConfig": {
         "version": "0.8.13",

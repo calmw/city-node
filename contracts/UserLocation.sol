@@ -2,8 +2,9 @@
 pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "./RoleAccess.sol";
 
-contract UserLocation is Initializable {
+contract UserLocation is RoleAccess, Initializable {
 
     event UserLocationRecord(
         address user,
@@ -31,7 +32,9 @@ contract UserLocation is Initializable {
 
     uint256[50] private __gap;
 
-    function initialize() public initializer {}
+    function initialize() public initializer {
+        _addAdmin(msg.sender);
+    }
 
     function compareStr(string calldata _str, string memory str) private pure returns (bool) {
         return keccak256(abi.encodePacked(_str)) == keccak256(abi.encodePacked(str));
@@ -52,5 +55,10 @@ contract UserLocation is Initializable {
             cityId_,
             location_
         );
+    }
+
+    // 上线删除该逻辑
+    function delUserLocation(address user) public onlyAdmin {
+        userHaveSetLocation[user] = false;
     }
 }

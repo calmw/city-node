@@ -15,6 +15,13 @@ contract CityPioneer is RoleAccess, Events, Initializable {
     address public cityAddress; // 城市合约地址
     uint256 public termOfOffice; // 任期，单位秒
 
+    struct Pioneer {
+       uint256 ctime; // 成为城市节点的时间
+    }
+//mapping(address => )  ;
+
+    uint256[50] private __gap;
+
     function initialize() public initializer {
         _addAdmin(msg.sender);
     }
