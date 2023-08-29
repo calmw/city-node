@@ -26,10 +26,10 @@ contract UserLocation is Initializable {
     // 用户设置信息
     mapping(address => bool) private userHaveSetLocation;
 
-    uint256[50] private __gap;
-
     // 用户地址 => 位置信息（加密）
     mapping(address => string) public userLocationInfo;
+
+    uint256[50] private __gap;
 
     function initialize() public initializer {}
 
