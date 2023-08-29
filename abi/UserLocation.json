@@ -1,0 +1,170 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "cityId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "country_",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "city_",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "county_",
+        "type": "string"
+      }
+    ],
+    "name": "setUserLocation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "country",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "county",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "cityId",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "enum UserLocation.LocationType",
+        "name": "locationType",
+        "type": "uint8"
+      }
+    ],
+    "name": "UserLocationRecord",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "userCityInfo",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "country",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "county",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "cityId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "enum UserLocation.LocationType",
+        "name": "locationType",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "userCountyInfo",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "country",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "city",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "county",
+        "type": "string"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "cityId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "enum UserLocation.LocationType",
+        "name": "locationType",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "userNumberOfCity",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

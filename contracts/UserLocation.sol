@@ -19,10 +19,6 @@ contract UserLocation {
         LocationType locationType
     );
 
-    event LogBytes32(
-        bytes32 data
-    );
-
     struct Location {
         string country;
         string city;
