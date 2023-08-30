@@ -13,8 +13,6 @@ contract CityNodeReward is RoleAccess, Events, Initializable {
     mapping(bytes32 => uint256)public  rewardsForSocialFunds; // 城市每日社交基金
     mapping(bytes32 => uint256)public  latestDelegate; // 城市每日新增质押
 
-    uint256[50] private __gap;
-
     function initialize() public initializer {
         _addAdmin(msg.sender);
     }
