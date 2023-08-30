@@ -1,12 +1,48 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "./Events.sol";
+//import "./Events.sol";
 import "./RoleAccess.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract CityNodeVote is RoleAccess, Events, Initializable {
+contract IntoCityNodeVote is RoleAccess, Initializable {
+
+    // 投票成功
+    event VoteSuccessRecord(
+        address node,
+        bytes32 cityId,
+        uint256 toxNum
+    );
+
+    // 投票状态改变
+    event VoteStatusChangeRecord(
+        VoteStatus voteStatus
+    );
+
+    // 申请城市候选人记录
+    event ApplyCandidateRecord(
+        address user,
+        uint256 applyFee
+    );
+
+    // 投票记录
+    event VoteRecord(
+        address user,
+        address candidate,
+        bytes32 cityId,
+        uint256 toxNum
+    );
+
+    enum VoteStatus{
+        none,
+        globalVoting,
+        globalVoteEnd,
+        userVoting,
+        userVoteEnd,
+        incumbency,
+        endOfTerm
+    }
 
     address public TOX;
     uint256 public applyCityFee = 10000 * 1e18; // 城市节点报名费
@@ -47,7 +83,7 @@ contract CityNodeVote is RoleAccess, Events, Initializable {
     }
 
     // 管理员设置投票状态
-    function adminSetVoteStatus(Events.VoteStatus voteStatus_) public onlyAdmin {
+    function adminSetVoteStatus(VoteStatus voteStatus_) public onlyAdmin {
         voteStatus = voteStatus_;
         emit VoteStatusChangeRecord(voteStatus_);
     }

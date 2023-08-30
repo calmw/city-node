@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "./RoleAccess.sol";
 
-contract UserLocation is RoleAccess, Initializable {
+contract IntoUserLocation is RoleAccess, Initializable {
 
     event UserLocationRecord(
         address user,

@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "./Events.sol";
+//import "./Events.sol";
 import "./RoleAccess.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract City is RoleAccess, Initializable {
+contract IntoCity is RoleAccess, Initializable {
 
     bytes32 public cityIdEmpty;
 
@@ -28,6 +28,7 @@ contract City is RoleAccess, Initializable {
     mapping(address => bool) public hasSetPioneer;
 
     uint256[50] private __gap;
+    mapping(uint256 => uint256) public Aaa;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);

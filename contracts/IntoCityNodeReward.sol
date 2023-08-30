@@ -1,13 +1,27 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "./Events.sol";
+//import "./Events.sol";
 import "./RoleAccess.sol";
-import "./CityNodeVote.sol";
+import "./IntoCityNodeVote.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract CityNodeReward is RoleAccess, Events, Initializable {
+contract IntoCityNodeReward is RoleAccess, Initializable {
+
+    // 昨日城市社交基金值记录
+    event UpdateSocialFundsRecord (
+        bytes32 cityId,
+        uint256 rewardsForSocialFunds,
+        uint256 timeStemp
+    );
+
+    // 昨日城市新增质押记录
+    event UpdateLatestDelegateRecord (
+        bytes32 cityId,
+        uint256 latestDelegate,
+        uint256 timeStemp
+    );
 
     address public voteAddress;
     mapping(bytes32 => uint256)public  rewardsForSocialFunds; // 城市每日社交基金
@@ -49,7 +63,7 @@ contract CityNodeReward is RoleAccess, Events, Initializable {
 
     // 竞选成功，每天奖励
     function rewardNode(bytes32 cityId) public onlyAdmin {
-        CityNodeVote cityNodeVote = CityNodeVote(voteAddress);
+        IntoCityNodeVote cityNodeVote = IntoCityNodeVote(voteAddress);
         address cityNode = cityNodeVote.cityNode(cityId); // 当选者
         // 奖励收益支配比例
         uint256 rate = cityNodeVote.cityNodeControlRate(cityNode);
@@ -75,7 +89,7 @@ contract CityNodeReward is RoleAccess, Events, Initializable {
 
     // 竞选成功，一次性奖励,竞选结束调用
     function campaignSuccessRewards(bytes32 cityId) public onlyAdmin {
-        CityNodeVote cityNodeVote = CityNodeVote(voteAddress);
+        IntoCityNodeVote cityNodeVote = IntoCityNodeVote(voteAddress);
         address cityNode = cityNodeVote.cityNode(cityId); // 当选者
         uint256 cityApplyFee = cityNodeVote.cityApplyFee(cityId); // 该城市竞选所有的报名费
         // 获得参与该城市节点竞选人所有的报名费
