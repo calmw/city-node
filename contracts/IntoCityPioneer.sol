@@ -2,7 +2,6 @@
 pragma solidity ^0.8.13;
 
 import "./IntoCity.sol";
-//import "./Events.sol";
 import "./RoleAccess.sol";
 import "./IntoCityNodeVote.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
@@ -258,8 +257,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 day = getDay() - pioneer.day;
 
         // 福利包奖励
-//        uint256 bonus = 2800 * 10**18 / 30;
-        uint256 bonus = 2800 ;
+        uint bonus = 93333333333333333333;
         IERC20(TOX).transfer(pioneer.pioneerAddress, bonus);
 
         // 社交基金5%奖励

@@ -60,5 +60,6 @@ contract IntoUserLocation is RoleAccess, Initializable {
     // 上线删除该逻辑
     function delUserLocation(address user) public onlyAdmin {
         userHaveSetLocation[user] = false;
+        userLocationInfo[user] = "";
     }
 }

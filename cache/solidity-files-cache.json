@@ -1,46 +1,6 @@
 {
   "_format": "hh-sol-cache-2",
   "files": {
-    "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/City.sol": {
-      "lastModificationDate": 1693385816484,
-      "contentHash": "b84484d1443fad2459748feeaee0b59d",
-      "sourceName": "contracts/City.sol",
-      "solcConfig": {
-        "version": "0.8.18",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./RoleAccess.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.13"
-      ],
-      "artifacts": [
-        "City"
-      ]
-    },
     "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/RoleAccess.sol": {
       "lastModificationDate": 1693215972118,
       "contentHash": "25a6f0190b407f9e0a628af7841ff9bc",
@@ -223,168 +183,6 @@
       ],
       "artifacts": [
         "AddressUpgradeable"
-      ]
-    },
-    "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/CityPioneer.sol": {
-      "lastModificationDate": 1693385575074,
-      "contentHash": "02d867ffa433c12f95bad80afe455eab",
-      "sourceName": "contracts/CityPioneer.sol",
-      "solcConfig": {
-        "version": "0.8.18",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./City.sol",
-        "./RoleAccess.sol",
-        "./CityNodeVote.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.13"
-      ],
-      "artifacts": [
-        "CityPioneer"
-      ]
-    },
-    "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/CityNodeVote.sol": {
-      "lastModificationDate": 1693385604890,
-      "contentHash": "65bac01974fa629274099250586dc167",
-      "sourceName": "contracts/CityNodeVote.sol",
-      "solcConfig": {
-        "version": "0.8.18",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./RoleAccess.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.13"
-      ],
-      "artifacts": [
-        "CityNodeVote"
-      ]
-    },
-    "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/UserLocation.sol": {
-      "lastModificationDate": 1693299584664,
-      "contentHash": "67954a8621d07d0265fd5253959d6080",
-      "sourceName": "contracts/UserLocation.sol",
-      "solcConfig": {
-        "version": "0.8.18",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
-        "./RoleAccess.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.13"
-      ],
-      "artifacts": [
-        "UserLocation"
-      ]
-    },
-    "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/CityNodeReward.sol": {
-      "lastModificationDate": 1693385575071,
-      "contentHash": "fed7d73bfa6dd7c3be9249f647d17ee7",
-      "sourceName": "contracts/CityNodeReward.sol",
-      "solcConfig": {
-        "version": "0.8.18",
-        "settings": {
-          "optimizer": {
-            "enabled": false,
-            "runs": 200
-          },
-          "outputSelection": {
-            "*": {
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata",
-                "storageLayout"
-              ],
-              "": [
-                "ast"
-              ]
-            }
-          }
-        }
-      },
-      "imports": [
-        "./RoleAccess.sol",
-        "./CityNodeVote.sol",
-        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
-        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
-      ],
-      "versionPragmas": [
-        "^0.8.13"
-      ],
-      "artifacts": [
-        "CityNodeReward"
       ]
     },
     "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/Proxy.sol": {
@@ -1021,6 +819,208 @@
       ],
       "artifacts": [
         "Test"
+      ]
+    },
+    "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/IntoCity.sol": {
+      "lastModificationDate": 1693386176602,
+      "contentHash": "0275732dfcc487b5cd097df35cdded9b",
+      "sourceName": "contracts/IntoCity.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./RoleAccess.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.13"
+      ],
+      "artifacts": [
+        "IntoCity"
+      ]
+    },
+    "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/IntoCityPioneer.sol": {
+      "lastModificationDate": 1693389173965,
+      "contentHash": "8823e5222908fcdd8014f032e83bbbc9",
+      "sourceName": "contracts/IntoCityPioneer.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./IntoCity.sol",
+        "./RoleAccess.sol",
+        "./IntoCityNodeVote.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.13"
+      ],
+      "artifacts": [
+        "IntoCityPioneer"
+      ]
+    },
+    "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/IntoCityNodeVote.sol": {
+      "lastModificationDate": 1693386176614,
+      "contentHash": "52827e6b8ee6bbc790cf7b5144fcdc23",
+      "sourceName": "contracts/IntoCityNodeVote.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./RoleAccess.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.13"
+      ],
+      "artifacts": [
+        "IntoCityNodeVote"
+      ]
+    },
+    "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/IntoUserLocation.sol": {
+      "lastModificationDate": 1693387896374,
+      "contentHash": "a31de504d5a6862e446a06425902cd58",
+      "sourceName": "contracts/IntoUserLocation.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol",
+        "./RoleAccess.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.13"
+      ],
+      "artifacts": [
+        "IntoUserLocation"
+      ]
+    },
+    "/Users/cisco/Desktop/workspace/solidity/city-node/contracts/IntoCityNodeReward.sol": {
+      "lastModificationDate": 1693386176597,
+      "contentHash": "73afcccf25b04fa7c85edb0968fb8142",
+      "sourceName": "contracts/IntoCityNodeReward.sol",
+      "solcConfig": {
+        "version": "0.8.18",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata",
+                "storageLayout"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./RoleAccess.sol",
+        "./IntoCityNodeVote.sol",
+        "@openzeppelin/contracts/token/ERC20/IERC20.sol",
+        "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.13"
+      ],
+      "artifacts": [
+        "IntoCityNodeReward"
       ]
     }
   }
