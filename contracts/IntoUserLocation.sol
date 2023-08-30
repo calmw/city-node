@@ -30,8 +30,6 @@ contract IntoUserLocation is RoleAccess, Initializable {
     // 用户地址 => 位置信息（加密）
     mapping(address => string) public userLocationInfo;
 
-    uint256[50] private __gap;
-
     function initialize() public initializer {
         _addAdmin(msg.sender);
     }

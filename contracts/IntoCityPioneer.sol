@@ -73,8 +73,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(bytes32 => uint256)public  rewardsForSocialFunds; // 城市每日社交基金
     mapping(bytes32 => uint256)public  latestDayDelegate; // 城市每日新增质押
 
-//    uint256[50] private __gap;
-
     function initialize() public initializer {
         _addAdmin(msg.sender);
     }
@@ -107,14 +105,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerDelegateInfo[pioneerAddress_][day] = amount_;
         pioneer.day = day;
         // 更新城市先锋信息
-        if (pioneer.day > 180) {
+        if (day > 180) {
             pioneer.lifeTime = LifeTime.moreThanSixMonth;
-        } else if (pioneer.day > 90) {
+        } else if (day > 90) {
             pioneer.lifeTime = LifeTime.fourToSixMonth;
-        } else if (pioneer.day > 60) {
+        } else if (day > 60) {
             pioneer.lifeTime = LifeTime.thirdMonth;
             pioneer.thirdMonthDelegate += amount_;
-        } else if (pioneer.day > 30) {
+        } else if (day > 30) {
             pioneer.lifeTime = LifeTime.secondMonth;
             pioneer.secondMonthDelegate += amount_;
         } else {
@@ -254,7 +252,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (pioneer.lifeTime == LifeTime.moreThanSixMonth) {
             return;
         }
-        uint256 day = getDay() - pioneer.day;
 
         // 福利包奖励
         uint bonus = 93333333333333333333;

@@ -26,7 +26,6 @@ contract IntoCity is RoleAccess, Initializable {
     // 城市先锋地址 => 是否被设置过城市先锋
     mapping(address => bool) public hasSetPioneer;
 
-    uint256[50] private __gap;
     mapping(uint256 => uint256) public Aaa;
 
     function initialize() public initializer {

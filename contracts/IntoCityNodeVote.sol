@@ -71,8 +71,6 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
     address[] public allCityNode; // 所有城市节点
     mapping(bytes32 => address)  public cityNode; // 竞选成功的城市节点
 
-    uint256[50] private __gap;
-
     function initialize() public initializer {
         _addAdmin(msg.sender);
     }
