@@ -66,6 +66,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentReturnRate; // 城市先锋保证金退还比例
     // 先锋地址 => 先锋信息， 先锋信息
     mapping(address => Pioneer) public pioneerInfo;
+    // 先锋地址 => 先锋收益
+    mapping(address => uint256) public pioneerBalance;
 
     // 先锋地址 => 每天新增质押[]
     mapping(address => uint256[]) public pioneerDelegateInfo;
@@ -97,8 +99,39 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         assessmentCriteria[cityLevel_][month_] = point_;
     }
 
-    // 管理员设置先锋每天新增质押量
+    // 管理员设置用户每天新增质押量
     // 针对所有地址设置新增质押量？ 社交基金也是如此？？？
+    function adminSetDelegate(address pioneerAddress_, uint256 amount_) public onlyAdmin {
+        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
+        uint256 day = getDay() - pioneer.day; // 第几天质押
+        pioneerDelegateInfo[pioneerAddress_][day] = amount_;
+        pioneer.day = day;
+        // 更新城市先锋信息
+        if (day > 180) {
+            pioneer.lifeTime = LifeTime.moreThanSixMonth;
+        } else if (day > 90) {
+            pioneer.lifeTime = LifeTime.fourToSixMonth;
+        } else if (day > 60) {
+            pioneer.lifeTime = LifeTime.thirdMonth;
+            pioneer.thirdMonthDelegate += amount_;
+        } else if (day > 30) {
+            pioneer.lifeTime = LifeTime.secondMonth;
+            pioneer.secondMonthDelegate += amount_;
+        } else {
+            pioneer.lifeTime = LifeTime.firstMonth;
+            pioneer.firstMonthDelegate += amount_;
+        }
+
+        IntoCity city = IntoCity(cityAddress);
+        emit DailyIncreaseDelegateRecord(
+            pioneer.pioneerAddress,
+            city.pioneerCity(pioneerAddress_),
+            amount_,
+            block.timestamp
+        );
+    }
+
+    // 管理员设置先锋每天新增质押量
     function adminSetPioneerDelegate(address pioneerAddress_, uint256 amount_) public onlyAdmin {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         uint256 day = getDay() - pioneer.day; // 第几天质押
@@ -176,8 +209,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 earnestMoney = city.earnestMoney(cityId); // 城市保证金
         uint256 assessmentCriteriaThreshold; // 考核标准金额
         uint256 earnestMoneyReturn; // 退还保证金的金额
-        pioneer.day = getDay() - pioneer.day;
-        if (pioneer.day == 90) {
+        day = getDay() - pioneer.day;
+        if (day == 90) {
             // 考核
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][3] * 100;
             if (pioneer.thirdMonthDelegate < assessmentCriteriaThreshold) {
@@ -196,7 +229,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 earnestMoneyReturn = earnestMoney * rate / 100;
                 pioneer.thirdMonthReturnEarnest = true;
             }
-        } else if (pioneer.day == 60) {
+        } else if (day == 60) {
             // 考核
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][2] * 100;
             if (pioneer.secondMonthDelegate < assessmentCriteriaThreshold) {
@@ -212,7 +245,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 earnestMoneyReturn = earnestMoney * rate / 100;
                 pioneer.secondMonthReturnEarnest = true;
             }
-        } else if (pioneer.day == 30) {
+        } else if (day == 30) {
             // 考核
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][1] * 100;
             if (pioneer.firstMonthDelegate < assessmentCriteriaThreshold) {
@@ -255,15 +288,15 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
         // 福利包奖励
         uint bonus = 93333333333333333333;
-        IERC20(TOX).transfer(pioneer.pioneerAddress, bonus);
+        pioneerBalance[pioneerAddress_] += bonus;
 
         // 社交基金5%奖励
         uint256 foundsReward = rewardsForSocialFunds[cityId];
-        IERC20(TOX).transfer(pioneer.pioneerAddress, foundsReward * 5 / 100);
+        pioneerBalance[pioneerAddress_] += foundsReward * 5 / 100;
 
-        // 该城市新增质押量1%奖励，不累加？？？
-        uint256 delegateReward = latestDayDelegate[cityId];
-        IERC20(TOX).transfer(pioneer.pioneerAddress, delegateReward / 100);
+        // 该城市新增质押量1%奖励，不累加
+        day = getDay() - pioneer.day;
+        uint256 delegateReward = pioneerDelegateInfo[pioneerAddress_][day] / 100;
 
         emit DailyRewardRecord(
             pioneerAddress_,

@@ -3,6 +3,11 @@ pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "./RoleAccess.sol";
+import "./IntoCity.sol";
+
+interface IPledgeStake {
+    function ownerWeight(address _addr) external view returns (uint256 count);
+}
 
 contract IntoUserLocation is RoleAccess, Initializable {
 
@@ -11,6 +16,12 @@ contract IntoUserLocation is RoleAccess, Initializable {
         bytes32 cityId,
         string location
     );
+
+    // 质押合约地址 ,测试合约地址：0x575493F35AA4926decF877004056380538C8eB52
+    //正式合约地址：0x909448fBb09880AF2812d263f7E5C77dcfC2AB53
+    address public pledgeStakeAddress = 0x575493F35AA4926decF877004056380538C8eB52;
+    // 城市合约地址
+    address public intoCityAddress;
 
     // 城市ID => 位置信息（加密）
     mapping(bytes32 => string) public cityInfo;
@@ -34,6 +45,16 @@ contract IntoUserLocation is RoleAccess, Initializable {
         _addAdmin(msg.sender);
     }
 
+    // 管理员设置城市合约地址
+    function adminSetCityAddress(address intoCityAddress_) public onlyAdmin {
+        intoCityAddress = intoCityAddress_;
+    }
+
+    // 管理员设置城市合约地址
+    function adminSetPledgeStakeAddress(address pledgeStakeAddress_) public onlyAdmin {
+        pledgeStakeAddress = pledgeStakeAddress_;
+    }
+
     function compareStr(string calldata _str, string memory str) private pure returns (bool) {
         return keccak256(abi.encodePacked(_str)) == keccak256(abi.encodePacked(str));
     }
@@ -53,6 +74,14 @@ contract IntoUserLocation is RoleAccess, Initializable {
             cityId_,
             location_
         );
+    }
+
+    // 设置用户当前质押量
+    function setUserDelegate(bytes32 cityId_) public {
+        IntoCity intoCity = IntoCity(intoCityAddress);
+        IPledgeStake pledgeStake = IPledgeStake(pledgeStakeAddress);
+        uint256 delegate = pledgeStake.ownerWeight(msg.sender);
+        intoCity.incrCityDelegate(delegate * 100);
     }
 
     // 上线删除该逻辑

@@ -11,6 +11,8 @@ contract IntoCity is RoleAccess, Initializable {
 
     // 城市ID => 城市等级
     mapping(bytes32 => uint256) public cityLevel;
+    // 城市ID => 城市累计质押量
+    mapping(bytes32 => uint256) public cityDelegate;
     // 城市ID => 城市先锋是否考核通过，如果考核不通过，后面进入城市节点竞选,ture(考核失败)
     mapping(bytes32 => bool) public cityPioneerAssessment;
 
@@ -54,6 +56,16 @@ contract IntoCity is RoleAccess, Initializable {
     // 设置竞选失败的先锋城市
     function setCityPioneerAssessment(bytes32 cityId_) public onlyAdmin {
         cityPioneerAssessment[cityId_] = true;
+    }
+
+    // 增加城市质押量
+    function incrCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {
+        cityDelegate[cityId_] += amount_;
+    }
+
+    // 减少城市质押量
+    function descCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {
+        cityDelegate[cityId_] -= amount_;
     }
 
 }
