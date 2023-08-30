@@ -14,7 +14,7 @@ contract CityPioneer is RoleAccess, Events, Initializable {
         firstMonth,
         secondMonth,
         thirdMonth,
-        threeToSixMonth,
+        fourToSixMonth,
         moreThanSixMonth
     }
 
@@ -99,7 +99,7 @@ contract CityPioneer is RoleAccess, Events, Initializable {
         if (pioneer.day > 180) {
             pioneer.lifeTime = LifeTime.moreThanSixMonth;
         } else if (pioneer.day > 90) {
-            pioneer.lifeTime = LifeTime.threeToSixMonth;
+            pioneer.lifeTime = LifeTime.fourToSixMonth;
         } else if (pioneer.day > 60) {
             pioneer.lifeTime = LifeTime.thirdMonth;
             pioneer.thirdMonthDelegate += amount_;
