@@ -296,7 +296,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
         // 该城市新增质押量1%奖励，不累加
         day = getDay() - pioneer.day;
-        uint256 delegateReward = pioneerDelegateInfo[pioneerAddress_][day] / 100;
+        uint256 delegate = pioneerDelegateInfo[pioneerAddress_][day];
+        pioneerBalance[pioneerAddress_] += delegate / 100;
 
         emit DailyRewardRecord(
             pioneerAddress_,
