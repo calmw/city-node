@@ -61,4 +61,25 @@ contract Events {
 
 ///////////////////////////////////////// 城市先锋 ////////////////////////////////////////////
 
+    // 每日新增质押事件
+    event DailyIncreaseDelegateRecord(
+        address pioneerAddress, // 先锋地址
+        bytes32 cityId, //城市ID
+        uint256 amount, // 新增质押金额
+        uint256 ctime // 新增质押的时间
+    );
+
+    // 保证金退还事件
+    event EarnestMoneyRecord(
+        address pioneerAddress, // 先锋地址
+        uint256 amount // 退还保证金的额度
+    );
+
+    // 城市先锋奖励事件
+    event DailyRewardRecord(
+        address pioneerAddress, // 先锋地址
+        uint256 toxReward, // 赠送质押包奖励的额度
+        uint256 foundsReward, // 社交基金奖励的额度
+        uint256 delegateReward // 新增质押奖励的额度
+    );
 }

@@ -18,21 +18,6 @@ contract CityPioneer is RoleAccess, Events, Initializable {
         moreThanSixMonth
     }
 
-    // 每日新增质押事件
-    event DailyIncreaseDelegateRecord(
-        address pioneerAddress, // 先锋地址
-        bytes32 cityId, //城市ID
-        uint256 amount, // 新增质押金额
-        uint256 ctime // 新增质押的时间
-    );
-
-    // 保证金退还事件
-    event EarnestMoneyRecord(
-        address pioneerAddress, // 先锋地址
-        uint256 amount, // 新增质押金额
-        uint256 ctime // 新增质押的时间
-    );
-
     struct Pioneer {
         address pioneerAddress;
         uint256 day; // 成为城市节点的时间(天数)
@@ -48,15 +33,8 @@ contract CityPioneer is RoleAccess, Events, Initializable {
         bool assessmentStatus; // 最终考核状态
     }
 
-    struct Delegate {
-        address pioneer; // 先锋地址
-        uint256 amount; // 质押金额
-        uint256 ctime; // 质押时间（每天新增质押）
-    }
-
-    address public TOX;
+    address public TOX; // TOX代币合约地址
     address public cityAddress; // 城市合约地址
-    uint256 public termOfOffice; // 任期，单位秒
     uint256 public assessmentPassed = 10000; // 城市先锋第一个月直接通过考核的条件（点数）
 
     // 城市等级 => (月份 => 质押点数)
@@ -68,6 +46,7 @@ contract CityPioneer is RoleAccess, Events, Initializable {
     // 先锋地址 => 先锋信息， 先锋信息
     mapping(address => Pioneer) public pioneerInfo;
 
+    // 先锋地址 => 每天新增质押[]
     mapping(address => uint256[]) public pioneerDelegateInfo;
 
     mapping(bytes32 => uint256)public  rewardsForSocialFunds; // 城市每日社交基金
@@ -82,6 +61,16 @@ contract CityPioneer is RoleAccess, Events, Initializable {
     // 管理员设置TOX代币地址
     function adminSetTOXAddress(address TOX_) public onlyAdmin {
         TOX = TOX_;
+    }
+
+    // 管理员设置城市合约地址
+    function adminSetCityAddress(address cityAddress_) public onlyAdmin {
+        cityAddress = cityAddress_;
+    }
+
+    // 管理员设置城市先锋第一个月直接通过考核的最大阀值（点数）
+    function adminSetAssessmentPassed(uint256 assessmentPassed_) public onlyAdmin {
+        assessmentPassed = assessmentPassed_;
     }
 
     // 管理员设置考核标准,月份为1，2，3
@@ -138,7 +127,6 @@ contract CityPioneer is RoleAccess, Events, Initializable {
         uint256 userBalance = TOXContract.balanceOf(msg.sender);
         require(userBalance >= earnestMoney, "your balance is insufficient"); // 余额不足
         TOXContract.transfer(address(this), earnestMoney);
-//        pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].pioneerAddress = msg.sender;
         pioneerInfo[msg.sender].assessmentMonthStatus = true;
         pioneerInfo[msg.sender].day = getDay();
@@ -167,6 +155,7 @@ contract CityPioneer is RoleAccess, Events, Initializable {
         uint256 cityLevel = city.cityLevel(cityId); // 城市等级
         uint256 earnestMoney = city.earnestMoney(cityId); // 城市保证金
         uint256 assessmentCriteriaThreshold; // 考核标准金额
+        uint256 earnestMoneyReturn; // 退还保证金的金额
         pioneer.day = getDay() - pioneer.day;
         if (pioneer.day == 90) {
             // 考核
@@ -175,7 +164,7 @@ contract CityPioneer is RoleAccess, Events, Initializable {
                 pioneer.assessmentMonthStatus = false;
                 city.setCityPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
             }
-            // 退还保证金
+            // 计算退还保证金额度,并更新退还状态
             if (pioneer.secondMonthDelegate >= assessmentReturnCriteria[cityLevel][3] * 100) {
                 uint256 rate = assessmentReturnRate[cityLevel][3];
                 if (pioneer.firstMonthReturnEarnest) {
@@ -184,7 +173,8 @@ contract CityPioneer is RoleAccess, Events, Initializable {
                 if (pioneer.secondMonthReturnEarnest) {
                     rate -= assessmentReturnRate[cityLevel][2];
                 }
-                IERC20(TOX).transfer(pioneer.pioneerAddress, earnestMoney * rate / 100);
+                earnestMoneyReturn = earnestMoney * rate / 100;
+                pioneer.thirdMonthReturnEarnest = true;
             }
         } else if (pioneer.day == 60) {
             // 考核
@@ -193,13 +183,14 @@ contract CityPioneer is RoleAccess, Events, Initializable {
                 pioneer.assessmentMonthStatus = false;
                 city.setCityPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
             }
-            // 退还保证金
+            // 计算退还保证金额度,并更新退还状态
             if (pioneer.secondMonthDelegate >= assessmentReturnCriteria[cityLevel][2] * 100) {
                 uint256 rate = assessmentReturnRate[cityLevel][2];
                 if (pioneer.firstMonthReturnEarnest) {
                     rate -= assessmentReturnRate[cityLevel][1];
                 }
-                IERC20(TOX).transfer(pioneer.pioneerAddress, earnestMoney * rate / 100);
+                earnestMoneyReturn = earnestMoney * rate / 100;
+                pioneer.secondMonthReturnEarnest = true;
             }
         } else if (pioneer.day == 30) {
             // 考核
@@ -212,12 +203,21 @@ contract CityPioneer is RoleAccess, Events, Initializable {
             if (pioneer.firstMonthDelegate >= assessmentPassed) {
                 pioneer.assessmentStatus = true;
             }
-            // 退还保证金
+            // 计算退还保证金额度,并更新退还状态
             if (pioneer.firstMonthDelegate >= assessmentReturnCriteria[cityLevel][1] * 100) {
                 uint256 rate = assessmentReturnRate[cityLevel][1];
-                IERC20(TOX).transfer(pioneer.pioneerAddress, earnestMoney * rate / 100);
+                earnestMoneyReturn = earnestMoney * rate / 100;
                 pioneer.firstMonthReturnEarnest = true;
             }
+        }
+
+        // 退还保证金操作
+        if (earnestMoneyReturn > 0) {
+            IERC20(TOX).transfer(pioneer.pioneerAddress, earnestMoneyReturn);
+            emit EarnestMoneyRecord(
+                pioneerAddress_,
+                earnestMoneyReturn
+            );
         }
     }
 
@@ -233,19 +233,26 @@ contract CityPioneer is RoleAccess, Events, Initializable {
             return;
         }
         uint256 day = getDay() - pioneer.day;
+        uint256 bonus = 0;
         // 第一个月，每天分质押包的收益[獎勵一：TOX福利包]
         if (day <= 30) {
-            // 93 = 2800 / 30;
-            IERC20(TOX).transfer(pioneer.pioneerAddress, 93);
+            bonus = 93; // 2800 / 30
+            IERC20(TOX).transfer(pioneer.pioneerAddress, bonus);
         }
         // 社交基金5%奖励
-        uint256 founds = rewardsForSocialFunds[cityId];
-        IERC20(TOX).transfer(pioneer.pioneerAddress, founds * 5 / 100);
+        uint256 foundsReward = rewardsForSocialFunds[cityId];
+        IERC20(TOX).transfer(pioneer.pioneerAddress, foundsReward * 5 / 100);
 
         // 该城市新增质押量1%奖励
-        uint256 delegate = latestDayDelegate[cityId];
-        IERC20(TOX).transfer(pioneer.pioneerAddress, delegate / 100);
+        uint256 delegateReward = latestDayDelegate[cityId];
+        IERC20(TOX).transfer(pioneer.pioneerAddress, delegateReward / 100);
 
+        emit DailyRewardRecord(
+            pioneerAddress_,
+            bonus,
+            foundsReward,
+            delegateReward
+        );
     }
 
 }
