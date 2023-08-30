@@ -14,11 +14,20 @@ contract CityPioneer is RoleAccess, Events, Initializable {
         firstMonth,
         secondMonth,
         thirdMonth,
-        moreThanThreeMonth,
+        threeToSixMonth,
         moreThanSixMonth
     }
 
-    event DailyIncreaseDelegate(
+    // 每日新增质押事件
+    event DailyIncreaseDelegateRecord(
+        address pioneerAddress, // 先锋地址
+        bytes32 cityId, //城市ID
+        uint256 amount, // 新增质押金额
+        uint256 ctime // 新增质押的时间
+    );
+
+    // 保证金退还事件
+    event EarnestMoneyRecord(
         address pioneerAddress, // 先锋地址
         uint256 amount, // 新增质押金额
         uint256 ctime // 新增质押的时间
@@ -26,7 +35,6 @@ contract CityPioneer is RoleAccess, Events, Initializable {
 
     struct Pioneer {
         address pioneerAddress;
-        uint256 ctime; // 成为城市节点的时间
         uint256 day; // 成为城市节点的时间(天数)
         uint256 firstMonthDelegate; // 第1个月累计质押量
         uint256 secondMonthDelegate; // 第2个月累计质押量
@@ -82,16 +90,16 @@ contract CityPioneer is RoleAccess, Events, Initializable {
     }
 
     // 管理员设置先锋每天新增质押量
-    function adminSetPioneerDelegate(address pioneer_, uint256 amount_) public onlyAdmin {
-        Pioneer storage pioneer = pioneerInfo[pioneer_];
+    function adminSetPioneerDelegate(address pioneerAddress_, uint256 amount_) public onlyAdmin {
+        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         uint256 day = getDay() - pioneer.day; // 第几天质押
-        pioneerDelegateInfo[pioneer_][day] = amount_;
+        pioneerDelegateInfo[pioneerAddress_][day] = amount_;
         pioneer.day = day;
         // 更新城市先锋信息
         if (pioneer.day > 180) {
             pioneer.lifeTime = LifeTime.moreThanSixMonth;
         } else if (pioneer.day > 90) {
-            pioneer.lifeTime = LifeTime.moreThanThreeMonth;
+            pioneer.lifeTime = LifeTime.threeToSixMonth;
         } else if (pioneer.day > 60) {
             pioneer.lifeTime = LifeTime.thirdMonth;
             pioneer.thirdMonthDelegate += amount_;
@@ -103,14 +111,16 @@ contract CityPioneer is RoleAccess, Events, Initializable {
             pioneer.firstMonthDelegate += amount_;
         }
 
-        emit DailyIncreaseDelegate(
+        City city = City(cityAddress);
+        emit DailyIncreaseDelegateRecord(
             pioneer.pioneerAddress,
+            city.pioneerCity(pioneerAddress_),
             amount_,
             block.timestamp
         );
     }
 
-    function getDay() public returns (uint256){
+    function getDay() public view returns (uint256){
         uint day = block.timestamp / 86400;
         return uint256(day);
     }
@@ -128,7 +138,7 @@ contract CityPioneer is RoleAccess, Events, Initializable {
         uint256 userBalance = TOXContract.balanceOf(msg.sender);
         require(userBalance >= earnestMoney, "your balance is insufficient"); // 余额不足
         TOXContract.transfer(address(this), earnestMoney);
-        pioneerInfo[msg.sender].ctime = block.timestamp;
+//        pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].pioneerAddress = msg.sender;
         pioneerInfo[msg.sender].assessmentMonthStatus = true;
         pioneerInfo[msg.sender].day = getDay();
@@ -139,17 +149,16 @@ contract CityPioneer is RoleAccess, Events, Initializable {
     // 每天执行一次，计算奖励和考核
     function dailyTask() public onlyAdmin {
         City city = City(cityAddress);
-//        bytes32[] memory cityIds = city.pioneerCityIds;
         for (uint256 i = 0; i < city.getCityNumber(); i++) {
             // 考核
-            assessUser(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
+            checkPioneer(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
             // 奖励
             reward(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
         }
     }
 
-    // 考核,每日执行一次,考核失败的城市，可以参与城市节点竞选
-    function assessUser(bytes32 cityId, address pioneerAddress_) private {
+    // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
+    function checkPioneer(bytes32 cityId, address pioneerAddress_) private {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         if (pioneer.assessmentStatus == true) {
             return;
@@ -213,17 +222,30 @@ contract CityPioneer is RoleAccess, Events, Initializable {
     }
 
     // 每日奖励
-    function reward(bytes32 cityId, address pioneer) private {
-        Pioneer storage pioneer = pioneerInfo[pioneer];
-        if (!pioneer.assessmentStatus) {
+    function reward(bytes32 cityId, address pioneerAddress_) private {
+        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
+        // 考核状态（按月考核）不正常，不发放奖励
+        if (!pioneer.assessmentMonthStatus) {
             return;
         }
-        pioneer.day = getDay() - pioneer.day;
+        // 任期结束，不发放奖励
+        if (pioneer.lifeTime == LifeTime.moreThanSixMonth) {
+            return;
+        }
+        uint256 day = getDay() - pioneer.day;
         // 第一个月，每天分质押包的收益[獎勵一：TOX福利包]
-        if (pioneer.day <= 30) {
+        if (day <= 30) {
             // 93 = 2800 / 30;
             IERC20(TOX).transfer(pioneer.pioneerAddress, 93);
         }
+        // 社交基金5%奖励
+        uint256 founds = rewardsForSocialFunds[cityId];
+        IERC20(TOX).transfer(pioneer.pioneerAddress, founds * 5 / 100);
+
+        // 该城市新增质押量1%奖励
+        uint256 delegate = latestDayDelegate[cityId];
+        IERC20(TOX).transfer(pioneer.pioneerAddress, delegate / 100);
+
     }
 
 }

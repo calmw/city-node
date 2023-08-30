@@ -48,7 +48,7 @@ contract City is RoleAccess, Initializable {
         earnestMoney[cityId_] = earnestMoney_;
     }
 
-    function getCityNumber() public returns (uint256) {
+    function getCityNumber() public view returns (uint256) {
         return pioneerCityIds.length;
     }
 
