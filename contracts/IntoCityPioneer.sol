@@ -111,28 +111,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         assessmentCriteria[cityLevel_][month_] = point_;
     }
 
-    // 管理员设置用户每天质押量变更（新增和减少）
-//    function adminSetDelegate(address userAddress_, uint256 amount_, uint256 setType) public onlyAdmin {
-//        IntoCity city = IntoCity(cityAddress);
-//        bytes32 cityId = city.pioneerCity(userAddress_);
-//        if (setType == 1) {// 增加
-//            // 判断是否是先锋
-//            if (pioneerInfo[msg.sender].day > 0) { // 是先锋
-//                setPioneerDelegate(userAddress_, amount_);
-//            }
-//            // 增加城市质押量
-//            if (cityId != city.cityIdEmpty()) {
-//                city.incrCityDelegate(cityId, amount_);
-//            }
-//        } else {// 减少
-//            // 减少城市质押量
-//            if (cityId != city.cityIdEmpty()) {
-//                city.descCityDelegate(cityId, amount_);
-//            }
-//        }
-//
-//    }
-
     // 管理员设置先锋每天新增质押量
     function setPioneerDelegate(address pioneerAddress_, uint256 amount_) public onlyAdmin {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
