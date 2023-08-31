@@ -18,7 +18,7 @@ async function main() {
 }
 
 // proxyAdminAddress="0xb6e35b62eC8077538Cb0209Ce744d05E8ea686d9"
-// logicAddress="0x6B23980bfd35614684b0372DAa28e49A31e53811"
+// logicAddress="0x84846daa5bA3BDD5e8BD2EE7dF9E1683d8882669"
 main()
     .then(() => process.exit(0))
     .catch(error => {
