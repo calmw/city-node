@@ -18,8 +18,6 @@ contract IntoCity is RoleAccess, Initializable {
         uint256 amount
     );
 
-    bytes32 public cityIdEmpty;
-
     // 先锋计划合约地址
     address public cityPioneerAddress;
 
@@ -115,13 +113,13 @@ contract IntoCity is RoleAccess, Initializable {
                 intoCityPioneer.setPioneerDelegate(userAddress_, amount_);
             }
             // 增加城市质押量
-            if (cityId != cityIdEmpty) {
+            if (cityId != bytes32(0)) {
                 incrCityDelegate(cityId, amount_);
             }
             cityDelegateRecord[cityId][today] += amount_;
         } else {// 减少
             // 减少城市质押量
-            if (cityId != cityIdEmpty) {
+            if (cityId != bytes32(0)) {
                 descCityDelegate(cityId, amount_);
             }
             cityDelegateRecord[cityId][today] -= amount_;

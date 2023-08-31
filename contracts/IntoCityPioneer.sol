@@ -152,7 +152,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         IntoCity city = IntoCity(cityAddress);
         // 查询调用者地址是否是城市先锋
         bytes32 cityId = city.pioneerCity(msg.sender);
-        require(cityId != city.cityIdEmpty(), "you are not pioneer"); // 不是城市先锋
+        require(cityId != bytes32(0), "you are not pioneer"); // 不是城市先锋
 
         // 查询该城市先锋对应的城市，根据城市查询需要缴纳的保证金数量
         uint256 earnestMoney = city.earnestMoney(cityId);
