@@ -1,14 +1,14 @@
 const {ethers, upgrades} = require("hardhat")
 require('@openzeppelin/hardhat-upgrades')
 
-const ProxyAddr = "0x713e54A842dc81FC2d1E86594ca5526C6dD7C303"
+const ProxyAddress = "0x694D23cDA706eC8816C9598A523005cb4410Bf21"
 
 // 可升级合约
 async function main() {
 
-    const MyContractV2 = await ethers.getContractFactory("IntoUserLocation.sol");
+    const MyContractV2 = await ethers.getContractFactory("IntoUserLocation");
     // 升级
-    const contract = await upgrades.upgradeProxy(ProxyAddr, MyContractV2);
+    const contract = await upgrades.upgradeProxy(ProxyAddress, MyContractV2);
 
     await contract.deployed();
 
@@ -17,6 +17,8 @@ async function main() {
     console.log("ProxyAdmin is", await upgrades.erc1967.getAdminAddress(contract.address));
 }
 
+// proxyAdminAddress="0xb6e35b62eC8077538Cb0209Ce744d05E8ea686d9"
+// logicAddress="0x6B23980bfd35614684b0372DAa28e49A31e53811"
 main()
     .then(() => process.exit(0))
     .catch(error => {

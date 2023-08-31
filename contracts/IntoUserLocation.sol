@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
-import "./RoleAccess.sol";
+
 import "./IntoCity.sol";
+import "./RoleAccess.sol";
+import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 interface IPledgeStake {
     function ownerWeight(address _addr) external view returns (uint256 count);
@@ -19,7 +20,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
 
     // 质押合约地址 ,测试合约地址：0x575493F35AA4926decF877004056380538C8eB52
     //正式合约地址：0x909448fBb09880AF2812d263f7E5C77dcfC2AB53
-    address public pledgeStakeAddress = 0x575493F35AA4926decF877004056380538C8eB52;
+    address public pledgeStakeAddress;
     // 城市合约地址
     address public intoCityAddress;
 
