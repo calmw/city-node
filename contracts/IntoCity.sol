@@ -78,7 +78,6 @@ contract IntoCity is RoleAccess, Initializable {
     // 减少城市质押量
     function descCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {
         cityDelegate[cityId_] -= amount_;
-
         emit DecreaseCityDelegate(
             cityId_,
             amount_
