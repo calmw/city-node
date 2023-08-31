@@ -69,6 +69,9 @@ contract IntoUserLocation is RoleAccess, Initializable {
         userHaveSetLocation[msg.sender] = true;
         cityIdNum++;
 
+        // 给用户所在城市增加质押量
+        setUserDelegate(cityId_);
+
         emit UserLocationRecord(
             msg.sender,
             cityId_,
@@ -77,11 +80,11 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 设置用户当前质押量
-    function setUserDelegate(bytes32 cityId_) public {
+    function setUserDelegate(bytes32 cityId_) private {
         IntoCity intoCity = IntoCity(intoCityAddress);
         IPledgeStake pledgeStake = IPledgeStake(pledgeStakeAddress);
         uint256 delegate = pledgeStake.ownerWeight(msg.sender);
-        intoCity.incrCityDelegate(delegate * 100);
+        intoCity.incrCityDelegate(cityId_, delegate * 100);
     }
 
     // 上线删除该逻辑

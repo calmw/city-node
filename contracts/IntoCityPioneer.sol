@@ -209,7 +209,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 earnestMoney = city.earnestMoney(cityId); // 城市保证金
         uint256 assessmentCriteriaThreshold; // 考核标准金额
         uint256 earnestMoneyReturn; // 退还保证金的金额
-        day = getDay() - pioneer.day;
+        uint256 day = getDay() - pioneer.day;
         if (day == 90) {
             // 考核
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][3] * 100;
@@ -291,13 +291,13 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerBalance[pioneerAddress_] += bonus;
 
         // 社交基金5%奖励
-        uint256 foundsReward = rewardsForSocialFunds[cityId];
-        pioneerBalance[pioneerAddress_] += foundsReward * 5 / 100;
+        uint256 foundsReward = rewardsForSocialFunds[cityId] * 5 / 100;
+        pioneerBalance[pioneerAddress_] += foundsReward;
 
         // 该城市新增质押量1%奖励，不累加
-        day = getDay() - pioneer.day;
-        uint256 delegate = pioneerDelegateInfo[pioneerAddress_][day];
-        pioneerBalance[pioneerAddress_] += delegate / 100;
+        uint256 day = getDay() - pioneer.day;
+        uint256 delegateReward = pioneerDelegateInfo[pioneerAddress_][day] / 100;
+        pioneerBalance[pioneerAddress_] += delegateReward;
 
         emit DailyRewardRecord(
             pioneerAddress_,
