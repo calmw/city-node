@@ -39,6 +39,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 delegateReward // 新增质押奖励的额度
     );
 
+    // 城市先锋提取奖励事件
+    event WithdrawalRewardRecord(
+        address pioneerAddress, // 先锋地址
+        uint256 reward // 提现的奖励数量
+    );
+
     struct Pioneer {
         address pioneerAddress;
         uint256 day; // 成为城市节点的时间(天数)
@@ -101,38 +107,29 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 管理员设置用户每天新增质押量
     // 针对所有地址设置新增质押量？ 社交基金也是如此？？？
-    function adminSetDelegate(address pioneerAddress_, uint256 amount_) public onlyAdmin {
-        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
-        uint256 day = getDay() - pioneer.day; // 第几天质押
-        pioneerDelegateInfo[pioneerAddress_][day] = amount_;
-        pioneer.day = day;
-        // 更新城市先锋信息
-        if (day > 180) {
-            pioneer.lifeTime = LifeTime.moreThanSixMonth;
-        } else if (day > 90) {
-            pioneer.lifeTime = LifeTime.fourToSixMonth;
-        } else if (day > 60) {
-            pioneer.lifeTime = LifeTime.thirdMonth;
-            pioneer.thirdMonthDelegate += amount_;
-        } else if (day > 30) {
-            pioneer.lifeTime = LifeTime.secondMonth;
-            pioneer.secondMonthDelegate += amount_;
-        } else {
-            pioneer.lifeTime = LifeTime.firstMonth;
-            pioneer.firstMonthDelegate += amount_;
+    function adminSetDelegate(address userAddress_, uint256 amount_, uint256 setType) public onlyAdmin {
+        IntoCity city = IntoCity(cityAddress);
+        bytes32 cityId = city.pioneerCity(userAddress_);
+        if (setType == 1) {// 增加
+            // 判断是否是先锋
+            if (pioneerInfo[msg.sender].day > 0) { // 是先锋
+                setPioneerDelegate(userAddress_, amount_);
+            }
+            // 增加城市质押量
+            if (cityId != city.cityIdEmpty()) {
+                city.incrCityDelegate(cityId, amount_);
+            }
+        } else {// 减少
+            // 减少城市质押量
+            if (cityId != city.cityIdEmpty()) {
+                city.descCityDelegate(cityId, amount_);
+            }
         }
 
-        IntoCity city = IntoCity(cityAddress);
-        emit DailyIncreaseDelegateRecord(
-            pioneer.pioneerAddress,
-            city.pioneerCity(pioneerAddress_),
-            amount_,
-            block.timestamp
-        );
     }
 
     // 管理员设置先锋每天新增质押量
-    function adminSetPioneerDelegate(address pioneerAddress_, uint256 amount_) public onlyAdmin {
+    function setPioneerDelegate(address pioneerAddress_, uint256 amount_) private {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         uint256 day = getDay() - pioneer.day; // 第几天质押
         pioneerDelegateInfo[pioneerAddress_][day] = amount_;
@@ -304,6 +301,20 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             bonus,
             foundsReward,
             delegateReward
+        );
+    }
+
+    // 用户提取奖励
+    function withdrawalReward(uint256 amount_) public {
+        // 判断是否是先锋
+        require(pioneerInfo[msg.sender].day > 0, "you are not pioneer");
+        // 检测余额
+        uint256 balance = pioneerBalance[msg.sender];
+        require(amount_ >= balance, "insufficient balance");
+
+        emit WithdrawalRewardRecord(
+            msg.sender,
+            amount_
         );
     }
 
