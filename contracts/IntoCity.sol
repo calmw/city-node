@@ -7,6 +7,16 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 contract IntoCity is RoleAccess, Initializable {
 
+    event IncreaseCityDelegate(
+        bytes32 cityId,
+        uint256 amount
+    );
+
+    event DecreaseCityDelegate(
+        bytes32 cityId,
+        uint256 amount
+    );
+
     bytes32 public cityIdEmpty;
 
     // 城市ID => 城市等级
@@ -61,11 +71,20 @@ contract IntoCity is RoleAccess, Initializable {
     // 增加城市质押量
     function incrCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {
         cityDelegate[cityId_] += amount_;
+        emit IncreaseCityDelegate(
+            cityId_,
+            amount_
+        );
     }
 
     // 减少城市质押量
     function descCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {
         cityDelegate[cityId_] -= amount_;
+
+        emit DecreaseCityDelegate(
+            cityId_,
+            amount_
+        );
     }
 
 }

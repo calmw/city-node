@@ -56,7 +56,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     address public TOX; // TOX代币合约地址
     address public cityAddress; // 城市合约地址
-    uint256 public assessmentPassed = 10000; // 城市先锋第一个月直接通过考核的条件（点数）
+    uint256 public assessmentPassed; // 城市先锋第一个月直接通过考核的条件（点数）
 
     // 城市等级 => (月份 => 质押点数)
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentCriteria; // 城市先锋考核标准
