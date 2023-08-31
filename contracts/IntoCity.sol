@@ -2,6 +2,7 @@
 pragma solidity ^0.8.13;
 
 import "./RoleAccess.sol";
+import "./IntoCityPioneer.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
@@ -19,10 +20,17 @@ contract IntoCity is RoleAccess, Initializable {
 
     bytes32 public cityIdEmpty;
 
+    // 先锋计划合约地址
+    address public cityPioneerAddress;
+
     // 城市ID => 城市等级
     mapping(bytes32 => uint256) public cityLevel;
     // 城市ID => 城市累计质押量
     mapping(bytes32 => uint256) public cityDelegate;
+    // 城市ID => 城市最高质押量2质押量，1质押时间（天）
+    mapping(bytes32 => mapping(uint256 => uint256)) public cityMaxDelegate;
+    // 城市ID => (天=>质押量）
+    mapping(bytes32 => mapping(uint256 => uint256)) public cityDelegateRecord;
     // 城市ID => 城市先锋是否考核通过，如果考核不通过，后面进入城市节点竞选,ture(考核失败)
     mapping(bytes32 => bool) public cityPioneerAssessment;
 
@@ -40,6 +48,11 @@ contract IntoCity is RoleAccess, Initializable {
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
+    }
+
+    // 管理员设置先锋计划合约地址
+    function adminSetCityPioneerAddress(address cityPioneerAddress_) public onlyAdmin {
+        cityPioneerAddress = cityPioneerAddress_;
     }
 
     function AdminSetPioneer(bytes32 cityId_, address pioneer_) public onlyAdmin {
@@ -83,6 +96,46 @@ contract IntoCity is RoleAccess, Initializable {
             cityId_,
             amount_
         );
+    }
+
+    function getDay() public view returns (uint256){
+        uint day = block.timestamp / 86400;
+        return uint256(day);
+    }
+
+    // 管理员设置用户每天质押量变更（新增和减少）
+    function adminSetDelegate(address userAddress_, uint256 amount_, uint256 setType) public onlyAdmin {
+        amount_ *= 100;
+        bytes32 cityId = pioneerCity[userAddress_];
+        uint256 today = getDay();
+        if (setType == 1) {// 增加
+            IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+            // 判断是否是先锋
+            if (intoCityPioneer.isPioneer(userAddress_)) { // 是先锋
+                intoCityPioneer.setPioneerDelegate(userAddress_, amount_);
+            }
+            // 增加城市质押量
+            if (cityId != cityIdEmpty) {
+                incrCityDelegate(cityId, amount_);
+            }
+            cityDelegateRecord[cityId][today] += amount_;
+        } else {// 减少
+            // 减少城市质押量
+            if (cityId != cityIdEmpty) {
+                descCityDelegate(cityId, amount_);
+            }
+            cityDelegateRecord[cityId][today] -= amount_;
+        }
+        // 更新历史每天累计最大值
+        if (cityDelegateRecord[cityId][today - 1] > cityDelegateRecord[cityId][today - 2]) {
+            cityMaxDelegate[cityId][1] = today - 1;
+            cityMaxDelegate[cityId][2] = cityDelegateRecord[cityId][today - 1];
+        } else {
+            cityMaxDelegate[cityId][1] = today - 2;
+            cityMaxDelegate[cityId][2] = cityDelegateRecord[cityId][today - 2];
+
+        }
+
     }
 
 }
