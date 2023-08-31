@@ -110,7 +110,7 @@ contract IntoCity is RoleAccess, Initializable {
         uint256 today = getDay();
         if (setType == 1) {// 增加
             IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-            // 判断是否是先锋
+            // 判断是否是先锋,先锋累计新增质押，不统计减少的
             if (intoCityPioneer.isPioneer(userAddress_)) { // 是先锋
                 intoCityPioneer.setPioneerDelegate(userAddress_, amount_);
             }
@@ -133,9 +133,6 @@ contract IntoCity is RoleAccess, Initializable {
         } else {
             cityMaxDelegate[cityId][1] = today - 2;
             cityMaxDelegate[cityId][2] = cityDelegateRecord[cityId][today - 2];
-
         }
-
     }
-
 }
