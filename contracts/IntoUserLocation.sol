@@ -18,8 +18,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
         string location
     );
 
-    // 质押合约地址 ,测试合约地址：0x575493F35AA4926decF877004056380538C8eB52
-    // 正式合约地址：0x909448fBb09880AF2812d263f7E5C77dcfC2AB53
+    // 质押合约地址 ,测试合约地址：0x575493F35AA4926decF877004056380538C8eB52 ,正式合约地址：0x909448fBb09880AF2812d263f7E5C77dcfC2AB53
     address public pledgeStakeAddress;
     // 城市合约地址
     address public intoCityAddress;
@@ -84,12 +83,6 @@ contract IntoUserLocation is RoleAccess, Initializable {
         IPledgeStake pledgeStake = IPledgeStake(pledgeStakeAddress);
         uint256 delegate = pledgeStake.ownerWeight(user);
         intoCity.incrCityDelegate(cityId_, delegate * 100);
-    }
-
-    // 上线删除该逻辑
-    function delUserLocation(address user) public onlyAdmin {
-        userHaveSetLocation[user] = false;
-        userLocationInfo[user] = "";
     }
 
 }
