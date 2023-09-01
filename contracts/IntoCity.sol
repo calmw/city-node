@@ -105,13 +105,16 @@ contract IntoCity is RoleAccess, Initializable {
     function adminSetDelegate(address userAddress_, uint256 amount_, uint256 setType) public onlyAdmin {
         amount_ *= 100;
         bytes32 cityId = pioneerCity[userAddress_];
+        if (cityId == bytes32(0)) {
+            return;
+        }
         uint256 today = getDay();
         if (setType == 1) {// 增加
-            IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+//            IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
             // 判断是否是先锋,先锋累计新增质押，不统计减少的
-            if (intoCityPioneer.isPioneer(userAddress_)) { // 是先锋
-                intoCityPioneer.setPioneerDelegate(userAddress_, amount_);
-            }
+//            if (intoCityPioneer.isPioneer(userAddress_)) { // 是先锋
+//                intoCityPioneer.setPioneerDelegate(userAddress_, amount_);
+//            }
             // 增加城市质押量
             if (cityId != bytes32(0)) {
                 incrCityDelegate(cityId, amount_);

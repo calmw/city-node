@@ -19,7 +19,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
     );
 
     // 质押合约地址 ,测试合约地址：0x575493F35AA4926decF877004056380538C8eB52
-    //正式合约地址：0x909448fBb09880AF2812d263f7E5C77dcfC2AB53
+    // 正式合约地址：0x909448fBb09880AF2812d263f7E5C77dcfC2AB53
     address public pledgeStakeAddress;
     // 城市合约地址
     address public intoCityAddress;
@@ -36,11 +36,14 @@ contract IntoUserLocation is RoleAccess, Initializable {
     // 城市ID => 城市用户数量
     mapping(bytes32 => uint256) public userNumberOfCity;
 
-    // 用户设置信息
+    // 用户是否设置过定位信息
     mapping(address => bool) private userHaveSetLocation;
 
     // 用户地址 => 位置信息（加密）
     mapping(address => string) public userLocationInfo;
+
+    // 用户地址 => 城市ID
+    mapping(address => bytes32) public userCityId;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -67,6 +70,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
         cityIds.push(cityId_);
         cityInfo[cityId_] = location_;
         userLocationInfo[msg.sender] = location_;
+        userCityId[msg.sender] = cityId_;
         userHaveSetLocation[msg.sender] = true;
         cityIdNum++;
 
@@ -80,12 +84,18 @@ contract IntoUserLocation is RoleAccess, Initializable {
         );
     }
 
-    // 设置用户当前质押量
+    // 获取当前用户质押量，给对应城市增加累计质押量
     function setUserDelegate(bytes32 cityId_, address user) private {
         IntoCity intoCity = IntoCity(intoCityAddress);
         IPledgeStake pledgeStake = IPledgeStake(pledgeStakeAddress);
         uint256 delegate = pledgeStake.ownerWeight(user);
         intoCity.incrCityDelegate(cityId_, delegate * 100);
+    }
+
+    // 上线删除该逻辑
+    function delUserLocation(address user) public onlyAdmin {
+        userHaveSetLocation[user] = false;
+        userLocationInfo[user] = "";
     }
 
 }
