@@ -87,6 +87,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(bytes32 => uint256)public  rewardsForSocialFunds; // 城市每日社交基金
     mapping(bytes32 => uint256)public  latestDayDelegate; // 城市每日新增质押
 
+    mapping(uint256 => bool)public  dailyTaskStatus; // 每天定时任务执行状态
+
     function initialize() public initializer {
         _addAdmin(msg.sender);
     }
@@ -168,7 +170,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 每天执行一次，计算奖励和考核
-    function dailyTask() public onlyAdmin {
+    function dailyTask() public onlyAdmin returns (bool){
+        uint256 day = getDay();
+        require(!dailyTaskStatus[day], "can not execute any more");
         IntoCity city = IntoCity(cityAddress);
         for (uint256 i = 0; i < city.getPioneerCityNumber(); i++) {
             // 考核
@@ -178,6 +182,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             // 更新城市每天累计质押最大值
             updateCityMaxDailyDelegate();
         }
+        dailyTaskStatus[day] = true;
+        return true;
     }
 
     // 更新城市每天累计最大值
