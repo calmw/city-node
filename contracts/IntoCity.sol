@@ -21,7 +21,11 @@ contract IntoCity is RoleAccess, Initializable {
 
     // 先锋计划合约地址
     address public cityPioneerAddress;
+    // 用户定位合约地址
+    address public userLocationAddress;
 
+    // 用户定位过的城市ID集合
+    bytes32[] public allCityIds;
     // 城市ID => 城市等级
     mapping(bytes32 => uint256) public cityLevel;
     // 城市ID => 城市累计质押量
@@ -32,23 +36,16 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => mapping(uint256 => uint256)) public cityDelegateRecord;
     // 城市ID => 城市先锋是否考核通过，如果考核不通过，后面进入城市节点竞选,ture(考核失败)
     mapping(bytes32 => bool) public cityPioneerAssessment;
-
     // 城市ID => 城市先锋地址
     mapping(bytes32 => address) public cityPioneer;
     // 城市先锋地址 => 城市ID
     mapping(address => bytes32) public pioneerCity;
     // 先锋城市ID集合
     bytes32[] public pioneerCityIds;
-
     // 城市ID => 城市先锋需要缴纳的保证金地址
     mapping(bytes32 => uint256) public earnestMoney;
     // 城市先锋地址 => 是否被设置过城市先锋
     mapping(address => bool) public hasSetPioneer;
-
-    // 用户定位合约地址
-    address public userLocationAddress;
-    // 用户定位过的城市ID集合
-    bytes32[] public allCityIds;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);

@@ -24,24 +24,18 @@ contract IntoUserLocation is RoleAccess, Initializable {
     // 城市合约地址
     address public intoCityAddress;
 
-    // 城市ID => 位置信息（加密）
-    mapping(bytes32 => string) public cityInfo;
-
     // 城市ID集合
     bytes32[] public cityIds;
-
     // 城市ID数量
     uint256 public cityIdNum;
-
-    // 城市ID => 城市用户数量
-    mapping(bytes32 => uint256) public userNumberOfCity;
-
     // 用户是否设置过定位信息
     mapping(address => bool) private userHaveSetLocation;
-
+    // 城市ID => 位置信息（加密）
+    mapping(bytes32 => string) public cityInfo;
+    // 城市ID => 城市用户数量
+    mapping(bytes32 => uint256) public userNumberOfCity;
     // 用户地址 => 位置信息（加密）
     mapping(address => string) public userLocationInfo;
-
     // 用户地址 => 城市ID
     mapping(address => bytes32) public userCityId;
 
