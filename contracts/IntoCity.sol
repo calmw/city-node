@@ -47,6 +47,8 @@ contract IntoCity is RoleAccess, Initializable {
 
     // 用户定位合约地址
     address public userLocationAddress;
+    // 用户定位过的城市ID集合
+    bytes32[] public allCityIds;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -80,6 +82,11 @@ contract IntoCity is RoleAccess, Initializable {
     // 先锋城市数量
     function getPioneerCityNumber() public view returns (uint256) {
         return pioneerCityIds.length;
+    }
+
+    // 用户定位过的城市数量
+    function getAllCityNumber() public view returns (uint256) {
+        return allCityIds.length;
     }
 
     // 设置竞选失败的先锋城市
@@ -137,5 +144,11 @@ contract IntoCity is RoleAccess, Initializable {
             cityDelegateRecord[cityId][today] -= amount_;
         }
 
+    }
+
+    // 设置城市历史最大质押量，mapping(bytes32 => mapping(uint256 => uint256)) public cityMaxDelegate; //  城市最高质押量2质押量，1质押时间（天）
+    function setCityMaxDelegate(bytes32 cityId_, uint256 amount_, uint256 day_) public onlyAdmin {
+        cityMaxDelegate[cityId_][1] = day_;
+        cityMaxDelegate[cityId_][2] = amount_;
     }
 }

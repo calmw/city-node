@@ -182,13 +182,17 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 更新城市每天累计最大值
     function updateCityMaxDailyDelegate() public {
-//        if (cityDelegateRecord[cityId][today - 1] > cityDelegateRecord[cityId][today - 2]) {
-//            cityMaxDelegate[cityId][1] = today - 1;
-//            cityMaxDelegate[cityId][2] = cityDelegateRecord[cityId][today - 1];
-//        } else {
-//            cityMaxDelegate[cityId][1] = today - 2;
-//            cityMaxDelegate[cityId][2] = cityDelegateRecord[cityId][today - 2];
-//        }
+        IntoCity city = IntoCity(cityAddress);
+        uint256 today = getDay();
+        uint256 allCityNumber = city.getAllCityNumber();
+
+        for (uint256 i = 0; i < allCityNumber; i++) {
+            uint256 yesterdayDelegate = city.cityDelegateRecord(city.allCityIds(i), today - 1);
+            uint256 maxDelegate = city.cityMaxDelegate(city.allCityIds(i), 2);
+            if (yesterdayDelegate > maxDelegate) {
+                city.setCityMaxDelegate(city.allCityIds(i), yesterdayDelegate, today - 1);
+            }
+        }
     }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
