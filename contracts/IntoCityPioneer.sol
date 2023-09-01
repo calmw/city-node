@@ -175,7 +175,20 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             checkPioneer(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
             // 奖励
             reward(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
+            // 更新城市每天累计质押最大值
+            updateCityMaxDailyDelegate();
         }
+    }
+
+    // 更新城市每天累计最大值
+    function updateCityMaxDailyDelegate() public {
+//        if (cityDelegateRecord[cityId][today - 1] > cityDelegateRecord[cityId][today - 2]) {
+//            cityMaxDelegate[cityId][1] = today - 1;
+//            cityMaxDelegate[cityId][2] = cityDelegateRecord[cityId][today - 1];
+//        } else {
+//            cityMaxDelegate[cityId][1] = today - 2;
+//            cityMaxDelegate[cityId][2] = cityDelegateRecord[cityId][today - 2];
+//        }
     }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选

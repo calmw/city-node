@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 import "./RoleAccess.sol";
 import "./IntoCityPioneer.sol";
+import "./IntoUserLocation.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
@@ -44,6 +45,9 @@ contract IntoCity is RoleAccess, Initializable {
     // 城市先锋地址 => 是否被设置过城市先锋
     mapping(address => bool) public hasSetPioneer;
 
+    // 用户定位合约地址
+    address public userLocationAddress;
+
     function initialize() public initializer {
         _addAdmin(msg.sender);
     }
@@ -53,7 +57,12 @@ contract IntoCity is RoleAccess, Initializable {
         cityPioneerAddress = cityPioneerAddress_;
     }
 
-    function AdminSetPioneer(bytes32 cityId_, address pioneer_) public onlyAdmin {
+    // 管理员设置用户定位合约地址
+    function adminSetUserLocationAddress(address userLocationAddress_) public onlyAdmin {
+        userLocationAddress = userLocationAddress_;
+    }
+
+    function adminSetPioneer(bytes32 cityId_, address pioneer_) public onlyAdmin {
         require(!hasSetPioneer[pioneer_], "can not set any more");
         cityPioneer[cityId_] = pioneer_;
         pioneerCity[pioneer_] = cityId_;
@@ -63,7 +72,7 @@ contract IntoCity is RoleAccess, Initializable {
         }
     }
 
-    function AdminSetCityLevel(bytes32 cityId_, uint256 level_, uint256 earnestMoney_) public onlyAdmin {
+    function adminSetCityLevel(bytes32 cityId_, uint256 level_, uint256 earnestMoney_) public onlyAdmin {
         cityLevel[cityId_] = level_;
         earnestMoney[cityId_] = earnestMoney_;
     }
@@ -101,10 +110,12 @@ contract IntoCity is RoleAccess, Initializable {
         return uint256(day);
     }
 
-    // 管理员设置用户每天质押量变更（新增和减少）
+    // 管理员设置用户每天质押量变更（新增1和减少2）
     function adminSetDelegate(address userAddress_, uint256 amount_, uint256 setType) public onlyAdmin {
         amount_ *= 100;
-        bytes32 cityId = pioneerCity[userAddress_];
+        // 判断用户是否有对应的城市
+        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+        bytes32 cityId = intoUserLocation.userCityId(userAddress_);
         if (cityId == bytes32(0)) {
             return;
         }
@@ -116,24 +127,15 @@ contract IntoCity is RoleAccess, Initializable {
 //                intoCityPioneer.setPioneerDelegate(userAddress_, amount_);
 //            }
             // 增加城市质押量
-            if (cityId != bytes32(0)) {
-                incrCityDelegate(cityId, amount_);
-            }
+            incrCityDelegate(cityId, amount_);
+            // 增加城市质押记录
             cityDelegateRecord[cityId][today] += amount_;
-        } else {// 减少
+        } else if (setType == 2) {// 减少
             // 减少城市质押量
-            if (cityId != bytes32(0)) {
-                descCityDelegate(cityId, amount_);
-            }
+            descCityDelegate(cityId, amount_);
+            // 减少城市质押记录
             cityDelegateRecord[cityId][today] -= amount_;
         }
-        // 更新历史每天累计最大值
-        if (cityDelegateRecord[cityId][today - 1] > cityDelegateRecord[cityId][today - 2]) {
-            cityMaxDelegate[cityId][1] = today - 1;
-            cityMaxDelegate[cityId][2] = cityDelegateRecord[cityId][today - 1];
-        } else {
-            cityMaxDelegate[cityId][1] = today - 2;
-            cityMaxDelegate[cityId][2] = cityDelegateRecord[cityId][today - 2];
-        }
+
     }
 }
