@@ -11,8 +11,8 @@ import (
 type Sig string
 
 const (
-	Sale Sig = "Sale(uint256,address,uint256,uint256,uint256)"
-	Buy  Sig = "Buy(uint256,address,address,uint256,uint256,uint256,uint256)"
+	IncreaseCityDelegate Sig = "IncreaseCityDelegate(bytes32,uint256)"
+	DecreaseCityDelegate Sig = "DecreaseCityDelegate(bytes32,uint256)"
 )
 
 type Event struct {
@@ -20,14 +20,14 @@ type Event struct {
 	EventName      string
 }
 
-var SaleEvent = Event{
-	Sale,
-	"Sale",
+var IncreaseCityDelegateEvent = Event{
+	IncreaseCityDelegate,
+	"IncreaseCityDelegate",
 }
 
-var BuyEvent = Event{
-	Buy,
-	"Buy",
+var DecreaseCityDelegateEvent = Event{
+	DecreaseCityDelegate,
+	"DecreaseCityDelegate",
 }
 
 func BuildQuery(contract common.Address, sig Sig, startBlock *big.Int, endBlock *big.Int) eth.FilterQuery {

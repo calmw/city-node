@@ -9,3 +9,7 @@
 #### 生成cityPioneer合约代码
 
 - abigen --abi ../abi/IntoCityPioneer.json --pkg intoCityNode --type CityPioneer --out ./binding/cityPioneer.go
+
+#### 生成city合约代码
+
+- abigen --abi ../abi/IntoCity.json --pkg intoCityNode --type City --out ./binding/city.go

@@ -102,7 +102,13 @@ contract IntoCity is RoleAccess, Initializable {
 
     // 减少城市质押量
     function descCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {
-        cityDelegate[cityId_] -= amount_;
+        if (cityDelegate[cityId_] >= amount_) {
+            cityDelegate[cityId_] -= amount_;
+        } else {
+            cityDelegate[cityId_] = 0;
+        }
+//        cityDelegate[cityId_] -= amount_;
+
         emit DecreaseCityDelegate(
             cityId_,
             amount_
@@ -138,7 +144,12 @@ contract IntoCity is RoleAccess, Initializable {
             // 减少城市质押量
             descCityDelegate(cityId, amount_);
             // 减少城市质押记录
-            cityDelegateRecord[cityId][today] -= amount_;
+            if (cityDelegateRecord[cityId][today] >= amount_) {
+                cityDelegateRecord[cityId][today] -= amount_;
+            } else {
+                cityDelegateRecord[cityId][today] = 0;
+            }
+//            cityDelegateRecord[cityId][today] -= amount_;
         }
 
     }
