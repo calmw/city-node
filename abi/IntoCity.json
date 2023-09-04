@@ -362,6 +362,38 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "dailyTask",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "dailyTaskStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "bytes32",
@@ -388,19 +420,6 @@
       }
     ],
     "name": "earnestMoney",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getAllCityNumber",
     "outputs": [
       {
         "internalType": "uint256",
@@ -590,6 +609,13 @@
       }
     ],
     "name": "setCityPioneerAssessment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "updateCityMaxDailyDelegate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

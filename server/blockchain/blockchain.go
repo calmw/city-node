@@ -17,19 +17,21 @@ import (
 )
 
 type CityNodeConfig struct {
-	ChainId            int64
-	RPC                string
-	CityAddress        string
-	CityPioneerAddress string
-	PrivateKey         string
+	ChainId             int64
+	RPC                 string
+	CityAddress         string
+	CityPioneerAddress  string
+	UserLocationAddress string
+	PrivateKey          string
 }
 
 var cityNodeConfig = CityNodeConfig{
-	ChainId:            9001,
-	RPC:                "https://rpc-8.matchscan.io/",
-	CityAddress:        "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
-	CityPioneerAddress: "",
-	PrivateKey:         "",
+	ChainId:             9001,
+	RPC:                 "https://rpc-8.matchscan.io/",
+	CityAddress:         "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
+	CityPioneerAddress:  "",
+	UserLocationAddress: "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2",
+	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 }
 
 func Client(c CityNodeConfig) *ethclient.Client {
@@ -46,7 +48,7 @@ func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
 		log.Logger.Sugar().Error(err)
 		return err, nil
 	}
-	auth, err := bind.NewKeyedTransactorWithChainID(privateKeyEcdsa, big.NewInt(int64(cityNodeConfig.ChainId)))
+	auth, err := bind.NewKeyedTransactorWithChainID(privateKeyEcdsa, big.NewInt(cityNodeConfig.ChainId))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, nil
@@ -76,6 +78,24 @@ func CityPioneerDailyTask() error {
 		return err
 	}
 	task, err := cityPioneer.DailyTask(auth)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	log.Logger.Sugar().Info("hash: ", task.Hash())
+	return nil
+}
+
+// CityDailyTask 城市合约定时任务
+func CityDailyTask() error {
+	Cli := Client(cityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(cityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	task, err := city.DailyTask(auth)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err
@@ -116,6 +136,7 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 	fmt.Println(len(logs))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
+		return err
 	}
 	cancel()
 	abi, _ := intoCityNode.CityMetaData.GetAbi()
@@ -146,6 +167,7 @@ func GetDecreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 	logs, err := Cli.FilterLogs(ctx, query)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
+		return err
 	}
 	cancel()
 	abi, _ := intoCityNode.CityMetaData.GetAbi()

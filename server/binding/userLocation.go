@@ -31,7 +31,7 @@ var (
 
 // UserLocationMetaData contains all meta data concerning the UserLocation contract.
 var UserLocationMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"UserLocationRecord\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityIdNum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"delUserLocation\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"location_\",\"type\":\"string\"}],\"name\":\"setUserLocation\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userLocationInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"userNumberOfCity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"UserLocationRecord\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"intoCityAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pledgeStakeAddress_\",\"type\":\"address\"}],\"name\":\"adminSetPledgeStakeAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityIdNum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"intoCityAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pledgeStakeAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"location_\",\"type\":\"string\"}],\"name\":\"setUserLocation\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userCityId\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userLocationInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"userNumberOfCity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // UserLocationABI is the input ABI used to generate the binding from.
@@ -304,6 +304,68 @@ func (_UserLocation *UserLocationCallerSession) CityInfo(arg0 [32]byte) (string,
 	return _UserLocation.Contract.CityInfo(&_UserLocation.CallOpts, arg0)
 }
 
+// GetAllCityNumber is a free data retrieval call binding the contract method 0x957466c7.
+//
+// Solidity: function getAllCityNumber() view returns(uint256)
+func (_UserLocation *UserLocationCaller) GetAllCityNumber(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "getAllCityNumber")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetAllCityNumber is a free data retrieval call binding the contract method 0x957466c7.
+//
+// Solidity: function getAllCityNumber() view returns(uint256)
+func (_UserLocation *UserLocationSession) GetAllCityNumber() (*big.Int, error) {
+	return _UserLocation.Contract.GetAllCityNumber(&_UserLocation.CallOpts)
+}
+
+// GetAllCityNumber is a free data retrieval call binding the contract method 0x957466c7.
+//
+// Solidity: function getAllCityNumber() view returns(uint256)
+func (_UserLocation *UserLocationCallerSession) GetAllCityNumber() (*big.Int, error) {
+	return _UserLocation.Contract.GetAllCityNumber(&_UserLocation.CallOpts)
+}
+
+// IntoCityAddress is a free data retrieval call binding the contract method 0xf9c454de.
+//
+// Solidity: function intoCityAddress() view returns(address)
+func (_UserLocation *UserLocationCaller) IntoCityAddress(opts *bind.CallOpts) (common.Address, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "intoCityAddress")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// IntoCityAddress is a free data retrieval call binding the contract method 0xf9c454de.
+//
+// Solidity: function intoCityAddress() view returns(address)
+func (_UserLocation *UserLocationSession) IntoCityAddress() (common.Address, error) {
+	return _UserLocation.Contract.IntoCityAddress(&_UserLocation.CallOpts)
+}
+
+// IntoCityAddress is a free data retrieval call binding the contract method 0xf9c454de.
+//
+// Solidity: function intoCityAddress() view returns(address)
+func (_UserLocation *UserLocationCallerSession) IntoCityAddress() (common.Address, error) {
+	return _UserLocation.Contract.IntoCityAddress(&_UserLocation.CallOpts)
+}
+
 // IsAdmin is a free data retrieval call binding the contract method 0x24d7806c.
 //
 // Solidity: function isAdmin(address account) view returns(bool)
@@ -333,6 +395,68 @@ func (_UserLocation *UserLocationSession) IsAdmin(account common.Address) (bool,
 // Solidity: function isAdmin(address account) view returns(bool)
 func (_UserLocation *UserLocationCallerSession) IsAdmin(account common.Address) (bool, error) {
 	return _UserLocation.Contract.IsAdmin(&_UserLocation.CallOpts, account)
+}
+
+// PledgeStakeAddress is a free data retrieval call binding the contract method 0x7a4e39f7.
+//
+// Solidity: function pledgeStakeAddress() view returns(address)
+func (_UserLocation *UserLocationCaller) PledgeStakeAddress(opts *bind.CallOpts) (common.Address, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "pledgeStakeAddress")
+
+	if err != nil {
+		return *new(common.Address), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(common.Address)).(*common.Address)
+
+	return out0, err
+
+}
+
+// PledgeStakeAddress is a free data retrieval call binding the contract method 0x7a4e39f7.
+//
+// Solidity: function pledgeStakeAddress() view returns(address)
+func (_UserLocation *UserLocationSession) PledgeStakeAddress() (common.Address, error) {
+	return _UserLocation.Contract.PledgeStakeAddress(&_UserLocation.CallOpts)
+}
+
+// PledgeStakeAddress is a free data retrieval call binding the contract method 0x7a4e39f7.
+//
+// Solidity: function pledgeStakeAddress() view returns(address)
+func (_UserLocation *UserLocationCallerSession) PledgeStakeAddress() (common.Address, error) {
+	return _UserLocation.Contract.PledgeStakeAddress(&_UserLocation.CallOpts)
+}
+
+// UserCityId is a free data retrieval call binding the contract method 0xd4c22976.
+//
+// Solidity: function userCityId(address ) view returns(bytes32)
+func (_UserLocation *UserLocationCaller) UserCityId(opts *bind.CallOpts, arg0 common.Address) ([32]byte, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "userCityId", arg0)
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// UserCityId is a free data retrieval call binding the contract method 0xd4c22976.
+//
+// Solidity: function userCityId(address ) view returns(bytes32)
+func (_UserLocation *UserLocationSession) UserCityId(arg0 common.Address) ([32]byte, error) {
+	return _UserLocation.Contract.UserCityId(&_UserLocation.CallOpts, arg0)
+}
+
+// UserCityId is a free data retrieval call binding the contract method 0xd4c22976.
+//
+// Solidity: function userCityId(address ) view returns(bytes32)
+func (_UserLocation *UserLocationCallerSession) UserCityId(arg0 common.Address) ([32]byte, error) {
+	return _UserLocation.Contract.UserCityId(&_UserLocation.CallOpts, arg0)
 }
 
 // UserLocationInfo is a free data retrieval call binding the contract method 0x2f25dcf7.
@@ -418,6 +542,48 @@ func (_UserLocation *UserLocationTransactorSession) AddAdmin(account common.Addr
 	return _UserLocation.Contract.AddAdmin(&_UserLocation.TransactOpts, account)
 }
 
+// AdminSetCityAddress is a paid mutator transaction binding the contract method 0xa94c843d.
+//
+// Solidity: function adminSetCityAddress(address intoCityAddress_) returns()
+func (_UserLocation *UserLocationTransactor) AdminSetCityAddress(opts *bind.TransactOpts, intoCityAddress_ common.Address) (*types.Transaction, error) {
+	return _UserLocation.contract.Transact(opts, "adminSetCityAddress", intoCityAddress_)
+}
+
+// AdminSetCityAddress is a paid mutator transaction binding the contract method 0xa94c843d.
+//
+// Solidity: function adminSetCityAddress(address intoCityAddress_) returns()
+func (_UserLocation *UserLocationSession) AdminSetCityAddress(intoCityAddress_ common.Address) (*types.Transaction, error) {
+	return _UserLocation.Contract.AdminSetCityAddress(&_UserLocation.TransactOpts, intoCityAddress_)
+}
+
+// AdminSetCityAddress is a paid mutator transaction binding the contract method 0xa94c843d.
+//
+// Solidity: function adminSetCityAddress(address intoCityAddress_) returns()
+func (_UserLocation *UserLocationTransactorSession) AdminSetCityAddress(intoCityAddress_ common.Address) (*types.Transaction, error) {
+	return _UserLocation.Contract.AdminSetCityAddress(&_UserLocation.TransactOpts, intoCityAddress_)
+}
+
+// AdminSetPledgeStakeAddress is a paid mutator transaction binding the contract method 0xefddfbeb.
+//
+// Solidity: function adminSetPledgeStakeAddress(address pledgeStakeAddress_) returns()
+func (_UserLocation *UserLocationTransactor) AdminSetPledgeStakeAddress(opts *bind.TransactOpts, pledgeStakeAddress_ common.Address) (*types.Transaction, error) {
+	return _UserLocation.contract.Transact(opts, "adminSetPledgeStakeAddress", pledgeStakeAddress_)
+}
+
+// AdminSetPledgeStakeAddress is a paid mutator transaction binding the contract method 0xefddfbeb.
+//
+// Solidity: function adminSetPledgeStakeAddress(address pledgeStakeAddress_) returns()
+func (_UserLocation *UserLocationSession) AdminSetPledgeStakeAddress(pledgeStakeAddress_ common.Address) (*types.Transaction, error) {
+	return _UserLocation.Contract.AdminSetPledgeStakeAddress(&_UserLocation.TransactOpts, pledgeStakeAddress_)
+}
+
+// AdminSetPledgeStakeAddress is a paid mutator transaction binding the contract method 0xefddfbeb.
+//
+// Solidity: function adminSetPledgeStakeAddress(address pledgeStakeAddress_) returns()
+func (_UserLocation *UserLocationTransactorSession) AdminSetPledgeStakeAddress(pledgeStakeAddress_ common.Address) (*types.Transaction, error) {
+	return _UserLocation.Contract.AdminSetPledgeStakeAddress(&_UserLocation.TransactOpts, pledgeStakeAddress_)
+}
+
 // BatchAddAdmin is a paid mutator transaction binding the contract method 0x2c9ab42b.
 //
 // Solidity: function batchAddAdmin(address[] amounts) returns()
@@ -437,27 +603,6 @@ func (_UserLocation *UserLocationSession) BatchAddAdmin(amounts []common.Address
 // Solidity: function batchAddAdmin(address[] amounts) returns()
 func (_UserLocation *UserLocationTransactorSession) BatchAddAdmin(amounts []common.Address) (*types.Transaction, error) {
 	return _UserLocation.Contract.BatchAddAdmin(&_UserLocation.TransactOpts, amounts)
-}
-
-// DelUserLocation is a paid mutator transaction binding the contract method 0x53c2d39c.
-//
-// Solidity: function delUserLocation(address user) returns()
-func (_UserLocation *UserLocationTransactor) DelUserLocation(opts *bind.TransactOpts, user common.Address) (*types.Transaction, error) {
-	return _UserLocation.contract.Transact(opts, "delUserLocation", user)
-}
-
-// DelUserLocation is a paid mutator transaction binding the contract method 0x53c2d39c.
-//
-// Solidity: function delUserLocation(address user) returns()
-func (_UserLocation *UserLocationSession) DelUserLocation(user common.Address) (*types.Transaction, error) {
-	return _UserLocation.Contract.DelUserLocation(&_UserLocation.TransactOpts, user)
-}
-
-// DelUserLocation is a paid mutator transaction binding the contract method 0x53c2d39c.
-//
-// Solidity: function delUserLocation(address user) returns()
-func (_UserLocation *UserLocationTransactorSession) DelUserLocation(user common.Address) (*types.Transaction, error) {
-	return _UserLocation.Contract.DelUserLocation(&_UserLocation.TransactOpts, user)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x8129fc1c.

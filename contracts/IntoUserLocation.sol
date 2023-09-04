@@ -25,7 +25,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
 
     // 城市ID集合
     bytes32[] public cityIds;
-    // 城市ID数量
+    // 参与定位的用户数量
     uint256 public cityIdNum;
     // 用户是否设置过定位信息
     mapping(address => bool) private userHaveSetLocation;
@@ -83,6 +83,11 @@ contract IntoUserLocation is RoleAccess, Initializable {
         IPledgeStake pledgeStake = IPledgeStake(pledgeStakeAddress);
         uint256 delegate = pledgeStake.ownerWeight(user);
         intoCity.incrCityDelegate(cityId_, delegate * 100);
+    }
+
+    // 用户定位过的城市数量
+    function getAllCityNumber() public view returns (uint256) {
+        return cityIds.length;
     }
 
 }

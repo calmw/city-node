@@ -180,26 +180,26 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             // 奖励
             reward(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
             // 更新城市每天累计质押最大值
-            updateCityMaxDailyDelegate();
+//            updateCityMaxDailyDelegate();
         }
         dailyTaskStatus[day] = true;
         return true;
     }
 
     // 更新城市每天累计最大值
-    function updateCityMaxDailyDelegate() public {
-        IntoCity city = IntoCity(cityAddress);
-        uint256 today = getDay();
-        uint256 allCityNumber = city.getAllCityNumber();
-
-        for (uint256 i = 0; i < allCityNumber; i++) {
-            uint256 yesterdayDelegate = city.cityDelegateRecord(city.allCityIds(i), today - 1);
-            uint256 maxDelegate = city.cityMaxDelegate(city.allCityIds(i), 2);
-            if (yesterdayDelegate > maxDelegate) {
-                city.setCityMaxDelegate(city.allCityIds(i), yesterdayDelegate, today - 1);
-            }
-        }
-    }
+//    function updateCityMaxDailyDelegate() public {
+//        IntoCity city = IntoCity(cityAddress);
+//        uint256 today = getDay();
+//        uint256 allCityNumber = city.getAllCityNumber();
+//
+//        for (uint256 i = 0; i < allCityNumber; i++) {
+//            uint256 yesterdayDelegate = city.cityDelegateRecord(city.allCityIds(i), today - 1);
+//            uint256 maxDelegate = city.cityMaxDelegate(city.allCityIds(i), 2);
+//            if (yesterdayDelegate > maxDelegate) {
+//                city.setCityMaxDelegate(city.allCityIds(i), yesterdayDelegate, today - 1);
+//            }
+//        }
+//    }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
     function checkPioneer(bytes32 cityId, address pioneerAddress_) private {

@@ -46,6 +46,8 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => uint256) public earnestMoney;
     // 城市先锋地址 => 是否被设置过城市先锋
     mapping(address => bool) public hasSetPioneer;
+    // 每天定时任务执行状态
+    mapping(uint256 => bool)public  dailyTaskStatus;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -81,11 +83,6 @@ contract IntoCity is RoleAccess, Initializable {
         return pioneerCityIds.length;
     }
 
-    // 用户定位过的城市数量
-    function getAllCityNumber() public view returns (uint256) {
-        return allCityIds.length;
-    }
-
     // 设置竞选失败的先锋城市
     function setCityPioneerAssessment(bytes32 cityId_) public onlyAdmin {
         cityPioneerAssessment[cityId_] = true;
@@ -118,6 +115,34 @@ contract IntoCity is RoleAccess, Initializable {
     function getDay() public view returns (uint256){
         uint day = block.timestamp / 86400;
         return uint256(day);
+    }
+
+    function dailyTask() public onlyAdmin returns (bool){
+        uint256 day = getDay();
+        require(!dailyTaskStatus[day], "can not execute any more");
+        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+//        uint256 allCityNumber = intoUserLocation.getAllCityNumber();
+//        for (uint256 i = 0; i < allCityNumber; i++) {
+        // 更新城市每天累计质押最大值
+        updateCityMaxDailyDelegate(intoUserLocation);
+//        }
+        dailyTaskStatus[day] = true;
+        return true;
+    }
+
+    // 更新城市每天累计最大值
+    function updateCityMaxDailyDelegate(IntoUserLocation intoUserLocation) public {
+//        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+        uint256 today = getDay();
+        uint256 allCityNumber = intoUserLocation.getAllCityNumber();
+
+        for (uint256 i = 0; i < allCityNumber; i++) {
+            uint256 yesterdayDelegate = cityDelegateRecord[intoUserLocation.cityIds(i)][today - 1];
+            uint256 maxDelegate = cityMaxDelegate[intoUserLocation.cityIds(i)][2];
+            if (yesterdayDelegate > maxDelegate) {
+                setCityMaxDelegate(intoUserLocation.cityIds(i), yesterdayDelegate, today - 1);
+            }
+        }
     }
 
     // 管理员设置用户每天质押量变更（新增1和减少2）
