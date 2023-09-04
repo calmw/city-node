@@ -121,28 +121,34 @@ contract IntoCity is RoleAccess, Initializable {
         uint256 day = getDay();
         require(!dailyTaskStatus[day], "can not execute any more");
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
-//        uint256 allCityNumber = intoUserLocation.getAllCityNumber();
-//        for (uint256 i = 0; i < allCityNumber; i++) {
         // 更新城市每天累计质押最大值
         updateCityMaxDailyDelegate(intoUserLocation);
-//        }
-        dailyTaskStatus[day] = true;
+//        dailyTaskStatus[day] = true;
         return true;
     }
 
     // 更新城市每天累计最大值
     function updateCityMaxDailyDelegate(IntoUserLocation intoUserLocation) public {
-//        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
         uint256 today = getDay();
         uint256 allCityNumber = intoUserLocation.getAllCityNumber();
 
         for (uint256 i = 0; i < allCityNumber; i++) {
-            uint256 yesterdayDelegate = cityDelegateRecord[intoUserLocation.cityIds(i)][today - 1];
-            uint256 maxDelegate = cityMaxDelegate[intoUserLocation.cityIds(i)][2];
-            if (yesterdayDelegate > maxDelegate) {
-                setCityMaxDelegate(intoUserLocation.cityIds(i), yesterdayDelegate, today - 1);
-            }
+//            if (cityDelegateRecord[intoUserLocation.cityIds(i)] == 0) {
+//                continue;
+//            }
+            bytes32 cityId = intoUserLocation.cityIds(i);
+//            uint256 yesterdayDelegate = cityDelegateRecord[intoUserLocation.cityIds(i)][1];
+//            uint256 maxDelegate = cityMaxDelegate[intoUserLocation.cityIds(i)][2];
+//            if (yesterdayDelegate > maxDelegate) {
+//                setCityMaxDelegate(intoUserLocation.cityIds(i), yesterdayDelegate, today - 1);
+//            }
         }
+    }
+
+    // 设置城市历史最大质押量，mapping(bytes32 => mapping(uint256 => uint256)) public cityMaxDelegate; //  城市最高质押量2质押量，1质押时间（天）
+    function setCityMaxDelegate(bytes32 cityId_, uint256 amount_, uint256 day_) public onlyAdmin {
+        cityMaxDelegate[cityId_][1] = day_;
+        cityMaxDelegate[cityId_][2] = amount_;
     }
 
     // 管理员设置用户每天质押量变更（新增1和减少2）
@@ -179,9 +185,4 @@ contract IntoCity is RoleAccess, Initializable {
 
     }
 
-    // 设置城市历史最大质押量，mapping(bytes32 => mapping(uint256 => uint256)) public cityMaxDelegate; //  城市最高质押量2质押量，1质押时间（天）
-    function setCityMaxDelegate(bytes32 cityId_, uint256 amount_, uint256 day_) public onlyAdmin {
-        cityMaxDelegate[cityId_][1] = day_;
-        cityMaxDelegate[cityId_][2] = amount_;
-    }
 }

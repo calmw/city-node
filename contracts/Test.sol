@@ -8,22 +8,52 @@ contract Test {
         uint256 amount
     );
 
-    mapping(address => bytes32) public pioneerCity;
 
-    function test(address user) public {
-        bytes32 cityId = pioneerCity[user];
+    // 城市ID集合
+    bytes32[] public cityIds; // 废弃
+    // 城市ID => 该城市ID是否存在
+    mapping(bytes32 => bool) public cityIdExists;
+    // 城市ID集合
+    bytes32[] public cityIdsNoRepeat;
 
-        if (cityId == bytes32(0)) {
-            emit Delegate(3);
-        } else {
-            emit Delegate(4);
+    function getDay() public view returns (uint256){
+        uint day = block.timestamp / 86400;
+        return uint256(day);
+    }
+
+//    function test() public {
+//        uint256 today = getDay();
+//        bytes32 aa = keccak256(abi.encodePacked("sdfsdf"));
+//        uint256 yesterdayDelegate = cityDelegateRecord[aa][today-1];
+//        emit Delegate(yesterdayDelegate);
+//    }
+
+    // 数据删除
+    function delNoRepeatCityIds() public {
+        for (uint256 i = 0; i < cityIds.length; i++) {
+            cityIdsNoRepeat.pop();
         }
-        if (cityId != bytes32(0)) {
-            emit Delegate(5);
-        } else {
-            emit Delegate(6);
-        }
+    }
 
+    // 数据去重
+    function noRepeatCityIds() public {
+        for (uint256 i = 0; i < cityIds.length; i++) {
+            if (!cityIdExists[cityIds[i]]) {
+                cityIdsNoRepeat.push(cityIds[i]);
+                cityIdExists[cityIds[i]] = true;
+            }
+        }
+    }
+
+    // 数据去重
+    function getCityNum() public view returns(uint256){
+        return cityIds.length;
+    }
+
+    // 数据去重
+    function getCityNum(uint256 data) public {
+       bytes32 cityId =  keccak256(abi.encodePacked(data));
+        return cityIds.push(cityId);
     }
 
 }

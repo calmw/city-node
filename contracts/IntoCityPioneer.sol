@@ -375,7 +375,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         );
     }
 
-    // 获取先锋所需缴纳的保证金
+    // 获取先锋所需缴纳的保证金,领取到合约余额？？？？
     function getEarnestMoney() public view returns (uint256){
         IntoCity city = IntoCity(cityAddress);
         // 获取先锋所在城市

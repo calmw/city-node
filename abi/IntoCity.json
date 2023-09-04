@@ -614,7 +614,13 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "contract IntoUserLocation",
+        "name": "intoUserLocation",
+        "type": "address"
+      }
+    ],
     "name": "updateCityMaxDailyDelegate",
     "outputs": [],
     "stateMutability": "nonpayable",

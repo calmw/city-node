@@ -24,7 +24,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
     address public intoCityAddress;
 
     // 城市ID集合
-    bytes32[] public cityIds;
+    bytes32[] public cityIds; // 废弃
     // 参与定位的用户数量
     uint256 public cityIdNum;
     // 用户是否设置过定位信息
@@ -37,6 +37,11 @@ contract IntoUserLocation is RoleAccess, Initializable {
     mapping(address => string) public userLocationInfo;
     // 用户地址 => 城市ID
     mapping(address => bytes32) public userCityId;
+    // --
+    // 城市ID => 该城市ID是否存在
+    mapping(bytes32 => bool) public cityIdExists;
+    // 城市ID集合
+    bytes32[] public cityIdsNoRepeat;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -60,12 +65,16 @@ contract IntoUserLocation is RoleAccess, Initializable {
         require(!userHaveSetLocation[msg.sender], "cant not set any more");
         require(!compareStr(location_, ""), "location is empty");
         userNumberOfCity[cityId_] += 1;
-        cityIds.push(cityId_);
+        cityIds.push(cityId_); // 废弃
         cityInfo[cityId_] = location_;
         userLocationInfo[msg.sender] = location_;
         userCityId[msg.sender] = cityId_;
         userHaveSetLocation[msg.sender] = true;
         cityIdNum++;
+        if (!cityIdExists[cityId_]) {
+            cityIdsNoRepeat.push(cityId_);
+            cityIdExists[cityId_] = true;
+        }
 
         // 给用户所在城市增加质押量
         setUserDelegate(cityId_, msg.sender);
@@ -88,6 +97,37 @@ contract IntoUserLocation is RoleAccess, Initializable {
     // 用户定位过的城市数量
     function getAllCityNumber() public view returns (uint256) {
         return cityIds.length;
+    }
+
+    // 用户定位过的城市数量
+    function getCityNumber() public view returns (uint256) {
+        return cityIdsNoRepeat.length;
+    }
+
+    // 数据去重
+    function noRepeatCityIds() public {
+        for (uint256 i = 0; i < cityIds.length; i++) {
+            if (!cityIdExists[cityIds[i]]) {
+                cityIdsNoRepeat.push(cityIds[i]);
+                cityIdExists[cityIds[i]] = true;
+            }
+        }
+    }
+
+    // 数据删除
+    function delNoRepeatCityIds() public {
+        for (uint256 i = 0; i < cityIds.length; i++) {
+            cityIdsNoRepeat.pop();
+        }
+    }
+
+    // 数据添加
+    function setNoRepeatCityIds(bytes32 cityId_) public returns(bool){
+        if (!cityIdExists[cityId_]) {
+            cityIdsNoRepeat.push(cityId_);
+            cityIdExists[cityId_] = true;
+        }
+        return cityIdExists[cityId_];
     }
 
 }
