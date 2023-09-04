@@ -18,9 +18,6 @@ contract IntoUserLocation is RoleAccess, Initializable {
         string location
     );
     // 新增事件开始
-    event LogBool(
-        bool BoolVal
-    );
 
     // 新增事件结束
 
