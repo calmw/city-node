@@ -43,6 +43,19 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "bool",
+        "name": "BoolVal",
+        "type": "bool"
+      }
+    ],
+    "name": "LogBool",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "address",
         "name": "user",
         "type": "address"
@@ -136,6 +149,25 @@
         "type": "bytes32"
       }
     ],
+    "name": "cityIdExist",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "name": "cityIdExists",
     "outputs": [
       {
@@ -219,13 +251,6 @@
   },
   {
     "inputs": [],
-    "name": "delNoRepeatCityIds",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "getAllCityNumber",
     "outputs": [
       {
@@ -290,7 +315,18 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "start",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "end",
+        "type": "uint256"
+      }
+    ],
     "name": "noRepeatCityIds",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -326,25 +362,6 @@
     "inputs": [],
     "name": "renounceAdmin",
     "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "cityId_",
-        "type": "bytes32"
-      }
-    ],
-    "name": "setNoRepeatCityIds",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },

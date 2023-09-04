@@ -7,10 +7,10 @@ import (
 
 func main() {
 	//db.InitMysql()
-	err, cityNum := blockchain.UserLocationGetCityNum()
+	err := blockchain.CityDailyTask()
+	log.Println(err)
 	//blockchain.UserLocationNoRepeatCityIds()
 	//err, cityNum := blockchain.()
-	log.Println(err, cityNum)
 	//for i := 0; i < int(cityNum); i++ {
 	//	err, s := blockchain.UserLocationGetCity(big.NewInt(int64(i)))
 	//	log.Println(err, s)

@@ -26,8 +26,9 @@ type CityNodeConfig struct {
 }
 
 var cityNodeConfig = CityNodeConfig{
-	ChainId:             9001,
-	RPC:                 "https://rpc.matchscan.io/",
+	ChainId: 9001,
+	RPC:     "https://rpc-5.matchscan.io/",
+	//RPC:                 "https://testnet-rpc.d2ao.com/",https://testnet.matchscan.io/, 9001 // test net
 	CityAddress:         "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
 	CityPioneerAddress:  "",
 	UserLocationAddress: "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2",
@@ -90,17 +91,41 @@ func CityPioneerDailyTask() error {
 func CityDailyTask() error {
 	Cli := Client(cityNodeConfig)
 	_, auth := GetAuth(Cli)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(cityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	cityNumber, err := userLocation.GetCityNumber(nil)
+	fmt.Println(cityNumber.Int64(), err)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	numberOfTimes := 5
+	forTimes := int(cityNumber.Int64() / int64(numberOfTimes))
+	remainder := int(cityNumber.Int64() % int64(numberOfTimes))
+	fmt.Println(forTimes, remainder)
+
 	city, err := intoCityNode.NewCity(common.HexToAddress(cityNodeConfig.CityAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
+	for i := 0; i < forTimes; i++ {
+		task, err := city.DailyTask(auth, big.NewInt(int64(forTimes*numberOfTimes)), big.NewInt(int64((forTimes+1)*numberOfTimes)))
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return err
+		}
+		fmt.Println(forTimes*numberOfTimes, (forTimes+1)*numberOfTimes)
+		log.Logger.Sugar().Info("hash: ", task.Hash())
 	}
-	task, err := city.DailyTask(auth)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
+	if remainder > 0 {
+		task, err := city.DailyTask(auth, big.NewInt(int64(forTimes*numberOfTimes)), big.NewInt(int64(forTimes+remainder)))
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return err
+		}
+		fmt.Println(forTimes*numberOfTimes, forTimes+remainder)
+		log.Logger.Sugar().Info("hash: ", task.Hash())
 	}
-	log.Logger.Sugar().Info("hash: ", task.Hash())
 	return nil
 }
 
@@ -210,50 +235,8 @@ func CreateAdminSetDelegate(adminSetDelegate models.AdminSetDelegate) {
 	db.Mysql.Table("admin_set_delegate").Create(&adminSetDelegate)
 }
 
-// UserLocationGetCityNum  城市合约定时任务
-func UserLocationGetCityNum() (error, int64) {
-	Cli := Client(cityNodeConfig)
-	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(cityNodeConfig.UserLocationAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, 0
-	}
-	cityNum, err := userLocation.CityIdNum(nil)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, 0
-	}
-
-	for i := 0; i < int(cityNum.Int64()); i++ {
-		err, cityByte32 := UserLocationGetCity(big.NewInt(int64(i)))
-		if err == nil {
-			UserLocationSetNoRepeatCityIds(cityByte32)
-		}
-	}
-	return nil, cityNum.Int64()
-}
-
-// UserLocationGetCity  城市合约定时任务
-func UserLocationGetCity(index *big.Int) (error, [32]byte) {
-	Cli := Client(cityNodeConfig)
-	//_, auth := GetAuth(Cli)
-	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(cityNodeConfig.UserLocationAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, [32]byte{}
-	}
-	cityId, err := userLocation.CityIds(nil, index)
-
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, [32]byte{}
-	}
-	fmt.Println("0x" + common.Bytes2Hex(Bytes32ToBytes(cityId)))
-	return nil, [32]byte{}
-}
-
-// UserLocationNoRepeatCityIds  城市合约定时任务
-func UserLocationNoRepeatCityIds() {
+// SetNoRepeatCityIds   城市ID数组重构
+func SetNoRepeatCityIds(start, end int64) {
 	Cli := Client(cityNodeConfig)
 	_, auth := GetAuth(Cli)
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(cityNodeConfig.UserLocationAddress), Cli)
@@ -261,25 +244,11 @@ func UserLocationNoRepeatCityIds() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	tx, err := userLocation.NoRepeatCityIds(auth)
+	tx, err := userLocation.NoRepeatCityIds(auth, big.NewInt(start), big.NewInt(end))
 
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(tx)
-}
-
-// UserLocationSetNoRepeatCityIds  城市合约定时任务
-func UserLocationSetNoRepeatCityIds(cityId [32]byte) {
-	Cli := Client(cityNodeConfig)
-	_, auth := GetAuth(Cli)
-	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(cityNodeConfig.UserLocationAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	tx, err := userLocation.SetNoRepeatCityIds(auth, cityId)
-	fmt.Println(tx, err, 666)
-	time.Sleep(time.Second)
+	fmt.Println(start, end, tx)
 }

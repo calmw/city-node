@@ -31,7 +31,7 @@ var (
 
 // UserLocationMetaData contains all meta data concerning the UserLocation contract.
 var UserLocationMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"UserLocationRecord\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"intoCityAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pledgeStakeAddress_\",\"type\":\"address\"}],\"name\":\"adminSetPledgeStakeAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityIdExists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityIdNum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityIdsNoRepeat\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"delNoRepeatCityIds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"intoCityAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"noRepeatCityIds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pledgeStakeAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"}],\"name\":\"setNoRepeatCityIds\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"location_\",\"type\":\"string\"}],\"name\":\"setUserLocation\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userCityId\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userLocationInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"userNumberOfCity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"BoolVal\",\"type\":\"bool\"}],\"name\":\"LogBool\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"UserLocationRecord\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"intoCityAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pledgeStakeAddress_\",\"type\":\"address\"}],\"name\":\"adminSetPledgeStakeAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityIdExist\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityIdExists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityIdNum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityIdsNoRepeat\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"intoCityAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"start\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"end\",\"type\":\"uint256\"}],\"name\":\"noRepeatCityIds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pledgeStakeAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"location_\",\"type\":\"string\"}],\"name\":\"setUserLocation\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userCityId\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userLocationInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"userNumberOfCity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // UserLocationABI is the input ABI used to generate the binding from.
@@ -209,6 +209,37 @@ func (_UserLocation *UserLocationSession) AllAdmins() ([]common.Address, error) 
 // Solidity: function allAdmins() view returns(address[] admins)
 func (_UserLocation *UserLocationCallerSession) AllAdmins() ([]common.Address, error) {
 	return _UserLocation.Contract.AllAdmins(&_UserLocation.CallOpts)
+}
+
+// CityIdExist is a free data retrieval call binding the contract method 0x1f6cd476.
+//
+// Solidity: function cityIdExist(bytes32 ) view returns(bool)
+func (_UserLocation *UserLocationCaller) CityIdExist(opts *bind.CallOpts, arg0 [32]byte) (bool, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "cityIdExist", arg0)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// CityIdExist is a free data retrieval call binding the contract method 0x1f6cd476.
+//
+// Solidity: function cityIdExist(bytes32 ) view returns(bool)
+func (_UserLocation *UserLocationSession) CityIdExist(arg0 [32]byte) (bool, error) {
+	return _UserLocation.Contract.CityIdExist(&_UserLocation.CallOpts, arg0)
+}
+
+// CityIdExist is a free data retrieval call binding the contract method 0x1f6cd476.
+//
+// Solidity: function cityIdExist(bytes32 ) view returns(bool)
+func (_UserLocation *UserLocationCallerSession) CityIdExist(arg0 [32]byte) (bool, error) {
+	return _UserLocation.Contract.CityIdExist(&_UserLocation.CallOpts, arg0)
 }
 
 // CityIdExists is a free data retrieval call binding the contract method 0x94ee0a50.
@@ -698,27 +729,6 @@ func (_UserLocation *UserLocationTransactorSession) BatchAddAdmin(amounts []comm
 	return _UserLocation.Contract.BatchAddAdmin(&_UserLocation.TransactOpts, amounts)
 }
 
-// DelNoRepeatCityIds is a paid mutator transaction binding the contract method 0x88d044c6.
-//
-// Solidity: function delNoRepeatCityIds() returns()
-func (_UserLocation *UserLocationTransactor) DelNoRepeatCityIds(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _UserLocation.contract.Transact(opts, "delNoRepeatCityIds")
-}
-
-// DelNoRepeatCityIds is a paid mutator transaction binding the contract method 0x88d044c6.
-//
-// Solidity: function delNoRepeatCityIds() returns()
-func (_UserLocation *UserLocationSession) DelNoRepeatCityIds() (*types.Transaction, error) {
-	return _UserLocation.Contract.DelNoRepeatCityIds(&_UserLocation.TransactOpts)
-}
-
-// DelNoRepeatCityIds is a paid mutator transaction binding the contract method 0x88d044c6.
-//
-// Solidity: function delNoRepeatCityIds() returns()
-func (_UserLocation *UserLocationTransactorSession) DelNoRepeatCityIds() (*types.Transaction, error) {
-	return _UserLocation.Contract.DelNoRepeatCityIds(&_UserLocation.TransactOpts)
-}
-
 // Initialize is a paid mutator transaction binding the contract method 0x8129fc1c.
 //
 // Solidity: function initialize() returns()
@@ -740,25 +750,25 @@ func (_UserLocation *UserLocationTransactorSession) Initialize() (*types.Transac
 	return _UserLocation.Contract.Initialize(&_UserLocation.TransactOpts)
 }
 
-// NoRepeatCityIds is a paid mutator transaction binding the contract method 0x8950b85e.
+// NoRepeatCityIds is a paid mutator transaction binding the contract method 0xc653a2f0.
 //
-// Solidity: function noRepeatCityIds() returns()
-func (_UserLocation *UserLocationTransactor) NoRepeatCityIds(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _UserLocation.contract.Transact(opts, "noRepeatCityIds")
+// Solidity: function noRepeatCityIds(uint256 start, uint256 end) returns()
+func (_UserLocation *UserLocationTransactor) NoRepeatCityIds(opts *bind.TransactOpts, start *big.Int, end *big.Int) (*types.Transaction, error) {
+	return _UserLocation.contract.Transact(opts, "noRepeatCityIds", start, end)
 }
 
-// NoRepeatCityIds is a paid mutator transaction binding the contract method 0x8950b85e.
+// NoRepeatCityIds is a paid mutator transaction binding the contract method 0xc653a2f0.
 //
-// Solidity: function noRepeatCityIds() returns()
-func (_UserLocation *UserLocationSession) NoRepeatCityIds() (*types.Transaction, error) {
-	return _UserLocation.Contract.NoRepeatCityIds(&_UserLocation.TransactOpts)
+// Solidity: function noRepeatCityIds(uint256 start, uint256 end) returns()
+func (_UserLocation *UserLocationSession) NoRepeatCityIds(start *big.Int, end *big.Int) (*types.Transaction, error) {
+	return _UserLocation.Contract.NoRepeatCityIds(&_UserLocation.TransactOpts, start, end)
 }
 
-// NoRepeatCityIds is a paid mutator transaction binding the contract method 0x8950b85e.
+// NoRepeatCityIds is a paid mutator transaction binding the contract method 0xc653a2f0.
 //
-// Solidity: function noRepeatCityIds() returns()
-func (_UserLocation *UserLocationTransactorSession) NoRepeatCityIds() (*types.Transaction, error) {
-	return _UserLocation.Contract.NoRepeatCityIds(&_UserLocation.TransactOpts)
+// Solidity: function noRepeatCityIds(uint256 start, uint256 end) returns()
+func (_UserLocation *UserLocationTransactorSession) NoRepeatCityIds(start *big.Int, end *big.Int) (*types.Transaction, error) {
+	return _UserLocation.Contract.NoRepeatCityIds(&_UserLocation.TransactOpts, start, end)
 }
 
 // RemoveAdmin is a paid mutator transaction binding the contract method 0x1785f53c.
@@ -801,27 +811,6 @@ func (_UserLocation *UserLocationSession) RenounceAdmin() (*types.Transaction, e
 // Solidity: function renounceAdmin() returns()
 func (_UserLocation *UserLocationTransactorSession) RenounceAdmin() (*types.Transaction, error) {
 	return _UserLocation.Contract.RenounceAdmin(&_UserLocation.TransactOpts)
-}
-
-// SetNoRepeatCityIds is a paid mutator transaction binding the contract method 0x33bde0e2.
-//
-// Solidity: function setNoRepeatCityIds(bytes32 cityId_) returns(bool)
-func (_UserLocation *UserLocationTransactor) SetNoRepeatCityIds(opts *bind.TransactOpts, cityId_ [32]byte) (*types.Transaction, error) {
-	return _UserLocation.contract.Transact(opts, "setNoRepeatCityIds", cityId_)
-}
-
-// SetNoRepeatCityIds is a paid mutator transaction binding the contract method 0x33bde0e2.
-//
-// Solidity: function setNoRepeatCityIds(bytes32 cityId_) returns(bool)
-func (_UserLocation *UserLocationSession) SetNoRepeatCityIds(cityId_ [32]byte) (*types.Transaction, error) {
-	return _UserLocation.Contract.SetNoRepeatCityIds(&_UserLocation.TransactOpts, cityId_)
-}
-
-// SetNoRepeatCityIds is a paid mutator transaction binding the contract method 0x33bde0e2.
-//
-// Solidity: function setNoRepeatCityIds(bytes32 cityId_) returns(bool)
-func (_UserLocation *UserLocationTransactorSession) SetNoRepeatCityIds(cityId_ [32]byte) (*types.Transaction, error) {
-	return _UserLocation.Contract.SetNoRepeatCityIds(&_UserLocation.TransactOpts, cityId_)
 }
 
 // SetUserLocation is a paid mutator transaction binding the contract method 0x56a07295.
@@ -1261,6 +1250,140 @@ func (_UserLocation *UserLocationFilterer) WatchInitialized(opts *bind.WatchOpts
 func (_UserLocation *UserLocationFilterer) ParseInitialized(log types.Log) (*UserLocationInitialized, error) {
 	event := new(UserLocationInitialized)
 	if err := _UserLocation.contract.UnpackLog(event, "Initialized", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// UserLocationLogBoolIterator is returned from FilterLogBool and is used to iterate over the raw logs and unpacked data for LogBool events raised by the UserLocation contract.
+type UserLocationLogBoolIterator struct {
+	Event *UserLocationLogBool // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *UserLocationLogBoolIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(UserLocationLogBool)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(UserLocationLogBool)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *UserLocationLogBoolIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *UserLocationLogBoolIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// UserLocationLogBool represents a LogBool event raised by the UserLocation contract.
+type UserLocationLogBool struct {
+	BoolVal bool
+	Raw     types.Log // Blockchain specific contextual infos
+}
+
+// FilterLogBool is a free log retrieval operation binding the contract event 0xc33356bc2bad2ce263b056da5d061d4e89c336823d5e77f14c1383aedb7a1b3a.
+//
+// Solidity: event LogBool(bool BoolVal)
+func (_UserLocation *UserLocationFilterer) FilterLogBool(opts *bind.FilterOpts) (*UserLocationLogBoolIterator, error) {
+
+	logs, sub, err := _UserLocation.contract.FilterLogs(opts, "LogBool")
+	if err != nil {
+		return nil, err
+	}
+	return &UserLocationLogBoolIterator{contract: _UserLocation.contract, event: "LogBool", logs: logs, sub: sub}, nil
+}
+
+// WatchLogBool is a free log subscription operation binding the contract event 0xc33356bc2bad2ce263b056da5d061d4e89c336823d5e77f14c1383aedb7a1b3a.
+//
+// Solidity: event LogBool(bool BoolVal)
+func (_UserLocation *UserLocationFilterer) WatchLogBool(opts *bind.WatchOpts, sink chan<- *UserLocationLogBool) (event.Subscription, error) {
+
+	logs, sub, err := _UserLocation.contract.WatchLogs(opts, "LogBool")
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(UserLocationLogBool)
+				if err := _UserLocation.contract.UnpackLog(event, "LogBool", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseLogBool is a log parse operation binding the contract event 0xc33356bc2bad2ce263b056da5d061d4e89c336823d5e77f14c1383aedb7a1b3a.
+//
+// Solidity: event LogBool(bool BoolVal)
+func (_UserLocation *UserLocationFilterer) ParseLogBool(log types.Log) (*UserLocationLogBool, error) {
+	event := new(UserLocationLogBool)
+	if err := _UserLocation.contract.UnpackLog(event, "LogBool", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

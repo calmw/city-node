@@ -362,7 +362,18 @@
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "start",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "end",
+        "type": "uint256"
+      }
+    ],
     "name": "dailyTask",
     "outputs": [
       {
@@ -609,19 +620,6 @@
       }
     ],
     "name": "setCityPioneerAssessment",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "contract IntoUserLocation",
-        "name": "intoUserLocation",
-        "type": "address"
-      }
-    ],
-    "name": "updateCityMaxDailyDelegate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

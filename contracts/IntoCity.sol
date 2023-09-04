@@ -117,33 +117,53 @@ contract IntoCity is RoleAccess, Initializable {
         return uint256(day);
     }
 
-    function dailyTask() public onlyAdmin returns (bool){
+    function dailyTask(uint256 start, uint256 end) public onlyAdmin returns (bool){
         uint256 day = getDay();
         require(!dailyTaskStatus[day], "can not execute any more");
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
         // 更新城市每天累计质押最大值
-        updateCityMaxDailyDelegate(intoUserLocation);
+        uint256 today = getDay();
+        for (uint256 i = start; i < end; i++) {
+            bytes32 cityId = intoUserLocation.cityIdsNoRepeat(i);
+            uint256 yesterdayDelegate = cityDelegateRecord[cityId][1];
+            uint256 maxDelegate = cityMaxDelegate[cityId][2];
+            if (yesterdayDelegate > maxDelegate) {
+                setCityMaxDelegate(intoUserLocation.cityIds(i), yesterdayDelegate, today - 1);
+            }
+        }
 //        dailyTaskStatus[day] = true;
         return true;
     }
 
     // 更新城市每天累计最大值
-    function updateCityMaxDailyDelegate(IntoUserLocation intoUserLocation) public {
-        uint256 today = getDay();
-        uint256 allCityNumber = intoUserLocation.getAllCityNumber();
-
-        for (uint256 i = 0; i < allCityNumber; i++) {
+//    function updateCityMaxDailyDelegate(IntoUserLocation intoUserLocation) public {
+//        uint256 today = getDay();
+//        uint256 cityNumber = intoUserLocation.getCityNumber();// 定位过的城市数量
+//
+//        for (uint256 i = 0; i < allCityNumber; i++) {
 //            if (cityDelegateRecord[intoUserLocation.cityIds(i)] == 0) {
 //                continue;
 //            }
-            bytes32 cityId = intoUserLocation.cityIds(i);
+//            bytes32 cityId = intoUserLocation.cityIds(i);
 //            uint256 yesterdayDelegate = cityDelegateRecord[intoUserLocation.cityIds(i)][1];
 //            uint256 maxDelegate = cityMaxDelegate[intoUserLocation.cityIds(i)][2];
 //            if (yesterdayDelegate > maxDelegate) {
 //                setCityMaxDelegate(intoUserLocation.cityIds(i), yesterdayDelegate, today - 1);
 //            }
-        }
-    }
+//        }
+//    }
+
+//    function AAA(uint256 i,IntoUserLocation intoUserLocation) private {
+//        if (cityDelegateRecord[intoUserLocation.cityIds(i)] == 0) {
+//            continue;
+//        }
+//        bytes32 cityId = intoUserLocation.cityIds(i);
+//        uint256 yesterdayDelegate = cityDelegateRecord[intoUserLocation.cityIds(i)][1];
+//        uint256 maxDelegate = cityMaxDelegate[intoUserLocation.cityIds(i)][2];
+//        if (yesterdayDelegate > maxDelegate) {
+//            setCityMaxDelegate(intoUserLocation.cityIds(i), yesterdayDelegate, today - 1);
+//        }
+//    }
 
     // 设置城市历史最大质押量，mapping(bytes32 => mapping(uint256 => uint256)) public cityMaxDelegate; //  城市最高质押量2质押量，1质押时间（天）
     function setCityMaxDelegate(bytes32 cityId_, uint256 amount_, uint256 day_) public onlyAdmin {
