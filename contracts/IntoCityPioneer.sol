@@ -12,14 +12,14 @@ interface IntoMining {
 }
 
 contract IntoCityPioneer is RoleAccess, Initializable {
-    enum LifeTime {
-        none,
-        firstMonth,
-        secondMonth,
-        thirdMonth,
-        fourToSixMonth,
-        moreThanSixMonth
-    }
+//    enum LifeTime {
+//        none,
+//        firstMonth,
+//        secondMonth,
+//        thirdMonth,
+//        fourToSixMonth,
+//        moreThanSixMonth
+//    }
 
     // 每日新增质押事件
     event DailyIncreaseDelegateRecord(
@@ -53,14 +53,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     struct Pioneer {
         address pioneerAddress;
         uint256 day; // 成为城市节点的时间(天数)
-//        uint256 firstMonthDelegate; // 第1个月累计质押量
-//        uint256 secondMonthDelegate; // 第2个月累计质押量
-//        uint256 thirdMonthDelegate; // 第3个月累计质押量
         bool firstMonthReturnEarnest; // 第1个月是否退了(发放到可提现余额)保证金
         bool secondMonthReturnEarnest; // 第2个月是否退了(发放到可提现余额)保证金
         bool thirdMonthReturnEarnest; // 第3个月是否退了(发放到可提现余额)保证金
         uint256 cityLevel; // 所在城市等级
-        LifeTime lifeTime; // 城市先锋生命周期
         bool assessmentMonthStatus; // 按月考核状态
         bool assessmentStatus; // 最终考核状态
     }
@@ -157,21 +153,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         uint256 day = getDay() - pioneer.day; // 第几天质押
         pioneerDelegateInfo[pioneerAddress_][day] = yesterdayDelegate;
-        // 更新城市先锋信息
-        if (day > 180) {
-            pioneer.lifeTime = LifeTime.moreThanSixMonth;
-        } else if (day > 90) {
-            pioneer.lifeTime = LifeTime.fourToSixMonth;
-        } else if (day > 60) {
-            pioneer.lifeTime = LifeTime.thirdMonth;
-            pioneer.thirdMonthDelegate += yesterdayDelegate;
-        } else if (day > 30) {
-            pioneer.lifeTime = LifeTime.secondMonth;
-            pioneer.secondMonthDelegate += yesterdayDelegate;
-        } else {
-            pioneer.lifeTime = LifeTime.firstMonth;
-            pioneer.firstMonthDelegate += yesterdayDelegate;
-        }
+
 
         emit DailyIncreaseDelegateRecord(
             pioneer.pioneerAddress,
@@ -203,7 +185,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[msg.sender].assessmentMonthStatus = true;
         pioneerInfo[msg.sender].day = getDay();
         pioneerInfo[msg.sender].cityLevel = city.cityLevel(cityId);
-        pioneerInfo[msg.sender].lifeTime = LifeTime.firstMonth;
         cityDailyDelegateRecord[cityId] = 0; // 将先锋绑定的城市的新增质押量变为0
     }
 
@@ -322,8 +303,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (!pioneer.assessmentMonthStatus) {
             return;
         }
+        uint256 today = getDay();
         // 任期结束，不发放奖励
-        if (pioneer.lifeTime == LifeTime.moreThanSixMonth) {
+        if (today-pioneer.day >=180) {
             return;
         }
         // 昨日，天
