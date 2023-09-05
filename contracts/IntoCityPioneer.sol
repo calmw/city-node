@@ -86,11 +86,13 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(address => uint256) public delegateReward;
     // 先锋地址 => 先锋可以退的保证金
     mapping(address => uint256) public earnestMoneyReward;
-    // 先锋地址 => 先锋y已经退还的保证金
+    // 先锋地址 => 先锋已经退还的保证金
     mapping(address => uint256) public earnestMoneyRewardRecord;
 
     // 先锋地址 => 每天新增质押[]
     mapping(address => uint256[]) public pioneerDelegateInfo;
+    // 先锋地址 => 先锋累计质押量
+    mapping(address => uint256) public pioneerDelegateTotal;
 
     mapping(bytes32 => uint256)public  rewardsForSocialFunds; // 城市每日社交基金
     mapping(bytes32 => uint256)public  latestDayDelegate; // 城市每日新增质押
@@ -131,35 +133,37 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 管理员设置先锋每天新增质押量
-//    function setPioneerDelegate(address pioneerAddress_, uint256 amount_) public onlyAdmin {
-//        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
-//        uint256 day = getDay() - pioneer.day; // 第几天质押
-//        pioneerDelegateInfo[pioneerAddress_][day] = amount_;
-//        pioneer.day = day;
-//        // 更新城市先锋信息
-//        if (day > 180) {
-//            pioneer.lifeTime = LifeTime.moreThanSixMonth;
-//        } else if (day > 90) {
-//            pioneer.lifeTime = LifeTime.fourToSixMonth;
-//        } else if (day > 60) {
-//            pioneer.lifeTime = LifeTime.thirdMonth;
-//            pioneer.thirdMonthDelegate += amount_;
-//        } else if (day > 30) {
-//            pioneer.lifeTime = LifeTime.secondMonth;
-//            pioneer.secondMonthDelegate += amount_;
-//        } else {
-//            pioneer.lifeTime = LifeTime.firstMonth;
-//            pioneer.firstMonthDelegate += amount_;
-//        }
-//
-//        IntoCity city = IntoCity(cityAddress);
-//        emit DailyIncreaseDelegateRecord(
-//            pioneer.pioneerAddress,
-//            city.pioneerCity(pioneerAddress_),
-//            amount_,
-//            block.timestamp
-//        );
-//    }
+    function setPioneerDelegate(address pioneerAddress_, uint256 amount_) public onlyAdmin {
+        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
+        uint256 day = getDay() - pioneer.day; // 第几天质押
+        pioneerDelegateInfo[pioneerAddress_][day] = amount_;
+        // 更新城市先锋信息以及各月累计质押量
+        if (day > 180) {
+            pioneer.lifeTime = LifeTime.moreThanSixMonth;
+        } else if (day > 90) {
+            pioneer.lifeTime = LifeTime.fourToSixMonth;
+        } else if (day > 60) {
+            pioneer.lifeTime = LifeTime.thirdMonth;
+            pioneer.thirdMonthDelegate += amount_;
+        } else if (day > 30) {
+            pioneer.lifeTime = LifeTime.secondMonth;
+            pioneer.secondMonthDelegate += amount_;
+        } else {
+            pioneer.lifeTime = LifeTime.firstMonth;
+            pioneer.firstMonthDelegate += amount_;
+        }
+
+        // 增加先锋累计质押量
+        pioneerDelegateTotal[pioneerAddress_] += amount_;
+
+        IntoCity city = IntoCity(cityAddress);
+        emit DailyIncreaseDelegateRecord(
+            pioneer.pioneerAddress,
+            city.pioneerCity(pioneerAddress_),
+            amount_,
+            block.timestamp
+        );
+    }
 
     // 定时任务，更新先锋每天新增质押量
     function updatePioneerDailyNewlyDelegate(address pioneerAddress_) public onlyAdmin {
