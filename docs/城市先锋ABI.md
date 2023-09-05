@@ -30,12 +30,9 @@
 - 根据先锋地址查询先锋信息,先锋字段备注
 
 ``` solidity
-struct Pioneer {
+ struct Pioneer {
         address pioneerAddress;
         uint256 day; // 成为城市节点的时间(天数)
-        uint256 firstMonthDelegate; // 第1个月累计质押量
-        uint256 secondMonthDelegate; // 第2个月累计质押量
-        uint256 thirdMonthDelegate; // 第3个月累计质押量
         bool firstMonthReturnEarnest; // 第1个月是否退了(发放到可提现余额)保证金
         bool secondMonthReturnEarnest; // 第2个月是否退了(发放到可提现余额)保证金
         bool thirdMonthReturnEarnest; // 第3个月是否退了(发放到可提现余额)保证金
