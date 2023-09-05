@@ -32,7 +32,7 @@
 ``` solidity
     struct Pioneer {
         address pioneerAddress;
-        uint256 ctime; // 成为城市节点的时间戳
+        uint256 ctime; // 成为城市先锋的时间戳
         bool firstMonthReturnEarnest; // 第1个月是否退了(发放到可提现余额)保证金
         bool secondMonthReturnEarnest; // 第2个月是否退了(发放到可提现余额)保证金
         bool thirdMonthReturnEarnest; // 第3个月是否退了(发放到可提现余额)保证金
