@@ -2,7 +2,8 @@ const {ethers, upgrades} = require("hardhat")
 require('@openzeppelin/hardhat-upgrades')
 
 // const ProxyAddress = "0x6F72f3BFe0114d998e2425dc73E1453680a764Af" // 测试网
-const ProxyAddress = "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2"
+const ProxyAddress = "0xcd507929f9f8B79f02192837eaD33B30c89752Ce" // 测试网
+// const ProxyAddress = "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2"
 
 // 可升级合约
 async function main() {
@@ -19,8 +20,8 @@ async function main() {
 }
 
 // 测试网
-// proxyAdminAddress="0xFafD5293E5a936da119508f69e1B5C5F5a1B03bb"
-// logicAddress="0x29D4b9FbAc29990ffF4332F9CD306760cCbb6F65"
+// proxyAdminAddress="0xc9DBD06547FAE83C309A9cC80EEcc207CD71d200"
+// logicAddress="0xA025C2Dd6FDF956A11941aB3D3C2Fc296F66D5Cb"
 
 // 主网
 // proxyAdminAddress="0x64A9fa6Fd332d85552E365b6877055D7C92Fa45A"

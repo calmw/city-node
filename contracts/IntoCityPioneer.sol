@@ -7,6 +7,10 @@ import "./IntoCityNodeVote.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
+interface IntoMining {
+    function addBalanceWithTypes(address sender, uint256 amount, uint256 types) external; // 增加用户合约余额
+}
+
 contract IntoCityPioneer is RoleAccess, Initializable {
     enum LifeTime {
         none,
@@ -62,6 +66,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     address public TOXAddress; // TOX代币合约地址
+    address public miningAddress; // 用户增加合约余额合约
     address public cityAddress; // 城市合约地址
     uint256 public assessmentPassed; // 城市先锋第一个月直接通过考核的条件（点数）
 
@@ -108,6 +113,11 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 管理员设置城市合约地址
     function adminSetCityAddress(address cityAddress_) public onlyAdmin {
         cityAddress = cityAddress_;
+    }
+
+    // 管理员设置城市合约地址
+    function adminSetMiningAddress(address miningAddress_) public onlyAdmin {
+        miningAddress = miningAddress_;
     }
 
     // 管理员设置城市先锋第一个月直接通过考核的最大阀值（点数）
@@ -339,7 +349,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         return earnestMoneyReturn;
     }
 
-    // 每日奖励
+    // 每日奖励发放
     function reward(bytes32 cityId, address pioneerAddress_) private {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         // 考核状态（按月考核）不正常，不发放奖励
@@ -377,9 +387,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 检测余额
         require(amount_ <= benefitPackageReward[msg.sender], "insufficient balance");
 
-        // 转账到合约余额
-        // ..................................................................................................................
-
+        // 将奖励转账到用户合约余额
+        setUserBalance(msg.sender, amount_, 19);
+        // 更新今天领取状态
         uint256 today = getDay();
         benefitPackageRewardStatus[today] = true;
         emit WithdrawalRewardRecord(
@@ -395,9 +405,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(pioneerInfo[msg.sender].day > 0, "you are not pioneer");
         // 检测余额
         require(amount_ <= fundsReward[msg.sender], "insufficient balance");
-        // 转账到合约余额
-        // ..................................................................................................................
-
+        // 将奖励转账到用户合约余额
+        setUserBalance(msg.sender, amount_, 18);
+        // 更新今天领取状态
         uint256 today = getDay();
         fundsRewardStatus[today] = true;
         emit WithdrawalRewardRecord(
@@ -413,11 +423,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(pioneerInfo[msg.sender].day > 0, "you are not pioneer");
         // 检测余额
         require(amount_ <= delegateReward[msg.sender], "insufficient balance");
-        // 转账到合约余额
-        // ..................................................................................................................
-
+        // 将奖励转账到用户合约余额
+        setUserBalance(msg.sender, amount_, 17);
+        // 更新今天领取状态
         uint256 today = getDay();
         delegateRewardStatus[today] = true;
+
         emit WithdrawalRewardRecord(
             msg.sender,
             amount_,
@@ -441,6 +452,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             amount_,
             4
         );
+    }
+
+    // 将奖励转账到用户合约余额 17 节点 18 基金 19 福利
+    function setUserBalance(address user_, uint256 amount_, uint256 types_) private {
+        IntoMining intoMining = IntoMining(miningAddress);
+        intoMining.addBalanceWithTypes(user_, amount_, types_);
     }
 
     // 获取先锋所需缴纳的保证金
