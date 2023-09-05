@@ -30,16 +30,16 @@
 - 根据先锋地址查询先锋信息,先锋字段备注
 
 ``` solidity
- struct Pioneer {
+    struct Pioneer {
         address pioneerAddress;
-        uint256 day; // 成为城市节点的时间(天数)
+        uint256 ctime; // 成为城市节点的时间戳
         bool firstMonthReturnEarnest; // 第1个月是否退了(发放到可提现余额)保证金
         bool secondMonthReturnEarnest; // 第2个月是否退了(发放到可提现余额)保证金
         bool thirdMonthReturnEarnest; // 第3个月是否退了(发放到可提现余额)保证金
         uint256 cityLevel; // 所在城市等级
-        LifeTime lifeTime; // 城市先锋生命周期
         bool assessmentMonthStatus; // 按月考核状态
         bool assessmentStatus; // 最终考核状态
+        bool returnAllStatus; // 第一个月是否直接满足了100%退还标准，并且100%退还
     }
 ```
 

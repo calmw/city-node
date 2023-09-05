@@ -42,8 +42,10 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(address => bytes32) public pioneerCity;
     // 先锋城市ID集合
     bytes32[] public pioneerCityIds;
-    // 城市ID => 城市先锋需要缴纳的保证金地址
+    // 城市ID => 城市先锋需要缴纳的保证金
     mapping(bytes32 => uint256) public earnestMoney;
+    // 城市等级 => 该城市等级所需缴纳的保证金数额
+    mapping(uint256 => uint256) public cityLevelEarnestMoney;
     // 城市先锋地址 => 是否被设置过城市先锋
     mapping(address => bool) public hasSetPioneer;
     // 每天定时任务执行状态
@@ -80,9 +82,11 @@ contract IntoCity is RoleAccess, Initializable {
         }
     }
 
-    function adminSetCityLevel(bytes32 cityId_, uint256 level_, uint256 earnestMoney_) public onlyAdmin {
+    // 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
+    function adminSetCityLevelAndEarnestMoney(bytes32 cityId_, uint256 level_, uint256 earnestMoney_) public onlyAdmin {
         cityLevel[cityId_] = level_;
         earnestMoney[cityId_] = earnestMoney_;
+        cityLevelEarnestMoney[level_] = earnestMoney_;
     }
 
     // 先锋城市数量

@@ -12,14 +12,6 @@ interface IntoMining {
 }
 
 contract IntoCityPioneer is RoleAccess, Initializable {
-//    enum LifeTime {
-//        none,
-//        firstMonth,
-//        secondMonth,
-//        thirdMonth,
-//        fourToSixMonth,
-//        moreThanSixMonth
-//    }
 
     // 每日新增质押事件
     event DailyIncreaseDelegateRecord(
@@ -52,13 +44,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     struct Pioneer {
         address pioneerAddress;
-        uint256 day; // 成为城市节点的时间(天数)
+        uint256 ctime; // 成为城市节点的时间戳
         bool firstMonthReturnEarnest; // 第1个月是否退了(发放到可提现余额)保证金
         bool secondMonthReturnEarnest; // 第2个月是否退了(发放到可提现余额)保证金
         bool thirdMonthReturnEarnest; // 第3个月是否退了(发放到可提现余额)保证金
         uint256 cityLevel; // 所在城市等级
         bool assessmentMonthStatus; // 按月考核状态
         bool assessmentStatus; // 最终考核状态
+        bool returnAllStatus; // 第一个月是否直接满足了100%退还标准，并且100%退还
     }
 
     address public TOXAddress; // TOX代币合约地址
@@ -67,7 +60,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 城市等级 => (月份 => 质押点数)
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentCriteria; // 城市先锋考核标准
-    // 城市等级 => (月份 => 退还标准)
+    // 城市等级 => (索引 => 退还标准)，索引1，2，3为第一个月的，索引4，5，6为第二个月的
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentReturnCriteria; // 城市先锋保证金退还标准
     // 城市等级 => (月份 => 退还比例)
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentReturnRate; // 城市先锋保证金退还比例
@@ -88,8 +81,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(address => uint256[]) public pioneerDelegateInfo;
     // 先锋地址 => 先锋累计质押量
     mapping(address => uint256) public pioneerDelegateTotal;
-    // 城市ID => 质押） ,城市先锋所绑定城市每天新增质押量（只用于城市先锋）
-    mapping(bytes32 => uint256) public cityDailyDelegateRecord;
+    // 城市ID => 质押） ,城市先锋所绑定城市每天新增质押量（只用于城市先锋）的累计值
+    mapping(bytes32 => uint256) public cityDailyDelegateTotal;
 
     mapping(uint256 => bool)public  dailyTaskStatus; // 每天定时任务执行状态
 
@@ -124,12 +117,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 管理员设置先锋每天新增质押量
     function setPioneerDelegate(address pioneerAddress_, uint256 amount_, bytes32 cityId_) public onlyAdmin {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
-        uint256 day = getDay() - pioneer.day; // 第几天质押
+        uint256 day = getDay() - pioneer.ctime / 86400; // 第几天质押
         pioneerDelegateInfo[pioneerAddress_][day] = amount_;
 
         // 增加先锋累计质押量
         pioneerDelegateTotal[pioneerAddress_] += amount_;
-        cityDailyDelegateRecord[cityId_] += amount_;
+        cityDailyDelegateTotal[cityId_] += amount_;
 
         IntoCity city = IntoCity(cityAddress);
         emit DailyIncreaseDelegateRecord(
@@ -151,7 +144,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 today = getDay();
         uint256 yesterdayDelegate = city.cityDelegateRecord(cityId, today);
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
-        uint256 day = getDay() - pioneer.day; // 第几天质押
+        uint256 day = getDay() - pioneer.ctime / 86400; // 第几天质押
         pioneerDelegateInfo[pioneerAddress_][day] = yesterdayDelegate;
 
 
@@ -183,9 +176,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         TOXContract.transfer(address(this), earnestMoney);
         pioneerInfo[msg.sender].pioneerAddress = msg.sender;
         pioneerInfo[msg.sender].assessmentMonthStatus = true;
-        pioneerInfo[msg.sender].day = getDay();
+        pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].cityLevel = city.cityLevel(cityId);
-        cityDailyDelegateRecord[cityId] = 0; // 将先锋绑定的城市的新增质押量变为0
+        cityDailyDelegateTotal[cityId] = 0; // 将先锋绑定的城市的新增质押量变为0
     }
 
     // 每天执行一次，计算奖励和考核
@@ -210,7 +203,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             return;
         }
         IntoCity city = IntoCity(cityAddress);
-        uint256 day = getDay() - pioneer.day;
+        uint256 day = getDay() - pioneer.ctime / 86400;
 
         // 前三个月考核
         assessmentPioneer(cityId, pioneer, city, day);
@@ -227,7 +220,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
         uint256 assessmentCriteriaThreshold; // 考核标准金额
 
-        uint256 pioneerCityTotalNewlyDelegate = cityDailyDelegateRecord[cityId]; // 先锋绑定的城市总的新增质押量
+        uint256 pioneerCityTotalNewlyDelegate = cityDailyDelegateTotal[cityId]; // 先锋绑定的城市总的新增质押量
 
         if (day == 90) {
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][3] * 100;
@@ -261,9 +254,11 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
         uint256 cityLevel = city.cityLevel(cityId); // 城市等级
         uint256 earnestMoney = city.earnestMoney(cityId); // 城市保证金
+
+        uint256 pioneerCityTotalNewlyDelegate = cityDailyDelegateTotal[cityId]; // 先锋绑定的城市总的新增质押量
         uint256 earnestMoneyReturn; // 退还保证金的金额
         if (day == 90) {
-            if (pioneer.secondMonthDelegate >= assessmentReturnCriteria[cityLevel][3] * 100) {
+            if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][3] * 100) {
                 uint256 rate = assessmentReturnRate[cityLevel][3];
                 if (pioneer.firstMonthReturnEarnest) {
                     rate -= assessmentReturnRate[cityLevel][1];
@@ -276,7 +271,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 pioneer.thirdMonthReturnEarnest = true;
             }
         } else if (day == 60) {
-            if (pioneer.secondMonthDelegate >= assessmentReturnCriteria[cityLevel][2] * 100) {
+            if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][2] * 100) {
                 uint256 rate = assessmentReturnRate[cityLevel][2];
                 if (pioneer.firstMonthReturnEarnest) {
                     rate -= assessmentReturnRate[cityLevel][1];
@@ -285,7 +280,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 pioneer.secondMonthReturnEarnest = true;
             }
         } else if (day == 30) {
-            if (pioneer.firstMonthDelegate >= assessmentReturnCriteria[cityLevel][1] * 100) {
+            // 直接考核通过，退还100%，满足M3退还标准，直接退100%
+            if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][3] * 100) {
+                uint256 rate = assessmentReturnRate[cityLevel][1];
+                earnestMoneyReturn = earnestMoney * rate / 100;
+                pioneer.returnAllStatus = true;
+            }
+            //
+            if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][1] * 100) {
                 uint256 rate = assessmentReturnRate[cityLevel][1];
                 earnestMoneyReturn = earnestMoney * rate / 100;
                 pioneer.firstMonthReturnEarnest = true;
@@ -305,7 +307,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
         uint256 today = getDay();
         // 任期结束，不发放奖励
-        if (today-pioneer.day >=180) {
+        if (today - pioneer.ctime / 86400 >= 180) {
             return;
         }
         // 昨日，天
@@ -335,7 +337,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 用户提取福利包奖励
     function withdrawalBenefitPackageReward(uint256 amount_) public {
         // 判断是否是先锋
-        require(pioneerInfo[msg.sender].day > 0, "you are not pioneer");
+        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         // 检测余额
         require(amount_ <= benefitPackageReward[msg.sender], "insufficient balance");
 
@@ -355,7 +357,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 用户提取社交基金奖励
     function withdrawalFundsRewardReward(uint256 amount_) public {
         // 判断是否是先锋
-        require(pioneerInfo[msg.sender].day > 0, "you are not pioneer");
+        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         // 检测余额
         require(amount_ <= fundsReward[msg.sender], "insufficient balance");
         // 将奖励转账到用户合约余额
@@ -374,7 +376,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 用户提取新增质押奖励
     function withdrawalDelegateRewardReward(uint256 amount_) public {
         // 判断是否是先锋
-        require(pioneerInfo[msg.sender].day > 0, "you are not pioneer");
+        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         // 检测余额
         require(amount_ <= delegateReward[msg.sender], "insufficient balance");
         // 将奖励转账到用户合约余额
@@ -394,7 +396,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 用户提取退还的保证金
     function withdrawalEarnestMoneyReward(uint256 amount_) public {
         // 判断是否是先锋
-        require(pioneerInfo[msg.sender].day > 0, "you are not pioneer");
+        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         // 检测余额
         require(amount_ <= earnestMoneyReward[msg.sender], "insufficient balance");
         // 退还保证金到钱包账户
@@ -426,7 +428,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 判断一个地址是否是先锋
     function isPioneer(address user) public view returns (bool){
-        return pioneerInfo[user].day > 0;
+        return pioneerInfo[user].ctime > 0;
     }
 
 }
