@@ -16,3 +16,36 @@
         - earnestMoney
 - 根据地址查询先锋对应的城市
     - pioneerCity
+- 查询城市保证金数量
+    - 根据城市ID查询城市所需保证金数量
+        - earnestMoney
+
+#### 查询质押权重
+
+- 根据城市ID查询城市新增质押（累计新增质押）量
+    - cityDelegate
+
+#### 查询先锋信息
+
+- 根据先锋地址查询先锋信息,先锋字段备注
+
+``` solidity
+struct Pioneer {
+        address pioneerAddress;
+        uint256 day; // 成为城市节点的时间(天数)
+        uint256 firstMonthDelegate; // 第1个月累计质押量
+        uint256 secondMonthDelegate; // 第2个月累计质押量
+        uint256 thirdMonthDelegate; // 第3个月累计质押量
+        bool firstMonthReturnEarnest; // 第1个月是否退了(发放到可提现余额)保证金
+        bool secondMonthReturnEarnest; // 第2个月是否退了(发放到可提现余额)保证金
+        bool thirdMonthReturnEarnest; // 第3个月是否退了(发放到可提现余额)保证金
+        uint256 cityLevel; // 所在城市等级
+        LifeTime lifeTime; // 城市先锋生命周期
+        bool assessmentMonthStatus; // 按月考核状态
+        bool assessmentStatus; // 最终考核状态
+    }
+```
+
+#### 查询先锋城市考核标准
+
+- assessmentCriteria 参数1 为城市等级，2 为月份，均为整数

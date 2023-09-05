@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-type CityNodeConfig struct {
+type CityNodeConfigs struct {
 	ChainId             int64
 	RPC                 string
 	CityAddress         string
@@ -25,17 +25,26 @@ type CityNodeConfig struct {
 	PrivateKey          string
 }
 
-var cityNodeConfig = CityNodeConfig{
-	ChainId: 9001,
-	RPC:     "https://rpc.matchscan.io/",
-	//RPC:                 "https://testnet-rpc.d2ao.com/",https://testnet.matchscan.io/, 9001 // test net
-	CityAddress:         "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
-	CityPioneerAddress:  "",
-	UserLocationAddress: "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2",
+var CityNodeConfig = CityNodeConfigs{
+	ChainId:             9001,
+	RPC:                 "https://testnet-rpc.d2ao.com/",
+	CityAddress:         "0x8A22Fd7ef70a753b9f3cBdAe9Ea4bc0839CF0C7e",
+	CityPioneerAddress:  "0xCBEf17132482dbdA7fa80Ad14Ec8291496C584b8",
+	UserLocationAddress: "0xcd507929f9f8B79f02192837eaD33B30c89752Ce",
 	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 }
 
-func Client(c CityNodeConfig) *ethclient.Client {
+//var CityNodeConfig = CityNodeConfigs{
+//	ChainId: 9001,
+//	RPC:     "https://rpc.matchscan.io/",
+//	//RPC:                 "https://testnet-rpc.d2ao.com/",https://testnet.matchscan.io/, 9001 // test net
+//	CityAddress:         "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
+//	CityPioneerAddress:  "",
+//	UserLocationAddress: "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2",
+//	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
+//}
+
+func Client(c CityNodeConfigs) *ethclient.Client {
 	client, err := ethclient.Dial(c.RPC)
 	if err != nil {
 		panic("dail failed")
@@ -44,12 +53,12 @@ func Client(c CityNodeConfig) *ethclient.Client {
 }
 
 func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
-	privateKeyEcdsa, err := crypto.HexToECDSA(cityNodeConfig.PrivateKey)
+	privateKeyEcdsa, err := crypto.HexToECDSA(CityNodeConfig.PrivateKey)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, nil
 	}
-	auth, err := bind.NewKeyedTransactorWithChainID(privateKeyEcdsa, big.NewInt(cityNodeConfig.ChainId))
+	auth, err := bind.NewKeyedTransactorWithChainID(privateKeyEcdsa, big.NewInt(CityNodeConfig.ChainId))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, nil
@@ -71,7 +80,7 @@ func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
 }
 
 func CityPioneerDailyTask() error {
-	Cli := Client(cityNodeConfig)
+	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
 	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(""), Cli)
 	if err != nil {
@@ -89,9 +98,9 @@ func CityPioneerDailyTask() error {
 
 // CityDailyTask 城市合约定时任务
 func CityDailyTask() error {
-	Cli := Client(cityNodeConfig)
+	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(cityNodeConfig.UserLocationAddress), Cli)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err
@@ -107,7 +116,7 @@ func CityDailyTask() error {
 	remainder := int(cityNumber.Int64() % int64(numberOfTimes))
 	fmt.Println(forTimes, remainder)
 
-	city, err := intoCityNode.NewCity(common.HexToAddress(cityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	for i := 0; i < forTimes; i++ {
 		//fmt.Println(int64(forTimes*numberOfTimes), int64((forTimes+1)*numberOfTimes))
 		task, err := city.DailyTask(auth, big.NewInt(int64(i*numberOfTimes)), big.NewInt(int64((i+1)*numberOfTimes)))
@@ -132,7 +141,7 @@ func CityDailyTask() error {
 }
 
 func GetCityDelegateEvent() error {
-	Cli := Client(cityNodeConfig)
+	Cli := Client(CityNodeConfig)
 	startBlock := GetStartBlock()
 	number, err := Cli.BlockNumber(context.Background())
 	endBlock := startBlock + 999
@@ -239,9 +248,9 @@ func CreateAdminSetDelegate(adminSetDelegate models.AdminSetDelegate) {
 
 // SetNoRepeatCityIds   城市ID数组重构
 func SetNoRepeatCityIds(start, end int64) {
-	Cli := Client(cityNodeConfig)
+	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(cityNodeConfig.UserLocationAddress), Cli)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
