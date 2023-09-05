@@ -49,6 +49,9 @@ contract IntoCity is RoleAccess, Initializable {
     // 每天定时任务执行状态
     mapping(uint256 => bool)public  dailyTaskStatus;
 
+    // 新增变量 -------------------------------------
+
+
     function initialize() public initializer {
         _addAdmin(msg.sender);
     }

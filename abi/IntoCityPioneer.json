@@ -133,6 +133,12 @@
         "internalType": "uint256",
         "name": "reward",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "rewardType",
+        "type": "uint256"
       }
     ],
     "name": "WithdrawalRewardRecord",
@@ -140,7 +146,7 @@
   },
   {
     "inputs": [],
-    "name": "TOX",
+    "name": "TOXAddress",
     "outputs": [
       {
         "internalType": "address",
@@ -217,7 +223,20 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "TOX_",
+        "name": "miningAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "adminSetMiningAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "TOXAddress_",
         "type": "address"
       }
     ],
@@ -357,6 +376,25 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "benefitPackageRewardStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "cityAddress",
     "outputs": [
@@ -372,8 +410,33 @@
   {
     "inputs": [],
     "name": "dailyTask",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "dailyTaskStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -390,6 +453,25 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "delegateRewardStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -429,12 +511,50 @@
         "type": "address"
       }
     ],
+    "name": "earnestMoneyRewardRecord",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "fundsReward",
     "outputs": [
       {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "fundsRewardStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -531,6 +651,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "miningAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -544,6 +677,25 @@
       }
     ],
     "name": "pioneerDelegateInfo",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "pioneerDelegateTotal",
     "outputs": [
       {
         "internalType": "uint256",
@@ -686,8 +838,14 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "updateCityMaxDailyDelegate",
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pioneerAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "updatePioneerDailyNewlyDelegate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

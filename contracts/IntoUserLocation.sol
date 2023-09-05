@@ -40,7 +40,8 @@ contract IntoUserLocation is RoleAccess, Initializable {
     mapping(address => string) public userLocationInfo;
     // 用户地址 => 城市ID
     mapping(address => bytes32) public userCityId;
-    // --
+
+    // 新增变量 -------------------------------------
     // 城市ID => 该城市ID是否存在
     mapping(bytes32 => bool) public cityIdExists; // 废弃
     // 城市ID集合
