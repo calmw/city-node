@@ -22,7 +22,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     );
 
     // 保证金退还事件
-    event EarnestMoneyRecord(
+    event SuretyRecord(
         address pioneerAddress, // 先锋地址
         uint256 amount // 退还保证金的额度
     );
@@ -51,7 +51,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 cityLevel; // 所在城市等级
         bool assessmentMonthStatus; // 按月考核状态
         bool assessmentStatus; // 最终考核状态
-        bool returnAllStatus; // 第一个月是否直接满足了100%退还标准，并且100%退还
+        bool returnSuretyStatus; // 保证金退还状态
     }
 
     address public TOXAddress; // TOX代币合约地址
@@ -62,7 +62,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentCriteria; // 城市先锋考核标准
     // 城市等级 => (索引 => 退还标准)，索引1，2，3为第一个月的，索引4，5，6为第二个月的
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentReturnCriteria; // 城市先锋保证金退还标准
-    // 城市等级 => (月份 => 退还比例)
+    // 城市等级 => (月份 => 退还比例)，索引1，2，3为第一个月的，索引4，5，6为第二个月的
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentReturnRate; // 城市先锋保证金退还比例
     // 先锋地址 => 先锋信息， 先锋信息
     mapping(address => Pioneer) public pioneerInfo;
@@ -73,9 +73,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 先锋地址 => 先锋新增质押收益
     mapping(address => uint256) public delegateReward;
     // 先锋地址 => 先锋可以退的保证金
-    mapping(address => uint256) public earnestMoneyReward;
+    mapping(address => uint256) public suretyReward;
     // 先锋地址 => 先锋已经退还的保证金
-    mapping(address => uint256) public earnestMoneyRewardRecord;
+    mapping(address => uint256) public suretyRewardRecord;
 
     // 先锋地址 => 每天新增质押[]
     mapping(address => uint256[]) public pioneerDelegateInfo;
@@ -162,18 +162,18 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 缴纳保证金
-    function depositEarnestMoney() public {
+    function depositSurety() public {
         IntoCity city = IntoCity(cityAddress);
         // 查询调用者地址是否是城市先锋
         bytes32 cityId = city.pioneerCity(msg.sender);
         require(cityId != bytes32(0), "you are not pioneer"); // 不是城市先锋
 
         // 查询该城市先锋对应的城市，根据城市查询需要缴纳的保证金数量
-        uint256 earnestMoney = city.earnestMoney(cityId);
+        uint256 surety = city.surety(cityId);
         IERC20 TOXContract = IERC20(TOXAddress);
         uint256 userBalance = TOXContract.balanceOf(msg.sender);
-        require(userBalance >= earnestMoney, "your balance is insufficient"); // 余额不足
-        TOXContract.transfer(address(this), earnestMoney);
+        require(userBalance >= surety, "your balance is insufficient"); // 余额不足
+        TOXContract.transfer(address(this), surety);
         pioneerInfo[msg.sender].pioneerAddress = msg.sender;
         pioneerInfo[msg.sender].assessmentMonthStatus = true;
         pioneerInfo[msg.sender].ctime = block.timestamp;
@@ -250,52 +250,49 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 计算退还保证金额度,并更可退还金额
-    function calculateRefund(bytes32 cityId, Pioneer storage pioneer, IntoCity city, uint256 day) private returns (uint256){
-
+    function calculateRefund(bytes32 cityId, Pioneer storage pioneer, IntoCity city, uint256 day) private{
+        if (pioneer.returnSuretyStatus = true) {// 已经退还
+            return ;
+        }
         uint256 cityLevel = city.cityLevel(cityId); // 城市等级
-        uint256 earnestMoney = city.earnestMoney(cityId); // 城市保证金
+        uint256 surety = city.surety(cityId); // 城市保证金
 
         uint256 pioneerCityTotalNewlyDelegate = cityDailyDelegateTotal[cityId]; // 先锋绑定的城市总的新增质押量
-        uint256 earnestMoneyReturn; // 退还保证金的金额
-        if (day == 90) {
-            if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][3] * 100) {
-                uint256 rate = assessmentReturnRate[cityLevel][3];
-                if (pioneer.firstMonthReturnEarnest) {
-                    rate -= assessmentReturnRate[cityLevel][1];
-                }
-                if (pioneer.secondMonthReturnEarnest) {
-                    rate -= assessmentReturnRate[cityLevel][2];
-                }
-                earnestMoneyReturn = earnestMoney * rate / 100;
-                earnestMoneyReward[pioneer.pioneerAddress] += earnestMoneyReturn;
-                pioneer.thirdMonthReturnEarnest = true;
-            }
-        } else if (day == 60) {
-            if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][2] * 100) {
-                uint256 rate = assessmentReturnRate[cityLevel][2];
-                if (pioneer.firstMonthReturnEarnest) {
-                    rate -= assessmentReturnRate[cityLevel][1];
-                }
-                earnestMoneyReturn = earnestMoney * rate / 100;
-                pioneer.secondMonthReturnEarnest = true;
-            }
-        } else if (day == 30) {
+        uint256 suretyReturn; // 退还保证金的金额
+        if (day == 30) {
             // 直接考核通过，退还100%，满足M3退还标准，直接退100%
             if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][3] * 100) {
-                uint256 rate = assessmentReturnRate[cityLevel][1];
-                earnestMoneyReturn = earnestMoney * rate / 100;
-                pioneer.returnAllStatus = true;
+                suretyReturn = surety; // 100% 退还
+                pioneer.returnSuretyStatus = true;
             }
-            //
+            // 第一个月满足第一档
             if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][1] * 100) {
                 uint256 rate = assessmentReturnRate[cityLevel][1];
-                earnestMoneyReturn = earnestMoney * rate / 100;
-                pioneer.firstMonthReturnEarnest = true;
+                suretyReturn = surety * rate / 100;
+                pioneer.returnSuretyStatus = true;
+            } else if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][2] * 100) {// 第一个月满足第2档
+                uint256 rate = assessmentReturnRate[cityLevel][2];
+                suretyReturn = surety * rate / 100;
+                pioneer.returnSuretyStatus = true;
+            }
+        } else if (day == 60) {
+            // 第2个月满足第一档
+            if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][4] * 100) {
+                uint256 rate = assessmentReturnRate[cityLevel][4];
+                suretyReturn = surety * rate / 100;
+                pioneer.returnSuretyStatus = true;
+            } else if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][5] * 100) {// 第2个月满足第2档
+                uint256 rate = assessmentReturnRate[cityLevel][5];
+                suretyReturn = surety * rate / 100;
+                pioneer.returnSuretyStatus = true;
+            } else if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][6] * 100) {// 第2个月满足第3档
+                uint256 rate = assessmentReturnRate[cityLevel][6];
+                suretyReturn = surety * rate / 100;
+                pioneer.returnSuretyStatus = true;
             }
         }
-        earnestMoneyReward[pioneer.pioneerAddress] += earnestMoneyReturn;
+        suretyReward[pioneer.pioneerAddress] += suretyReturn;
 
-        return earnestMoneyReturn;
     }
 
     // 每日奖励发放
@@ -394,16 +391,16 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 用户提取退还的保证金
-    function withdrawalEarnestMoneyReward(uint256 amount_) public {
+    function withdrawalSuretyReward(uint256 amount_) public {
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         // 检测余额
-        require(amount_ <= earnestMoneyReward[msg.sender], "insufficient balance");
+        require(amount_ <= suretyReward[msg.sender], "insufficient balance");
         // 退还保证金到钱包账户
         IERC20 TOX = IERC20(TOXAddress);
         TOX.transfer(msg.sender, amount_);
         // 更新已退还记录
-        earnestMoneyRewardRecord[msg.sender] += amount_;
+        suretyRewardRecord[msg.sender] += amount_;
         emit WithdrawalRewardRecord(
             msg.sender,
             amount_,
@@ -418,12 +415,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 获取先锋所需缴纳的保证金
-    function getEarnestMoney() public view returns (uint256){
+    function getSurety() public view returns (uint256){
         IntoCity city = IntoCity(cityAddress);
         // 获取先锋所在城市
         bytes32 cityId = city.pioneerCity(msg.sender);
         // 获取该城市所需要缴纳的保证金
-        return city.earnestMoney(cityId);
+        return city.surety(cityId);
     }
 
     // 判断一个地址是否是先锋
