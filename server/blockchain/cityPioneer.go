@@ -23,3 +23,54 @@ func AdminSetAssessmentCriteria(cityLevel, month, point int64) {
 	}
 	fmt.Println(criteria, err)
 }
+
+// AdminSetTOXAddress  管理员设置TOX代币地址
+func AdminSetTOXAddress() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	criteria, err := cityPioneer.AdminSetTOXAddress(auth, common.HexToAddress(CityNodeConfig.ToxAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(criteria, err)
+}
+
+// AdminSetCityAddress 管理员设置城市合约地址
+func AdminSetCityAddress() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	criteria, err := cityPioneer.AdminSetCityAddress(auth, common.HexToAddress(CityNodeConfig.CityAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(criteria, err)
+}
+
+// AdminSetMiningAddress 管理员设置增加用户合约余额合约地址
+func AdminSetMiningAddress() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	criteria, err := cityPioneer.AdminSetMiningAddress(auth, common.HexToAddress(CityNodeConfig.MiningAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(criteria, err)
+}

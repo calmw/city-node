@@ -126,3 +126,11 @@
 {"level":"error","time":"2023-09-05T09:53:07.546+0800","line":"blockchain/blockchain.go:126","msg":"Post \"https://rpc.matchscan.io/\": EOF","serviceName":"into"}
 {"level":"info","time":"2023-09-05T09:53:40.786+0800","line":"blockchain/blockchain.go:119","msg":"hash: 0x1fac8e64bbfd53227e501c2e74c6d9289574dc024365d933becca7fcd4bc5240","serviceName":"into"}
 {"level":"info","time":"2023-09-05T09:53:52.816+0800","line":"blockchain/blockchain.go:131","msg":"hash: 0x327b0977ca72d7ac229260525999de08a94cbb4fab77233480942e0ca7bf9930","serviceName":"into"}
+{"level":"error","time":"2023-09-05T14:57:29.428+0800","line":"blockchain/city.go:58","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-05T14:58:45.582+0800","line":"blockchain/city.go:59","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-05T14:59:11.805+0800","line":"blockchain/city.go:60","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-05T14:59:42.248+0800","line":"blockchain/city.go:60","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-05T15:01:23.283+0800","line":"blockchain/city.go:64","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-05T15:02:35.458+0800","line":"blockchain/city.go:64","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-05T15:03:17.714+0800","line":"blockchain/city.go:63","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-05T15:04:07.521+0800","line":"blockchain/city.go:63","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}

@@ -50,6 +50,10 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(uint256 => bool)public  dailyTaskStatus;
 
     // 新增变量 -------------------------------------
+    // 城市ID => (天=>社交基金量）
+    mapping(bytes32 => mapping(uint256 => uint256)) public cityFoundsRecord;
+    // 城市ID => (天=>质押量）,新增质押量，不算减去的
+    mapping(bytes32 => mapping(uint256 => uint256)) public cityNewlyDelegateRecord;
 
 
     function initialize() public initializer {
@@ -155,11 +159,12 @@ contract IntoCity is RoleAccess, Initializable {
         }
         uint256 today = getDay();
         if (setType == 1) {// 增加
-//            IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-            // 判断是否是先锋,先锋累计新增质押，不统计减少的
-//            if (intoCityPioneer.isPioneer(userAddress_)) { // 是先锋
-//                intoCityPioneer.setPioneerDelegate(userAddress_, amount_);
-//            }
+            IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+//             判断是否是先锋,先锋累计新增质押，不统计减少的
+            if (intoCityPioneer.isPioneer(userAddress_)) { // 是先锋
+                intoCityPioneer.setPioneerDelegate(userAddress_, amount_, cityId);
+                cityNewlyDelegateRecord[cityId][today] += amount_;
+            }
             // 增加城市质押量
             incrCityDelegate(cityId, amount_);
             // 增加城市质押记录
@@ -176,6 +181,33 @@ contract IntoCity is RoleAccess, Initializable {
 //            cityDelegateRecord[cityId][today] -= amount_;
         }
 
+    }
+
+    // 管理员设置用户每天社交基金变更（只有增加）
+    function adminSetFounds(address userAddress_, uint256 amount_) public onlyAdmin {
+        // 判断用户是否有对应的城市
+        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+        bytes32 cityId = intoUserLocation.userCityId(userAddress_);
+        if (cityId == bytes32(0)) {
+            return;
+        }
+        uint256 today = getDay();
+        cityFoundsRecord[cityId][today] += amount_;
+    }
+
+    // 获取某一天社交基金量增量
+    function getFounds(bytes32 cityId_, uint256 day) public view returns (uint256){
+        return cityFoundsRecord[cityId_][day];
+    }
+
+    // 获取某一天质押量（包含增加和减少）
+    function getDelegate(bytes32 cityId_, uint256 day) public view returns (uint256){
+        return cityDelegateRecord[cityId_][day];
+    }
+
+    // 获取某一天新增质押（只算增加的）
+    function getNewlyDelegate(bytes32 cityId_, uint256 day) public view returns (uint256){
+        return cityNewlyDelegateRecord[cityId_][day];
     }
 
 }

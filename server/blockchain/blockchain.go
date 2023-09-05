@@ -22,6 +22,8 @@ type CityNodeConfigs struct {
 	CityAddress         string
 	CityPioneerAddress  string
 	UserLocationAddress string
+	ToxAddress          string
+	MiningAddress       string
 	PrivateKey          string
 }
 
@@ -31,6 +33,8 @@ var CityNodeConfig = CityNodeConfigs{
 	CityAddress:         "0x8A22Fd7ef70a753b9f3cBdAe9Ea4bc0839CF0C7e",
 	CityPioneerAddress:  "0xCBEf17132482dbdA7fa80Ad14Ec8291496C584b8",
 	UserLocationAddress: "0xcd507929f9f8B79f02192837eaD33B30c89752Ce",
+	MiningAddress:       "0xD8c1d40a6FF4E53577389C8008343081949C373D",
+	ToxAddress:          "0x05171e5C88b43ef35D223f64E1304D3D5210701D",
 	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 }
 
@@ -227,6 +231,14 @@ func Bytes32ToBytes(bytes32 [32]byte) []byte {
 	var by []byte
 	for i := 0; i < 32; i++ {
 		by = append(by, bytes32[i])
+	}
+	return by
+}
+
+func BytesToByte32(bytes []byte) [32]byte {
+	var by [32]byte
+	for i := 0; i < 32; i++ {
+		by[i] = bytes[i]
 	}
 	return by
 }
