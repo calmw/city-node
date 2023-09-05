@@ -99,9 +99,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     mapping(uint256 => bool)public  dailyTaskStatus; // 每天定时任务执行状态
 
-    mapping(uint256 => bool)public benefitPackageRewardStatus; // 用户福袋奖励提取状态
-    mapping(uint256 => bool)public  fundsRewardStatus; // 用户社交基金奖励提取状态
-    mapping(uint256 => bool)public  delegateRewardStatus; // 用户新增质押奖励提取状态
+    mapping(address => bool)public benefitPackageRewardStatus; // 用户福袋奖励提取状态
+    mapping(address => bool)public  fundsRewardStatus; // 用户社交基金奖励提取状态
+    mapping(address => bool)public  delegateRewardStatus; // 用户新增质押奖励提取状态
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -393,9 +393,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
         // 将奖励转账到用户合约余额
         setUserBalance(msg.sender, amount_, 19);
-        // 更新今天领取状态
-        uint256 today = getDay();
-        benefitPackageRewardStatus[today] = true;
+        // 更新领取状态(全部领完才算已领取)
+        if (amount_ >= benefitPackageReward[msg.sender]) {
+            benefitPackageRewardStatus[msg.sender] = true;
+        }
         emit WithdrawalRewardRecord(
             msg.sender,
             amount_,
@@ -411,9 +412,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(amount_ <= fundsReward[msg.sender], "insufficient balance");
         // 将奖励转账到用户合约余额
         setUserBalance(msg.sender, amount_, 18);
-        // 更新今天领取状态
-        uint256 today = getDay();
-        fundsRewardStatus[today] = true;
+        // 更新领取状态(全部领完才算已领取)
+        if (amount_ >= fundsReward[msg.sender]) {
+            fundsRewardStatus[msg.sender] = true;
+        }
         emit WithdrawalRewardRecord(
             msg.sender,
             amount_,
@@ -429,9 +431,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(amount_ <= delegateReward[msg.sender], "insufficient balance");
         // 将奖励转账到用户合约余额
         setUserBalance(msg.sender, amount_, 17);
-        // 更新今天领取状态
-        uint256 today = getDay();
-        delegateRewardStatus[today] = true;
+        // 更新领取状态(全部领完才算已领取)
+        if (amount_ >= delegateReward[msg.sender]) {
+            delegateRewardStatus[msg.sender] = true;
+        }
 
         emit WithdrawalRewardRecord(
             msg.sender,

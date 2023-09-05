@@ -49,3 +49,10 @@ struct Pioneer {
 #### 查询先锋城市考核标准
 
 - assessmentCriteria 参数1 为城市等级，2 为月份，均为整数
+
+#### 查看收益领取状态
+
+- 根据先锋地址查询用户领取状态，如果可领取余额为0，就为不可领取状态，否则查询状态
+    - benefitPackageRewardStatus; // 用户福袋奖励提取状态
+    - fundsRewardStatus; // 用户社交基金奖励提取状态
+    - delegateRewardStatus; // 用户新增质押奖励提取状态
