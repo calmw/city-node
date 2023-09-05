@@ -43,19 +43,6 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "bool",
-        "name": "BoolVal",
-        "type": "bool"
-      }
-    ],
-    "name": "LogBool",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
         "internalType": "address",
         "name": "user",
         "type": "address"
@@ -251,7 +238,7 @@
   },
   {
     "inputs": [],
-    "name": "getAllCityNumber",
+    "name": "getCityNumber",
     "outputs": [
       {
         "internalType": "uint256",
@@ -264,7 +251,7 @@
   },
   {
     "inputs": [],
-    "name": "getCityNumber",
+    "name": "getUserNumber",
     "outputs": [
       {
         "internalType": "uint256",

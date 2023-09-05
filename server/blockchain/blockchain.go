@@ -27,7 +27,7 @@ type CityNodeConfig struct {
 
 var cityNodeConfig = CityNodeConfig{
 	ChainId: 9001,
-	RPC:     "https://rpc-5.matchscan.io/",
+	RPC:     "https://rpc.matchscan.io/",
 	//RPC:                 "https://testnet-rpc.d2ao.com/",https://testnet.matchscan.io/, 9001 // test net
 	CityAddress:         "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
 	CityPioneerAddress:  "",
@@ -102,28 +102,30 @@ func CityDailyTask() error {
 		log.Logger.Sugar().Error(err)
 		return err
 	}
-	numberOfTimes := 5
+	numberOfTimes := 1000
 	forTimes := int(cityNumber.Int64() / int64(numberOfTimes))
 	remainder := int(cityNumber.Int64() % int64(numberOfTimes))
 	fmt.Println(forTimes, remainder)
 
 	city, err := intoCityNode.NewCity(common.HexToAddress(cityNodeConfig.CityAddress), Cli)
 	for i := 0; i < forTimes; i++ {
-		task, err := city.DailyTask(auth, big.NewInt(int64(forTimes*numberOfTimes)), big.NewInt(int64((forTimes+1)*numberOfTimes)))
+		//fmt.Println(int64(forTimes*numberOfTimes), int64((forTimes+1)*numberOfTimes))
+		task, err := city.DailyTask(auth, big.NewInt(int64(i*numberOfTimes)), big.NewInt(int64((i+1)*numberOfTimes)))
+		fmt.Println(int64(i*numberOfTimes), int64((i+1)*numberOfTimes), task, err, 6666)
 		if err != nil {
 			log.Logger.Sugar().Error(err)
 			return err
 		}
-		fmt.Println(forTimes*numberOfTimes, (forTimes+1)*numberOfTimes)
 		log.Logger.Sugar().Info("hash: ", task.Hash())
+		time.Sleep(time.Second * 10)
 	}
 	if remainder > 0 {
-		task, err := city.DailyTask(auth, big.NewInt(int64(forTimes*numberOfTimes)), big.NewInt(int64(forTimes+remainder)))
+		task, err := city.DailyTask(auth, big.NewInt(cityNumber.Int64()-int64(remainder)), cityNumber)
 		if err != nil {
 			log.Logger.Sugar().Error(err)
 			return err
 		}
-		fmt.Println(forTimes*numberOfTimes, forTimes+remainder)
+		fmt.Println(cityNumber.Int64()-int64(remainder), cityNumber.Int64(), 77777)
 		log.Logger.Sugar().Info("hash: ", task.Hash())
 	}
 	return nil

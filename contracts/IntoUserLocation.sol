@@ -100,7 +100,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 定位过的用户数量
-    function getAllCityNumber() public view returns (uint256) {
+    function getUserNumber() public view returns (uint256) {
         return cityIds.length;
     }
 

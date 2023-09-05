@@ -52,9 +52,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 firstMonthDelegate; // 第1个月累计质押量
         uint256 secondMonthDelegate; // 第2个月累计质押量
         uint256 thirdMonthDelegate; // 第3个月累计质押量
-        bool firstMonthReturnEarnest; // 第1个月是否退了保证金
-        bool secondMonthReturnEarnest; // 第2个月是否退了保证金
-        bool thirdMonthReturnEarnest; // 第3个月是否退了保证金
+        bool firstMonthReturnEarnest; // 第1个月是否退了(发放到可提现余额)保证金
+        bool secondMonthReturnEarnest; // 第2个月是否退了(发放到可提现余额)保证金
+        bool thirdMonthReturnEarnest; // 第3个月是否退了(发放到可提现余额)保证金
         uint256 cityLevel; // 所在城市等级
         LifeTime lifeTime; // 城市先锋生命周期
         bool assessmentMonthStatus; // 按月考核状态
@@ -160,7 +160,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             return;
         }
         uint256 today = getDay();
-       uint256 yesterdayDelegate = city.cityDelegateRecord(cityId,today);
+        uint256 yesterdayDelegate = city.cityDelegateRecord(cityId, today);
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         uint256 day = getDay() - pioneer.day; // 第几天质押
         pioneerDelegateInfo[pioneerAddress_][day] = yesterdayDelegate;
@@ -183,7 +183,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         emit DailyIncreaseDelegateRecord(
             pioneer.pioneerAddress,
             city.pioneerCity(pioneerAddress_),
-            amount_,
+            yesterdayDelegate,
             block.timestamp
         );
     }
@@ -202,7 +202,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
         // 查询该城市先锋对应的城市，根据城市查询需要缴纳的保证金数量
         uint256 earnestMoney = city.earnestMoney(cityId);
-        IERC20 TOXContract = IERC20(TOX);
+        IERC20 TOXContract = IERC20(TOXAddress);
         uint256 userBalance = TOXContract.balanceOf(msg.sender);
         require(userBalance >= earnestMoney, "your balance is insufficient"); // 余额不足
         TOXContract.transfer(address(this), earnestMoney);
@@ -258,7 +258,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         assessmentPioneer(cityId, pioneer, city, day);
 
         // 计算退还保证金额度,并更新退还状态
-        uint256 earnestMoneyResult = calculateRefund(cityId, pioneer, city, day);
+//        uint256 earnestMoneyResult = calculateRefund(cityId, pioneer, city, day);
+        calculateRefund(cityId, pioneer, city, day);
 
         // 退还保证金操作
 //        if (earnestMoneyResult > 0) {

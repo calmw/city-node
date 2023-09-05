@@ -24,7 +24,7 @@ async function main() {
 
 // 主网
 // proxyAdminAddress="0x64A9fa6Fd332d85552E365b6877055D7C92Fa45A"
-// logicAddress="0x84A7398da3B3fc824Ab9113aF78367CFEbCFb8B5"
+// logicAddress="0x073Eab9354E9A9Cb9C02fC0a7dD36ABA5Dc732B6"
 
 main()
     .then(() => process.exit(0))
