@@ -17,7 +17,7 @@ contract Test {
     bytes32[] public cityIdsNoRepeat;
 
     function getDay() public view returns (uint256){
-        uint day = block.timestamp / 86400;
+        uint day = block.timestamp / 300;
         return uint256(day);
     }
 

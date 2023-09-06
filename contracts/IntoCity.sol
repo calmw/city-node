@@ -139,7 +139,7 @@ contract IntoCity is RoleAccess, Initializable {
     }
 
     function getDay() public view returns (uint256){
-        uint day = block.timestamp / 86400;
+        uint day = block.timestamp / 300;
         return uint256(day);
     }
 
