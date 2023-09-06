@@ -115,3 +115,37 @@ func DepositSuretyTest(pioneerAddress string) {
 	}
 	fmt.Println(criteria, err)
 }
+
+// DailyTask  每天执行一次，计算奖励和考核
+//func DailyTask() {
+//	Cli := Client(CityNodeConfig)
+//	_, auth := GetAuth(Cli)
+//	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	criteria, err := cityPioneer.DailyTask(auth)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	fmt.Println(criteria, err)
+//}
+
+// DepositSurety  交保证金
+func DepositSurety() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	criteria, err := cityPioneer.DepositSurety(auth)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(criteria, err)
+}

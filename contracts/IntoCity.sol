@@ -4,7 +4,6 @@ pragma solidity ^0.8.13;
 import "./RoleAccess.sol";
 import "./IntoCityPioneer.sol";
 import "./IntoUserLocation.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 contract IntoCity is RoleAccess, Initializable {
@@ -144,24 +143,6 @@ contract IntoCity is RoleAccess, Initializable {
         return uint256(day);
     }
 
-    function dailyTask(uint256 start, uint256 end) public onlyAdmin returns (bool){
-        uint256 day = getDay();
-        require(!dailyTaskStatus[day], "can not execute any more");
-        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
-        // 更新城市每天累计质押最大值
-        uint256 today = getDay();
-        for (uint256 i = start; i < end; i++) {
-            bytes32 cityId = intoUserLocation.cityIdsNoRepeat(i);
-            uint256 yesterdayDelegate = cityDelegateRecord[cityId][1];
-            uint256 maxDelegate = cityMaxDelegate[cityId][2];
-            if (yesterdayDelegate > maxDelegate) {
-                setCityMaxDelegate(intoUserLocation.cityIds(i), yesterdayDelegate, today - 1);
-            }
-        }
-//        dailyTaskStatus[day] = true;
-        return true;
-    }
-
     // 设置城市历史最大质押量，mapping(bytes32 => mapping(uint256 => uint256)) public cityMaxDelegate; //  城市最高质押量2质押量，1质押时间（天）
     function setCityMaxDelegate(bytes32 cityId_, uint256 amount_, uint256 day_) public onlyAdmin {
         cityMaxDelegate[cityId_][1] = day_;
@@ -199,6 +180,12 @@ contract IntoCity is RoleAccess, Initializable {
                 cityDelegateRecord[cityId][today] = 0;
             }
 //            cityDelegateRecord[cityId][today] -= amount_;
+        }
+        // 更新城市历史某天最大质押值
+        uint256 yesterdayDelegate = cityDelegateRecord[cityId][today-1];
+        uint256 maxDelegate = cityMaxDelegate[cityId][2];
+        if (yesterdayDelegate > maxDelegate) {
+            setCityMaxDelegate(cityId, yesterdayDelegate, today - 1);
         }
 
     }

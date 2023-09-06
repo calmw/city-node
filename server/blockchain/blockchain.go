@@ -17,9 +17,10 @@ type CityNodeConfigs struct {
 	CityAddress         string
 	CityPioneerAddress  string
 	UserLocationAddress string
-	ToxAddress          string
 	MiningAddress       string
 	SetDelegateAddress  string
+	PledgeStakeAddress  string // 获取用户质押量的合约地址
+	ToxAddress          string
 	PrivateKey          string
 }
 
@@ -27,10 +28,11 @@ var CityNodeConfig = CityNodeConfigs{
 	ChainId:             9001,
 	RPC:                 "https://testnet-rpc.d2ao.com/",
 	CityAddress:         "0x133d15CeBfaf0fb2cA91f8EA6F2c2E8B26D2B310",
-	CityPioneerAddress:  "0x7CC682D972Acf9b71F5A2A6Da446c24DbDE1D90A",
+	CityPioneerAddress:  "0x8Cef848bfF93200B795fC47B4346863742200DEC",
 	UserLocationAddress: "0xcd507929f9f8B79f02192837eaD33B30c89752Ce",
 	MiningAddress:       "0xD8c1d40a6FF4E53577389C8008343081949C373D",
 	SetDelegateAddress:  "0xD8c1d40a6FF4E53577389C8008343081949C373D",
+	PledgeStakeAddress:  "0x575493F35AA4926decF877004056380538C8eB52",
 	ToxAddress:          "0x05171e5C88b43ef35D223f64E1304D3D5210701D",
 	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 }

@@ -82,24 +82,23 @@ func AddCityAdmin() {
 		return
 	}
 
-	res, err := city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.CityPioneerAddress))
+	_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.CityPioneerAddress))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
 
-	res, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.UserLocationAddress))
+	_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.UserLocationAddress))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
 
-	res, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.SetDelegateAddress))
+	_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.SetDelegateAddress))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(res, err)
 }
 
 // AdminSetCityLevelAndSurety 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额

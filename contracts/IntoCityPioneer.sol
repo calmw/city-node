@@ -3,12 +3,18 @@ pragma solidity ^0.8.13;
 
 import "./IntoCity.sol";
 import "./RoleAccess.sol";
-import "./IntoCityNodeVote.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 interface IntoMining {
     function addBalanceWithTypes(address sender, uint256 amount, uint256 types) external; // 增加用户合约余额
+}
+
+interface IERC20 {
+    function balanceOf(address account) external view returns (uint256);
+
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
 }
 
 contract IntoCityPioneer is RoleAccess, Initializable {
@@ -81,12 +87,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(address => uint256) public suretyReward;
     // 先锋地址 => 先锋已经退还的保证金
     mapping(address => uint256) public suretyRewardRecord;
-
-    // 先锋地址 => 每天新增质押[]
-    mapping(address => uint256[]) public pioneerDelegateInfo;
-
-    mapping(uint256 => bool)public  dailyTaskStatus; // 每天定时任务执行状态
-
+    // 每天定时任务执行状态
+    mapping(uint256 => bool)public  dailyTaskStatus;
     mapping(address => bool)public benefitPackageRewardStatus; // 用户福袋奖励提取状态
     mapping(address => bool)public  fundsRewardStatus; // 用户社交基金奖励提取状态
     mapping(address => bool)public  delegateRewardStatus; // 用户新增质押奖励提取状态
@@ -118,13 +120,15 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 管理员设置先锋每天新增质押量
     function setPioneerDelegate(address pioneerAddress_, uint256 amount_, bytes32 cityId_) public onlyAdmin {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
-        uint256 day = getDay() - pioneer.ctime / 86400; // 第几天质押
-        pioneerDelegateInfo[pioneerAddress_][day] = amount_;
 
-        // 增加先锋累计质押量
         IntoCity city = IntoCity(cityAddress);
         // 增加先锋绑定的城市的累计质押量
         city.addCityDelegate(cityId_, amount_);
+        // 更新奖励和考核
+        // 考核
+        checkPioneer(cityId_, pioneerAddress_);
+        // 奖励
+        reward(cityId_, pioneerAddress_);
 
         emit DailyIncreaseDelegateRecord(
             pioneer.pioneerAddress,
@@ -134,68 +138,55 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         );
     }
 
-    // 定时任务，更新先锋每天新增质押量
-    function updatePioneerDailyNewlyDelegate(address pioneerAddress_) public onlyAdmin {
-        // 获取先锋对应城市每天的质押量，增加给先锋
-        IntoCity city = IntoCity(cityAddress);
-        bytes32 cityId = city.pioneerCity(pioneerAddress_);
-        if (cityId == bytes32(0)) {
-            return;
-        }
-        uint256 today = getDay();
-        uint256 yesterdayDelegate = city.cityDelegateRecord(cityId, today);
-        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
-        uint256 day = getDay() - pioneer.ctime / 86400; // 第几天质押
-        pioneerDelegateInfo[pioneerAddress_][day] = yesterdayDelegate;
-
-
-        emit DailyIncreaseDelegateRecord(
-            pioneer.pioneerAddress,
-            city.pioneerCity(pioneerAddress_),
-            yesterdayDelegate,
-            block.timestamp
-        );
-    }
-
     function getDay() public view returns (uint256){
         uint day = block.timestamp / 86400;
         return uint256(day);
     }
 
+    event LogUint256(
+        uint256 amount
+    );
+    event LogBytes32(
+        bytes32 cityId
+    );
     // 缴纳保证金
-    function depositSurety() public {
+    function depositSurety() public returns (uint256, uint256, bytes32){
         IntoCity city = IntoCity(cityAddress);
         // 查询调用者地址是否是城市先锋
         bytes32 cityId = city.pioneerCity(msg.sender);
         require(cityId != bytes32(0), "you are not pioneer"); // 不是城市先锋
-
+        emit LogBytes32(cityId);
         // 查询该城市先锋对应的城市，根据城市查询需要缴纳的保证金数量
         uint256 surety = city.surety(cityId);
         IERC20 TOXContract = IERC20(TOXAddress);
         uint256 userBalance = TOXContract.balanceOf(msg.sender);
+
         require(userBalance >= surety, "your balance is insufficient"); // 余额不足
-        TOXContract.transfer(address(this), surety);
+        TOXContract.transferFrom(msg.sender, address(this), surety);
         pioneerInfo[msg.sender].pioneerAddress = msg.sender;
         pioneerInfo[msg.sender].assessmentMonthStatus = true;
         pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].cityLevel = city.cityLevel(cityId);
         city.initCityDelegate(cityId);// 将先锋绑定的城市的新增质押量变为0
+        emit LogUint256(userBalance);
+        emit LogUint256(surety);
+        return (userBalance, surety, cityId);
     }
 
     // 每天执行一次，计算奖励和考核
-    function dailyTask() public onlyAdmin returns (bool){
-        uint256 day = getDay();
-        require(!dailyTaskStatus[day], "can not execute any more");
-        IntoCity city = IntoCity(cityAddress);
-        for (uint256 i = 0; i < city.getPioneerCityNumber(); i++) {
-            // 考核
-            checkPioneer(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
-            // 奖励
-            reward(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
-        }
-        dailyTaskStatus[day] = true;
-        return true;
-    }
+//    function dailyTask() public onlyAdmin returns (bool){
+//        uint256 day = getDay();
+//        require(!dailyTaskStatus[day], "can not execute any more");
+//        IntoCity city = IntoCity(cityAddress);
+//        for (uint256 i = 0; i < city.getPioneerCityNumber(); i++) {
+//            // 考核
+//            checkPioneer(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
+//            // 奖励
+//            reward(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
+//        }
+//        dailyTaskStatus[day] = true;
+//        return true;
+//    }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
     function checkPioneer(bytes32 cityId, address pioneerAddress_) private {

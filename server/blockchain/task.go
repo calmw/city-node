@@ -53,19 +53,19 @@ func CityDailyTask() error {
 	return nil
 }
 
-func CityPioneerDailyTask() error {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(""), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-	task, err := cityPioneer.DailyTask(auth)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-	log.Logger.Sugar().Info("hash: ", task.Hash())
-	return nil
-}
+//func CityPioneerDailyTask() error {
+//	Cli := Client(CityNodeConfig)
+//	_, auth := GetAuth(Cli)
+//	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(""), Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err
+//	}
+//	task, err := cityPioneer.DailyTask(auth)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err
+//	}
+//	log.Logger.Sugar().Info("hash: ", task.Hash())
+//	return nil
+//}
