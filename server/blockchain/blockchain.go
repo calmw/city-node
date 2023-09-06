@@ -22,26 +22,26 @@ type CityNodeConfigs struct {
 	PrivateKey          string
 }
 
-//var CityNodeConfig = CityNodeConfigs{
-//	ChainId:             9001,
-//	RPC:                 "https://testnet-rpc.d2ao.com/",
-//	CityAddress:         "0x8A22Fd7ef70a753b9f3cBdAe9Ea4bc0839CF0C7e",
-//	CityPioneerAddress:  "0xCBEf17132482dbdA7fa80Ad14Ec8291496C584b8",
-//	UserLocationAddress: "0xcd507929f9f8B79f02192837eaD33B30c89752Ce",
-//	MiningAddress:       "0xD8c1d40a6FF4E53577389C8008343081949C373D",
-//	ToxAddress:          "0x05171e5C88b43ef35D223f64E1304D3D5210701D",
-//	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
-//}
-
 var CityNodeConfig = CityNodeConfigs{
-	ChainId: 9001,
-	RPC:     "https://rpc.matchscan.io/",
-	//RPC:                 "https://testnet-rpc.d2ao.com/",https://testnet.matchscan.io/, 9001 // test net
-	CityAddress:         "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
-	CityPioneerAddress:  "",
-	UserLocationAddress: "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2",
+	ChainId:             9001,
+	RPC:                 "https://testnet-rpc.d2ao.com/",
+	CityAddress:         "0x31193c42B0a4c811F9273D34cFD5e59067B8cAD0",
+	CityPioneerAddress:  "0xF7fCC8100CBe0BA7889f8623Baab4cd3868d3c53",
+	UserLocationAddress: "0xcd507929f9f8B79f02192837eaD33B30c89752Ce",
+	MiningAddress:       "0xD8c1d40a6FF4E53577389C8008343081949C373D",
+	ToxAddress:          "0x05171e5C88b43ef35D223f64E1304D3D5210701D",
 	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 }
+
+//var CityNodeConfig = CityNodeConfigs{
+//	ChainId: 9001,
+//	RPC:     "https://rpc.matchscan.io/",
+//	//RPC:                 "https://testnet-rpc.d2ao.com/",https://testnet.matchscan.io/, 9001 // test net
+//	CityAddress:         "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
+//	CityPioneerAddress:  "",
+//	UserLocationAddress: "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2",
+//	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
+//}
 
 func Client(c CityNodeConfigs) *ethclient.Client {
 	client, err := ethclient.Dial(c.RPC)

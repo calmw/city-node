@@ -141,3 +141,6 @@
 {"level":"info","time":"2023-09-06T09:52:12.797+0800","line":"blockchain/task.go:41","msg":"hash: 0xd34c0e005bc90cb14f4aa55938aa28ab9cd1da56a22dd6ada99ba93d7e159ca9","serviceName":"into"}
 {"level":"error","time":"2023-09-06T09:52:22.875+0800","line":"blockchain/task.go:47","msg":"Post \"https://rpc.matchscan.io/\": EOF","serviceName":"into"}
 {"level":"error","time":"2023-09-06T09:53:13.359+0800","line":"blockchain/task.go:37","msg":"503 Service Temporarily Unavailable: <html>\r\n<head><title>503 Service Temporarily Unavailable</title></head>\r\n<body>\r\n<center><h1>503 Service Temporarily Unavailable</h1></center>\r\n<hr><center>nginx/1.22.1</center>\r\n</body>\r\n</html>\r\n","serviceName":"into"}
+{"level":"error","time":"2023-09-06T10:22:12.156+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-06T10:22:12.464+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-06T10:22:12.851+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}

@@ -72,8 +72,8 @@ func AdminSetPioneer(cityId, pioneer string) {
 	fmt.Println(res, err)
 }
 
-// AdminSetCityLevel 管理员设置城市等级和保证金
-func AdminSetCityLevel(cityId string, level, earnestMoney int64) {
+// AdminSetCityLevelAndSurety 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
+func AdminSetCityLevelAndSurety(cityId string, level, earnestMoney int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
 	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
@@ -89,7 +89,7 @@ func AdminSetCityLevel(cityId string, level, earnestMoney int64) {
 	E18 := big.NewInt(1e18)
 	earnestMoneyBigInt := E18.Mul(E18, big.NewInt(earnestMoney))
 	fmt.Println("cityId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "earnestMoney: ", earnestMoneyBigInt.String())
-	res, err := city.AdminSetCityLevel(auth, cityIdBytes32, big.NewInt(level), earnestMoneyBigInt)
+	res, err := city.AdminSetCityLevelAndSurety(auth, cityIdBytes32, big.NewInt(level), earnestMoneyBigInt)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return

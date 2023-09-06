@@ -45,14 +45,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     struct Pioneer {
         address pioneerAddress;
         uint256 ctime; // 成为城市节点的时间戳
-        bool firstMonthReturnEarnest; // 第1个月是否退了(发放到可提现余额)保证金
-        bool secondMonthReturnEarnest; // 第2个月是否退了(发放到可提现余额)保证金
-        bool thirdMonthReturnEarnest; // 第3个月是否退了(发放到可提现余额)保证金
         uint256 cityLevel; // 所在城市等级
         bool assessmentMonthStatus; // 按月考核状态
         bool assessmentStatus; // 最终考核状态
         bool returnSuretyStatus; // 保证金退还状态
         uint256 returnSuretyRate; // 保证金退还比例
+        uint256 returnSuretyTime; // 保证金退还时间
     }
 
     address public TOXAddress; // TOX代币合约地址
@@ -262,31 +260,39 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 pioneer.returnSuretyRate = 100;
                 suretyReturn = surety; // 100% 退还
                 pioneer.returnSuretyStatus = true;
+                pioneer.returnSuretyTime = block.timestamp;
+            }else{
+                // 第一个月满足第一档
+                if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][1] * 100) {
+                    pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][1];
+                    suretyReturn = surety * pioneer.returnSuretyRate / 100;
+                    pioneer.returnSuretyStatus = true;
+                    pioneer.returnSuretyTime = block.timestamp;
+                } else if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][2] * 100) {// 第一个月满足第2档
+                    pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][2];
+                    suretyReturn = surety * pioneer.returnSuretyRate / 100;
+                    pioneer.returnSuretyStatus = true;
+                    pioneer.returnSuretyTime = block.timestamp;
+                }
             }
-            // 第一个月满足第一档
-            if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][1] * 100) {
-                pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][1];
-                suretyReturn = surety * pioneer.returnSuretyRate / 100;
-                pioneer.returnSuretyStatus = true;
-            } else if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][2] * 100) {// 第一个月满足第2档
-                pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][2];
-                suretyReturn = surety * pioneer.returnSuretyRate / 100;
-                pioneer.returnSuretyStatus = true;
-            }
+
         } else if (day == 60) {
             // 第2个月满足第一档
             if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][4] * 100) {
                 pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][4];
                 suretyReturn = surety * pioneer.returnSuretyRate / 100;
                 pioneer.returnSuretyStatus = true;
+                pioneer.returnSuretyTime = block.timestamp;
             } else if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][5] * 100) {// 第2个月满足第2档
                 pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][5];
                 suretyReturn = surety * pioneer.returnSuretyRate / 100;
                 pioneer.returnSuretyStatus = true;
+                pioneer.returnSuretyTime = block.timestamp;
             } else if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][6] * 100) {// 第2个月满足第3档
                 pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][6];
                 suretyReturn = surety * pioneer.returnSuretyRate / 100;
                 pioneer.returnSuretyStatus = true;
+                pioneer.returnSuretyTime = block.timestamp;
             }
         }
         suretyReward[pioneer.pioneerAddress] += suretyReturn;

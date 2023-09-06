@@ -92,6 +92,19 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "address",
         "name": "pioneerAddress",
         "type": "address"
@@ -103,20 +116,7 @@
         "type": "uint256"
       }
     ],
-    "name": "EarnestMoneyRecord",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "uint8",
-        "name": "version",
-        "type": "uint8"
-      }
-    ],
-    "name": "Initialized",
+    "name": "SuretyRecord",
     "type": "event"
   },
   {
@@ -382,25 +382,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "",
-        "type": "bytes32"
-      }
-    ],
-    "name": "cityDailyDelegateTotal",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "dailyTask",
     "outputs": [
@@ -472,47 +453,9 @@
   },
   {
     "inputs": [],
-    "name": "depositEarnestMoney",
+    "name": "depositSurety",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "earnestMoneyReward",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "name": "earnestMoneyRewardRecord",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -568,7 +511,7 @@
   },
   {
     "inputs": [],
-    "name": "getEarnestMoney",
+    "name": "getSurety",
     "outputs": [
       {
         "internalType": "uint256",
@@ -669,25 +612,6 @@
         "type": "address"
       }
     ],
-    "name": "pioneerDelegateTotal",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
     "name": "pioneerInfo",
     "outputs": [
       {
@@ -732,8 +656,13 @@
       },
       {
         "internalType": "bool",
-        "name": "returnAllStatus",
+        "name": "returnSuretyStatus",
         "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "returnSuretyRate",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -786,6 +715,44 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "suretyReward",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "suretyRewardRecord",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "pioneerAddress_",
         "type": "address"
       }
@@ -829,7 +796,7 @@
         "type": "uint256"
       }
     ],
-    "name": "withdrawalEarnestMoneyReward",
+    "name": "withdrawalFundsRewardReward",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -842,7 +809,7 @@
         "type": "uint256"
       }
     ],
-    "name": "withdrawalFundsRewardReward",
+    "name": "withdrawalSuretyReward",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

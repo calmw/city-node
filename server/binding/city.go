@@ -31,7 +31,7 @@ var (
 
 // CityMetaData contains all meta data concerning the City contract.
 var CityMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"DecreaseCityDelegate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"IncreaseCityDelegate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"level_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"earnestMoney_\",\"type\":\"uint256\"}],\"name\":\"adminSetCityLevel\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityPioneerAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityPioneerAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"setType\",\"type\":\"uint256\"}],\"name\":\"adminSetDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"pioneer_\",\"type\":\"address\"}],\"name\":\"adminSetPioneer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userLocationAddress_\",\"type\":\"address\"}],\"name\":\"adminSetUserLocationAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allCityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityDelegateRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityLevel\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityMaxDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityPioneer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityPioneerAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityPioneerAssessment\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"start\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"end\",\"type\":\"uint256\"}],\"name\":\"dailyTask\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"dailyTaskStatus\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"}],\"name\":\"descCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"earnestMoney\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPioneerCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"hasSetPioneer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"}],\"name\":\"incrCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerCity\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerCityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"day_\",\"type\":\"uint256\"}],\"name\":\"setCityMaxDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"}],\"name\":\"setCityPioneerAssessment\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"userLocationAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"DecreaseCityDelegate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"IncreaseCityDelegate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"}],\"name\":\"addCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"level_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"surety_\",\"type\":\"uint256\"}],\"name\":\"adminSetCityLevelAndSurety\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityPioneerAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityPioneerAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"setType\",\"type\":\"uint256\"}],\"name\":\"adminSetDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"}],\"name\":\"adminSetFounds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"pioneer_\",\"type\":\"address\"}],\"name\":\"adminSetPioneer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userLocationAddress_\",\"type\":\"address\"}],\"name\":\"adminSetUserLocationAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allCityDailyFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allCityDelegateTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allCityFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allCityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityDelegateRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityDelegateTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityFoundsRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityLevel\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityLevelSurety\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityMaxDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityNewlyDelegateRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityPioneer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityPioneerAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityPioneerAssessment\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"start\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"end\",\"type\":\"uint256\"}],\"name\":\"dailyTask\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"dailyTaskStatus\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"}],\"name\":\"descCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"day\",\"type\":\"uint256\"}],\"name\":\"getDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"day\",\"type\":\"uint256\"}],\"name\":\"getFounds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"day\",\"type\":\"uint256\"}],\"name\":\"getNewlyDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPioneerCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"hasSetPioneer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"}],\"name\":\"incrCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"}],\"name\":\"initCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerCity\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerCityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"day_\",\"type\":\"uint256\"}],\"name\":\"setCityMaxDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"}],\"name\":\"setCityPioneerAssessment\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"surety\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"userLocationAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // CityABI is the input ABI used to generate the binding from.
@@ -211,6 +211,99 @@ func (_City *CityCallerSession) AllAdmins() ([]common.Address, error) {
 	return _City.Contract.AllAdmins(&_City.CallOpts)
 }
 
+// AllCityDailyFoundsTotal is a free data retrieval call binding the contract method 0x52c3abc6.
+//
+// Solidity: function allCityDailyFoundsTotal(uint256 ) view returns(uint256)
+func (_City *CityCaller) AllCityDailyFoundsTotal(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "allCityDailyFoundsTotal", arg0)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// AllCityDailyFoundsTotal is a free data retrieval call binding the contract method 0x52c3abc6.
+//
+// Solidity: function allCityDailyFoundsTotal(uint256 ) view returns(uint256)
+func (_City *CitySession) AllCityDailyFoundsTotal(arg0 *big.Int) (*big.Int, error) {
+	return _City.Contract.AllCityDailyFoundsTotal(&_City.CallOpts, arg0)
+}
+
+// AllCityDailyFoundsTotal is a free data retrieval call binding the contract method 0x52c3abc6.
+//
+// Solidity: function allCityDailyFoundsTotal(uint256 ) view returns(uint256)
+func (_City *CityCallerSession) AllCityDailyFoundsTotal(arg0 *big.Int) (*big.Int, error) {
+	return _City.Contract.AllCityDailyFoundsTotal(&_City.CallOpts, arg0)
+}
+
+// AllCityDelegateTotal is a free data retrieval call binding the contract method 0xb0bbc130.
+//
+// Solidity: function allCityDelegateTotal() view returns(uint256)
+func (_City *CityCaller) AllCityDelegateTotal(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "allCityDelegateTotal")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// AllCityDelegateTotal is a free data retrieval call binding the contract method 0xb0bbc130.
+//
+// Solidity: function allCityDelegateTotal() view returns(uint256)
+func (_City *CitySession) AllCityDelegateTotal() (*big.Int, error) {
+	return _City.Contract.AllCityDelegateTotal(&_City.CallOpts)
+}
+
+// AllCityDelegateTotal is a free data retrieval call binding the contract method 0xb0bbc130.
+//
+// Solidity: function allCityDelegateTotal() view returns(uint256)
+func (_City *CityCallerSession) AllCityDelegateTotal() (*big.Int, error) {
+	return _City.Contract.AllCityDelegateTotal(&_City.CallOpts)
+}
+
+// AllCityFoundsTotal is a free data retrieval call binding the contract method 0x6088a497.
+//
+// Solidity: function allCityFoundsTotal() view returns(uint256)
+func (_City *CityCaller) AllCityFoundsTotal(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "allCityFoundsTotal")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// AllCityFoundsTotal is a free data retrieval call binding the contract method 0x6088a497.
+//
+// Solidity: function allCityFoundsTotal() view returns(uint256)
+func (_City *CitySession) AllCityFoundsTotal() (*big.Int, error) {
+	return _City.Contract.AllCityFoundsTotal(&_City.CallOpts)
+}
+
+// AllCityFoundsTotal is a free data retrieval call binding the contract method 0x6088a497.
+//
+// Solidity: function allCityFoundsTotal() view returns(uint256)
+func (_City *CityCallerSession) AllCityFoundsTotal() (*big.Int, error) {
+	return _City.Contract.AllCityFoundsTotal(&_City.CallOpts)
+}
+
 // AllCityIds is a free data retrieval call binding the contract method 0x394b2e3d.
 //
 // Solidity: function allCityIds(uint256 ) view returns(bytes32)
@@ -304,6 +397,99 @@ func (_City *CityCallerSession) CityDelegateRecord(arg0 [32]byte, arg1 *big.Int)
 	return _City.Contract.CityDelegateRecord(&_City.CallOpts, arg0, arg1)
 }
 
+// CityDelegateTotal is a free data retrieval call binding the contract method 0x557e3f1f.
+//
+// Solidity: function cityDelegateTotal(bytes32 ) view returns(uint256)
+func (_City *CityCaller) CityDelegateTotal(opts *bind.CallOpts, arg0 [32]byte) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "cityDelegateTotal", arg0)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// CityDelegateTotal is a free data retrieval call binding the contract method 0x557e3f1f.
+//
+// Solidity: function cityDelegateTotal(bytes32 ) view returns(uint256)
+func (_City *CitySession) CityDelegateTotal(arg0 [32]byte) (*big.Int, error) {
+	return _City.Contract.CityDelegateTotal(&_City.CallOpts, arg0)
+}
+
+// CityDelegateTotal is a free data retrieval call binding the contract method 0x557e3f1f.
+//
+// Solidity: function cityDelegateTotal(bytes32 ) view returns(uint256)
+func (_City *CityCallerSession) CityDelegateTotal(arg0 [32]byte) (*big.Int, error) {
+	return _City.Contract.CityDelegateTotal(&_City.CallOpts, arg0)
+}
+
+// CityFoundsRecord is a free data retrieval call binding the contract method 0x6023cf25.
+//
+// Solidity: function cityFoundsRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CityCaller) CityFoundsRecord(opts *bind.CallOpts, arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "cityFoundsRecord", arg0, arg1)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// CityFoundsRecord is a free data retrieval call binding the contract method 0x6023cf25.
+//
+// Solidity: function cityFoundsRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CitySession) CityFoundsRecord(arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	return _City.Contract.CityFoundsRecord(&_City.CallOpts, arg0, arg1)
+}
+
+// CityFoundsRecord is a free data retrieval call binding the contract method 0x6023cf25.
+//
+// Solidity: function cityFoundsRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CityCallerSession) CityFoundsRecord(arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	return _City.Contract.CityFoundsRecord(&_City.CallOpts, arg0, arg1)
+}
+
+// CityFoundsTotal is a free data retrieval call binding the contract method 0x6d0ae024.
+//
+// Solidity: function cityFoundsTotal(bytes32 ) view returns(uint256)
+func (_City *CityCaller) CityFoundsTotal(opts *bind.CallOpts, arg0 [32]byte) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "cityFoundsTotal", arg0)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// CityFoundsTotal is a free data retrieval call binding the contract method 0x6d0ae024.
+//
+// Solidity: function cityFoundsTotal(bytes32 ) view returns(uint256)
+func (_City *CitySession) CityFoundsTotal(arg0 [32]byte) (*big.Int, error) {
+	return _City.Contract.CityFoundsTotal(&_City.CallOpts, arg0)
+}
+
+// CityFoundsTotal is a free data retrieval call binding the contract method 0x6d0ae024.
+//
+// Solidity: function cityFoundsTotal(bytes32 ) view returns(uint256)
+func (_City *CityCallerSession) CityFoundsTotal(arg0 [32]byte) (*big.Int, error) {
+	return _City.Contract.CityFoundsTotal(&_City.CallOpts, arg0)
+}
+
 // CityLevel is a free data retrieval call binding the contract method 0x0c56059d.
 //
 // Solidity: function cityLevel(bytes32 ) view returns(uint256)
@@ -335,6 +521,37 @@ func (_City *CityCallerSession) CityLevel(arg0 [32]byte) (*big.Int, error) {
 	return _City.Contract.CityLevel(&_City.CallOpts, arg0)
 }
 
+// CityLevelSurety is a free data retrieval call binding the contract method 0x7a017d38.
+//
+// Solidity: function cityLevelSurety(uint256 ) view returns(uint256)
+func (_City *CityCaller) CityLevelSurety(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "cityLevelSurety", arg0)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// CityLevelSurety is a free data retrieval call binding the contract method 0x7a017d38.
+//
+// Solidity: function cityLevelSurety(uint256 ) view returns(uint256)
+func (_City *CitySession) CityLevelSurety(arg0 *big.Int) (*big.Int, error) {
+	return _City.Contract.CityLevelSurety(&_City.CallOpts, arg0)
+}
+
+// CityLevelSurety is a free data retrieval call binding the contract method 0x7a017d38.
+//
+// Solidity: function cityLevelSurety(uint256 ) view returns(uint256)
+func (_City *CityCallerSession) CityLevelSurety(arg0 *big.Int) (*big.Int, error) {
+	return _City.Contract.CityLevelSurety(&_City.CallOpts, arg0)
+}
+
 // CityMaxDelegate is a free data retrieval call binding the contract method 0x6deea120.
 //
 // Solidity: function cityMaxDelegate(bytes32 , uint256 ) view returns(uint256)
@@ -364,6 +581,37 @@ func (_City *CitySession) CityMaxDelegate(arg0 [32]byte, arg1 *big.Int) (*big.In
 // Solidity: function cityMaxDelegate(bytes32 , uint256 ) view returns(uint256)
 func (_City *CityCallerSession) CityMaxDelegate(arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
 	return _City.Contract.CityMaxDelegate(&_City.CallOpts, arg0, arg1)
+}
+
+// CityNewlyDelegateRecord is a free data retrieval call binding the contract method 0x60442166.
+//
+// Solidity: function cityNewlyDelegateRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CityCaller) CityNewlyDelegateRecord(opts *bind.CallOpts, arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "cityNewlyDelegateRecord", arg0, arg1)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// CityNewlyDelegateRecord is a free data retrieval call binding the contract method 0x60442166.
+//
+// Solidity: function cityNewlyDelegateRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CitySession) CityNewlyDelegateRecord(arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	return _City.Contract.CityNewlyDelegateRecord(&_City.CallOpts, arg0, arg1)
+}
+
+// CityNewlyDelegateRecord is a free data retrieval call binding the contract method 0x60442166.
+//
+// Solidity: function cityNewlyDelegateRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CityCallerSession) CityNewlyDelegateRecord(arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	return _City.Contract.CityNewlyDelegateRecord(&_City.CallOpts, arg0, arg1)
 }
 
 // CityPioneer is a free data retrieval call binding the contract method 0xa02018a3.
@@ -490,37 +738,6 @@ func (_City *CityCallerSession) DailyTaskStatus(arg0 *big.Int) (bool, error) {
 	return _City.Contract.DailyTaskStatus(&_City.CallOpts, arg0)
 }
 
-// EarnestMoney is a free data retrieval call binding the contract method 0x533264ef.
-//
-// Solidity: function earnestMoney(bytes32 ) view returns(uint256)
-func (_City *CityCaller) EarnestMoney(opts *bind.CallOpts, arg0 [32]byte) (*big.Int, error) {
-	var out []interface{}
-	err := _City.contract.Call(opts, &out, "earnestMoney", arg0)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// EarnestMoney is a free data retrieval call binding the contract method 0x533264ef.
-//
-// Solidity: function earnestMoney(bytes32 ) view returns(uint256)
-func (_City *CitySession) EarnestMoney(arg0 [32]byte) (*big.Int, error) {
-	return _City.Contract.EarnestMoney(&_City.CallOpts, arg0)
-}
-
-// EarnestMoney is a free data retrieval call binding the contract method 0x533264ef.
-//
-// Solidity: function earnestMoney(bytes32 ) view returns(uint256)
-func (_City *CityCallerSession) EarnestMoney(arg0 [32]byte) (*big.Int, error) {
-	return _City.Contract.EarnestMoney(&_City.CallOpts, arg0)
-}
-
 // GetDay is a free data retrieval call binding the contract method 0x14ba5c09.
 //
 // Solidity: function getDay() view returns(uint256)
@@ -550,6 +767,99 @@ func (_City *CitySession) GetDay() (*big.Int, error) {
 // Solidity: function getDay() view returns(uint256)
 func (_City *CityCallerSession) GetDay() (*big.Int, error) {
 	return _City.Contract.GetDay(&_City.CallOpts)
+}
+
+// GetDelegate is a free data retrieval call binding the contract method 0xecaa7e3c.
+//
+// Solidity: function getDelegate(bytes32 cityId_, uint256 day) view returns(uint256)
+func (_City *CityCaller) GetDelegate(opts *bind.CallOpts, cityId_ [32]byte, day *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "getDelegate", cityId_, day)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetDelegate is a free data retrieval call binding the contract method 0xecaa7e3c.
+//
+// Solidity: function getDelegate(bytes32 cityId_, uint256 day) view returns(uint256)
+func (_City *CitySession) GetDelegate(cityId_ [32]byte, day *big.Int) (*big.Int, error) {
+	return _City.Contract.GetDelegate(&_City.CallOpts, cityId_, day)
+}
+
+// GetDelegate is a free data retrieval call binding the contract method 0xecaa7e3c.
+//
+// Solidity: function getDelegate(bytes32 cityId_, uint256 day) view returns(uint256)
+func (_City *CityCallerSession) GetDelegate(cityId_ [32]byte, day *big.Int) (*big.Int, error) {
+	return _City.Contract.GetDelegate(&_City.CallOpts, cityId_, day)
+}
+
+// GetFounds is a free data retrieval call binding the contract method 0x67032599.
+//
+// Solidity: function getFounds(bytes32 cityId_, uint256 day) view returns(uint256)
+func (_City *CityCaller) GetFounds(opts *bind.CallOpts, cityId_ [32]byte, day *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "getFounds", cityId_, day)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetFounds is a free data retrieval call binding the contract method 0x67032599.
+//
+// Solidity: function getFounds(bytes32 cityId_, uint256 day) view returns(uint256)
+func (_City *CitySession) GetFounds(cityId_ [32]byte, day *big.Int) (*big.Int, error) {
+	return _City.Contract.GetFounds(&_City.CallOpts, cityId_, day)
+}
+
+// GetFounds is a free data retrieval call binding the contract method 0x67032599.
+//
+// Solidity: function getFounds(bytes32 cityId_, uint256 day) view returns(uint256)
+func (_City *CityCallerSession) GetFounds(cityId_ [32]byte, day *big.Int) (*big.Int, error) {
+	return _City.Contract.GetFounds(&_City.CallOpts, cityId_, day)
+}
+
+// GetNewlyDelegate is a free data retrieval call binding the contract method 0x745f43e6.
+//
+// Solidity: function getNewlyDelegate(bytes32 cityId_, uint256 day) view returns(uint256)
+func (_City *CityCaller) GetNewlyDelegate(opts *bind.CallOpts, cityId_ [32]byte, day *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "getNewlyDelegate", cityId_, day)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetNewlyDelegate is a free data retrieval call binding the contract method 0x745f43e6.
+//
+// Solidity: function getNewlyDelegate(bytes32 cityId_, uint256 day) view returns(uint256)
+func (_City *CitySession) GetNewlyDelegate(cityId_ [32]byte, day *big.Int) (*big.Int, error) {
+	return _City.Contract.GetNewlyDelegate(&_City.CallOpts, cityId_, day)
+}
+
+// GetNewlyDelegate is a free data retrieval call binding the contract method 0x745f43e6.
+//
+// Solidity: function getNewlyDelegate(bytes32 cityId_, uint256 day) view returns(uint256)
+func (_City *CityCallerSession) GetNewlyDelegate(cityId_ [32]byte, day *big.Int) (*big.Int, error) {
+	return _City.Contract.GetNewlyDelegate(&_City.CallOpts, cityId_, day)
 }
 
 // GetPioneerCityNumber is a free data retrieval call binding the contract method 0xe0db7746.
@@ -707,6 +1017,37 @@ func (_City *CityCallerSession) PioneerCityIds(arg0 *big.Int) ([32]byte, error) 
 	return _City.Contract.PioneerCityIds(&_City.CallOpts, arg0)
 }
 
+// Surety is a free data retrieval call binding the contract method 0x9d9ad2ca.
+//
+// Solidity: function surety(bytes32 ) view returns(uint256)
+func (_City *CityCaller) Surety(opts *bind.CallOpts, arg0 [32]byte) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "surety", arg0)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// Surety is a free data retrieval call binding the contract method 0x9d9ad2ca.
+//
+// Solidity: function surety(bytes32 ) view returns(uint256)
+func (_City *CitySession) Surety(arg0 [32]byte) (*big.Int, error) {
+	return _City.Contract.Surety(&_City.CallOpts, arg0)
+}
+
+// Surety is a free data retrieval call binding the contract method 0x9d9ad2ca.
+//
+// Solidity: function surety(bytes32 ) view returns(uint256)
+func (_City *CityCallerSession) Surety(arg0 [32]byte) (*big.Int, error) {
+	return _City.Contract.Surety(&_City.CallOpts, arg0)
+}
+
 // UserLocationAddress is a free data retrieval call binding the contract method 0x12516fc6.
 //
 // Solidity: function userLocationAddress() view returns(address)
@@ -759,25 +1100,46 @@ func (_City *CityTransactorSession) AddAdmin(account common.Address) (*types.Tra
 	return _City.Contract.AddAdmin(&_City.TransactOpts, account)
 }
 
-// AdminSetCityLevel is a paid mutator transaction binding the contract method 0xc8cc6c7a.
+// AddCityDelegate is a paid mutator transaction binding the contract method 0x09394ce8.
 //
-// Solidity: function adminSetCityLevel(bytes32 cityId_, uint256 level_, uint256 earnestMoney_) returns()
-func (_City *CityTransactor) AdminSetCityLevel(opts *bind.TransactOpts, cityId_ [32]byte, level_ *big.Int, earnestMoney_ *big.Int) (*types.Transaction, error) {
-	return _City.contract.Transact(opts, "adminSetCityLevel", cityId_, level_, earnestMoney_)
+// Solidity: function addCityDelegate(bytes32 cityId_, uint256 amount_) returns()
+func (_City *CityTransactor) AddCityDelegate(opts *bind.TransactOpts, cityId_ [32]byte, amount_ *big.Int) (*types.Transaction, error) {
+	return _City.contract.Transact(opts, "addCityDelegate", cityId_, amount_)
 }
 
-// AdminSetCityLevel is a paid mutator transaction binding the contract method 0xc8cc6c7a.
+// AddCityDelegate is a paid mutator transaction binding the contract method 0x09394ce8.
 //
-// Solidity: function adminSetCityLevel(bytes32 cityId_, uint256 level_, uint256 earnestMoney_) returns()
-func (_City *CitySession) AdminSetCityLevel(cityId_ [32]byte, level_ *big.Int, earnestMoney_ *big.Int) (*types.Transaction, error) {
-	return _City.Contract.AdminSetCityLevel(&_City.TransactOpts, cityId_, level_, earnestMoney_)
+// Solidity: function addCityDelegate(bytes32 cityId_, uint256 amount_) returns()
+func (_City *CitySession) AddCityDelegate(cityId_ [32]byte, amount_ *big.Int) (*types.Transaction, error) {
+	return _City.Contract.AddCityDelegate(&_City.TransactOpts, cityId_, amount_)
 }
 
-// AdminSetCityLevel is a paid mutator transaction binding the contract method 0xc8cc6c7a.
+// AddCityDelegate is a paid mutator transaction binding the contract method 0x09394ce8.
 //
-// Solidity: function adminSetCityLevel(bytes32 cityId_, uint256 level_, uint256 earnestMoney_) returns()
-func (_City *CityTransactorSession) AdminSetCityLevel(cityId_ [32]byte, level_ *big.Int, earnestMoney_ *big.Int) (*types.Transaction, error) {
-	return _City.Contract.AdminSetCityLevel(&_City.TransactOpts, cityId_, level_, earnestMoney_)
+// Solidity: function addCityDelegate(bytes32 cityId_, uint256 amount_) returns()
+func (_City *CityTransactorSession) AddCityDelegate(cityId_ [32]byte, amount_ *big.Int) (*types.Transaction, error) {
+	return _City.Contract.AddCityDelegate(&_City.TransactOpts, cityId_, amount_)
+}
+
+// AdminSetCityLevelAndSurety is a paid mutator transaction binding the contract method 0xed477ecf.
+//
+// Solidity: function adminSetCityLevelAndSurety(bytes32 cityId_, uint256 level_, uint256 surety_) returns()
+func (_City *CityTransactor) AdminSetCityLevelAndSurety(opts *bind.TransactOpts, cityId_ [32]byte, level_ *big.Int, surety_ *big.Int) (*types.Transaction, error) {
+	return _City.contract.Transact(opts, "adminSetCityLevelAndSurety", cityId_, level_, surety_)
+}
+
+// AdminSetCityLevelAndSurety is a paid mutator transaction binding the contract method 0xed477ecf.
+//
+// Solidity: function adminSetCityLevelAndSurety(bytes32 cityId_, uint256 level_, uint256 surety_) returns()
+func (_City *CitySession) AdminSetCityLevelAndSurety(cityId_ [32]byte, level_ *big.Int, surety_ *big.Int) (*types.Transaction, error) {
+	return _City.Contract.AdminSetCityLevelAndSurety(&_City.TransactOpts, cityId_, level_, surety_)
+}
+
+// AdminSetCityLevelAndSurety is a paid mutator transaction binding the contract method 0xed477ecf.
+//
+// Solidity: function adminSetCityLevelAndSurety(bytes32 cityId_, uint256 level_, uint256 surety_) returns()
+func (_City *CityTransactorSession) AdminSetCityLevelAndSurety(cityId_ [32]byte, level_ *big.Int, surety_ *big.Int) (*types.Transaction, error) {
+	return _City.Contract.AdminSetCityLevelAndSurety(&_City.TransactOpts, cityId_, level_, surety_)
 }
 
 // AdminSetCityPioneerAddress is a paid mutator transaction binding the contract method 0xa1532e85.
@@ -820,6 +1182,27 @@ func (_City *CitySession) AdminSetDelegate(userAddress_ common.Address, amount_ 
 // Solidity: function adminSetDelegate(address userAddress_, uint256 amount_, uint256 setType) returns()
 func (_City *CityTransactorSession) AdminSetDelegate(userAddress_ common.Address, amount_ *big.Int, setType *big.Int) (*types.Transaction, error) {
 	return _City.Contract.AdminSetDelegate(&_City.TransactOpts, userAddress_, amount_, setType)
+}
+
+// AdminSetFounds is a paid mutator transaction binding the contract method 0x4716c509.
+//
+// Solidity: function adminSetFounds(address userAddress_, uint256 amount_) returns()
+func (_City *CityTransactor) AdminSetFounds(opts *bind.TransactOpts, userAddress_ common.Address, amount_ *big.Int) (*types.Transaction, error) {
+	return _City.contract.Transact(opts, "adminSetFounds", userAddress_, amount_)
+}
+
+// AdminSetFounds is a paid mutator transaction binding the contract method 0x4716c509.
+//
+// Solidity: function adminSetFounds(address userAddress_, uint256 amount_) returns()
+func (_City *CitySession) AdminSetFounds(userAddress_ common.Address, amount_ *big.Int) (*types.Transaction, error) {
+	return _City.Contract.AdminSetFounds(&_City.TransactOpts, userAddress_, amount_)
+}
+
+// AdminSetFounds is a paid mutator transaction binding the contract method 0x4716c509.
+//
+// Solidity: function adminSetFounds(address userAddress_, uint256 amount_) returns()
+func (_City *CityTransactorSession) AdminSetFounds(userAddress_ common.Address, amount_ *big.Int) (*types.Transaction, error) {
+	return _City.Contract.AdminSetFounds(&_City.TransactOpts, userAddress_, amount_)
 }
 
 // AdminSetPioneer is a paid mutator transaction binding the contract method 0x3c9aa598.
@@ -946,6 +1329,27 @@ func (_City *CitySession) IncrCityDelegate(cityId_ [32]byte, amount_ *big.Int) (
 // Solidity: function incrCityDelegate(bytes32 cityId_, uint256 amount_) returns()
 func (_City *CityTransactorSession) IncrCityDelegate(cityId_ [32]byte, amount_ *big.Int) (*types.Transaction, error) {
 	return _City.Contract.IncrCityDelegate(&_City.TransactOpts, cityId_, amount_)
+}
+
+// InitCityDelegate is a paid mutator transaction binding the contract method 0x3ecdb6b5.
+//
+// Solidity: function initCityDelegate(bytes32 cityId_) returns()
+func (_City *CityTransactor) InitCityDelegate(opts *bind.TransactOpts, cityId_ [32]byte) (*types.Transaction, error) {
+	return _City.contract.Transact(opts, "initCityDelegate", cityId_)
+}
+
+// InitCityDelegate is a paid mutator transaction binding the contract method 0x3ecdb6b5.
+//
+// Solidity: function initCityDelegate(bytes32 cityId_) returns()
+func (_City *CitySession) InitCityDelegate(cityId_ [32]byte) (*types.Transaction, error) {
+	return _City.Contract.InitCityDelegate(&_City.TransactOpts, cityId_)
+}
+
+// InitCityDelegate is a paid mutator transaction binding the contract method 0x3ecdb6b5.
+//
+// Solidity: function initCityDelegate(bytes32 cityId_) returns()
+func (_City *CityTransactorSession) InitCityDelegate(cityId_ [32]byte) (*types.Transaction, error) {
+	return _City.Contract.InitCityDelegate(&_City.TransactOpts, cityId_)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x8129fc1c.
