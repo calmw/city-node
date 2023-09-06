@@ -145,3 +145,7 @@
 {"level":"error","time":"2023-09-06T10:22:12.464+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-09-06T10:22:12.851+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-09-06T11:10:26.447+0800","line":"blockchain/cityPioneer.go:89","msg":"rpc error: code = Unknown desc = execution reverted: AdminRole: caller does not have the Admin role","serviceName":"into"}
+{"level":"error","time":"2023-09-06T11:33:44.247+0800","line":"blockchain/cityPioneer.go:89","msg":"rpc error: code = Unknown desc = execution reverted: AdminRole: caller does not have the Admin role","serviceName":"into"}
+{"level":"error","time":"2023-09-06T11:39:25.108+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-06T11:39:25.346+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-06T11:39:25.629+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}

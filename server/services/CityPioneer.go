@@ -21,4 +21,7 @@ func InitCityPioneer() {
 	blockchain.AdminSetAssessmentCriteria(3, 1, 625)
 	blockchain.AdminSetAssessmentCriteria(3, 2, 125)
 	blockchain.AdminSetAssessmentCriteria(3, 3, 2500)
+
+	// AddCityPioneerAdmin 给城市合约、IntoMining设置用户（增加用户合约余额）添加管理员权限
+	blockchain.AddCityPioneerAdmin()
 }

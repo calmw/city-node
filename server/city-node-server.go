@@ -1,8 +1,6 @@
 package main
 
-import (
-	"city-node-server/blockchain"
-)
+import "city-node-server/blockchain"
 
 func main() {
 	//db.InitMysql()

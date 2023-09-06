@@ -15,5 +15,6 @@ func InitCity() {
 	blockchain.AdminSetPioneer("0x367feef2d7c842ee11d3d5efe6ca7a5df6b9d3995a6d743c0a8bc11ac53f46c5", "0x6B35ba8b3b383714338686BcE4066B387Eab16C6")
 	blockchain.AdminSetPioneer("0xbffccd1d296a01011034d29d15df098fc72d9910750930042d973b671c2986bd", "0xa75a076c5529b3813f53c9bd24ab1f7da37994fc")
 	blockchain.AdminSetPioneer("0xfbbb3fd59e09ffc17b917954bdeb126312ae56c57c4ff78c086a94b55e364dfb", "0x8c69C5F4DbF59648682cAfe35557F94da4De1c28")
-	// 交保证金
+	// 给城市先锋合约、用户定位合约、设置质押量合约添加管理员权限
+	blockchain.AddCityAdmin()
 }

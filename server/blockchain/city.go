@@ -72,6 +72,36 @@ func AdminSetPioneer(cityId, pioneer string) {
 	fmt.Println(res, err)
 }
 
+// AddCityAdmin 给城市先锋合约、用户定位合约、设置质押量合约添加管理员权限
+func AddCityAdmin() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	res, err := city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.CityPioneerAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	res, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.UserLocationAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	res, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.SetDelegateAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res, err)
+}
+
 // AdminSetCityLevelAndSurety 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
 func AdminSetCityLevelAndSurety(cityId string, level, earnestMoney int64) {
 	Cli := Client(CityNodeConfig)

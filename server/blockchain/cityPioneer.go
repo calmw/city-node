@@ -75,6 +75,30 @@ func AdminSetMiningAddress() {
 	fmt.Println(criteria, err)
 }
 
+// AddCityPioneerAdmin 给城市合约、IntoMining设置用户（增加用户合约余额）添加管理员权限
+func AddCityPioneerAdmin() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	cityPioneer, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	res, err := cityPioneer.AddAdmin(auth, common.HexToAddress(CityNodeConfig.CityAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	res, err = cityPioneer.AddAdmin(auth, common.HexToAddress(CityNodeConfig.MiningAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res, err)
+}
+
 // DepositSuretyTest 交保证金成为先锋
 func DepositSuretyTest(pioneerAddress string) {
 	Cli := Client(CityNodeConfig)

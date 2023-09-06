@@ -19,6 +19,7 @@ type CityNodeConfigs struct {
 	UserLocationAddress string
 	ToxAddress          string
 	MiningAddress       string
+	SetDelegateAddress  string
 	PrivateKey          string
 }
 
@@ -29,6 +30,7 @@ var CityNodeConfig = CityNodeConfigs{
 	CityPioneerAddress:  "0x7CC682D972Acf9b71F5A2A6Da446c24DbDE1D90A",
 	UserLocationAddress: "0xcd507929f9f8B79f02192837eaD33B30c89752Ce",
 	MiningAddress:       "0xD8c1d40a6FF4E53577389C8008343081949C373D",
+	SetDelegateAddress:  "0xD8c1d40a6FF4E53577389C8008343081949C373D",
 	ToxAddress:          "0x05171e5C88b43ef35D223f64E1304D3D5210701D",
 	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 }
