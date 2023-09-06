@@ -32,14 +32,15 @@
 ``` solidity
     struct Pioneer {
         address pioneerAddress;
-        uint256 ctime; // 成为城市先锋的时间戳
+        uint256 ctime; // 成为城市节点的时间戳
         bool firstMonthReturnEarnest; // 第1个月是否退了(发放到可提现余额)保证金
         bool secondMonthReturnEarnest; // 第2个月是否退了(发放到可提现余额)保证金
         bool thirdMonthReturnEarnest; // 第3个月是否退了(发放到可提现余额)保证金
         uint256 cityLevel; // 所在城市等级
         bool assessmentMonthStatus; // 按月考核状态
         bool assessmentStatus; // 最终考核状态
-        bool returnAllStatus; // 第一个月是否直接满足了100%退还标准，并且100%退还
+        bool returnSuretyStatus; // 保证金退还状态
+        bool returnSuretyRate; // 保证金退还比例
     }
 ```
 

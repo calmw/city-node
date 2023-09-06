@@ -1,8 +1,9 @@
 package main
 
-import "city-node-server/services"
+import "city-node-server/tasks"
 
 func main() {
 	//db.InitMysql()
-	services.InitCity()
+	tasks.Task()
+	//services.InitCity()
 }

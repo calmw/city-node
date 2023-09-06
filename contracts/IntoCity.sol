@@ -56,6 +56,16 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => mapping(uint256 => uint256)) public cityFoundsRecord;
     // 城市ID => (天=>质押量）,新增质押量，不算减去的
     mapping(bytes32 => mapping(uint256 => uint256)) public cityNewlyDelegateRecord;
+    // 城市ID => 质押 ,城市先锋所绑定城市新增质押量（只用于城市先锋）的累计值
+    mapping(bytes32 => uint256) public cityDelegateTotal;
+    // 所有城市先锋所绑定城市新增质押量（只用于城市先锋）的累计值
+    uint256 public allCityDelegateTotal;
+    // 城市ID => 社交基金 ,城市先锋所绑定城市新增社交基金（只用于城市先锋）的累计值
+    mapping(bytes32 => uint256) public cityFoundsTotal;
+    // 天 => 当天所有城市累计的社交基金值， 新增社交基金,所有城市某天的累计值
+    mapping(uint256 => uint256) public allCityDailyFoundsTotal;
+    // 新增社交基金,所有城市的累计值
+    uint256 public allCityFoundsTotal;
 
 
     function initialize() public initializer {
@@ -196,7 +206,10 @@ contract IntoCity is RoleAccess, Initializable {
             return;
         }
         uint256 today = getDay();
-        cityFoundsRecord[cityId][today] += amount_;
+        cityFoundsRecord[cityId][today] += amount_; // 增加城市每天社交基金值
+        allCityDailyFoundsTotal[today] += amount_; // 新增社交基金,所有城市某天的累计值
+        cityFoundsTotal[cityId] += amount_; // 增加城市累计社交基金值
+        allCityFoundsTotal += amount_; // 增加所有城市累计社交基金值
     }
 
     // 获取某一天社交基金量增量
@@ -212,6 +225,17 @@ contract IntoCity is RoleAccess, Initializable {
     // 获取某一天新增质押（只算增加的）
     function getNewlyDelegate(bytes32 cityId_, uint256 day) public view returns (uint256){
         return cityNewlyDelegateRecord[cityId_][day];
+    }
+
+    // 增加城市先锋绑定城市的累计质押量,增加总的质押量
+    function addCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {
+        cityDelegateTotal[cityId_] += amount_;
+        allCityDelegateTotal += amount_;
+    }
+
+    //初始化城市先锋绑定城市的累计质押量
+    function initCityDelegate(bytes32 cityId_) public onlyAdmin {
+        cityDelegateTotal[cityId_] = 0;
     }
 
 }

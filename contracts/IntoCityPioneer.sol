@@ -52,6 +52,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         bool assessmentMonthStatus; // 按月考核状态
         bool assessmentStatus; // 最终考核状态
         bool returnSuretyStatus; // 保证金退还状态
+        uint256 returnSuretyRate; // 保证金退还比例
     }
 
     address public TOXAddress; // TOX代币合约地址
@@ -79,10 +80,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 先锋地址 => 每天新增质押[]
     mapping(address => uint256[]) public pioneerDelegateInfo;
-    // 先锋地址 => 先锋累计质押量
-    mapping(address => uint256) public pioneerDelegateTotal;
-    // 城市ID => 质押） ,城市先锋所绑定城市每天新增质押量（只用于城市先锋）的累计值
-    mapping(bytes32 => uint256) public cityDailyDelegateTotal;
 
     mapping(uint256 => bool)public  dailyTaskStatus; // 每天定时任务执行状态
 
@@ -121,13 +118,13 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerDelegateInfo[pioneerAddress_][day] = amount_;
 
         // 增加先锋累计质押量
-        pioneerDelegateTotal[pioneerAddress_] += amount_;
-        cityDailyDelegateTotal[cityId_] += amount_;
-
         IntoCity city = IntoCity(cityAddress);
+        // 增加先锋绑定的城市的累计质押量
+        city.addCityDelegate(cityId_, amount_);
+
         emit DailyIncreaseDelegateRecord(
             pioneer.pioneerAddress,
-            city.pioneerCity(pioneerAddress_),
+            cityId_,
             amount_,
             block.timestamp
         );
@@ -178,7 +175,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[msg.sender].assessmentMonthStatus = true;
         pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].cityLevel = city.cityLevel(cityId);
-        cityDailyDelegateTotal[cityId] = 0; // 将先锋绑定的城市的新增质押量变为0
+        city.initCityDelegate(cityId);// 将先锋绑定的城市的新增质押量变为0
     }
 
     // 每天执行一次，计算奖励和考核
@@ -220,7 +217,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
         uint256 assessmentCriteriaThreshold; // 考核标准金额
 
-        uint256 pioneerCityTotalNewlyDelegate = cityDailyDelegateTotal[cityId]; // 先锋绑定的城市总的新增质押量
+        uint256 pioneerCityTotalNewlyDelegate = city.cityDelegateTotal(cityId); // 先锋绑定的城市总的新增质押量
 
         if (day == 90) {
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][3] * 100;
@@ -250,44 +247,45 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 计算退还保证金额度,并更可退还金额
-    function calculateRefund(bytes32 cityId, Pioneer storage pioneer, IntoCity city, uint256 day) private{
+    function calculateRefund(bytes32 cityId, Pioneer storage pioneer, IntoCity city, uint256 day) private {
         if (pioneer.returnSuretyStatus = true) {// 已经退还
-            return ;
+            return;
         }
         uint256 cityLevel = city.cityLevel(cityId); // 城市等级
         uint256 surety = city.surety(cityId); // 城市保证金
 
-        uint256 pioneerCityTotalNewlyDelegate = cityDailyDelegateTotal[cityId]; // 先锋绑定的城市总的新增质押量
+        uint256 pioneerCityTotalNewlyDelegate = city.cityDelegateTotal(cityId); // 先锋绑定的城市总的新增质押量
         uint256 suretyReturn; // 退还保证金的金额
         if (day == 30) {
             // 直接考核通过，退还100%，满足M3退还标准，直接退100%
             if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][3] * 100) {
+                pioneer.returnSuretyRate = 100;
                 suretyReturn = surety; // 100% 退还
                 pioneer.returnSuretyStatus = true;
             }
             // 第一个月满足第一档
             if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][1] * 100) {
-                uint256 rate = assessmentReturnRate[cityLevel][1];
-                suretyReturn = surety * rate / 100;
+                pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][1];
+                suretyReturn = surety * pioneer.returnSuretyRate / 100;
                 pioneer.returnSuretyStatus = true;
             } else if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][2] * 100) {// 第一个月满足第2档
-                uint256 rate = assessmentReturnRate[cityLevel][2];
-                suretyReturn = surety * rate / 100;
+                pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][2];
+                suretyReturn = surety * pioneer.returnSuretyRate / 100;
                 pioneer.returnSuretyStatus = true;
             }
         } else if (day == 60) {
             // 第2个月满足第一档
             if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][4] * 100) {
-                uint256 rate = assessmentReturnRate[cityLevel][4];
-                suretyReturn = surety * rate / 100;
+                pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][4];
+                suretyReturn = surety * pioneer.returnSuretyRate / 100;
                 pioneer.returnSuretyStatus = true;
             } else if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][5] * 100) {// 第2个月满足第2档
-                uint256 rate = assessmentReturnRate[cityLevel][5];
-                suretyReturn = surety * rate / 100;
+                pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][5];
+                suretyReturn = surety * pioneer.returnSuretyRate / 100;
                 pioneer.returnSuretyStatus = true;
             } else if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][6] * 100) {// 第2个月满足第3档
-                uint256 rate = assessmentReturnRate[cityLevel][6];
-                suretyReturn = surety * rate / 100;
+                pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][6];
+                suretyReturn = surety * pioneer.returnSuretyRate / 100;
                 pioneer.returnSuretyStatus = true;
             }
         }
@@ -316,8 +314,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
         // 社交基金5%奖励
         IntoCity city = IntoCity(cityAddress);
-        uint256 yesterdayFounds = city.getFounds(cityId, yesterday);// 昨日新增社交基金
-        fundsReward[pioneerAddress_] += yesterdayFounds * 5 / 100;
+        uint256 yesterdayFounds = city.getFounds(cityId, yesterday);// 昨日先锋绑定城市新增社交基金
+        uint256 allCityDailyFoundsTotal = city.allCityDailyFoundsTotal(yesterday);// 全网昨日所有城市新增社交基金
+        fundsReward[pioneerAddress_] += yesterdayFounds * 5 / 100 / allCityDailyFoundsTotal;
 
         // 该城市新增质押量1%奖励，不累加
         uint256 yesterdayDelegate = city.getNewlyDelegate(cityId, yesterday);// 昨日新增质押权重

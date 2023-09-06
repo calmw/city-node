@@ -134,3 +134,10 @@
 {"level":"error","time":"2023-09-05T15:02:35.458+0800","line":"blockchain/city.go:64","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-09-05T15:03:17.714+0800","line":"blockchain/city.go:63","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-09-05T15:04:07.521+0800","line":"blockchain/city.go:63","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2023-09-06T09:49:50.138+0800","line":"blockchain/task.go:41","msg":"hash: 0x58be2843120c9a4f7a5fc9b423619826cae3254f50a499f73f341170fd57c25a","serviceName":"into"}
+{"level":"info","time":"2023-09-06T09:50:01.934+0800","line":"blockchain/task.go:51","msg":"hash: 0x9f797916e73415b88e8776090627144fc255118faae9c78cc5025e730dc63a24","serviceName":"into"}
+{"level":"info","time":"2023-09-06T09:51:49.845+0800","line":"blockchain/task.go:41","msg":"hash: 0x418029b7870ee550bedde0010e394608c26281fc529dbe8f2e4216349e5504df","serviceName":"into"}
+{"level":"error","time":"2023-09-06T09:52:00.011+0800","line":"blockchain/task.go:47","msg":"Post \"https://rpc.matchscan.io/\": EOF","serviceName":"into"}
+{"level":"info","time":"2023-09-06T09:52:12.797+0800","line":"blockchain/task.go:41","msg":"hash: 0xd34c0e005bc90cb14f4aa55938aa28ab9cd1da56a22dd6ada99ba93d7e159ca9","serviceName":"into"}
+{"level":"error","time":"2023-09-06T09:52:22.875+0800","line":"blockchain/task.go:47","msg":"Post \"https://rpc.matchscan.io/\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-09-06T09:53:13.359+0800","line":"blockchain/task.go:37","msg":"503 Service Temporarily Unavailable: <html>\r\n<head><title>503 Service Temporarily Unavailable</title></head>\r\n<body>\r\n<center><h1>503 Service Temporarily Unavailable</h1></center>\r\n<hr><center>nginx/1.22.1</center>\r\n</body>\r\n</html>\r\n","serviceName":"into"}
