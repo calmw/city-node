@@ -67,10 +67,16 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(address => Pioneer) public pioneerInfo;
     // 先锋地址 => 先锋福利包收益
     mapping(address => uint256) public benefitPackageReward;
+    // 先锋地址 => 已领取的先锋福利包收益
+    mapping(address => uint256) public benefitPackageRewardReceived;
     // 先锋地址 => 先锋社交基金收益
     mapping(address => uint256) public fundsReward;
+    // 先锋地址 => 已领取的先锋社交基金收益
+    mapping(address => uint256) public fundsRewardReceived;
     // 先锋地址 => 先锋新增质押收益
     mapping(address => uint256) public delegateReward;
+    // 先锋地址 => 已领取的先锋新增质押收益
+    mapping(address => uint256) public delegateRewardReceived;
     // 先锋地址 => 先锋可以退的保证金
     mapping(address => uint256) public suretyReward;
     // 先锋地址 => 先锋已经退还的保证金
@@ -261,7 +267,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 suretyReturn = surety; // 100% 退还
                 pioneer.returnSuretyStatus = true;
                 pioneer.returnSuretyTime = block.timestamp;
-            }else{
+            } else {
                 // 第一个月满足第一档
                 if (pioneerCityTotalNewlyDelegate >= assessmentReturnCriteria[cityLevel][1] * 100) {
                     pioneer.returnSuretyRate = assessmentReturnRate[cityLevel][1];
@@ -349,6 +355,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (amount_ >= benefitPackageReward[msg.sender]) {
             benefitPackageRewardStatus[msg.sender] = true;
         }
+        benefitPackageRewardReceived[msg.sender] += amount_; // 更新已领取福利包奖励
         emit WithdrawalRewardRecord(
             msg.sender,
             amount_,
@@ -368,6 +375,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (amount_ >= fundsReward[msg.sender]) {
             fundsRewardStatus[msg.sender] = true;
         }
+        fundsRewardReceived[msg.sender] += amount_; // 更新已领取社交基金奖励
         emit WithdrawalRewardRecord(
             msg.sender,
             amount_,
@@ -388,6 +396,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             delegateRewardStatus[msg.sender] = true;
         }
 
+        delegateRewardReceived[msg.sender] += amount_; // 更新已领取新增质押奖励
         emit WithdrawalRewardRecord(
             msg.sender,
             amount_,
@@ -431,6 +440,26 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 判断一个地址是否是先锋
     function isPioneer(address user) public view returns (bool){
         return pioneerInfo[user].ctime > 0;
+    }
+
+    // 缴纳保证金
+    function depositSuretyTest(address pioneerTest_) public {
+        IntoCity city = IntoCity(cityAddress);
+        // 查询调用者地址是否是城市先锋
+        bytes32 cityId = city.pioneerCity(pioneerTest_);
+        require(cityId != bytes32(0), "you are not pioneer"); // 不是城市先锋
+
+        // 查询该城市先锋对应的城市，根据城市查询需要缴纳的保证金数量
+//        uint256 surety = city.surety(cityId);
+//        IERC20 TOXContract = IERC20(TOXAddress);
+//        uint256 userBalance = TOXContract.balanceOf(msg.sender);
+//        require(userBalance >= surety, "your balance is insufficient"); // 余额不足
+//        TOXContract.transfer(address(this), surety);
+        pioneerInfo[pioneerTest_].pioneerAddress = pioneerTest_;
+        pioneerInfo[pioneerTest_].assessmentMonthStatus = true;
+        pioneerInfo[pioneerTest_].ctime = block.timestamp;
+        pioneerInfo[pioneerTest_].cityLevel = city.cityLevel(cityId);
+        city.initCityDelegate(cityId);// 将先锋绑定的城市的新增质押量变为0
     }
 
 }
