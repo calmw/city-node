@@ -358,81 +358,65 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 用户提取福利包奖励
-    function withdrawalBenefitPackageReward(uint256 amount_) public {
+    function withdrawalBenefitPackageReward() public {
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-        // 检测余额
-        require(amount_ <= benefitPackageReward[msg.sender], "insufficient balance");
 
         // 将奖励转账到用户合约余额
-        setUserBalance(msg.sender, amount_, 19);
+        setUserBalance(msg.sender, benefitPackageReward[msg.sender], 19);
         // 更新领取状态(全部领完才算已领取)
-        if (amount_ >= benefitPackageReward[msg.sender]) {
-            benefitPackageRewardStatus[msg.sender] = true;
-        }
-        benefitPackageRewardReceived[msg.sender] += amount_; // 更新已领取福利包奖励
+        benefitPackageRewardStatus[msg.sender] = true;
+        benefitPackageRewardReceived[msg.sender] += benefitPackageReward[msg.sender]; // 更新已领取福利包奖励
         emit WithdrawalRewardRecord(
             msg.sender,
-            amount_,
+            benefitPackageReward[msg.sender],
             1
         );
     }
 
     // 用户提取社交基金奖励
-    function withdrawalFundsRewardReward(uint256 amount_) public {
+    function withdrawalFundsReward() public {
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-        // 检测余额
-        require(amount_ <= fundsReward[msg.sender], "insufficient balance");
         // 将奖励转账到用户合约余额
-        setUserBalance(msg.sender, amount_, 18);
+        setUserBalance(msg.sender, fundsReward[msg.sender], 18);
         // 更新领取状态(全部领完才算已领取)
-        if (amount_ >= fundsReward[msg.sender]) {
-            fundsRewardStatus[msg.sender] = true;
-        }
-        fundsRewardReceived[msg.sender] += amount_; // 更新已领取社交基金奖励
+        fundsRewardStatus[msg.sender] = true;
+        fundsRewardReceived[msg.sender] += fundsReward[msg.sender]; // 更新已领取社交基金奖励
         emit WithdrawalRewardRecord(
             msg.sender,
-            amount_,
+            fundsReward[msg.sender],
             2
         );
     }
 
     // 用户提取新增质押奖励
-    function withdrawalDelegateRewardReward(uint256 amount_) public {
+    function withdrawalDelegateReward() public {
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-        // 检测余额
-        require(amount_ <= delegateReward[msg.sender], "insufficient balance");
         // 将奖励转账到用户合约余额
-        setUserBalance(msg.sender, amount_, 17);
-        // 更新领取状态(全部领完才算已领取)
-        if (amount_ >= delegateReward[msg.sender]) {
-            delegateRewardStatus[msg.sender] = true;
-        }
-
-        delegateRewardReceived[msg.sender] += amount_; // 更新已领取新增质押奖励
+        setUserBalance(msg.sender, delegateReward[msg.sender], 17);
+        delegateRewardStatus[msg.sender] = true;
+        delegateRewardReceived[msg.sender] += delegateReward[msg.sender]; // 更新已领取新增质押奖励
         emit WithdrawalRewardRecord(
             msg.sender,
-            amount_,
+            delegateReward[msg.sender],
             3
         );
     }
 
     // 用户提取退还的保证金
-    function withdrawalSuretyReward(uint256 amount_) public {
+    function withdrawalSuretyReward() public {
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-        // 检测余额
-        require(amount_ <= suretyReward[msg.sender], "insufficient balance");
         // 退还保证金到钱包账户
         IERC20 TOX = IERC20(TOXAddress);
-        TOX.transfer(msg.sender, amount_);
+        TOX.transfer(msg.sender, suretyReward[msg.sender]);
         // 更新已退还记录
-        suretyRewardRecord[msg.sender] += amount_;
+        suretyRewardRecord[msg.sender] += suretyReward[msg.sender];
         emit WithdrawalRewardRecord(
             msg.sender,
-            amount_,
+            suretyReward[msg.sender],
             4
         );
     }
