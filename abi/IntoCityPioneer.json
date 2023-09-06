@@ -625,21 +625,6 @@
         "type": "uint256"
       },
       {
-        "internalType": "bool",
-        "name": "firstMonthReturnEarnest",
-        "type": "bool"
-      },
-      {
-        "internalType": "bool",
-        "name": "secondMonthReturnEarnest",
-        "type": "bool"
-      },
-      {
-        "internalType": "bool",
-        "name": "thirdMonthReturnEarnest",
-        "type": "bool"
-      },
-      {
         "internalType": "uint256",
         "name": "cityLevel",
         "type": "uint256"
@@ -662,6 +647,11 @@
       {
         "internalType": "uint256",
         "name": "returnSuretyRate",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "returnSuretyTime",
         "type": "uint256"
       }
     ],
