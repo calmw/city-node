@@ -28,7 +28,7 @@ var CityNodeConfig = CityNodeConfigs{
 	ChainId:             9001,
 	RPC:                 "https://testnet-rpc.d2ao.com/",
 	CityAddress:         "0x133d15CeBfaf0fb2cA91f8EA6F2c2E8B26D2B310",
-	CityPioneerAddress:  "0x8Cef848bfF93200B795fC47B4346863742200DEC",
+	CityPioneerAddress:  "0x425C48382F30D6331E096dd5B720F231C7a9114F",
 	UserLocationAddress: "0xcd507929f9f8B79f02192837eaD33B30c89752Ce",
 	MiningAddress:       "0xD8c1d40a6FF4E53577389C8008343081949C373D",
 	SetDelegateAddress:  "0xD8c1d40a6FF4E53577389C8008343081949C373D",

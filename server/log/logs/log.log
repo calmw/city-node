@@ -199,3 +199,9 @@
 {"level":"error","time":"2023-09-06T16:04:54.966+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-09-06T16:04:55.252+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-09-06T16:05:03.943+0800","line":"blockchain/cityPioneer.go:147","msg":"rpc error: code = Unknown desc = execution reverted: ERC20: insufficient allowance","serviceName":"into"}
+{"level":"error","time":"2023-09-06T16:09:06.433+0800","line":"blockchain/cityPioneer.go:147","msg":"rpc error: code = Unknown desc = execution reverted: ERC20: insufficient allowance","serviceName":"into"}
+{"level":"error","time":"2023-09-06T16:15:16.325+0800","line":"blockchain/cityPioneer.go:147","msg":"rpc error: code = Unknown desc = execution reverted: ERC20: insufficient allowance","serviceName":"into"}
+{"level":"error","time":"2023-09-06T16:32:06.570+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-06T16:32:06.835+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-06T16:32:07.098+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-06T16:32:07.312+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}

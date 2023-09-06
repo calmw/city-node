@@ -143,19 +143,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         return uint256(day);
     }
 
-    event LogUint256(
-        uint256 amount
-    );
-    event LogBytes32(
-        bytes32 cityId
-    );
     // 缴纳保证金
-    function depositSurety() public returns (uint256, uint256, bytes32){
+    function depositSurety() public {
         IntoCity city = IntoCity(cityAddress);
         // 查询调用者地址是否是城市先锋
         bytes32 cityId = city.pioneerCity(msg.sender);
         require(cityId != bytes32(0), "you are not pioneer"); // 不是城市先锋
-        emit LogBytes32(cityId);
         // 查询该城市先锋对应的城市，根据城市查询需要缴纳的保证金数量
         uint256 surety = city.surety(cityId);
         IERC20 TOXContract = IERC20(TOXAddress);
@@ -168,9 +161,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].cityLevel = city.cityLevel(cityId);
         city.initCityDelegate(cityId);// 将先锋绑定的城市的新增质押量变为0
-        emit LogUint256(userBalance);
-        emit LogUint256(surety);
-        return (userBalance, surety, cityId);
     }
 
     // 每天执行一次，计算奖励和考核
