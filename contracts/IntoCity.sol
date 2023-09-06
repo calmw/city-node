@@ -62,8 +62,12 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => uint256) public cityFoundsTotal;
     // 天 => 当天所有城市累计的社交基金值， 新增社交基金,所有城市某天的累计值
     mapping(uint256 => uint256) public allCityDailyFoundsTotal;
+    // 天 => 当天所有累计的社交基金值， 新增社交基金,不区分城市某天的累计值
+    mapping(uint256 => uint256) public allDailyFoundsTotal;
     // 新增社交基金,所有城市的累计值
     uint256 public allCityFoundsTotal;
+    // 新增社交基金累计值，所有的加一起，不区分城市
+    uint256 public allFoundsTotal;
     // 城市ID => 城市先锋需要缴纳的保证金
     mapping(bytes32 => uint256) public surety;
     // 城市等级 => 该城市先锋需要缴纳的保证金
@@ -201,13 +205,15 @@ contract IntoCity is RoleAccess, Initializable {
 
     // 管理员设置用户每天社交基金变更（只有增加）
     function adminSetFounds(address userAddress_, uint256 amount_) public onlyAdmin {
+        uint256 today = getDay();
+        allFoundsTotal += amount_; // 全网不区分城市，所有累计新增社交基金值
+        allDailyFoundsTotal[today] += amount_; // 全网不区分城市，某天所有累计新增社交基金值
         // 判断用户是否有对应的城市
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
         bytes32 cityId = intoUserLocation.userCityId(userAddress_);
         if (cityId == bytes32(0)) {
             return;
         }
-        uint256 today = getDay();
         cityFoundsRecord[cityId][today] += amount_; // 增加城市每天社交基金值
         allCityDailyFoundsTotal[today] += amount_; // 新增社交基金,所有城市某天的累计值
         cityFoundsTotal[cityId] += amount_; // 增加城市累计社交基金值

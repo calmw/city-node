@@ -321,8 +321,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 社交基金5%奖励
         IntoCity city = IntoCity(cityAddress);
         uint256 yesterdayFounds = city.getFounds(cityId, yesterday);// 昨日先锋绑定城市新增社交基金
-        uint256 allCityDailyFoundsTotal = city.allCityDailyFoundsTotal(yesterday);// 全网昨日所有城市新增社交基金
-        fundsReward[pioneerAddress_] += yesterdayFounds * 5 / 100 / allCityDailyFoundsTotal;
+        uint256 allDailyFoundsTotal = city.allDailyFoundsTotal(yesterday);// 全网昨日所有城市新增社交基金
+        fundsReward[pioneerAddress_] += yesterdayFounds * 5 / 100 / allDailyFoundsTotal;
 
         // 该城市新增质押量1%奖励，不累加
         uint256 yesterdayDelegate = city.getNewlyDelegate(cityId, yesterday);// 昨日新增质押权重
