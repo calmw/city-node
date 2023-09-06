@@ -357,6 +357,25 @@
         "type": "address"
       }
     ],
+    "name": "benefitPackageRewardReceived",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "benefitPackageRewardStatus",
     "outputs": [
       {
@@ -440,6 +459,25 @@
         "type": "address"
       }
     ],
+    "name": "delegateRewardReceived",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
     "name": "delegateRewardStatus",
     "outputs": [
       {
@@ -480,6 +518,25 @@
       }
     ],
     "name": "fundsReward",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "fundsRewardReceived",
     "outputs": [
       {
         "internalType": "uint256",
@@ -817,4 +874,4 @@
     "stateMutability": "nonpayable",
     "type": "function"
   }
-]
+],
