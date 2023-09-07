@@ -205,3 +205,178 @@
 {"level":"error","time":"2023-09-06T16:32:06.835+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-09-06T16:32:07.098+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-09-06T16:32:07.312+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:08:29.524+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:08:29.972+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:08:55.886+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:09:08.108+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:09:11.803+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:09:15.887+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:11:37.015+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:11:44.507+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:11:56.654+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:15:10.563+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:15:24.592+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:15:26.825+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:15:29.495+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:15:34.323+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:15:36.765+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:15:51.113+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:15:54.612+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:15:57.033+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:16:02.494+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:16:10.361+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:16:15.321+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:16:34.999+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:16:39.087+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:16:42.581+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:16:45.069+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:17:16.125+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:17:19.734+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:17:22.326+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:17:26.331+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:17:29.004+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:17:32.158+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:17:34.620+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-06T22:17:37.087+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:17:28.177+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:21:16.495+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:21:16.783+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:21:17.153+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:21:17.427+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:24:38.060+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:24:38.407+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:24:38.672+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:24:38.985+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:31:22.804+0800","line":"blockchain/cityPioneer.go:147","msg":"rpc error: code = Unknown desc = execution reverted: ERC20: insufficient allowance","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:32:03.529+0800","line":"blockchain/cityPioneer.go:147","msg":"rpc error: code = Unknown desc = execution reverted: ERC20: insufficient allowance","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:32:14.665+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:33:16.970+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:38:06.477+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:38:12.490+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:38:21.206+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:43:21.116+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:47:21.271+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T09:47:30.001+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:16:51.345+0800","line":"blockchain/cityPioneer.go:147","msg":"rpc error: code = Unknown desc = execution reverted: ERC20: insufficient allowance","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:17:13.594+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:17:24.001+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:17:34.018+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:17:44.118+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:17:54.080+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:18:04.040+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:18:14.069+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:18:24.083+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:18:34.055+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:18:44.056+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:18:54.105+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:20:19.298+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:20:29.258+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:20:39.357+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:20:49.336+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:20:59.278+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:21:09.903+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:21:19.220+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:21:29.319+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:21:39.255+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:21:49.236+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:21:59.252+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:22:09.393+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:22:19.353+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:22:29.311+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:22:39.561+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:22:49.236+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:22:59.346+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:23:09.793+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:23:19.347+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:23:29.332+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:23:39.298+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:23:49.276+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:23:59.231+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:24:09.266+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:24:19.197+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:24:29.201+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:24:39.332+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:24:49.172+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:24:59.355+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:25:09.378+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:25:19.320+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:25:29.298+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:25:39.329+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:25:49.313+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:25:59.296+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:26:09.894+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:36:13.373+0800","line":"blockchain/userLocation.go:80","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:37:14.047+0800","line":"blockchain/userLocation.go:80","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:37:50.890+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:37:51.196+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:37:51.536+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:37:51.789+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:38:01.499+0800","line":"blockchain/userLocation.go:80","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:38:57.857+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:39:07.698+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:39:54.967+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:40:04.768+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:40:14.687+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:40:24.622+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:40:34.652+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:40:44.667+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:40:54.674+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:41:04.708+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:41:14.646+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:41:24.661+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:41:34.951+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:41:44.831+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:41:54.800+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:42:04.624+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:42:14.716+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:42:24.676+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:42:34.750+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:42:44.837+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:42:54.772+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:43:04.761+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:43:15.691+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:43:24.777+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:43:34.928+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:43:44.640+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:43:56.041+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:43:56.314+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:43:56.688+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:43:57.011+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:45:54.082+0800","line":"blockchain/cityPioneer.go:147","msg":"rpc error: code = Unknown desc = execution reverted: ERC20: insufficient allowance","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:46:19.622+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:46:28.022+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:48:33.144+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:48:43.157+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:53:19.052+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:53:19.312+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:53:19.674+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:53:19.927+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:53:30.861+0800","line":"blockchain/cityPioneer.go:147","msg":"rpc error: code = Unknown desc = execution reverted: ERC20: insufficient allowance","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:53:32.251+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T10:53:42.218+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:06:20.282+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:06:20.520+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:06:20.805+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:06:21.068+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:06:32.620+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:06:42.550+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:06:48.480+0800","line":"blockchain/city.go:88","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:16:06.313+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:16:06.644+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:16:06.872+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:16:07.164+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:23:19.878+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:23:20.209+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:23:20.485+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:23:20.924+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:23:31.352+0800","line":"blockchain/userLocation.go:80","msg":"rpc error: code = Unknown desc = execution reverted: cant not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:23:32.200+0800","line":"blockchain/cityPioneer.go:147","msg":"rpc error: code = Unknown desc = execution reverted: ERC20: insufficient allowance","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:39:03.799+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:39:04.054+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:39:04.392+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:39:04.656+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:39:50.344+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:39:50.641+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:39:50.889+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:39:51.243+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-07T11:39:51.513+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}

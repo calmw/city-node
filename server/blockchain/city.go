@@ -72,6 +72,25 @@ func AdminSetPioneer(cityId, pioneer string) {
 	fmt.Println(res, err)
 }
 
+// AdminSetDelegate 管理员设置用户增加或减少质押量
+func AdminSetDelegate(userAddress string, amount, setType int64) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	E18 := big.NewInt(1e18)
+	amountRes := E18.Mul(E18, big.NewInt(amount))
+	res, err := city.AdminSetDelegate(auth, common.HexToAddress(userAddress), amountRes, big.NewInt(setType))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res.Hash(), setType, err)
+}
+
 // AddCityAdmin 给城市先锋合约、用户定位合约、设置质押量合约添加管理员权限
 func AddCityAdmin() {
 	Cli := Client(CityNodeConfig)

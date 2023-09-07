@@ -28,12 +28,12 @@ var CityNodeConfig = CityNodeConfigs{
 	ChainId:             9001,
 	RPC:                 "https://testnet-rpc.d2ao.com/",
 	CityAddress:         "0x133d15CeBfaf0fb2cA91f8EA6F2c2E8B26D2B310",
-	CityPioneerAddress:  "0x425C48382F30D6331E096dd5B720F231C7a9114F",
-	UserLocationAddress: "0xcd507929f9f8B79f02192837eaD33B30c89752Ce",
+	CityPioneerAddress:  "0xB1AE37BBD0ABF855727741b4c2Aa9104Db9931B7",
+	UserLocationAddress: "0x87EFc102A95b30232375be68a9bb7D0cf746e9a9",
 	MiningAddress:       "0xD8c1d40a6FF4E53577389C8008343081949C373D",
 	SetDelegateAddress:  "0xD8c1d40a6FF4E53577389C8008343081949C373D",
 	PledgeStakeAddress:  "0x575493F35AA4926decF877004056380538C8eB52",
-	ToxAddress:          "0x05171e5C88b43ef35D223f64E1304D3D5210701D",
+	ToxAddress:          "0x3eE243ff68074502b1D9D65443fa97b99f634570",
 	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 }
 

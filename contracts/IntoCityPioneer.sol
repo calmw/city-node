@@ -67,7 +67,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentCriteria; // 城市先锋考核标准
     // 城市等级 => (索引 => 退还标准)，索引1，2，3为第一个月的，索引4，5，6为第二个月的
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentReturnCriteria; // 城市先锋保证金退还标准
-    // 城市等级 => (月份 => 退还比例)，索引1，2，3为第一个月的，索引4，5，6为第二个月的
+    // 城市等级 => (索引 => 退还比例)，索引1，2，3为第一个月的，索引4，5，6为第二个月的
     mapping(uint256 => mapping(uint256 => uint256))public  assessmentReturnRate; // 城市先锋保证金退还比例
     // 先锋地址 => 先锋信息， 先锋信息
     mapping(address => Pioneer) public pioneerInfo;
@@ -154,7 +154,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     function getDay() public view returns (uint256){
-        uint day = block.timestamp / 86400;
+        uint day = block.timestamp / 300;
         return uint256(day);
     }
 
@@ -178,21 +178,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         city.initCityDelegate(cityId);// 将先锋绑定的城市的新增质押量变为0
     }
 
-    // 每天执行一次，计算奖励和考核
-//    function dailyTask() public onlyAdmin returns (bool){
-//        uint256 day = getDay();
-//        require(!dailyTaskStatus[day], "can not execute any more");
-//        IntoCity city = IntoCity(cityAddress);
-//        for (uint256 i = 0; i < city.getPioneerCityNumber(); i++) {
-//            // 考核
-//            checkPioneer(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
-//            // 奖励
-//            reward(city.pioneerCityIds(i), city.cityPioneer(city.pioneerCityIds(i)));
-//        }
-//        dailyTaskStatus[day] = true;
-//        return true;
-//    }
-
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
     function checkPioneer(bytes32 cityId, address pioneerAddress_) private {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
@@ -200,7 +185,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             return;
         }
         IntoCity city = IntoCity(cityAddress);
-        uint256 day = getDay() - pioneer.ctime / 86400;
+        uint256 day = getDay() - pioneer.ctime / 300;
 
         // 前三个月考核
         assessmentPioneer(cityId, pioneer, city, day);
@@ -329,7 +314,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
         uint256 today = getDay();
         // 任期结束，不发放奖励
-        if (today - pioneer.ctime / 86400 >= 180) {
+        if (today - pioneer.ctime / 300 >= 1800) {
             return;
         }
         // 昨日，天
