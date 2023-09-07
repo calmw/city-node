@@ -152,7 +152,7 @@ contract IntoCity is RoleAccess, Initializable {
     // 管理员设置用户每天质押量变更（新增1和减少2）
     function adminSetDelegate(address userAddress_, uint256 amount_, uint256 setType) public onlyAdmin {
         amount_ *= 100;
-        // 判断用户是否有对应的城市
+//         判断用户是否有对应的城市
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
         bytes32 cityId = intoUserLocation.userCityId(userAddress_);
         if (cityId == bytes32(0)) {
@@ -161,14 +161,14 @@ contract IntoCity is RoleAccess, Initializable {
         uint256 today = getDay();
         if (setType == 1) {// 增加
             IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-//             判断是否是先锋,先锋累计新增质押，不统计减少的
+            // 判断是否是先锋,先锋累计新增质押，不统计减少的
             if (intoCityPioneer.isPioneer(userAddress_)) { // 是先锋
                 intoCityPioneer.setPioneerDelegate(userAddress_, amount_, cityId);
                 cityNewlyDelegateRecord[cityId][today] += amount_;
             }
-            // 增加城市质押量
+//              增加城市质押量
             incrCityDelegate(cityId, amount_);
-            // 增加城市质押记录
+//              增加城市质押记录
             cityDelegateRecord[cityId][today] += amount_;
         } else if (setType == 2) {// 减少
             // 减少城市质押量
@@ -179,10 +179,9 @@ contract IntoCity is RoleAccess, Initializable {
             } else {
                 cityDelegateRecord[cityId][today] = 0;
             }
-//            cityDelegateRecord[cityId][today] -= amount_;
         }
-        // 更新城市历史某天最大质押值
-        uint256 yesterdayDelegate = cityDelegateRecord[cityId][today-1];
+//         更新城市历史某天最大质押值
+        uint256 yesterdayDelegate = cityDelegateRecord[cityId][today - 1];
         uint256 maxDelegate = cityMaxDelegate[cityId][2];
         if (yesterdayDelegate > maxDelegate) {
             setCityMaxDelegate(cityId, yesterdayDelegate, today - 1);

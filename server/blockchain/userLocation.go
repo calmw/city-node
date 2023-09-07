@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"
+	"strings"
 )
 
 // SetNoRepeatCityIds   城市ID数组重构
@@ -53,6 +54,28 @@ func AdminSetPledgeStakeAddressUserLocation() {
 		return
 	}
 	res, err := userLocation.AdminSetPledgeStakeAddress(auth, common.HexToAddress(CityNodeConfig.PledgeStakeAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res, err)
+}
+
+// SetUserLocation 设置获取用户位置
+func SetUserLocation(cityId, location string) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	if strings.Contains(cityId, "0x") {
+		cityId = strings.ReplaceAll(cityId, "0x", "")
+	}
+	common.Hex2Bytes(cityId)
+	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(cityId))
+	res, err := userLocation.SetUserLocation(auth, cityIdBytes32, location)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
