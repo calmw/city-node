@@ -45,13 +45,11 @@ var CityNodeConfig = CityNodeConfigs{
 //	CityAddress:         "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
 //	CityPioneerAddress:  "0x60C541388077d524178521A7ceD95d0c7a016B72",
 //	UserLocationAddress: "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2",
-//
-//	//	MiningAddress:         "0x0007B44b6Ca810EBff3ED4560cD7d997b08BA104",
-//	//	SetDelegateAddress:    "0xD8c1d40a6FF4E53577389C8008343081949C373D",
-//	PledgeStakeAddress: "0x909448fBb09880AF2812d263f7E5C77dcfC2AB53",
-//	//	RechargeWeightAddress: "0x0007B44b6Ca810EBff3ED4560cD7d997b08BA104",
-//	//	ToxAddress:            "0x96397347Ea2beE29713Bc48749eB277D6A36A407",
-//
+//	MiningAddress:         "0x0007B44b6Ca810EBff3ED4560cD7d997b08BA104",
+//	SetDelegateAddress:    "0x909448fBb09880AF2812d263f7E5C77dcfC2AB53",
+//	PledgeStakeAddress:    "0x909448fBb09880AF2812d263f7E5C77dcfC2AB53",
+//	RechargeWeightAddress: "0x0007B44b6Ca810EBff3ED4560cD7d997b08BA104",
+//	ToxAddress:            "0x96397347Ea2beE29713Bc48749eB277D6A36A407",
 //	PrivateKey: "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 //}
 

@@ -1314,7 +1314,7 @@
             "slot": "30",
             "type": "t_mapping(t_bytes32,t_uint256)",
             "contract": "IntoCity",
-            "src": "contracts/IntoCity.sol:115"
+            "src": "contracts/IntoCity.sol:118"
           },
           {
             "label": "chengShiPioneer",
@@ -1330,7 +1330,7 @@
             "slot": "32",
             "type": "t_mapping(t_address,t_bytes32)",
             "contract": "IntoCity",
-            "src": "contracts/IntoCity.sol:120"
+            "src": "contracts/IntoCity.sol:121"
           }
         ],
         "types": {

@@ -1,8 +1,6 @@
 package main
 
-import (
-	"city-node-server/services"
-)
+import "city-node-server/services"
 
 func main() {
 	//db.InitMysql()
