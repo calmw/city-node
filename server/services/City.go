@@ -21,6 +21,7 @@ func InitCity() {
 	blockchain.AdminSetPioneer("0x2bd1a23d1755451bd63917d541b8b823c5ef95e119abfee92f2ca95550f7b1f2", "0x0DbE6e626B1085a2Cb4D5F77389bBb54Ec89Fa30")
 	blockchain.AdminSetPioneer("0x6a35f6c500cbb91ed6c2ed6cfd80d5cdfe40f01ed5879e26a0050a26395ba781", "0x153F5bf2cCf235bDeF530d09387dd456f6389a81")
 	blockchain.AdminSetPioneer("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0xa75a076c5529b3813f53c9bd24ab1f7da37994fc")
+	blockchain.AdminSetPioneer("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0x26baf7283a7fe1FA182e57716100f97385dE7bDa")
 
 	// 给城市先锋合约、用户定位合约、设置质押量合约添加管理员权限
 	blockchain.AddCityAdmin()
@@ -40,6 +41,8 @@ func AdminSetDelegate() {
 		"0xbcf477b0f8add3249acfbc76b0e1e3134ec9b6c1",
 		"0x2d4ef8abef8e90de0cea3ee302a68e25d0d055ac",
 		"0x6B35ba8b3b383714338686BcE4066B387Eab16C6",
+		"0x153F5bf2cCf235bDeF530d09387dd456f6389a81",
+		"0x0DbE6e626B1085a2Cb4D5F77389bBb54Ec89Fa30",
 	}
 
 	for _, account := range accounts {

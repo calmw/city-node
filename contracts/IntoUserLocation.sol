@@ -118,6 +118,11 @@ contract IntoUserLocation is RoleAccess, Initializable {
         return cityIds.length;
     }
 
+    // 定位过的用户数量
+    function getCountyIdsByChengShiId(bytes32 chengShiId) public view returns (bytes32[] memory) {
+        return chengShiIDCityIdSet[chengShiId];
+    }
+
     // 定位过的城市数量
     function getCityNumber() public view returns (uint256) {
         return cityIdsNoRepeat.length;
@@ -137,8 +142,13 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 根据用户获取城市ID
-    function getChengShiId(address user) public view returns (bytes32){
+    function getChengShiIdByAddress(address user) public view returns (bytes32){
         return cityIdChengShiID[userCityId[user]];
+    }
+
+    // 根据区县ID获取城市ID
+    function getChengShiIdByCountyId(bytes32 countyId) public view returns (bytes32){
+        return cityIdChengShiID[countyId];
     }
 
     // 数据去重,执行到6547
@@ -149,6 +159,29 @@ contract IntoUserLocation is RoleAccess, Initializable {
                 cityIdExist[cityIds[i]] = true;
             }
         }
+    }
+
+    function setUserLocationTest(bytes32 cityId_,address user, string calldata location_) public onlyAdmin{
+        userNumberOfCity[cityId_] += 1;
+        cityIds.push(cityId_); // 废弃
+        cityInfo[cityId_] = location_;
+        userLocationInfo[user] = location_;
+        userCityId[user] = cityId_;
+        userHaveSetLocation[user] = true;
+        cityIdNum++;
+        if (!cityIdExist[cityId_]) {
+            cityIdsNoRepeat.push(cityId_);
+            cityIdExist[cityId_] = true;
+        }
+
+        // 给用户所在城市增加质押量
+        setUserDelegate(cityId_, msg.sender);
+
+        emit UserLocationRecord(
+            msg.sender,
+            cityId_,
+            location_
+        );
     }
 
 }

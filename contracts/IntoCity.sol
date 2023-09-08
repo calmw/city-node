@@ -54,7 +54,7 @@ contract IntoCity is RoleAccess, Initializable {
     // 区县ID => (天=>质押量）,新增质押量，不算减去的
     mapping(bytes32 => mapping(uint256 => uint256)) public cityNewlyDelegateRecord;
     // 区县ID => 质押 ,区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
-    mapping(bytes32 => uint256) public cityDelegateTotal;
+    mapping(bytes32 => uint256) public cityRechargeTotal;
     // 所有区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
     uint256 public allCityDelegateTotal;
     // 区县ID => 社交基金 ,区县先锋所绑定区县新增社交基金（只用于区县先锋）的累计值
@@ -72,7 +72,7 @@ contract IntoCity is RoleAccess, Initializable {
     // 城市等级 => 该城市先锋需要缴纳的保证金
     mapping(uint256 => uint256) public cityLevelSurety; // 上线删除
     // 城市ID => 该城市的权重
-    mapping(bytes32 => uint256) public chengShiWeight;
+    mapping(bytes32 => uint256) public chengShiRecharge;
     // 城市ID => 城市等级
     mapping(bytes32 => uint256) public chengShiLevel;
     // 先锋城市ID集合
@@ -105,15 +105,24 @@ contract IntoCity is RoleAccess, Initializable {
         }
     }
 
-    function adminSetChengShiWeight(address user, uint256 weight) public onlyAdmin {
+    // 设置用户充值量
+    function adminSetRechargeAmount(address user, uint256 amount) public onlyAdmin {
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
-        bytes32 chengShiId = intoUserLocation.getChengShiId(user);
+        bytes32 countyId = intoUserLocation.getCountyId(user);
 
-        if (chengShiId == bytes32(0)) {
+        if (countyId == bytes32(0)) {
             return;
         }
 
-        chengShiWeight[chengShiId] += weight;
+        // 增加充值权重
+        addCityDelegate(countyId, amount);
+
+        IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+        // 判断是否是先锋,先锋累计新增质押，不统计减少的
+        if (intoCityPioneer.isPioneer(user)) { // 是先锋
+            intoCityPioneer.setPioneerDelegate(user, amount);
+            cityNewlyDelegateRecord[countyId][getDay()] += amount;
+        }
     }
 
     // 管理员设置先锋计划，城市等级以及该等级区县所需缴纳的保证金数额
@@ -176,6 +185,17 @@ contract IntoCity is RoleAccess, Initializable {
         return uint256(day);
     }
 
+    // 获取先锋对应城市的充值权重
+    function chengShiRechargeWeight(bytes32 chengShiId) public view returns (uint256){
+        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+        bytes32[] memory cityIds = intoUserLocation.getCountyIdsByChengShiId(chengShiId);
+        uint256 weight;
+        for (uint256 i; i < cityIds.length; i++) {
+            weight += cityRechargeTotal[cityIds[i]];
+        }
+        return weight;
+    }
+
     // 设置区县历史最大质押量，mapping(bytes32 => mapping(uint256 => uint256)) public cityMaxDelegate; //  区县最高质押量2质押量，1质押时间（天）
     function setCityMaxDelegate(bytes32 cityId_, uint256 amount_, uint256 day_) public onlyAdmin {
         cityMaxDelegate[cityId_][1] = day_;
@@ -187,30 +207,32 @@ contract IntoCity is RoleAccess, Initializable {
         amount_ *= 100;
 //         判断用户是否有对应的区县
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
-        bytes32 cityId = intoUserLocation.userCityId(userAddress_);
-        if (cityId == bytes32(0)) {
+        bytes32 countyId = intoUserLocation.userCityId(userAddress_);
+        if (countyId == bytes32(0)) {
             return;
         }
         uint256 today = getDay();
         if (setType == 1) {// 增加
             IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-            // 判断是否是先锋,先锋累计新增质押，不统计减少的
+//            // 判断是否是先锋,先锋累计新增质押，不统计减少的
             if (intoCityPioneer.isPioneer(userAddress_)) { // 是先锋
-                intoCityPioneer.setPioneerDelegate(userAddress_, amount_, cityId);
-                cityNewlyDelegateRecord[cityId][today] += amount_;
+                bytes32 chengShiId = intoUserLocation.getChengShiIdByCountyId(countyId);
+                intoCityPioneer.pioneerTask(userAddress_, chengShiId);
+                cityNewlyDelegateRecord[countyId][today] += amount_;
             }
 //              增加区县质押量
-            incrCityDelegate(cityId, amount_, today);
+            incrCityDelegate(countyId, amount_, today);
         } else if (setType == 2) {// 减少
             // 减少区县质押量
-            descCityDelegate(cityId, amount_, today);
+            descCityDelegate(countyId, amount_, today);
         }
 //         更新区县历史某天最大质押值
-        uint256 yesterdayDelegate = cityDelegateRecord[cityId][today - 1];
-        uint256 maxDelegate = cityMaxDelegate[cityId][2];
+        uint256 yesterdayDelegate = cityDelegateRecord[countyId][today - 1];
+        uint256 maxDelegate = cityMaxDelegate[countyId][2];
         if (yesterdayDelegate > maxDelegate) {
-            setCityMaxDelegate(cityId, yesterdayDelegate, today - 1);
+            setCityMaxDelegate(countyId, yesterdayDelegate, today - 1);
         }
+        // 考核和保证金检测
 
     }
 
@@ -248,13 +270,13 @@ contract IntoCity is RoleAccess, Initializable {
 
     // 增加区县先锋绑定区县的累计质押量,增加总的质押量
     function addCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {
-        cityDelegateTotal[cityId_] += amount_;
+        cityRechargeTotal[cityId_] += amount_;
         allCityDelegateTotal += amount_;
     }
 
     //初始化区县先锋绑定区县的累计质押量
     function initCityDelegate(bytes32 cityId_) public onlyAdmin {
-        cityDelegateTotal[cityId_] = 0;
+        cityRechargeTotal[cityId_] = 0;
     }
 
 }
