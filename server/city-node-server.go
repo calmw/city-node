@@ -1,6 +1,7 @@
 package main
 
 import (
+	"city-node-server/services"
 	"city-node-server/tasks"
 )
 
@@ -8,9 +9,9 @@ func main() {
 	//db.InitMysql()
 	//tasks.Task()
 
-	//services.InitCity()
-	//services.InitCityPioneer()
-	//services.InitUserLocation()
+	services.InitCity()
+	services.InitCityPioneer()
+	services.InitUserLocation()
 	//
 
 	//blockchain.AdminEditSurety("0x3edf72f7ab938a14e6aae3701a1e5acbb2512c840a019c6ead9d01415dbac864", 1, 100000)
