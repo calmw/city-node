@@ -69,7 +69,7 @@ func AdminSetPioneer(chengShiId, pioneer string) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(res, err)
+	fmt.Println(res.Hash(), err)
 }
 
 // AdminSetDelegate 管理员设置用户增加或减少质押量
@@ -148,7 +148,7 @@ func AdminSetChengShiLevelAndSurety(cityId string, level, earnestMoney int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(res, err)
+	fmt.Println(res.Hash(), err)
 }
 
 // AdminEditSurety 管理员修改先锋计划，城市等级以及该等级城市所需缴纳的保证金数额

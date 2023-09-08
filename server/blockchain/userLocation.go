@@ -83,6 +83,28 @@ func SetUserLocation(cityId, location string) {
 	fmt.Println(res, err)
 }
 
+// SetUserLocationTest 设置获取用户位置
+func SetUserLocationTest(cityId, location, userAddress string) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	if strings.Contains(cityId, "0x") {
+		cityId = strings.ReplaceAll(cityId, "0x", "")
+	}
+	common.Hex2Bytes(cityId)
+	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(cityId))
+	res, err := userLocation.SetUserLocationTest(auth, cityIdBytes32, common.HexToAddress(userAddress), location)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res, err)
+}
+
 // GetCityId 获取cityId
 func GetCityId(cityIdIndex int64) {
 	Cli := Client(CityNodeConfig)

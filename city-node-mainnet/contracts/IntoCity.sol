@@ -110,8 +110,8 @@ contract IntoCity is RoleAccess, Initializable {
         chengShiPioneer[chengShiId_] = pioneer_;
         pioneerChengShi[pioneer_] = chengShiId_;
         hasSetPioneer[pioneer_] = true;
-        if (cityPioneer[chengShiId_] != address(0)) {
-            pioneerCityIds.push(chengShiId_);
+        if (chengShiPioneer[chengShiId_] != address(0)) {
+            pioneerChengShiIds.push(chengShiId_);
         }
     }
 
@@ -120,10 +120,10 @@ contract IntoCity is RoleAccess, Initializable {
         pioneerChengShi[pioneer_] = bytes32(0);
         hasSetPioneer[pioneer_] = false;
 
-        for (uint256 i = 0; i < pioneerCityIds.length; i++) {
-            if (pioneerCityIds[i] == chengShiId_) {
-                pioneerCityIds[i] = pioneerCityIds[pioneerCityIds.length - 1];
-                pioneerCityIds.pop();
+        for (uint256 i = 0; i < pioneerChengShiIds.length; i++) {
+            if (pioneerChengShiIds[i] == chengShiId_) {
+                pioneerChengShiIds[i] = pioneerChengShiIds[pioneerChengShiIds.length - 1];
+                pioneerChengShiIds.pop();
             }
         }
     }

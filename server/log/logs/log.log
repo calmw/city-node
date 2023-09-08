@@ -855,3 +855,7 @@
 {"level":"error","time":"2023-09-08T20:24:34.400+0800","line":"blockchain/cityPioneer.go:72","msg":"Post \"https://rpc-10.matchscan.io/\": net/http: TLS handshake timeout","serviceName":"into"}
 {"level":"error","time":"2023-09-08T20:24:49.683+0800","line":"blockchain/cityPioneer.go:72","msg":"Post \"https://rpc-11.matchscan.io/\": dial tcp 43.163.201.126:443: connect: connection refused","serviceName":"into"}
 {"level":"error","time":"2023-09-08T20:25:57.012+0800","line":"blockchain/cityPioneer.go:21","msg":"invalid nonce; got 395, expected 397: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-08T23:36:29.416+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-09T00:22:09.549+0800","line":"blockchain/userLocation.go:102","msg":"invalid nonce; got 433, expected 438: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T00:24:00.394+0800","line":"blockchain/city.go:148","msg":"invalid nonce; got 445, expected 454: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T00:24:05.450+0800","line":"blockchain/city.go:69","msg":"invalid nonce; got 454, expected 462: invalid sequence: invalid sequence","serviceName":"into"}
