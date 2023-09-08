@@ -209,14 +209,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             if (pioneerCityTotalNewlyDelegate < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
                 failedDelegate[cityId] = pioneerCityTotalNewlyDelegate;
-                city.setCityPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
+                city.setChengShiPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
             }
         } else if (day == 60) {
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][2] * 100;
             if (pioneerCityTotalNewlyDelegate < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
                 failedDelegate[cityId] = pioneerCityTotalNewlyDelegate;
-                city.setCityPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
+                city.setChengShiPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
             }
         } else if (day == 30) {
             // 检测是否满足直接考核通过
@@ -229,7 +229,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             if (pioneerCityTotalNewlyDelegate < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
                 failedDelegate[cityId] = pioneerCityTotalNewlyDelegate;
-                city.setCityPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
+                city.setChengShiPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
             }
         }
     }
@@ -324,13 +324,17 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint bonus = 93333333333333333333;
         benefitPackageReward[pioneerAddress_] += bonus;
 
-        // 社交基金5%奖励
+//        // 社交基金5%奖励
         IntoCity city = IntoCity(cityAddress);
         uint256 yesterdayFounds = city.getFounds(cityId, yesterday);// 昨日先锋绑定城市新增社交基金
         uint256 allDailyFoundsTotal = city.allDailyFoundsTotal(yesterday);// 全网昨日所有城市新增社交基金
-        fundsReward[pioneerAddress_] += yesterdayFounds * 5 / 100 / allDailyFoundsTotal;
+        if (allDailyFoundsTotal == 0) {
+            fundsReward[pioneerAddress_] += 0;
+        } else {
+            fundsReward[pioneerAddress_] += yesterdayFounds * 5 / 100 / allDailyFoundsTotal;
+        }
 
-        // 该城市新增质押量1%奖励，不累加
+//        // 该城市新增质押量1%奖励，不累加
         uint256 yesterdayDelegate = city.getNewlyDelegate(cityId, yesterday);// 昨日新增质押权重
         delegateReward[pioneerAddress_] += yesterdayDelegate / 100;
 

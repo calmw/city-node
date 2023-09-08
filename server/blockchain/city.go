@@ -145,6 +145,31 @@ func AdminSetCityLevelAndSurety(cityId string, level, earnestMoney int64) {
 	fmt.Println(res, err)
 }
 
+// AdminEditSurety 管理员修改先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
+func AdminEditSurety(cityId string, level, earnestMoney int64) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	if strings.Contains(cityId, "0x") {
+		cityId = strings.ReplaceAll(cityId, "0x", "")
+	}
+	common.Hex2Bytes(cityId)
+	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(cityId))
+	E18 := big.NewInt(1e18)
+	earnestMoneyBigInt := E18.Mul(E18, big.NewInt(earnestMoney))
+	fmt.Println("cityId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "earnestMoney: ", earnestMoneyBigInt.String())
+	res, err := city.AdminEditSurety(auth, cityIdBytes32, big.NewInt(level), earnestMoneyBigInt)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res, err)
+}
+
 func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
 	query := event.BuildQuery(
 		common.HexToAddress("0xebD06631510A66968f0379A4deB896d3eE7DD6ED"),

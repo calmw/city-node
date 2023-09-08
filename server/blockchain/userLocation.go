@@ -82,3 +82,46 @@ func SetUserLocation(cityId, location string) {
 	}
 	fmt.Println(res, err)
 }
+
+// GetCityId 获取cityId
+func GetCityId(cityIdIndex int64) {
+	Cli := Client(CityNodeConfig)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := userLocation.CityIdsNoRepeat(nil, big.NewInt(cityIdIndex))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	info, err := userLocation.CityInfo(nil, res)
+	if err != nil {
+		return
+	}
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	fmt.Println("0x"+common.Bytes2Hex(Bytes32ToBytes(res)), info, err)
+}
+
+//
+//// GetCityId 获取cityId
+//func GetCityId(cityIdIndex int64) {
+//	Cli := Client(CityNodeConfig)
+//	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	res, err := userLocation.CityInfo(nil, big.NewInt(cityIdIndex))
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//
+//	fmt.Println("0x"+common.Bytes2Hex(Bytes32ToBytes(res)), err)
+//}

@@ -27,9 +27,9 @@ type CityNodeConfigs struct {
 var CityNodeConfig = CityNodeConfigs{
 	ChainId:             9001,
 	RPC:                 "https://testnet-rpc.d2ao.com/",
-	CityAddress:         "0x133d15CeBfaf0fb2cA91f8EA6F2c2E8B26D2B310",
-	CityPioneerAddress:  "0xB1AE37BBD0ABF855727741b4c2Aa9104Db9931B7",
-	UserLocationAddress: "0x87EFc102A95b30232375be68a9bb7D0cf746e9a9",
+	CityAddress:         "0xEe4e83f11c197B8C717E4F32902132eE08957c04", // 城市合约地址
+	CityPioneerAddress:  "0x80123E90C48edb71369Ddc7ccf1580e38135b966", // 成丝先锋合约地址
+	UserLocationAddress: "0x87EFc102A95b30232375be68a9bb7D0cf746e9a9", // 用户定位合约地址
 	MiningAddress:       "0xD8c1d40a6FF4E53577389C8008343081949C373D",
 	SetDelegateAddress:  "0xD8c1d40a6FF4E53577389C8008343081949C373D",
 	PledgeStakeAddress:  "0x575493F35AA4926decF877004056380538C8eB52",

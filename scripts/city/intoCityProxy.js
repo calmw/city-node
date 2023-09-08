@@ -1,8 +1,7 @@
 const {ethers, upgrades} = require("hardhat")
 require('@openzeppelin/hardhat-upgrades')
 
-// const ProxyAddr = "0x133d15CeBfaf0fb2cA91f8EA6F2c2E8B26D2B310" // 测试网
-const ProxyAddr = "0xebD06631510A66968f0379A4deB896d3eE7DD6ED" // 主网
+const ProxyAddr = "0xEe4e83f11c197B8C717E4F32902132eE08957c04"
 
 // 可升级合约
 async function main() {
@@ -18,13 +17,8 @@ async function main() {
     console.log("ProxyAdmin is", await upgrades.erc1967.getAdminAddress(contract.address));
 }
 
-// 测试网
 // proxyAdminAddress="0x3c00D5b53b529ca9992E9c925FB87e831A70F535"
-// logicAddress="0xb1Fafdea0db1652F8DA9f9D3456434bA41f1DAe5"
-
-// 主网
-// proxyAdminAddress="0x64A9fa6Fd332d85552E365b6877055D7C92Fa45A"
-// logicAddress="0x4e97f449488CccD31c0EB995D25440AA64a8ab9e"
+// logicAddress="0x7a7b85774F6F6e40cd964DBC7B48fc053352bc3D"
 
 main()
     .then(() => process.exit(0))

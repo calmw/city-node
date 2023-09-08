@@ -125,6 +125,29 @@
         "type": "uint256"
       }
     ],
+    "name": "adminEditSurety",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "cityId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "level_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "surety_",
+        "type": "uint256"
+      }
+    ],
     "name": "adminSetCityLevelAndSurety",
     "outputs": [],
     "stateMutability": "nonpayable",

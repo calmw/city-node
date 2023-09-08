@@ -12,16 +12,16 @@ func InitCity() {
 	// 管理员设置用户定位合约地址
 	blockchain.AdminSetUserLocationAddress()
 	// 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
-	blockchain.AdminSetCityLevelAndSurety("0x367feef2d7c842ee11d3d5efe6ca7a5df6b9d3995a6d743c0a8bc11ac53f46c5", 1, 1000)
-	blockchain.AdminSetCityLevelAndSurety("0xbffccd1d296a01011034d29d15df098fc72d9910750930042d973b671c2986bd", 2, 200)
-	blockchain.AdminSetCityLevelAndSurety("0xfbbb3fd59e09ffc17b917954bdeb126312ae56c57c4ff78c086a94b55e364dfb", 3, 50)
-	blockchain.AdminSetCityLevelAndSurety("0xad02e2bafae66da7b495ff56ccc86f2906814d6f5ab13e6dcd0348f12dc8bf0b", 3, 50)
-	// 管理员设置城市先锋
-	blockchain.AdminSetPioneer("0x367feef2d7c842ee11d3d5efe6ca7a5df6b9d3995a6d743c0a8bc11ac53f46c5", "0x6B35ba8b3b383714338686BcE4066B387Eab16C6")
-	blockchain.AdminSetPioneer("0xbffccd1d296a01011034d29d15df098fc72d9910750930042d973b671c2986bd", "0xa75a076c5529b3813f53c9bd24ab1f7da37994fc")
-	blockchain.AdminSetPioneer("0xfbbb3fd59e09ffc17b917954bdeb126312ae56c57c4ff78c086a94b55e364dfb", "0x8c69C5F4DbF59648682cAfe35557F94da4De1c28")
-	blockchain.AdminSetPioneer("0xad02e2bafae66da7b495ff56ccc86f2906814d6f5ab13e6dcd0348f12dc8bf0b", "0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E")
-	blockchain.AdminSetPioneer("0x1b25ba0ac0336a11af717696e4ef339e2ed36dbabfd33f3d623f3516fd38cf0a", "0x08a01BE67fF47Ba2652b7dCE2005B47D81bAaC13")
+	blockchain.AdminSetCityLevelAndSurety("0x2bd1a23d1755451bd63917d541b8b823c5ef95e119abfee92f2ca95550f7b1f2", 1, 100000)
+	blockchain.AdminSetCityLevelAndSurety("0x6a35f6c500cbb91ed6c2ed6cfd80d5cdfe40f01ed5879e26a0050a26395ba781", 2, 60000)
+	blockchain.AdminSetCityLevelAndSurety("0x35cbb5a35a63817975c8f118ac59cf9e48a4f8109bb03276c58729c04540ebe7", 3, 4000)
+	blockchain.AdminSetCityLevelAndSurety("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", 3, 4000)
+
+	// 管理员设置城市先锋 ------------
+	blockchain.AdminSetPioneer("0x2bd1a23d1755451bd63917d541b8b823c5ef95e119abfee92f2ca95550f7b1f2", "0x0DbE6e626B1085a2Cb4D5F77389bBb54Ec89Fa30")
+	blockchain.AdminSetPioneer("0x6a35f6c500cbb91ed6c2ed6cfd80d5cdfe40f01ed5879e26a0050a26395ba781", "0x153F5bf2cCf235bDeF530d09387dd456f6389a81")
+	blockchain.AdminSetPioneer("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0xa75a076c5529b3813f53c9bd24ab1f7da37994fc")
+
 	// 给城市先锋合约、用户定位合约、设置质押量合约添加管理员权限
 	blockchain.AddCityAdmin()
 }
@@ -35,9 +35,20 @@ func AdminSetDelegate() {
 	dec := randInt * 500
 	fmt.Println("增加", inc)
 	fmt.Println("减少", dec)
+	accounts := []string{
+		"0x0b6d66f125b165fd41bcaa7b4e7aa721cda47f71",
+		"0xbcf477b0f8add3249acfbc76b0e1e3134ec9b6c1",
+		"0x2d4ef8abef8e90de0cea3ee302a68e25d0d055ac",
+		"0x6B35ba8b3b383714338686BcE4066B387Eab16C6",
+	}
 
-	// 批量执行增加或减少质押量
-	blockchain.AdminSetDelegate("0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E", int64(inc), 1)
-	blockchain.AdminSetDelegate("0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E", int64(dec), 2)
+	for _, account := range accounts {
+		// 批量执行增加或减少质押量
+		fmt.Println(account)
+		blockchain.AdminSetDelegate(account, int64(inc), 1)
+		blockchain.AdminSetDelegate(account, int64(dec), 2)
+	}
+	//blockchain.AdminSetDelegate("0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E", int64(inc), 1)
+	//blockchain.AdminSetDelegate("0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E", int64(dec), 2)
 
 }
