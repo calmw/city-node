@@ -70,9 +70,9 @@ contract IntoCity is RoleAccess, Initializable {
     // 城市ID => 区县先锋需要缴纳的保证金
     mapping(bytes32 => uint256) public surety;
     // 城市等级 => 该城市先锋需要缴纳的保证金
-    mapping(uint256 => uint256) public cityLevelSurety; // 上线删除
+//    mapping(uint256 => uint256) public cityLevelSurety; // 上线删除
     // 城市ID => 该城市的权重
-    mapping(bytes32 => uint256) public chengShiWeight; // 上线删除
+//    mapping(bytes32 => uint256) public chengShiWeight; // 上线删除
     // 城市ID => 城市等级
     mapping(bytes32 => uint256) public chengShiLevel;
     // 先锋城市ID集合
@@ -82,7 +82,7 @@ contract IntoCity is RoleAccess, Initializable {
     // 区县ID => 质押 ,区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
     mapping(bytes32 => uint256) public cityRechargeTotal;
     // 城市ID => 该城市的充值权重
-    mapping(bytes32 => uint256) public chengShiRecharge; // 上线删除
+//    mapping(bytes32 => uint256) public chengShiRecharge; // 上线删除
     // 城市ID => 该城市的充值权重
     mapping(bytes32 => uint256) public chengShiRechargeWeight;
     // 城市ID => 城市先锋地址

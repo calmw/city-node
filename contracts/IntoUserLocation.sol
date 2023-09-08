@@ -53,8 +53,8 @@ contract IntoUserLocation is RoleAccess, Initializable {
     mapping(bytes32 => bytes32) public cityIdChengShiID;
     // 城市ID=>区县ID[]
     mapping(bytes32 => bytes32[]) public chengShiIDCityIdSet;
-//    mapping(bytes32 => bytes32) public CityIdToChengShiID;
-    mapping(bytes32 => mapping(bytes32 => bool)) public CityIdToChengShiIDExits;
+    // 防止重复添加，区县ID=>(城市ID=>是否存在)
+    mapping(bytes32 => mapping(bytes32 => bool)) public cityIdToChengShiIDExits;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -130,10 +130,10 @@ contract IntoUserLocation is RoleAccess, Initializable {
 
     // 设置城市与区县的映射
     function SetCityMapping(bytes32 countyId, bytes32 chengShiId) public {
-        require(!CityIdToChengShiIDExits[countyId][chengShiId], "can not set any more");
+        require(!cityIdToChengShiIDExits[countyId][chengShiId], "can not set any more");
         cityIdChengShiID[chengShiId] = countyId;
         chengShiIDCityIdSet[chengShiId].push(countyId);
-        CityIdToChengShiIDExits[countyId][chengShiId] = true;
+        cityIdToChengShiIDExits[countyId][chengShiId] = true;
     }
 
     // 根据用户获取区县ID
@@ -161,7 +161,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
         }
     }
 
-    function setUserLocationTest(bytes32 cityId_,address user, string calldata location_) public onlyAdmin{
+    function setUserLocationTest(bytes32 cityId_, address user, string calldata location_) public onlyAdmin {
         userNumberOfCity[cityId_] += 1;
         cityIds.push(cityId_); // 废弃
         cityInfo[cityId_] = location_;

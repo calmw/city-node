@@ -50,7 +50,7 @@ func AdminSetUserLocationAddress() {
 }
 
 // AdminSetPioneer 管理员设置城市先锋
-func AdminSetPioneer(cityId, pioneer string) {
+func AdminSetPioneer(chengShiId, pioneer string) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
 	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
@@ -58,12 +58,12 @@ func AdminSetPioneer(cityId, pioneer string) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	if strings.Contains(cityId, "0x") {
-		cityId = strings.ReplaceAll(cityId, "0x", "")
+	if strings.Contains(chengShiId, "0x") {
+		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
 	}
-	common.Hex2Bytes(cityId)
-	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(cityId))
-	fmt.Println("cityId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)))
+	common.Hex2Bytes(chengShiId)
+	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
+	fmt.Println("chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer)
 	res, err := city.AdminSetPioneer(auth, cityIdBytes32, common.HexToAddress(pioneer))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -126,8 +126,8 @@ func AddCityAdmin() {
 	}
 }
 
-// AdminSetCityLevelAndSurety 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
-func AdminSetCityLevelAndSurety(cityId string, level, earnestMoney int64) {
+// AdminSetChengShiLevelAndSurety 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
+func AdminSetChengShiLevelAndSurety(cityId string, level, earnestMoney int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
 	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
@@ -142,8 +142,8 @@ func AdminSetCityLevelAndSurety(cityId string, level, earnestMoney int64) {
 	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(cityId))
 	E18 := big.NewInt(1e18)
 	earnestMoneyBigInt := E18.Mul(E18, big.NewInt(earnestMoney))
-	fmt.Println("cityId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "earnestMoney: ", earnestMoneyBigInt.String())
-	res, err := city.AdminSetCityLevelAndSurety(auth, cityIdBytes32, big.NewInt(level), earnestMoneyBigInt)
+	fmt.Println("chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "Surety: ", earnestMoneyBigInt.String())
+	res, err := city.AdminSetChengShiLevelAndSurety(auth, cityIdBytes32, big.NewInt(level), earnestMoneyBigInt)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return

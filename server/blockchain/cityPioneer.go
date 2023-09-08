@@ -24,6 +24,23 @@ func AdminSetAssessmentCriteria(cityLevel, month, point int64) {
 	fmt.Println(criteria, err)
 }
 
+// AdminSetStartTime 管理员设置开始考核时间
+func AdminSetStartTime(startTime int64) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	criteria, err := cityPioneer.AdminSetStartTime(auth, big.NewInt(startTime))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(criteria, err)
+}
+
 // AdminSetTOXAddress  管理员设置TOX代币地址
 func AdminSetTOXAddress() {
 	Cli := Client(CityNodeConfig)

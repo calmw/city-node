@@ -19,6 +19,81 @@
       "address": "0xEe4e83f11c197B8C717E4F32902132eE08957c04",
       "txHash": "0x54d3199550169ca3525fdd932e28c8d1cb327f1d7bdbca3c56f4f147f0c8be85",
       "kind": "transparent"
+    },
+    {
+      "address": "0xaA9873f03Df5319b8fEA74cbA4B26dba5C71580a",
+      "txHash": "0x3cc6bfde548db9534acd04ecadc0eb6d3accd6e844fb2830ee59e2a9e05da624",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x5090727dD42cbf304730F7B12f9D6D8fAd4Bd03b",
+      "txHash": "0xd214a2195542c04f7deba403ab8157d922950ad9c8b0dcc392ac83a6104cbd31",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x3DC9658fA18088f66e7b8698fB5fBc3E41Be5DcB",
+      "txHash": "0xc2ecdb46b167507ac9c5b0735d9569c311990c19884271a066e6c345b3cf4fcd",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x866Ed775d504Bd05ca002c3f7Cc9E9f0D08ae6A4",
+      "txHash": "0xb1968817b3cc5f0ed144b4380b03e26cb94f5871daa132baf2031c69dc8d17f1",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xc95175eB09a2e5C4FD799f4b324587808C57E825",
+      "txHash": "0x84267b6ab790ba6b3b05dff1ae29116ef40258cb727a054a0e9084bdf8fd3633",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xe35dC808FC51B262F6e4224fa65474c5d702Fd2f",
+      "txHash": "0x500755a416519e030666c6ab86fa8d012540803cccecd62312a7560feb412cf8",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xe29b470c5DCfBf06f9Be2b1a076D01546F604e85",
+      "txHash": "0xa4c88a08a0b07311f998f654a8b823a605046f4641c8455f2e24d59359d3216d",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x54b3F635Ad6C8e2F8C5a73d0D1695f261a8025F9",
+      "txHash": "0xf86d554bdf6b16a8c519844a2cf7037169dfcbfda0922bd3ef972a7bea1c8c74",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x12CEC1A760E1e25Ce5b143cDB9D115D83603fAba",
+      "txHash": "0x065f8fbd270148e20ef8cf5f87ed6ba2ccbe5c0c86c447f6401c9e13751a86fd",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xDfFA9bfB4D6376DB617fD2Fc56682cC7646cCb9C",
+      "txHash": "0x75a8eb41d8ab6b90a137b760a027776fcd5ab92a3c5d9e763f05a78fc8295b3b",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x11Ef2544A6f62a2cF589390325ab0A56df1eeF15",
+      "txHash": "0xa2ac46b50bcdafe783398d2ccc36309f43a626e17be160e7e28ae0134cb5b47f",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xAA84811F00085F360ad69E50b79eb3605aF68DD1",
+      "txHash": "0xeb0028daf3ccff8cc384731d464cf4a122cbdaa1594fe85606fc50c6c3bd7c75",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xDD499539315d4Ab8E25395b9d51fD0360ED3e33F",
+      "txHash": "0x54ed9cb51f2e4ab0226aff6bbe73042016912e8528f3200560a4333a2a4553b4",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x4F08C196bA7c0d8c7D1052Ef2e47B3c952a3D3eE",
+      "txHash": "0x86c4d0008f8ab49da5772cd560bce38f2855b22ef436c14d715dff53cadb94bf",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xBb5B358D33A6A62b4E1b8DDA665e042cB8D31A62",
+      "txHash": "0x7fc1c4d59e559062faac8b1d90a4164924626df27b12e436ee37cf8b05d1648b",
+      "kind": "transparent"
     }
   ],
   "impls": {
@@ -9170,6 +9245,2040 @@
           },
           "t_mapping(t_uint256,t_uint256)": {
             "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)824_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)509_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Set)509_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "61d63ae74c0bc7b3b60f32702fef00eeb693acebd7784752b30500e7ff313bb3": {
+      "address": "0xA0Ef91684F1Cfcd4e46FCaf71Fd4dAe1276Ccb53",
+      "txHash": "0x168e7087c20072ef286f433779c79e8977fde7f81512f3a6975a6878a66219ac",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_admins",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(AddressSet)824_storage",
+            "contract": "RoleAccess",
+            "src": "contracts/RoleAccess.sol:8"
+          },
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "cityPioneerAddress",
+            "offset": 2,
+            "slot": "2",
+            "type": "t_address",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:22"
+          },
+          {
+            "label": "userLocationAddress",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:24"
+          },
+          {
+            "label": "allCityIds",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:29"
+          },
+          {
+            "label": "cityLevel",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:30"
+          },
+          {
+            "label": "cityDelegate",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:32"
+          },
+          {
+            "label": "cityMaxDelegate",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_bytes32,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:35"
+          },
+          {
+            "label": "cityDelegateRecord",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_bytes32,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:37"
+          },
+          {
+            "label": "cityPioneerAssessment",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:41"
+          },
+          {
+            "label": "cityPioneer",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_bytes32,t_address)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:45"
+          },
+          {
+            "label": "pioneerCity",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:47"
+          },
+          {
+            "label": "pioneerCityIds",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:49"
+          },
+          {
+            "label": "earnestMoney",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:53"
+          },
+          {
+            "label": "hasSetPioneer",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:55"
+          },
+          {
+            "label": "dailyTaskStatus",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_uint256,t_bool)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:56"
+          },
+          {
+            "label": "cityFoundsRecord",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_mapping(t_bytes32,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:59"
+          },
+          {
+            "label": "cityNewlyDelegateRecord",
+            "offset": 0,
+            "slot": "17",
+            "type": "t_mapping(t_bytes32,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:62"
+          },
+          {
+            "label": "cityDelegateTotal",
+            "offset": 0,
+            "slot": "18",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:66"
+          },
+          {
+            "label": "allCityDelegateTotal",
+            "offset": 0,
+            "slot": "19",
+            "type": "t_uint256",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:71"
+          },
+          {
+            "label": "cityFoundsTotal",
+            "offset": 0,
+            "slot": "20",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:75"
+          },
+          {
+            "label": "allCityDailyFoundsTotal",
+            "offset": 0,
+            "slot": "21",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:79"
+          },
+          {
+            "label": "allDailyFoundsTotal",
+            "offset": 0,
+            "slot": "22",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:83"
+          },
+          {
+            "label": "allCityFoundsTotal",
+            "offset": 0,
+            "slot": "23",
+            "type": "t_uint256",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:85"
+          },
+          {
+            "label": "allFoundsTotal",
+            "offset": 0,
+            "slot": "24",
+            "type": "t_uint256",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:88"
+          },
+          {
+            "label": "surety",
+            "offset": 0,
+            "slot": "25",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:90"
+          },
+          {
+            "label": "chengShiLevel",
+            "offset": 0,
+            "slot": "26",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:103"
+          },
+          {
+            "label": "pioneerChengShiIds",
+            "offset": 0,
+            "slot": "27",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:104"
+          },
+          {
+            "label": "chengShiLevelSurety",
+            "offset": 0,
+            "slot": "28",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:108"
+          },
+          {
+            "label": "cityRechargeTotal",
+            "offset": 0,
+            "slot": "29",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:110"
+          },
+          {
+            "label": "chengShiRechargeWeight",
+            "offset": 0,
+            "slot": "30",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:118"
+          },
+          {
+            "label": "chengShiPioneer",
+            "offset": 0,
+            "slot": "31",
+            "type": "t_mapping(t_bytes32,t_address)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:119"
+          },
+          {
+            "label": "pioneerChengShi",
+            "offset": 0,
+            "slot": "32",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:121"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bytes32)": {
+            "label": "mapping(address => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_address)": {
+            "label": "mapping(bytes32 => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bool)": {
+            "label": "mapping(bytes32 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(bytes32 => mapping(uint256 => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_bool)": {
+            "label": "mapping(uint256 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)824_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)509_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Set)509_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "c3cf3156d9bb76aa2c6f7b2cedb1a496e7a3c1ee46e977d58b2fcebcf9d48db2": {
+      "address": "0x8bb451FbBF75F9D941B207f303e9142ea41bA4A2",
+      "txHash": "0x1a0e59673f6e47d2f586ab822e74c3574a87c6920674ecc47c1c1e8c3afcdb67",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_admins",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(AddressSet)824_storage",
+            "contract": "RoleAccess",
+            "src": "contracts/RoleAccess.sol:8"
+          },
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "pledgeStakeAddress",
+            "offset": 2,
+            "slot": "2",
+            "type": "t_address",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:27"
+          },
+          {
+            "label": "intoCityAddress",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:30"
+          },
+          {
+            "label": "cityIds",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:33"
+          },
+          {
+            "label": "cityIdNum",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:35"
+          },
+          {
+            "label": "userHaveSetLocation",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:37"
+          },
+          {
+            "label": "cityInfo",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_bytes32,t_string_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:40"
+          },
+          {
+            "label": "userNumberOfCity",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:42"
+          },
+          {
+            "label": "userLocationInfo",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_string_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:45"
+          },
+          {
+            "label": "userCityId",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:48"
+          },
+          {
+            "label": "cityIdExists",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:53"
+          },
+          {
+            "label": "cityIdsNoRepeat",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:55"
+          },
+          {
+            "label": "cityIdExist",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:57"
+          },
+          {
+            "label": "cityIdChengShiID",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_bytes32,t_bytes32)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:59"
+          },
+          {
+            "label": "chengShiIDCityIdSet",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_bytes32,t_array(t_bytes32)dyn_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:63"
+          },
+          {
+            "label": "cityIdToChengShiIDExits",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:65"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bytes32)": {
+            "label": "mapping(address => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_string_storage)": {
+            "label": "mapping(address => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_array(t_bytes32)dyn_storage)": {
+            "label": "mapping(bytes32 => bytes32[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bool)": {
+            "label": "mapping(bytes32 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bytes32)": {
+            "label": "mapping(bytes32 => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))": {
+            "label": "mapping(bytes32 => mapping(bytes32 => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_string_storage)": {
+            "label": "mapping(bytes32 => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)824_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)509_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Set)509_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "dcc14dc53417e2ab6559483d183c3d9be09e10f439ac7ce48236d5ead0d7831f": {
+      "address": "0xcD2366D9471349BDD9A42d13c2d79A150e2a0c19",
+      "txHash": "0xf77410383682eec4d748e5a4acc4510425afa09939ffc40d60653e700a6bf359",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_admins",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(AddressSet)824_storage",
+            "contract": "RoleAccess",
+            "src": "contracts/RoleAccess.sol:8"
+          },
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "pledgeStakeAddress",
+            "offset": 2,
+            "slot": "2",
+            "type": "t_address",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:27"
+          },
+          {
+            "label": "intoCityAddress",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:30"
+          },
+          {
+            "label": "cityIds",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:33"
+          },
+          {
+            "label": "cityIdNum",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:35"
+          },
+          {
+            "label": "userHaveSetLocation",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:37"
+          },
+          {
+            "label": "cityInfo",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_bytes32,t_string_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:40"
+          },
+          {
+            "label": "userNumberOfCity",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:42"
+          },
+          {
+            "label": "userLocationInfo",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_string_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:45"
+          },
+          {
+            "label": "userCityId",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:48"
+          },
+          {
+            "label": "cityIdExists",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:53"
+          },
+          {
+            "label": "cityIdsNoRepeat",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:55"
+          },
+          {
+            "label": "cityIdExist",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:57"
+          },
+          {
+            "label": "cityIdChengShiID",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_bytes32,t_bytes32)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:58"
+          },
+          {
+            "label": "chengShiIDCityIdSet",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_bytes32,t_array(t_bytes32)dyn_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:59"
+          },
+          {
+            "label": "cityIdToChengShiIDExits",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:65"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bytes32)": {
+            "label": "mapping(address => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_string_storage)": {
+            "label": "mapping(address => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_array(t_bytes32)dyn_storage)": {
+            "label": "mapping(bytes32 => bytes32[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bool)": {
+            "label": "mapping(bytes32 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bytes32)": {
+            "label": "mapping(bytes32 => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))": {
+            "label": "mapping(bytes32 => mapping(bytes32 => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_string_storage)": {
+            "label": "mapping(bytes32 => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)824_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)509_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Set)509_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "852881a37836b7f7a517e77d1bc7cffce95d9ec2361338558b0fb1e998e12996": {
+      "address": "0xEf44DfF1616c538768EE6691591Ae51Ac773c25d",
+      "txHash": "0xec127b33fdba0a9af3fba16f51bc45d3c828743376ba7ac073730d7df950fd23",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_admins",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(AddressSet)824_storage",
+            "contract": "RoleAccess",
+            "src": "contracts/RoleAccess.sol:8"
+          },
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "TOXAddress",
+            "offset": 2,
+            "slot": "2",
+            "type": "t_address",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:72"
+          },
+          {
+            "label": "miningAddress",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:73"
+          },
+          {
+            "label": "cityAddress",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_address",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:73"
+          },
+          {
+            "label": "assessmentCriteria",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:75"
+          },
+          {
+            "label": "assessmentReturnCriteria",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:81"
+          },
+          {
+            "label": "assessmentReturnRate",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:87"
+          },
+          {
+            "label": "pioneerInfo",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_address,t_struct(Pioneer)2141_storage)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:91"
+          },
+          {
+            "label": "benefitPackageReward",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:92"
+          },
+          {
+            "label": "benefitPackageRewardReceived",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:95"
+          },
+          {
+            "label": "fundsReward",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:98"
+          },
+          {
+            "label": "fundsRewardReceived",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:99"
+          },
+          {
+            "label": "delegateReward",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:101"
+          },
+          {
+            "label": "delegateRewardReceived",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:103"
+          },
+          {
+            "label": "suretyReward",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:105"
+          },
+          {
+            "label": "alreadyRewardRate",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:110"
+          },
+          {
+            "label": "suretyRewardRecord",
+            "offset": 0,
+            "slot": "17",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:115"
+          },
+          {
+            "label": "failedDelegate",
+            "offset": 0,
+            "slot": "18",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:120"
+          },
+          {
+            "label": "dailyTaskStatus",
+            "offset": 0,
+            "slot": "19",
+            "type": "t_mapping(t_uint256,t_bool)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:125"
+          },
+          {
+            "label": "benefitPackageRewardStatus",
+            "offset": 0,
+            "slot": "20",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:125"
+          },
+          {
+            "label": "fundsRewardStatus",
+            "offset": 0,
+            "slot": "21",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:129"
+          },
+          {
+            "label": "delegateRewardStatus",
+            "offset": 0,
+            "slot": "22",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:131"
+          },
+          {
+            "label": "checkPioneerStatus",
+            "offset": 0,
+            "slot": "23",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_bool))",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:135"
+          },
+          {
+            "label": "checkRewardStatus",
+            "offset": 0,
+            "slot": "24",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_bool))",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:140"
+          },
+          {
+            "label": "startTime",
+            "offset": 0,
+            "slot": "25",
+            "type": "t_uint256",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:143"
+          },
+          {
+            "label": "pioneers",
+            "offset": 0,
+            "slot": "26",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:144"
+          },
+          {
+            "label": "userLocationAddress",
+            "offset": 0,
+            "slot": "27",
+            "type": "t_address",
+            "contract": "IntoCityPioneer",
+            "src": "contracts/IntoCityPioneer.sol:145"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_bool))": {
+            "label": "mapping(address => mapping(uint256 => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(address => mapping(uint256 => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_struct(Pioneer)2141_storage)": {
+            "label": "mapping(address => struct IntoCityPioneer.Pioneer)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_bool)": {
+            "label": "mapping(uint256 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(uint256 => mapping(uint256 => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)824_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)509_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Pioneer)2141_storage": {
+            "label": "struct IntoCityPioneer.Pioneer",
+            "members": [
+              {
+                "label": "pioneerAddress",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "ctime",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "cityLevel",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "assessmentMonthStatus",
+                "type": "t_bool",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "assessmentStatus",
+                "type": "t_bool",
+                "offset": 1,
+                "slot": "3"
+              },
+              {
+                "label": "returnSuretyStatus",
+                "type": "t_bool",
+                "offset": 2,
+                "slot": "3"
+              },
+              {
+                "label": "returnSuretyRate",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "returnSuretyTime",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "suretyTime",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "6"
+              }
+            ],
+            "numberOfBytes": "224"
+          },
+          "t_struct(Set)509_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "0849ea473fc47841edfba7b59ca8b6da0ab15a0ef99d6d9bb837656b2d7eef3c": {
+      "address": "0x398b8C71eEcf91481339DcB4a21CC37B32b59Ba7",
+      "txHash": "0x1fe9c8361f734c1229340a10566cbb8bb55cd32b7cb223f2ae9d13c022cc9da9",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_admins",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(AddressSet)824_storage",
+            "contract": "RoleAccess",
+            "src": "contracts/RoleAccess.sol:8"
+          },
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "pledgeStakeAddress",
+            "offset": 2,
+            "slot": "2",
+            "type": "t_address",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:27"
+          },
+          {
+            "label": "intoCityAddress",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:30"
+          },
+          {
+            "label": "cityIds",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:33"
+          },
+          {
+            "label": "cityIdNum",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:35"
+          },
+          {
+            "label": "userHaveSetLocation",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:37"
+          },
+          {
+            "label": "cityInfo",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_bytes32,t_string_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:40"
+          },
+          {
+            "label": "userNumberOfCity",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:42"
+          },
+          {
+            "label": "userLocationInfo",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_string_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:45"
+          },
+          {
+            "label": "userCityId",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:48"
+          },
+          {
+            "label": "cityIdExists",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:53"
+          },
+          {
+            "label": "cityIdsNoRepeat",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:55"
+          },
+          {
+            "label": "cityIdExist",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:57"
+          },
+          {
+            "label": "cityIdChengShiID",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_bytes32,t_bytes32)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:58"
+          },
+          {
+            "label": "chengShiIDCityIdSet",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_bytes32,t_array(t_bytes32)dyn_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:59"
+          },
+          {
+            "label": "CityIdToChengShiIDExits",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:66"
+          },
+          {
+            "label": "cityIdToChengShiIDExits",
+            "offset": 0,
+            "slot": "17",
+            "type": "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:71"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bytes32)": {
+            "label": "mapping(address => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_string_storage)": {
+            "label": "mapping(address => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_array(t_bytes32)dyn_storage)": {
+            "label": "mapping(bytes32 => bytes32[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bool)": {
+            "label": "mapping(bytes32 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bytes32)": {
+            "label": "mapping(bytes32 => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))": {
+            "label": "mapping(bytes32 => mapping(bytes32 => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_string_storage)": {
+            "label": "mapping(bytes32 => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)824_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)509_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Set)509_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "2d51135ad222e4bb534961479e55e32d0472002254176a6797cd2a3f359691d2": {
+      "address": "0x73a404e0e15a90603a59D824159709b1bEd5bbFe",
+      "txHash": "0x21edf029b6c01d8e6eda26721a666706a1bf0637db6d9721747099e35d429470",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_admins",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(AddressSet)824_storage",
+            "contract": "RoleAccess",
+            "src": "contracts/RoleAccess.sol:8"
+          },
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "pledgeStakeAddress",
+            "offset": 2,
+            "slot": "2",
+            "type": "t_address",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:27"
+          },
+          {
+            "label": "intoCityAddress",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:30"
+          },
+          {
+            "label": "cityIds",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:33"
+          },
+          {
+            "label": "cityIdNum",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:35"
+          },
+          {
+            "label": "userHaveSetLocation",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:37"
+          },
+          {
+            "label": "cityInfo",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_bytes32,t_string_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:40"
+          },
+          {
+            "label": "userNumberOfCity",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:42"
+          },
+          {
+            "label": "userLocationInfo",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_string_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:45"
+          },
+          {
+            "label": "userCityId",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:48"
+          },
+          {
+            "label": "cityIdExists",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:53"
+          },
+          {
+            "label": "cityIdsNoRepeat",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:55"
+          },
+          {
+            "label": "cityIdExist",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:57"
+          },
+          {
+            "label": "cityIdChengShiID",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_bytes32,t_bytes32)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:58"
+          },
+          {
+            "label": "chengShiIDCityIdSet",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_bytes32,t_array(t_bytes32)dyn_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:59"
+          },
+          {
+            "label": "CityIdToChengShiIDExits",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:65"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bytes32)": {
+            "label": "mapping(address => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_string_storage)": {
+            "label": "mapping(address => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_array(t_bytes32)dyn_storage)": {
+            "label": "mapping(bytes32 => bytes32[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bool)": {
+            "label": "mapping(bytes32 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bytes32)": {
+            "label": "mapping(bytes32 => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))": {
+            "label": "mapping(bytes32 => mapping(bytes32 => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_string_storage)": {
+            "label": "mapping(bytes32 => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)824_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)509_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Set)509_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    },
+    "77f8d05150cb484f733fe9b3ff7e1ace1438c8f3295197ddb8f0c8d11179a334": {
+      "address": "0xFC82B62E76D25F676Ea360B622ad0fc9A79bAe1a",
+      "txHash": "0x4c19a96f9496557fffe1c9fbc0bdbc1a67a99dc6b04f72890193f83aaa24d5a2",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_admins",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(AddressSet)824_storage",
+            "contract": "RoleAccess",
+            "src": "contracts/RoleAccess.sol:8"
+          },
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "pledgeStakeAddress",
+            "offset": 2,
+            "slot": "2",
+            "type": "t_address",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:27"
+          },
+          {
+            "label": "intoCityAddress",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:30"
+          },
+          {
+            "label": "cityIds",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:33"
+          },
+          {
+            "label": "cityIdNum",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:35"
+          },
+          {
+            "label": "userHaveSetLocation",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:37"
+          },
+          {
+            "label": "cityInfo",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_bytes32,t_string_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:40"
+          },
+          {
+            "label": "userNumberOfCity",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:42"
+          },
+          {
+            "label": "userLocationInfo",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_string_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:45"
+          },
+          {
+            "label": "userCityId",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:48"
+          },
+          {
+            "label": "cityIdExists",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:53"
+          },
+          {
+            "label": "cityIdsNoRepeat",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:55"
+          },
+          {
+            "label": "cityIdExist",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:57"
+          },
+          {
+            "label": "cityIdChengShiID",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_bytes32,t_bytes32)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:58"
+          },
+          {
+            "label": "chengShiIDCityIdSet",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_bytes32,t_array(t_bytes32)dyn_storage)",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:59"
+          },
+          {
+            "label": "CityIdToChengShiIDExits",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:66"
+          },
+          {
+            "label": "cityIdToChengShiIDExits",
+            "offset": 0,
+            "slot": "17",
+            "type": "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))",
+            "contract": "IntoUserLocation",
+            "src": "contracts/IntoUserLocation.sol:71"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bytes32)": {
+            "label": "mapping(address => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_string_storage)": {
+            "label": "mapping(address => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_array(t_bytes32)dyn_storage)": {
+            "label": "mapping(bytes32 => bytes32[])",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bool)": {
+            "label": "mapping(bytes32 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bytes32)": {
+            "label": "mapping(bytes32 => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_bytes32,t_bool))": {
+            "label": "mapping(bytes32 => mapping(bytes32 => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_string_storage)": {
+            "label": "mapping(bytes32 => string)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
             "numberOfBytes": "32"
           },
           "t_struct(AddressSet)824_storage": {

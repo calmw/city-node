@@ -31,7 +31,7 @@ var (
 
 // UserLocationMetaData contains all meta data concerning the UserLocation contract.
 var UserLocationMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"BoolVal\",\"type\":\"bool\"}],\"name\":\"LogBool\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"UserLocationRecord\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"intoCityAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pledgeStakeAddress_\",\"type\":\"address\"}],\"name\":\"adminSetPledgeStakeAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityIdExist\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityIdExists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityIdNum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityIdsNoRepeat\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getAllCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"intoCityAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"start\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"end\",\"type\":\"uint256\"}],\"name\":\"noRepeatCityIds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pledgeStakeAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"location_\",\"type\":\"string\"}],\"name\":\"setUserLocation\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userCityId\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userLocationInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"userNumberOfCity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"location\",\"type\":\"string\"}],\"name\":\"UserLocationRecord\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"countyId\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"chengShiId\",\"type\":\"bytes32\"}],\"name\":\"SetCityMapping\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"intoCityAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pledgeStakeAddress_\",\"type\":\"address\"}],\"name\":\"adminSetPledgeStakeAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"chengShiIDCityIdSet\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityIdChengShiID\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityIdExist\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityIdExists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityIdNum\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityIdToChengShiIDExits\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityIdsNoRepeat\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getChengShiIdByAddress\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"countyId\",\"type\":\"bytes32\"}],\"name\":\"getChengShiIdByCountyId\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getCountyId\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId\",\"type\":\"bytes32\"}],\"name\":\"getCountyIdsByChengShiId\",\"outputs\":[{\"internalType\":\"bytes32[]\",\"name\":\"\",\"type\":\"bytes32[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getUserNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"intoCityAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"start\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"end\",\"type\":\"uint256\"}],\"name\":\"noRepeatCityIds\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pledgeStakeAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"string\",\"name\":\"location_\",\"type\":\"string\"}],\"name\":\"setUserLocation\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"string\",\"name\":\"location_\",\"type\":\"string\"}],\"name\":\"setUserLocationTest\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userCityId\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userLocationInfo\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"userNumberOfCity\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // UserLocationABI is the input ABI used to generate the binding from.
@@ -211,6 +211,68 @@ func (_UserLocation *UserLocationCallerSession) AllAdmins() ([]common.Address, e
 	return _UserLocation.Contract.AllAdmins(&_UserLocation.CallOpts)
 }
 
+// ChengShiIDCityIdSet is a free data retrieval call binding the contract method 0xbec15656.
+//
+// Solidity: function chengShiIDCityIdSet(bytes32 , uint256 ) view returns(bytes32)
+func (_UserLocation *UserLocationCaller) ChengShiIDCityIdSet(opts *bind.CallOpts, arg0 [32]byte, arg1 *big.Int) ([32]byte, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "chengShiIDCityIdSet", arg0, arg1)
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// ChengShiIDCityIdSet is a free data retrieval call binding the contract method 0xbec15656.
+//
+// Solidity: function chengShiIDCityIdSet(bytes32 , uint256 ) view returns(bytes32)
+func (_UserLocation *UserLocationSession) ChengShiIDCityIdSet(arg0 [32]byte, arg1 *big.Int) ([32]byte, error) {
+	return _UserLocation.Contract.ChengShiIDCityIdSet(&_UserLocation.CallOpts, arg0, arg1)
+}
+
+// ChengShiIDCityIdSet is a free data retrieval call binding the contract method 0xbec15656.
+//
+// Solidity: function chengShiIDCityIdSet(bytes32 , uint256 ) view returns(bytes32)
+func (_UserLocation *UserLocationCallerSession) ChengShiIDCityIdSet(arg0 [32]byte, arg1 *big.Int) ([32]byte, error) {
+	return _UserLocation.Contract.ChengShiIDCityIdSet(&_UserLocation.CallOpts, arg0, arg1)
+}
+
+// CityIdChengShiID is a free data retrieval call binding the contract method 0x95af990f.
+//
+// Solidity: function cityIdChengShiID(bytes32 ) view returns(bytes32)
+func (_UserLocation *UserLocationCaller) CityIdChengShiID(opts *bind.CallOpts, arg0 [32]byte) ([32]byte, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "cityIdChengShiID", arg0)
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// CityIdChengShiID is a free data retrieval call binding the contract method 0x95af990f.
+//
+// Solidity: function cityIdChengShiID(bytes32 ) view returns(bytes32)
+func (_UserLocation *UserLocationSession) CityIdChengShiID(arg0 [32]byte) ([32]byte, error) {
+	return _UserLocation.Contract.CityIdChengShiID(&_UserLocation.CallOpts, arg0)
+}
+
+// CityIdChengShiID is a free data retrieval call binding the contract method 0x95af990f.
+//
+// Solidity: function cityIdChengShiID(bytes32 ) view returns(bytes32)
+func (_UserLocation *UserLocationCallerSession) CityIdChengShiID(arg0 [32]byte) ([32]byte, error) {
+	return _UserLocation.Contract.CityIdChengShiID(&_UserLocation.CallOpts, arg0)
+}
+
 // CityIdExist is a free data retrieval call binding the contract method 0x1f6cd476.
 //
 // Solidity: function cityIdExist(bytes32 ) view returns(bool)
@@ -302,6 +364,37 @@ func (_UserLocation *UserLocationSession) CityIdNum() (*big.Int, error) {
 // Solidity: function cityIdNum() view returns(uint256)
 func (_UserLocation *UserLocationCallerSession) CityIdNum() (*big.Int, error) {
 	return _UserLocation.Contract.CityIdNum(&_UserLocation.CallOpts)
+}
+
+// CityIdToChengShiIDExits is a free data retrieval call binding the contract method 0x744395f3.
+//
+// Solidity: function cityIdToChengShiIDExits(bytes32 , bytes32 ) view returns(bool)
+func (_UserLocation *UserLocationCaller) CityIdToChengShiIDExits(opts *bind.CallOpts, arg0 [32]byte, arg1 [32]byte) (bool, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "cityIdToChengShiIDExits", arg0, arg1)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// CityIdToChengShiIDExits is a free data retrieval call binding the contract method 0x744395f3.
+//
+// Solidity: function cityIdToChengShiIDExits(bytes32 , bytes32 ) view returns(bool)
+func (_UserLocation *UserLocationSession) CityIdToChengShiIDExits(arg0 [32]byte, arg1 [32]byte) (bool, error) {
+	return _UserLocation.Contract.CityIdToChengShiIDExits(&_UserLocation.CallOpts, arg0, arg1)
+}
+
+// CityIdToChengShiIDExits is a free data retrieval call binding the contract method 0x744395f3.
+//
+// Solidity: function cityIdToChengShiIDExits(bytes32 , bytes32 ) view returns(bool)
+func (_UserLocation *UserLocationCallerSession) CityIdToChengShiIDExits(arg0 [32]byte, arg1 [32]byte) (bool, error) {
+	return _UserLocation.Contract.CityIdToChengShiIDExits(&_UserLocation.CallOpts, arg0, arg1)
 }
 
 // CityIds is a free data retrieval call binding the contract method 0x75e6a6d4.
@@ -397,35 +490,66 @@ func (_UserLocation *UserLocationCallerSession) CityInfo(arg0 [32]byte) (string,
 	return _UserLocation.Contract.CityInfo(&_UserLocation.CallOpts, arg0)
 }
 
-// GetAllCityNumber is a free data retrieval call binding the contract method 0x957466c7.
+// GetChengShiIdByAddress is a free data retrieval call binding the contract method 0x981d5563.
 //
-// Solidity: function getAllCityNumber() view returns(uint256)
-func (_UserLocation *UserLocationCaller) GetAllCityNumber(opts *bind.CallOpts) (*big.Int, error) {
+// Solidity: function getChengShiIdByAddress(address user) view returns(bytes32)
+func (_UserLocation *UserLocationCaller) GetChengShiIdByAddress(opts *bind.CallOpts, user common.Address) ([32]byte, error) {
 	var out []interface{}
-	err := _UserLocation.contract.Call(opts, &out, "getAllCityNumber")
+	err := _UserLocation.contract.Call(opts, &out, "getChengShiIdByAddress", user)
 
 	if err != nil {
-		return *new(*big.Int), err
+		return *new([32]byte), err
 	}
 
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
 
 	return out0, err
 
 }
 
-// GetAllCityNumber is a free data retrieval call binding the contract method 0x957466c7.
+// GetChengShiIdByAddress is a free data retrieval call binding the contract method 0x981d5563.
 //
-// Solidity: function getAllCityNumber() view returns(uint256)
-func (_UserLocation *UserLocationSession) GetAllCityNumber() (*big.Int, error) {
-	return _UserLocation.Contract.GetAllCityNumber(&_UserLocation.CallOpts)
+// Solidity: function getChengShiIdByAddress(address user) view returns(bytes32)
+func (_UserLocation *UserLocationSession) GetChengShiIdByAddress(user common.Address) ([32]byte, error) {
+	return _UserLocation.Contract.GetChengShiIdByAddress(&_UserLocation.CallOpts, user)
 }
 
-// GetAllCityNumber is a free data retrieval call binding the contract method 0x957466c7.
+// GetChengShiIdByAddress is a free data retrieval call binding the contract method 0x981d5563.
 //
-// Solidity: function getAllCityNumber() view returns(uint256)
-func (_UserLocation *UserLocationCallerSession) GetAllCityNumber() (*big.Int, error) {
-	return _UserLocation.Contract.GetAllCityNumber(&_UserLocation.CallOpts)
+// Solidity: function getChengShiIdByAddress(address user) view returns(bytes32)
+func (_UserLocation *UserLocationCallerSession) GetChengShiIdByAddress(user common.Address) ([32]byte, error) {
+	return _UserLocation.Contract.GetChengShiIdByAddress(&_UserLocation.CallOpts, user)
+}
+
+// GetChengShiIdByCountyId is a free data retrieval call binding the contract method 0x0337fe26.
+//
+// Solidity: function getChengShiIdByCountyId(bytes32 countyId) view returns(bytes32)
+func (_UserLocation *UserLocationCaller) GetChengShiIdByCountyId(opts *bind.CallOpts, countyId [32]byte) ([32]byte, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "getChengShiIdByCountyId", countyId)
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// GetChengShiIdByCountyId is a free data retrieval call binding the contract method 0x0337fe26.
+//
+// Solidity: function getChengShiIdByCountyId(bytes32 countyId) view returns(bytes32)
+func (_UserLocation *UserLocationSession) GetChengShiIdByCountyId(countyId [32]byte) ([32]byte, error) {
+	return _UserLocation.Contract.GetChengShiIdByCountyId(&_UserLocation.CallOpts, countyId)
+}
+
+// GetChengShiIdByCountyId is a free data retrieval call binding the contract method 0x0337fe26.
+//
+// Solidity: function getChengShiIdByCountyId(bytes32 countyId) view returns(bytes32)
+func (_UserLocation *UserLocationCallerSession) GetChengShiIdByCountyId(countyId [32]byte) ([32]byte, error) {
+	return _UserLocation.Contract.GetChengShiIdByCountyId(&_UserLocation.CallOpts, countyId)
 }
 
 // GetCityNumber is a free data retrieval call binding the contract method 0x383a9096.
@@ -457,6 +581,130 @@ func (_UserLocation *UserLocationSession) GetCityNumber() (*big.Int, error) {
 // Solidity: function getCityNumber() view returns(uint256)
 func (_UserLocation *UserLocationCallerSession) GetCityNumber() (*big.Int, error) {
 	return _UserLocation.Contract.GetCityNumber(&_UserLocation.CallOpts)
+}
+
+// GetCountyId is a free data retrieval call binding the contract method 0x74cc7c80.
+//
+// Solidity: function getCountyId(address user) view returns(bytes32)
+func (_UserLocation *UserLocationCaller) GetCountyId(opts *bind.CallOpts, user common.Address) ([32]byte, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "getCountyId", user)
+
+	if err != nil {
+		return *new([32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
+
+	return out0, err
+
+}
+
+// GetCountyId is a free data retrieval call binding the contract method 0x74cc7c80.
+//
+// Solidity: function getCountyId(address user) view returns(bytes32)
+func (_UserLocation *UserLocationSession) GetCountyId(user common.Address) ([32]byte, error) {
+	return _UserLocation.Contract.GetCountyId(&_UserLocation.CallOpts, user)
+}
+
+// GetCountyId is a free data retrieval call binding the contract method 0x74cc7c80.
+//
+// Solidity: function getCountyId(address user) view returns(bytes32)
+func (_UserLocation *UserLocationCallerSession) GetCountyId(user common.Address) ([32]byte, error) {
+	return _UserLocation.Contract.GetCountyId(&_UserLocation.CallOpts, user)
+}
+
+// GetCountyIdsByChengShiId is a free data retrieval call binding the contract method 0x294643be.
+//
+// Solidity: function getCountyIdsByChengShiId(bytes32 chengShiId) view returns(bytes32[])
+func (_UserLocation *UserLocationCaller) GetCountyIdsByChengShiId(opts *bind.CallOpts, chengShiId [32]byte) ([][32]byte, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "getCountyIdsByChengShiId", chengShiId)
+
+	if err != nil {
+		return *new([][32]byte), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([][32]byte)).(*[][32]byte)
+
+	return out0, err
+
+}
+
+// GetCountyIdsByChengShiId is a free data retrieval call binding the contract method 0x294643be.
+//
+// Solidity: function getCountyIdsByChengShiId(bytes32 chengShiId) view returns(bytes32[])
+func (_UserLocation *UserLocationSession) GetCountyIdsByChengShiId(chengShiId [32]byte) ([][32]byte, error) {
+	return _UserLocation.Contract.GetCountyIdsByChengShiId(&_UserLocation.CallOpts, chengShiId)
+}
+
+// GetCountyIdsByChengShiId is a free data retrieval call binding the contract method 0x294643be.
+//
+// Solidity: function getCountyIdsByChengShiId(bytes32 chengShiId) view returns(bytes32[])
+func (_UserLocation *UserLocationCallerSession) GetCountyIdsByChengShiId(chengShiId [32]byte) ([][32]byte, error) {
+	return _UserLocation.Contract.GetCountyIdsByChengShiId(&_UserLocation.CallOpts, chengShiId)
+}
+
+// GetDay is a free data retrieval call binding the contract method 0x14ba5c09.
+//
+// Solidity: function getDay() view returns(uint256)
+func (_UserLocation *UserLocationCaller) GetDay(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "getDay")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetDay is a free data retrieval call binding the contract method 0x14ba5c09.
+//
+// Solidity: function getDay() view returns(uint256)
+func (_UserLocation *UserLocationSession) GetDay() (*big.Int, error) {
+	return _UserLocation.Contract.GetDay(&_UserLocation.CallOpts)
+}
+
+// GetDay is a free data retrieval call binding the contract method 0x14ba5c09.
+//
+// Solidity: function getDay() view returns(uint256)
+func (_UserLocation *UserLocationCallerSession) GetDay() (*big.Int, error) {
+	return _UserLocation.Contract.GetDay(&_UserLocation.CallOpts)
+}
+
+// GetUserNumber is a free data retrieval call binding the contract method 0x20c9ad2c.
+//
+// Solidity: function getUserNumber() view returns(uint256)
+func (_UserLocation *UserLocationCaller) GetUserNumber(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _UserLocation.contract.Call(opts, &out, "getUserNumber")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetUserNumber is a free data retrieval call binding the contract method 0x20c9ad2c.
+//
+// Solidity: function getUserNumber() view returns(uint256)
+func (_UserLocation *UserLocationSession) GetUserNumber() (*big.Int, error) {
+	return _UserLocation.Contract.GetUserNumber(&_UserLocation.CallOpts)
+}
+
+// GetUserNumber is a free data retrieval call binding the contract method 0x20c9ad2c.
+//
+// Solidity: function getUserNumber() view returns(uint256)
+func (_UserLocation *UserLocationCallerSession) GetUserNumber() (*big.Int, error) {
+	return _UserLocation.Contract.GetUserNumber(&_UserLocation.CallOpts)
 }
 
 // IntoCityAddress is a free data retrieval call binding the contract method 0xf9c454de.
@@ -643,6 +891,27 @@ func (_UserLocation *UserLocationSession) UserNumberOfCity(arg0 [32]byte) (*big.
 // Solidity: function userNumberOfCity(bytes32 ) view returns(uint256)
 func (_UserLocation *UserLocationCallerSession) UserNumberOfCity(arg0 [32]byte) (*big.Int, error) {
 	return _UserLocation.Contract.UserNumberOfCity(&_UserLocation.CallOpts, arg0)
+}
+
+// SetCityMapping is a paid mutator transaction binding the contract method 0x03174d5a.
+//
+// Solidity: function SetCityMapping(bytes32 countyId, bytes32 chengShiId) returns()
+func (_UserLocation *UserLocationTransactor) SetCityMapping(opts *bind.TransactOpts, countyId [32]byte, chengShiId [32]byte) (*types.Transaction, error) {
+	return _UserLocation.contract.Transact(opts, "SetCityMapping", countyId, chengShiId)
+}
+
+// SetCityMapping is a paid mutator transaction binding the contract method 0x03174d5a.
+//
+// Solidity: function SetCityMapping(bytes32 countyId, bytes32 chengShiId) returns()
+func (_UserLocation *UserLocationSession) SetCityMapping(countyId [32]byte, chengShiId [32]byte) (*types.Transaction, error) {
+	return _UserLocation.Contract.SetCityMapping(&_UserLocation.TransactOpts, countyId, chengShiId)
+}
+
+// SetCityMapping is a paid mutator transaction binding the contract method 0x03174d5a.
+//
+// Solidity: function SetCityMapping(bytes32 countyId, bytes32 chengShiId) returns()
+func (_UserLocation *UserLocationTransactorSession) SetCityMapping(countyId [32]byte, chengShiId [32]byte) (*types.Transaction, error) {
+	return _UserLocation.Contract.SetCityMapping(&_UserLocation.TransactOpts, countyId, chengShiId)
 }
 
 // AddAdmin is a paid mutator transaction binding the contract method 0x70480275.
@@ -832,6 +1101,27 @@ func (_UserLocation *UserLocationSession) SetUserLocation(cityId_ [32]byte, loca
 // Solidity: function setUserLocation(bytes32 cityId_, string location_) returns()
 func (_UserLocation *UserLocationTransactorSession) SetUserLocation(cityId_ [32]byte, location_ string) (*types.Transaction, error) {
 	return _UserLocation.Contract.SetUserLocation(&_UserLocation.TransactOpts, cityId_, location_)
+}
+
+// SetUserLocationTest is a paid mutator transaction binding the contract method 0x4f5879d8.
+//
+// Solidity: function setUserLocationTest(bytes32 cityId_, address user, string location_) returns()
+func (_UserLocation *UserLocationTransactor) SetUserLocationTest(opts *bind.TransactOpts, cityId_ [32]byte, user common.Address, location_ string) (*types.Transaction, error) {
+	return _UserLocation.contract.Transact(opts, "setUserLocationTest", cityId_, user, location_)
+}
+
+// SetUserLocationTest is a paid mutator transaction binding the contract method 0x4f5879d8.
+//
+// Solidity: function setUserLocationTest(bytes32 cityId_, address user, string location_) returns()
+func (_UserLocation *UserLocationSession) SetUserLocationTest(cityId_ [32]byte, user common.Address, location_ string) (*types.Transaction, error) {
+	return _UserLocation.Contract.SetUserLocationTest(&_UserLocation.TransactOpts, cityId_, user, location_)
+}
+
+// SetUserLocationTest is a paid mutator transaction binding the contract method 0x4f5879d8.
+//
+// Solidity: function setUserLocationTest(bytes32 cityId_, address user, string location_) returns()
+func (_UserLocation *UserLocationTransactorSession) SetUserLocationTest(cityId_ [32]byte, user common.Address, location_ string) (*types.Transaction, error) {
+	return _UserLocation.Contract.SetUserLocationTest(&_UserLocation.TransactOpts, cityId_, user, location_)
 }
 
 // UserLocationAdminAddedIterator is returned from FilterAdminAdded and is used to iterate over the raw logs and unpacked data for AdminAdded events raised by the UserLocation contract.
@@ -1250,140 +1540,6 @@ func (_UserLocation *UserLocationFilterer) WatchInitialized(opts *bind.WatchOpts
 func (_UserLocation *UserLocationFilterer) ParseInitialized(log types.Log) (*UserLocationInitialized, error) {
 	event := new(UserLocationInitialized)
 	if err := _UserLocation.contract.UnpackLog(event, "Initialized", log); err != nil {
-		return nil, err
-	}
-	event.Raw = log
-	return event, nil
-}
-
-// UserLocationLogBoolIterator is returned from FilterLogBool and is used to iterate over the raw logs and unpacked data for LogBool events raised by the UserLocation contract.
-type UserLocationLogBoolIterator struct {
-	Event *UserLocationLogBool // Event containing the contract specifics and raw log
-
-	contract *bind.BoundContract // Generic contract to use for unpacking event data
-	event    string              // Event name to use for unpacking event data
-
-	logs chan types.Log        // Log channel receiving the found contract events
-	sub  ethereum.Subscription // Subscription for errors, completion and termination
-	done bool                  // Whether the subscription completed delivering logs
-	fail error                 // Occurred error to stop iteration
-}
-
-// Next advances the iterator to the subsequent event, returning whether there
-// are any more events found. In case of a retrieval or parsing error, false is
-// returned and Error() can be queried for the exact failure.
-func (it *UserLocationLogBoolIterator) Next() bool {
-	// If the iterator failed, stop iterating
-	if it.fail != nil {
-		return false
-	}
-	// If the iterator completed, deliver directly whatever's available
-	if it.done {
-		select {
-		case log := <-it.logs:
-			it.Event = new(UserLocationLogBool)
-			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-				it.fail = err
-				return false
-			}
-			it.Event.Raw = log
-			return true
-
-		default:
-			return false
-		}
-	}
-	// Iterator still in progress, wait for either a data or an error event
-	select {
-	case log := <-it.logs:
-		it.Event = new(UserLocationLogBool)
-		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
-			it.fail = err
-			return false
-		}
-		it.Event.Raw = log
-		return true
-
-	case err := <-it.sub.Err():
-		it.done = true
-		it.fail = err
-		return it.Next()
-	}
-}
-
-// Error returns any retrieval or parsing error occurred during filtering.
-func (it *UserLocationLogBoolIterator) Error() error {
-	return it.fail
-}
-
-// Close terminates the iteration process, releasing any pending underlying
-// resources.
-func (it *UserLocationLogBoolIterator) Close() error {
-	it.sub.Unsubscribe()
-	return nil
-}
-
-// UserLocationLogBool represents a LogBool event raised by the UserLocation contract.
-type UserLocationLogBool struct {
-	BoolVal bool
-	Raw     types.Log // Blockchain specific contextual infos
-}
-
-// FilterLogBool is a free log retrieval operation binding the contract event 0xc33356bc2bad2ce263b056da5d061d4e89c336823d5e77f14c1383aedb7a1b3a.
-//
-// Solidity: event LogBool(bool BoolVal)
-func (_UserLocation *UserLocationFilterer) FilterLogBool(opts *bind.FilterOpts) (*UserLocationLogBoolIterator, error) {
-
-	logs, sub, err := _UserLocation.contract.FilterLogs(opts, "LogBool")
-	if err != nil {
-		return nil, err
-	}
-	return &UserLocationLogBoolIterator{contract: _UserLocation.contract, event: "LogBool", logs: logs, sub: sub}, nil
-}
-
-// WatchLogBool is a free log subscription operation binding the contract event 0xc33356bc2bad2ce263b056da5d061d4e89c336823d5e77f14c1383aedb7a1b3a.
-//
-// Solidity: event LogBool(bool BoolVal)
-func (_UserLocation *UserLocationFilterer) WatchLogBool(opts *bind.WatchOpts, sink chan<- *UserLocationLogBool) (event.Subscription, error) {
-
-	logs, sub, err := _UserLocation.contract.WatchLogs(opts, "LogBool")
-	if err != nil {
-		return nil, err
-	}
-	return event.NewSubscription(func(quit <-chan struct{}) error {
-		defer sub.Unsubscribe()
-		for {
-			select {
-			case log := <-logs:
-				// New log arrived, parse the event and forward to the user
-				event := new(UserLocationLogBool)
-				if err := _UserLocation.contract.UnpackLog(event, "LogBool", log); err != nil {
-					return err
-				}
-				event.Raw = log
-
-				select {
-				case sink <- event:
-				case err := <-sub.Err():
-					return err
-				case <-quit:
-					return nil
-				}
-			case err := <-sub.Err():
-				return err
-			case <-quit:
-				return nil
-			}
-		}
-	}), nil
-}
-
-// ParseLogBool is a log parse operation binding the contract event 0xc33356bc2bad2ce263b056da5d061d4e89c336823d5e77f14c1383aedb7a1b3a.
-//
-// Solidity: event LogBool(bool BoolVal)
-func (_UserLocation *UserLocationFilterer) ParseLogBool(log types.Log) (*UserLocationLogBool, error) {
-	event := new(UserLocationLogBool)
-	if err := _UserLocation.contract.UnpackLog(event, "LogBool", log); err != nil {
 		return nil, err
 	}
 	event.Raw = log

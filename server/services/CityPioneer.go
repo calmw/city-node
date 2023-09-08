@@ -24,4 +24,7 @@ func InitCityPioneer() {
 
 	// AddCityPioneerAdmin 给城市合约、IntoMining设置用户（增加用户合约余额）添加管理员权限
 	blockchain.AddCityPioneerAdmin()
+
+	// 管理员设置开始考核时间,先交保证金，后考核
+	//blockchain.AdminSetStartTime()
 }
