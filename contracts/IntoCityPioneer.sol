@@ -52,7 +52,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     struct Pioneer {
         address pioneerAddress;
         uint256 ctime; // 开始考核的时间戳
-        uint256 cityLevel; // 所在城市等级
+        uint256 cityLevel; // 所在城市等级,这里是城市ID
         bool assessmentMonthStatus; // 按月考核状态
         bool assessmentStatus; // 最终考核状态
         bool returnSuretyStatus; // 保证金退还状态
@@ -161,7 +161,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 考核和奖励任务
-    function pioneerTask(address pioneerAddress_,bytes32 chengShiId_) public onlyAdmin {
+    function pioneerTask(address pioneerAddress_, bytes32 chengShiId_) public onlyAdmin {
 //        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
 
 //        IntoCity city = IntoCity(cityAddress);
@@ -190,10 +190,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     function depositSurety() public {
         IntoCity city = IntoCity(cityAddress);
         // 查询调用者地址是否是城市先锋
-        bytes32 cityId = city.pioneerCity(msg.sender);
-        require(cityId != bytes32(0), "you are not pioneer"); // 不是城市先锋
+        bytes32 chengShiId = city.pioneerChengShi(msg.sender);
+        require(chengShiId != bytes32(0), "you are not pioneer"); // 不是城市先锋
         // 查询该城市先锋对应的城市，根据城市查询需要缴纳的保证金数量
-        uint256 surety = city.surety(cityId);
+        uint256 surety = city.surety(chengShiId);
         IERC20 TOXContract = IERC20(TOXAddress);
         uint256 userBalance = TOXContract.balanceOf(msg.sender);
 
@@ -203,8 +203,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[msg.sender].assessmentMonthStatus = true;
         pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].suretyTime = block.timestamp;
-        pioneerInfo[msg.sender].cityLevel = city.cityLevel(cityId);
-        city.initCityDelegate(cityId);// 将先锋绑定的城市的新增质押量变为0
+        pioneerInfo[msg.sender].cityLevel = city.chengShiLevel(chengShiId);
+        city.initCityDelegate(chengShiId);// 将先锋绑定的城市的新增质押量变为0
     }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
@@ -385,6 +385,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 更新领取状态(全部领完才算已领取)
         benefitPackageRewardStatus[msg.sender] = true;
         benefitPackageRewardReceived[msg.sender] += benefitPackageReward[msg.sender]; // 更新已领取福利包奖励
+        benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
         emit WithdrawalRewardRecord(
             msg.sender,
             benefitPackageReward[msg.sender],
@@ -401,6 +402,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 更新领取状态(全部领完才算已领取)
         fundsRewardStatus[msg.sender] = true;
         fundsRewardReceived[msg.sender] += fundsReward[msg.sender]; // 更新已领取社交基金奖励
+        fundsReward[msg.sender] = 0; // 更新可领取社交基金奖励
         emit WithdrawalRewardRecord(
             msg.sender,
             fundsReward[msg.sender],
@@ -416,6 +418,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         setUserBalance(msg.sender, delegateReward[msg.sender], 17);
         delegateRewardStatus[msg.sender] = true;
         delegateRewardReceived[msg.sender] += delegateReward[msg.sender]; // 更新已领取新增质押奖励
+        delegateReward[msg.sender] = 0; // 更新可领取新增质押奖励
         emit WithdrawalRewardRecord(
             msg.sender,
             delegateReward[msg.sender],
@@ -430,6 +433,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 退还保证金到钱包账户
         IERC20 TOX = IERC20(TOXAddress);
         TOX.transfer(msg.sender, suretyReward[msg.sender]);
+        suretyReward[msg.sender] = 0; // 更新可可退还保证金数额
         // 更新已退还记录
         suretyRewardRecord[msg.sender] += suretyReward[msg.sender];
         emit WithdrawalRewardRecord(
@@ -478,5 +482,18 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[pioneerTest_].cityLevel = city.cityLevel(cityId);
         city.initCityDelegate(cityId);// 将先锋绑定的城市的新增质押量变为0
     }
+
+    // 给收益增加测试数据
+    function addBalance(address user, uint256 amount_) public onlyAdmin {
+        //先锋福利包收益
+        benefitPackageReward[user] += amount_;
+        //先锋社交基金收益
+        fundsReward[user] += amount_;
+        //先锋新增质押收益
+        delegateReward[user] += amount_;
+        //先锋可以退的保证金
+        suretyReward[user] += amount_;
+    }
+
 
 }

@@ -26,28 +26,35 @@ contract IntoUserLocation is RoleAccess, Initializable {
     // 城市合约地址
     address public intoCityAddress;
 
-    // 城市ID集合
+    // 区县ID集合
     bytes32[] public cityIds; // 废弃
     // 参与定位的用户数量
     uint256 public cityIdNum;
     // 用户是否设置过定位信息
     mapping(address => bool) private userHaveSetLocation;
-    // 城市ID => 位置信息（加密）
+    // 区县ID => 位置信息（加密）
     mapping(bytes32 => string) public cityInfo;
-    // 城市ID => 城市用户数量
+    // 区县ID => 城市用户数量
     mapping(bytes32 => uint256) public userNumberOfCity;
     // 用户地址 => 位置信息（加密）
     mapping(address => string) public userLocationInfo;
-    // 用户地址 => 城市ID
+    // 用户地址 => 区县ID
     mapping(address => bytes32) public userCityId;
 
     // 新增变量 -------------------------------------
-    // 城市ID => 该城市ID是否存在
+    // 区县ID => 该区县ID是否存在
     mapping(bytes32 => bool) public cityIdExists; // 废弃
-    // 城市ID集合
+    // 区县ID集合
     bytes32[] public cityIdsNoRepeat;
-    // 城市ID => 该城市ID是否存在
+    // 区县ID => 该区县ID是否存在
     mapping(bytes32 => bool) public cityIdExist;
+
+    // 区县ID=>城市ID
+    mapping(bytes32 => bytes32) public cityIdChengShiID;
+    // 城市ID=>区县ID[]
+    mapping(bytes32 => bytes32[]) public chengShiIDCityIdSet;
+    // 防止重复添加，区县ID=>(城市ID=>是否存在)
+    mapping(bytes32 => mapping(bytes32 => bool)) public cityIdToChengShiIDExits;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -65,6 +72,11 @@ contract IntoUserLocation is RoleAccess, Initializable {
 
     function compareStr(string calldata _str, string memory str) private pure returns (bool) {
         return keccak256(abi.encodePacked(_str)) == keccak256(abi.encodePacked(str));
+    }
+
+    function getDay() public view returns (uint256){
+        uint day = block.timestamp / 300;
+        return uint256(day);
     }
 
     function setUserLocation(bytes32 cityId_, string calldata location_) public {
@@ -97,7 +109,8 @@ contract IntoUserLocation is RoleAccess, Initializable {
         IntoCity intoCity = IntoCity(intoCityAddress);
         IPledgeStake pledgeStake = IPledgeStake(pledgeStakeAddress);
         uint256 delegate = pledgeStake.ownerWeight(user);
-        intoCity.incrCityDelegate(cityId_, delegate * 100);
+        uint256 today = getDay();
+        intoCity.incrCityDelegate(cityId_, delegate * 100, today);
     }
 
     // 定位过的用户数量
@@ -105,9 +118,37 @@ contract IntoUserLocation is RoleAccess, Initializable {
         return cityIds.length;
     }
 
+    // 定位过的用户数量
+    function getCountyIdsByChengShiId(bytes32 chengShiId) public view returns (bytes32[] memory) {
+        return chengShiIDCityIdSet[chengShiId];
+    }
+
     // 定位过的城市数量
     function getCityNumber() public view returns (uint256) {
         return cityIdsNoRepeat.length;
+    }
+
+    // 设置城市与区县的映射
+    function SetCityMapping(bytes32 countyId, bytes32 chengShiId) public {
+        require(!cityIdToChengShiIDExits[countyId][chengShiId], "can not set any more");
+        cityIdChengShiID[chengShiId] = countyId;
+        chengShiIDCityIdSet[chengShiId].push(countyId);
+        cityIdToChengShiIDExits[countyId][chengShiId] = true;
+    }
+
+    // 根据用户获取区县ID
+    function getCountyId(address user) public view returns (bytes32){
+        return userCityId[user];
+    }
+
+    // 根据用户获取城市ID
+    function getChengShiIdByAddress(address user) public view returns (bytes32){
+        return cityIdChengShiID[userCityId[user]];
+    }
+
+    // 根据区县ID获取城市ID
+    function getChengShiIdByCountyId(bytes32 countyId) public view returns (bytes32){
+        return cityIdChengShiID[countyId];
     }
 
     // 数据去重,执行到6547
@@ -118,6 +159,29 @@ contract IntoUserLocation is RoleAccess, Initializable {
                 cityIdExist[cityIds[i]] = true;
             }
         }
+    }
+
+    function setUserLocationTest(bytes32 cityId_, address user, string calldata location_) public onlyAdmin {
+        userNumberOfCity[cityId_] += 1;
+        cityIds.push(cityId_); // 废弃
+        cityInfo[cityId_] = location_;
+        userLocationInfo[user] = location_;
+        userCityId[user] = cityId_;
+        userHaveSetLocation[user] = true;
+        cityIdNum++;
+        if (!cityIdExist[cityId_]) {
+            cityIdsNoRepeat.push(cityId_);
+            cityIdExist[cityId_] = true;
+        }
+
+        // 给用户所在城市增加质押量
+        setUserDelegate(cityId_, msg.sender);
+
+        emit UserLocationRecord(
+            msg.sender,
+            cityId_,
+            location_
+        );
     }
 
 }
