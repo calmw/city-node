@@ -105,16 +105,6 @@ contract IntoCity is RoleAccess, Initializable {
         userLocationAddress = userLocationAddress_;
     }
 
-//    function adminSetPioneer2(bytes32 chengShiId_, address pioneer_) public onlyAdmin {
-//        require(!hasSetPioneer[pioneer_], "can not set any more");
-//        chengShiPioneer[chengShiId_] = pioneer_;
-//        pioneerChengShi[pioneer_] = chengShiId_;
-//        hasSetPioneer[pioneer_] = true;
-//        if (cityPioneer[chengShiId_] != address(0)) {
-//            pioneerChengShiIds.push(chengShiId_);
-//        }
-//    }
-
     function adminSetPioneer(bytes32 chengShiId_, address pioneer_) public onlyAdmin {
         require(!hasSetPioneer[pioneer_], "can not set any more");
         chengShiPioneer[chengShiId_] = pioneer_;
