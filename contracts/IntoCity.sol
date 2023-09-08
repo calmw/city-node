@@ -36,9 +36,9 @@ contract IntoCity is RoleAccess, Initializable {
     // 区县ID => 区县先锋是否考核通过，如果考核不通过，后面进入区县节点竞选,ture(考核失败)
     mapping(bytes32 => bool) public cityPioneerAssessment;
     // 区县ID => 区县先锋地址
-    mapping(bytes32 => address) public cityPioneer;
+    mapping(bytes32 => address) public cityPioneer; // 废弃
     // 区县先锋地址 => 区县ID
-    mapping(address => bytes32) public pioneerCity;
+    mapping(address => bytes32) public pioneerCity; // 废弃
     // 先锋城市ID集合
     bytes32[] public pioneerCityIds; // 废弃
     // 区县ID => 区县先锋需要缴纳的保证金
@@ -54,7 +54,7 @@ contract IntoCity is RoleAccess, Initializable {
     // 区县ID => (天=>质押量）,新增质押量，不算减去的
     mapping(bytes32 => mapping(uint256 => uint256)) public cityNewlyDelegateRecord;
     // 区县ID => 质押 ,区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
-    mapping(bytes32 => uint256) public cityRechargeTotal;
+    mapping(bytes32 => uint256) public cityDelegateTotal;  // 上线删除
     // 所有区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
     uint256 public allCityDelegateTotal;
     // 区县ID => 社交基金 ,区县先锋所绑定区县新增社交基金（只用于区县先锋）的累计值
@@ -67,18 +67,28 @@ contract IntoCity is RoleAccess, Initializable {
     uint256 public allCityFoundsTotal;
     // 新增社交基金累计值，所有的加一起，不区分区县
     uint256 public allFoundsTotal;
-    // 区县ID => 区县先锋需要缴纳的保证金
+    // 城市ID => 区县先锋需要缴纳的保证金
     mapping(bytes32 => uint256) public surety;
     // 城市等级 => 该城市先锋需要缴纳的保证金
     mapping(uint256 => uint256) public cityLevelSurety; // 上线删除
     // 城市ID => 该城市的权重
-    mapping(bytes32 => uint256) public chengShiRecharge;
+    mapping(bytes32 => uint256) public chengShiWeight; // 上线删除
     // 城市ID => 城市等级
     mapping(bytes32 => uint256) public chengShiLevel;
     // 先锋城市ID集合
     bytes32[] public pioneerChengShiIds;
     // 城市等级 => 该城市先锋需要缴纳的保证金
     mapping(uint256 => uint256) public chengShiLevelSurety;
+    // 区县ID => 质押 ,区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
+    mapping(bytes32 => uint256) public cityRechargeTotal;
+    // 城市ID => 该城市的充值权重
+    mapping(bytes32 => uint256) public chengShiRecharge; // 上线删除
+    // 城市ID => 该城市的充值权重
+    mapping(bytes32 => uint256) public chengShiRechargeWeight;
+    // 城市ID => 城市先锋地址
+    mapping(bytes32 => address) public chengShiPioneer;
+    // 城市先锋地址 => 城市ID
+    mapping(address => bytes32) public pioneerChengShi;
 
 
     function initialize() public initializer {
@@ -95,13 +105,23 @@ contract IntoCity is RoleAccess, Initializable {
         userLocationAddress = userLocationAddress_;
     }
 
-    function adminSetPioneer(bytes32 chengShiId_, address pioneer_) public onlyAdmin {
+    function adminSetPioneer2(bytes32 chengShiId_, address pioneer_) public onlyAdmin {
         require(!hasSetPioneer[pioneer_], "can not set any more");
-        cityPioneer[chengShiId_] = pioneer_;
-        pioneerCity[pioneer_] = chengShiId_;
+        chengShiPioneer[chengShiId_] = pioneer_;
+        pioneerChengShi[pioneer_] = chengShiId_;
         hasSetPioneer[pioneer_] = true;
         if (cityPioneer[chengShiId_] != address(0)) {
             pioneerChengShiIds.push(chengShiId_);
+        }
+    }
+
+    function adminSetPioneer(bytes32 chengShiId_, address pioneer_) public onlyAdmin {
+        require(!hasSetPioneer[pioneer_], "can not set any more");
+        chengShiPioneer[chengShiId_] = pioneer_;
+        pioneerChengShi[pioneer_] = chengShiId_;
+        hasSetPioneer[pioneer_] = true;
+        if (cityPioneer[chengShiId_] != address(0)) {
+            pioneerCityIds.push(chengShiId_);
         }
     }
 
@@ -186,7 +206,7 @@ contract IntoCity is RoleAccess, Initializable {
     }
 
     // 获取先锋对应城市的充值权重
-    function chengShiRechargeWeight(bytes32 chengShiId) public view returns (uint256){
+    function getChengShiRechargeWeight(bytes32 chengShiId) public view returns (uint256){
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
         bytes32[] memory cityIds = intoUserLocation.getCountyIdsByChengShiId(chengShiId);
         uint256 weight;
@@ -277,6 +297,13 @@ contract IntoCity is RoleAccess, Initializable {
     //初始化区县先锋绑定区县的累计质押量
     function initCityDelegate(bytes32 cityId_) public onlyAdmin {
         cityRechargeTotal[cityId_] = 0;
+    }
+
+    // 获取先锋所需保证金，根据先锋地址
+    function getSuretyByPioneerAddress(address pioneer_) public view {
+        bytes32 chengShiId = pioneerChengShi[pioneer_];
+        uint256 level = chengShiLevel[chengShiId];
+        chengShiLevelSurety[level];
     }
 
 }

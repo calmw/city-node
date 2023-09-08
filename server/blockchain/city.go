@@ -118,6 +118,12 @@ func AddCityAdmin() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
+
+	_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.RechargeWeightAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 }
 
 // AdminSetCityLevelAndSurety 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额

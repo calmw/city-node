@@ -12,29 +12,31 @@ import (
 )
 
 type CityNodeConfigs struct {
-	ChainId             int64
-	RPC                 string
-	CityAddress         string
-	CityPioneerAddress  string
-	UserLocationAddress string
-	MiningAddress       string
-	SetDelegateAddress  string
-	PledgeStakeAddress  string // 获取用户质押量的合约地址
-	ToxAddress          string
-	PrivateKey          string
+	ChainId               int64
+	RPC                   string
+	CityAddress           string
+	CityPioneerAddress    string
+	UserLocationAddress   string
+	MiningAddress         string
+	SetDelegateAddress    string
+	PledgeStakeAddress    string // 获取用户质押量的合约地址
+	RechargeWeightAddress string // 获取用户质押量的合约地址
+	ToxAddress            string
+	PrivateKey            string
 }
 
 var CityNodeConfig = CityNodeConfigs{
-	ChainId:             9001,
-	RPC:                 "https://testnet-rpc.d2ao.com/",
-	CityAddress:         "0xEe4e83f11c197B8C717E4F32902132eE08957c04", // 城市合约地址
-	CityPioneerAddress:  "0x80123E90C48edb71369Ddc7ccf1580e38135b966", // 成丝先锋合约地址
-	UserLocationAddress: "0x87EFc102A95b30232375be68a9bb7D0cf746e9a9", // 用户定位合约地址
-	MiningAddress:       "0xD8c1d40a6FF4E53577389C8008343081949C373D",
-	SetDelegateAddress:  "0xD8c1d40a6FF4E53577389C8008343081949C373D",
-	PledgeStakeAddress:  "0x575493F35AA4926decF877004056380538C8eB52",
-	ToxAddress:          "0x3eE243ff68074502b1D9D65443fa97b99f634570",
-	PrivateKey:          "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
+	ChainId:               9001,
+	RPC:                   "https://testnet-rpc.d2ao.com/",
+	CityAddress:           "0xEe4e83f11c197B8C717E4F32902132eE08957c04", // 城市合约地址
+	CityPioneerAddress:    "0x80123E90C48edb71369Ddc7ccf1580e38135b966", // 成丝先锋合约地址
+	UserLocationAddress:   "0x87EFc102A95b30232375be68a9bb7D0cf746e9a9", // 用户定位合约地址
+	MiningAddress:         "0xD8c1d40a6FF4E53577389C8008343081949C373D",
+	SetDelegateAddress:    "0xD8c1d40a6FF4E53577389C8008343081949C373D",
+	PledgeStakeAddress:    "0x575493F35AA4926decF877004056380538C8eB52",
+	RechargeWeightAddress: "0xD8c1d40a6FF4E53577389C8008343081949C373D",
+	ToxAddress:            "0x3eE243ff68074502b1D9D65443fa97b99f634570",
+	PrivateKey:            "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 }
 
 //var CityNodeConfig = CityNodeConfigs{
