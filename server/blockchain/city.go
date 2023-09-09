@@ -63,8 +63,31 @@ func AdminSetPioneer(chengShiId, pioneer string) {
 	}
 	common.Hex2Bytes(chengShiId)
 	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
-	fmt.Println("chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer)
+	fmt.Println("set chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer)
 	res, err := city.AdminSetPioneer(auth, cityIdBytes32, common.HexToAddress(pioneer))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res.Hash(), err)
+}
+
+// AdminRemovePioneer 管理员删除城市先锋
+func AdminRemovePioneer(chengShiId, pioneer string) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	if strings.Contains(chengShiId, "0x") {
+		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
+	}
+	common.Hex2Bytes(chengShiId)
+	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
+	fmt.Println("remove chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer)
+	res, err := city.AdminRemovePioneer(auth, cityIdBytes32, common.HexToAddress(pioneer))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
