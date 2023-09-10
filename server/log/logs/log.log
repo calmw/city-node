@@ -886,3 +886,25 @@
 {"level":"error","time":"2023-09-09T08:54:13.361+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 496, expected 499: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"error","time":"2023-09-09T08:55:00.223+0800","line":"blockchain/city.go:69","msg":"invalid nonce; got 496, expected 498: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"error","time":"2023-09-09T08:55:08.478+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-09T09:37:29.632+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 498, expected 499: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T09:37:56.194+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 498, expected 499: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T09:38:18.276+0800","line":"blockchain/city.go:69","msg":"invalid nonce; got 498, expected 499: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T09:38:23.578+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-09T10:18:25.118+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 499, expected 500: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T10:18:30.319+0800","line":"blockchain/city.go:69","msg":"invalid nonce; got 499, expected 500: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T10:18:33.815+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-09T10:19:08.249+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 499, expected 500: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T10:19:29.358+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 499, expected 500: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T10:20:59.096+0800","line":"blockchain/city.go:69","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-09T10:26:04.641+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 499, expected 503: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T10:26:06.353+0800","line":"blockchain/city.go:69","msg":"invalid nonce; got 499, expected 503: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T10:26:34.808+0800","line":"blockchain/city.go:69","msg":"invalid nonce; got 503, expected 504: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T10:45:57.437+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 506, expected 507: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T11:16:53.925+0800","line":"blockchain/city.go:159","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2023-09-09T11:16:58.376+0800","line":"blockchain/city.go:159","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2023-09-09T11:17:06.328+0800","line":"blockchain/city.go:159","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2023-09-09T11:17:59.786+0800","line":"blockchain/city.go:159","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2023-09-09T11:18:00.299+0800","line":"blockchain/city.go:159","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-09-09T11:20:22.727+0800","line":"blockchain/city.go:70","msg":"invalid nonce; got 546, expected 547: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T11:21:25.591+0800","line":"blockchain/city.go:70","msg":"invalid nonce; got 548, expected 549: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-09T11:22:08.942+0800","line":"blockchain/city.go:70","msg":"invalid nonce; got 550, expected 551: invalid sequence: invalid sequence","serviceName":"into"}

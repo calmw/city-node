@@ -9,6 +9,9 @@ async function main() {
     console.log("ProxyAdmin is", await upgrades.erc1967.getAdminAddress(ProxyAddr));
     const MyContractV2 = await ethers.getContractFactory("IntoCity");
     // 升级
+    // const overrides = {
+    //     nonce: 505
+    // };
     const contract = await upgrades.upgradeProxy(ProxyAddr, MyContractV2);
 
     await contract.deployed();

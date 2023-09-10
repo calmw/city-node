@@ -6,6 +6,7 @@ require (
 	github.com/ethereum/go-ethereum v1.12.2
 	github.com/gomodule/redigo v1.8.9
 	github.com/jasonlvhit/gocron v0.0.1
+	github.com/status-im/keycard-go v0.2.0
 	go.uber.org/zap v1.25.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/driver/mysql v1.5.1

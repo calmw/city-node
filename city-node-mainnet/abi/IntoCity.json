@@ -111,7 +111,7 @@
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "cityId_",
+        "name": "chengShiId_",
         "type": "bytes32"
       },
       {
@@ -125,7 +125,55 @@
         "type": "uint256"
       }
     ],
-    "name": "adminSetCityLevelAndSurety",
+    "name": "adminEditSurety",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "adminPopPioneerChengShiId",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "address",
+        "name": "pioneer_",
+        "type": "address"
+      }
+    ],
+    "name": "adminRemovePioneer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "level_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "surety_",
+        "type": "uint256"
+      }
+    ],
+    "name": "adminSetChengShiLevelAndSurety",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -188,7 +236,7 @@
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "cityId_",
+        "name": "chengShiId_",
         "type": "bytes32"
       },
       {
@@ -198,6 +246,24 @@
       }
     ],
     "name": "adminSetPioneer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "adminSetRechargeAmount",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -345,6 +411,82 @@
         "type": "bytes32"
       }
     ],
+    "name": "chengShiLevel",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "chengShiLevelSurety",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "chengShiPioneer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "chengShiRechargeWeight",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "name": "cityDelegate",
     "outputs": [
       {
@@ -464,25 +606,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "cityLevelSurety",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "bytes32",
         "name": "",
         "type": "bytes32"
@@ -582,6 +705,25 @@
   {
     "inputs": [
       {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "cityRechargeTotal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
@@ -609,6 +751,11 @@
         "internalType": "uint256",
         "name": "amount_",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "today",
+        "type": "uint256"
       }
     ],
     "name": "descCityDelegate",
@@ -625,6 +772,25 @@
       }
     ],
     "name": "earnestMoney",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId",
+        "type": "bytes32"
+      }
+    ],
+    "name": "getChengShiRechargeWeight",
     "outputs": [
       {
         "internalType": "uint256",
@@ -737,6 +903,19 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "pioneer_",
+        "type": "address"
+      }
+    ],
+    "name": "getSuretyByPioneerAddress",
+    "outputs": [],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "",
         "type": "address"
       }
@@ -762,6 +941,11 @@
       {
         "internalType": "uint256",
         "name": "amount_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "today",
         "type": "uint256"
       }
     ],
@@ -804,6 +988,44 @@
         "internalType": "bool",
         "name": "",
         "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "pioneerChengShi",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "pioneerChengShiIds",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
       }
     ],
     "stateMutability": "view",
@@ -871,6 +1093,19 @@
     "inputs": [
       {
         "internalType": "bytes32",
+        "name": "chengShiId_",
+        "type": "bytes32"
+      }
+    ],
+    "name": "setChengShiPioneerAssessment",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
         "name": "cityId_",
         "type": "bytes32"
       },
@@ -886,19 +1121,6 @@
       }
     ],
     "name": "setCityMaxDelegate",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "cityId_",
-        "type": "bytes32"
-      }
-    ],
-    "name": "setCityPioneerAssessment",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

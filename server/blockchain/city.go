@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/status-im/keycard-go/hexutils"
 	"math/big"
 	"strings"
 	"time"
@@ -93,6 +94,72 @@ func AdminRemovePioneer(chengShiId, pioneer string) {
 		return
 	}
 	fmt.Println(res.Hash(), err)
+}
+
+// PioneerChengShi 查看先锋城市
+func PioneerChengShi(pioneer string) {
+	Cli := Client(CityNodeConfig)
+	//_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := city.PioneerChengShi(nil, common.HexToAddress(pioneer))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(hexutils.BytesToHex(Bytes32ToBytes(res)), err)
+}
+
+// GetPioneerCityNumber 查看先锋城市数量
+func GetPioneerCityNumber() {
+	Cli := Client(CityNodeConfig)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := city.GetPioneerCityNumber(nil)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res.String(), err)
+}
+
+// PioneerChengShiId 查看先锋城市数量
+func PioneerChengShiId(chengShiIndex int64) {
+	Cli := Client(CityNodeConfig)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := city.PioneerChengShiIds(nil, big.NewInt(chengShiIndex))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(hexutils.BytesToHex(Bytes32ToBytes(res)), err)
+}
+
+// AdminPopPioneerChengShiId 删除城市ID
+func AdminPopPioneerChengShiId() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	_, err = city.AdminPopPioneerChengShiId(auth)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(err)
 }
 
 // AdminSetDelegate 管理员设置用户增加或减少质押量

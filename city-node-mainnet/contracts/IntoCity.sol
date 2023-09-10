@@ -128,6 +128,10 @@ contract IntoCity is RoleAccess, Initializable {
         }
     }
 
+    function adminPopPioneerChengShiId() public onlyAdmin {
+        pioneerChengShiIds.pop();
+    }
+
     // 设置用户充值量
     function adminSetRechargeAmount(address user, uint256 amount) public onlyAdmin {
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
