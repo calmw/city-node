@@ -2,8 +2,8 @@ package services
 
 import (
 	"city-node-server/blockchain"
-	"fmt"
 	"math/rand"
+	"time"
 )
 
 func InitCity() {
@@ -11,9 +11,7 @@ func InitCity() {
 	//blockchain.AdminSetCityPioneerAddress()
 	// 管理员设置用户定位合约地址
 	//blockchain.AdminSetUserLocationAddress()
-	// 管理员设置每天秒数，用于测试
-	blockchain.AdminSetSecondsPerDayCity(300) // 86400 , 300
-	//blockchain.AdminSetSecondsPerDayCity(86400)
+
 	// 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
 	//blockchain.AdminSetChengShiLevelAndSurety("0xaa3f3f93c743005d497d2a21cf5ac5132960e42496d9b45437722351f8524496", 1, 100000)
 	// -----
@@ -105,31 +103,35 @@ func InitCity() {
 	//blockchain.AddCityAdmin()
 }
 
-func AdminSetDelegate() {
+func AdminSetDelegateTask() {
 	randInt := rand.Int() % 2
 	if randInt == 0 {
 		randInt = 2
 	}
 	inc := randInt * 1000
 	dec := randInt * 500
-	fmt.Println("增加", inc)
-	fmt.Println("减少", dec)
 	accounts := []string{
 		"0x0b6d66f125b165fd41bcaa7b4e7aa721cda47f71",
-		"0xbcf477b0f8add3249acfbc76b0e1e3134ec9b6c1",
-		"0x2d4ef8abef8e90de0cea3ee302a68e25d0d055ac",
-		"0x6B35ba8b3b383714338686BcE4066B387Eab16C6",
-		"0x153F5bf2cCf235bDeF530d09387dd456f6389a81",
-		"0x0DbE6e626B1085a2Cb4D5F77389bBb54Ec89Fa30",
 	}
 
 	for _, account := range accounts {
+		time.Sleep(time.Second * 2)
 		// 批量执行增加或减少质押量
-		fmt.Println(account)
 		blockchain.AdminSetDelegate(account, int64(inc), 1)
+		time.Sleep(time.Second * 2)
 		blockchain.AdminSetDelegate(account, int64(dec), 2)
 	}
-	//blockchain.AdminSetDelegate("0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E", int64(inc), 1)
-	//blockchain.AdminSetDelegate("0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E", int64(dec), 2)
+}
 
+func AdminSetRechargeAmountTask() {
+	inc := 2000
+	accounts := []string{
+		"0x0b6d66f125b165fd41bcaa7b4e7aa721cda47f71",
+	}
+
+	for _, account := range accounts {
+		time.Sleep(time.Second * 2)
+		// 批量执行增加或减少质押量
+		blockchain.AdminSetRechargeAmount(account, int64(inc))
+	}
 }

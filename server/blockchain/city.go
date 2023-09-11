@@ -178,7 +178,31 @@ func AdminSetDelegate(userAddress string, amount, setType int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(res.Hash(), setType, err)
+
+	if setType == 1 {
+		fmt.Println(userAddress, "增加质押量:", amount, res.Hash(), err)
+	} else {
+		fmt.Println(userAddress, "减少质押量:", amount, res.Hash(), err)
+	}
+}
+
+// AdminSetRechargeAmount 管理员设置用户充值量
+func AdminSetRechargeAmount(userAddress string, amount int64) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	E18 := big.NewInt(1e18)
+	amountRes := E18.Mul(E18, big.NewInt(amount))
+	res, err := city.AdminSetRechargeAmount(auth, common.HexToAddress(userAddress), amountRes)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(userAddress, "增加充值量:", amount, res.Hash(), err)
 }
 
 // AdminSetSecondsPerDayCity 管理员设置每天秒数，用于测试
