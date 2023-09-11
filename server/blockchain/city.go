@@ -173,16 +173,16 @@ func AdminSetDelegate(userAddress string, amount, setType int64) {
 	}
 	E18 := big.NewInt(1e18)
 	amountRes := E18.Mul(E18, big.NewInt(amount))
-	res, err := city.AdminSetDelegate(auth, common.HexToAddress(userAddress), amountRes, big.NewInt(setType))
+	_, err = city.AdminSetDelegate(auth, common.HexToAddress(userAddress), amountRes, big.NewInt(setType))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
 
 	if setType == 1 {
-		fmt.Println(userAddress, "增加质押量:", amount, res.Hash(), err)
+		fmt.Println(time.Now().Format("2006-01-02 15:04:05"), userAddress, "增加质押量:", amount, err)
 	} else {
-		fmt.Println(userAddress, "减少质押量:", amount, res.Hash(), err)
+		fmt.Println(time.Now().Format("2006-01-02 15:04:05"), userAddress, "减少质押量:", amount, err)
 	}
 }
 
@@ -197,12 +197,12 @@ func AdminSetRechargeAmount(userAddress string, amount int64) {
 	}
 	E18 := big.NewInt(1e18)
 	amountRes := E18.Mul(E18, big.NewInt(amount))
-	res, err := city.AdminSetRechargeAmount(auth, common.HexToAddress(userAddress), amountRes)
+	_, err = city.AdminSetRechargeAmount(auth, common.HexToAddress(userAddress), amountRes)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(userAddress, "增加充值量:", amount, res.Hash(), err)
+	fmt.Println(time.Now().Format("2006-01-02 15:04:05"), userAddress, "增加充值量:", amount, err)
 }
 
 // AdminSetSecondsPerDayCity 管理员设置每天秒数，用于测试

@@ -27,6 +27,8 @@ func main() {
 	//blockchain.DepositSurety()         // 交保证金，慎用，扣钱
 	//blockchain.DepositSuretyTest("0x08a01BE67fF47Ba2652b7dCE2005B47D81bAaC13") // DepositSuretyTest 交保证金成为先锋
 
+	// 管理员设置开始考核时间,先交保证金，后考核
+	//blockchain.AdminSetStartTime(time.Now().Unix())
 	// 批量执行增加或减少质押量
 	tasks.Task()
 

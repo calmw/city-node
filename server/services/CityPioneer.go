@@ -1,6 +1,9 @@
 package services
 
-import "city-node-server/blockchain"
+import (
+	"city-node-server/blockchain"
+	"time"
+)
 
 func InitCityPioneer() {
 
@@ -26,5 +29,5 @@ func InitCityPioneer() {
 	blockchain.AddCityPioneerAdmin()
 
 	// 管理员设置开始考核时间,先交保证金，后考核
-	//blockchain.AdminSetStartTime()
+	blockchain.AdminSetStartTime(time.Now().Unix())
 }

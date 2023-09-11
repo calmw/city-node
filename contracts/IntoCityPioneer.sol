@@ -508,6 +508,4 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         //先锋可以退的保证金
         suretyReward[user] += amount_;
     }
-
-
 }
