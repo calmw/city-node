@@ -110,6 +110,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     uint public secondsPerDay;
     // 考核天，正式86400*180秒，测试1800秒
     uint public presidencyTime;
+    //  城市ID=>(天=>累计质押量)   充值权重
+    mapping(bytes32 => mapping(uint256 => uint256)) public rechargeDailyWeight;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -161,11 +163,11 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 管理员设置先锋每天新增充值权重
-    function setPioneerDelegate(address pioneerAddress_, uint256 amount_) public onlyAdmin {
+    function setPioneerRechargeWeight(address pioneerAddress_, uint256 amount_) public onlyAdmin {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
         bytes32 chengShiId = intoUserLocation.getChengShiIdByAddress(pioneerAddress_);
-
+        rechargeDailyWeight[chengShiId][getDay()] += amount_;
         emit DailyIncreaseDelegateRecord(
             pioneer.pioneerAddress,
             chengShiId,
@@ -219,6 +221,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[msg.sender].suretyTime = block.timestamp;
         pioneerInfo[msg.sender].cityLevel = city.chengShiLevel(chengShiId);
         city.initCityDelegate(chengShiId);// 将先锋绑定的城市的新增质押量变为0
+        // 更新已交保证金先锋数量
+        pioneers.push(msg.sender);
     }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
@@ -512,5 +516,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 获取先锋所需保证金，根据先锋地址
     function getPioneerNumber() public view returns (uint256){
         return pioneers.length;
+    }
+
+    // 增加交完保证金先锋用户
+    function setPioneer(address pioneer) public {
+        pioneers.push(pioneer);
     }
 }

@@ -36,4 +36,6 @@ func main() {
 
 	//blockchain.GetCityId(22)
 
+	services.AdminSetRechargeAmountTask()
+
 }
