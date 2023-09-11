@@ -84,6 +84,24 @@
   {
     "inputs": [
       {
+        "internalType": "bytes32[]",
+        "name": "countyIds",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "chengShiIds",
+        "type": "bytes32[]"
+      }
+    ],
+    "name": "SetCityMappingBatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "account",
         "type": "address"
@@ -554,6 +572,11 @@
   },
   {
     "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "countyId_",
+        "type": "bytes32"
+      },
       {
         "internalType": "bytes32",
         "name": "cityId_",
