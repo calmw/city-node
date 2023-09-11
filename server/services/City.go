@@ -28,6 +28,8 @@ func InitCity() {
 	//blockchain.AdminSetChengShiLevelAndSurety("0x80af9895d0010ac6650f3048ff3d21fcbf3e2583faf72a01c57d377981f91181", 3, 40000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xdf94a1319cc8f5fb67fdfe859ef61d7f883589f463cbd0ef14a95f4bcbf03159", 3, 40000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0x31af3e1547838b62ddae8296eaf64a396c1c36a98c17547b8e7d87b735cd474d", 3, 40000)
+	//blockchain.AdminSetChengShiLevelAndSurety("0x4209dce01c4f06b1b93a35e021ec2efea127ef4ae29a82be536a376504bef0cc", 3, 40000)
+	//blockchain.AdminSetChengShiLevelAndSurety("0x3d77372f2d82ba9f5d0b972086def85527c58999c521f33bb3047ccac794d06a", 3, 40000)
 	// --------
 
 	//blockchain.AdminSetChengShiLevelAndSurety("0xf7d89a46c223f9704a010c7077eb586fd7208822821abefa1a5e0fc5a420cbe3", 2, 60000)
@@ -81,7 +83,11 @@ func InitCity() {
 	//blockchain.PioneerChengShi("0xF032A7e9556f3a9688278e995c1Ac9CC7A676eD5")
 	//blockchain.AdminSetPioneer("0x95fecb63031dfc09623ae52f647df2e749533e3acda9a0ea73f34c29cd07d667", "0x7763aE1D565Dcc422b7Bc07D5567281338a92A25")
 	//blockchain.AdminSetPioneer("0x31af3e1547838b62ddae8296eaf64a396c1c36a98c17547b8e7d87b735cd474d", "0x8407DC14bFD44FDcEE0274766C08477f4C9748d2")
-	blockchain.PioneerChengShi("0x8407DC14bFD44FDcEE0274766C08477f4C9748d2")
+	//blockchain.PioneerChengShi("0x8407DC14bFD44FDcEE0274766C08477f4C9748d2")
+	//blockchain.AdminSetPioneer("0x4209dce01c4f06b1b93a35e021ec2efea127ef4ae29a82be536a376504bef0cc", "0x06EfCb450059517f5b34a7cC4eFD80298825124E")
+	//blockchain.PioneerChengShi("0x06EfCb450059517f5b34a7cC4eFD80298825124E")
+	//blockchain.AdminSetPioneer("0x3d77372f2d82ba9f5d0b972086def85527c58999c521f33bb3047ccac794d06a", "0x1763271960D827D1DE4654D9E754021A0f5f94A5")
+	blockchain.PioneerChengShi("0x1763271960D827D1DE4654D9E754021A0f5f94A5")
 	// ------ 结束
 	//blockchain.AdminSetPioneer("0xaa3f3f93c743005d497d2a21cf5ac5132960e42496d9b45437722351f8524496", "0x77bd41fdE654FE0054b771Ec6985dC9d5247BAfe")
 	//blockchain.AdminSetPioneer("0x35cbb5a35a63817975c8f118ac59cf9e48a4f8109bb03276c58729c04540ebe7", "0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E")

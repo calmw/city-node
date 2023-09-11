@@ -908,3 +908,5 @@
 {"level":"error","time":"2023-09-09T11:20:22.727+0800","line":"blockchain/city.go:70","msg":"invalid nonce; got 546, expected 547: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"error","time":"2023-09-09T11:21:25.591+0800","line":"blockchain/city.go:70","msg":"invalid nonce; got 548, expected 549: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"error","time":"2023-09-09T11:22:08.942+0800","line":"blockchain/city.go:70","msg":"invalid nonce; got 550, expected 551: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-10T16:04:37.880+0800","line":"blockchain/userLocation.go:102","msg":"invalid nonce; got 558, expected 559: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-10T16:06:40.678+0800","line":"blockchain/city.go:238","msg":"invalid nonce; got 560, expected 561: invalid sequence: invalid sequence","serviceName":"into"}
