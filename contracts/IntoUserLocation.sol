@@ -112,33 +112,33 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 本次上线放开
-    function setUserLocation(bytes32 countyId_, bytes32 cityId_, string calldata location_) public {
-        require(!userHaveSetLocation[msg.sender], "cant not set any more");
-        require(!compareStr(location_, ""), "location is empty");
-        userNumberOfCity[countyId_] += 1;
-        cityIds.push(countyId_); // 废弃
-        cityInfo[countyId_] = location_;
-        userLocationInfo[msg.sender] = location_;
-        userCityId[msg.sender] = countyId_;
-        userHaveSetLocation[msg.sender] = true;
-        cityIdNum++;
-        if (!cityIdExist[countyId_]) {
-            cityIdsNoRepeat.push(countyId_);
-            cityIdExist[countyId_] = true;
-        }
-
-        // 设置城市ID，本次上线放开
-        SetCityChengShi(countyId_, cityId_);
-
-        // 给用户所在城市增加质押量
-        setUserDelegate(cityId_, msg.sender);
-
-        emit UserLocationRecord(
-            msg.sender,
-            countyId_,
-            location_
-        );
-    }
+//    function setUserLocation(bytes32 countyId_, bytes32 cityId_, string calldata location_) public {
+//        require(!userHaveSetLocation[msg.sender], "cant not set any more");
+//        require(!compareStr(location_, ""), "location is empty");
+//        userNumberOfCity[countyId_] += 1;
+//        cityIds.push(countyId_); // 废弃
+//        cityInfo[countyId_] = location_;
+//        userLocationInfo[msg.sender] = location_;
+//        userCityId[msg.sender] = countyId_;
+//        userHaveSetLocation[msg.sender] = true;
+//        cityIdNum++;
+//        if (!cityIdExist[countyId_]) {
+//            cityIdsNoRepeat.push(countyId_);
+//            cityIdExist[countyId_] = true;
+//        }
+//
+//        // 设置城市ID，本次上线放开
+//        SetCityChengShi(countyId_, cityId_);
+//
+//        // 给用户所在城市增加质押量
+//        setUserDelegate(cityId_, msg.sender);
+//
+//        emit UserLocationRecord(
+//            msg.sender,
+//            countyId_,
+//            location_
+//        );
+//    }
 
     // 获取当前用户质押量，给对应城市增加累计质押量
     function setUserDelegate(bytes32 cityId_, address user) private {
