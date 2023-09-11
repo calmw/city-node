@@ -17547,6 +17547,384 @@
           }
         }
       }
+    },
+    "9cee3b3649dbb94cc9632e452521fb48ff8065e297ab8f9d4a6abe65b42dbc7a": {
+      "address": "0x9f906d76fF1Ea27c82e3b7698c79FddBda317c87",
+      "txHash": "0x9e736aa0a50d8a47d02102427fa2e56fab9cb8b257f0eae25888466945c6c519",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_admins",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(AddressSet)824_storage",
+            "contract": "RoleAccess",
+            "src": "contracts/RoleAccess.sol:8"
+          },
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "cityPioneerAddress",
+            "offset": 2,
+            "slot": "2",
+            "type": "t_address",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:22"
+          },
+          {
+            "label": "userLocationAddress",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_address",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:24"
+          },
+          {
+            "label": "allCityIds",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:29"
+          },
+          {
+            "label": "cityLevel",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:30"
+          },
+          {
+            "label": "cityDelegate",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:32"
+          },
+          {
+            "label": "cityMaxDelegate",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_bytes32,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:35"
+          },
+          {
+            "label": "cityDelegateRecord",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_bytes32,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:37"
+          },
+          {
+            "label": "cityPioneerAssessment",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_bytes32,t_bool)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:41"
+          },
+          {
+            "label": "cityPioneer",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_bytes32,t_address)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:45"
+          },
+          {
+            "label": "pioneerCity",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:47"
+          },
+          {
+            "label": "pioneerCityIds",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:49"
+          },
+          {
+            "label": "earnestMoney",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:53"
+          },
+          {
+            "label": "hasSetPioneer",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_mapping(t_address,t_bool)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:55"
+          },
+          {
+            "label": "dailyTaskStatus",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_uint256,t_bool)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:56"
+          },
+          {
+            "label": "cityFoundsRecord",
+            "offset": 0,
+            "slot": "16",
+            "type": "t_mapping(t_bytes32,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:59"
+          },
+          {
+            "label": "cityNewlyDelegateRecord",
+            "offset": 0,
+            "slot": "17",
+            "type": "t_mapping(t_bytes32,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:62"
+          },
+          {
+            "label": "cityDelegateTotal",
+            "offset": 0,
+            "slot": "18",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:66"
+          },
+          {
+            "label": "allCityDelegateTotal",
+            "offset": 0,
+            "slot": "19",
+            "type": "t_uint256",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:71"
+          },
+          {
+            "label": "cityFoundsTotal",
+            "offset": 0,
+            "slot": "20",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:75"
+          },
+          {
+            "label": "allCityDailyFoundsTotal",
+            "offset": 0,
+            "slot": "21",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:79"
+          },
+          {
+            "label": "allDailyFoundsTotal",
+            "offset": 0,
+            "slot": "22",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:83"
+          },
+          {
+            "label": "allCityFoundsTotal",
+            "offset": 0,
+            "slot": "23",
+            "type": "t_uint256",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:85"
+          },
+          {
+            "label": "allFoundsTotal",
+            "offset": 0,
+            "slot": "24",
+            "type": "t_uint256",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:88"
+          },
+          {
+            "label": "surety",
+            "offset": 0,
+            "slot": "25",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:90"
+          },
+          {
+            "label": "chengShiLevel",
+            "offset": 0,
+            "slot": "26",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:102"
+          },
+          {
+            "label": "pioneerChengShiIds",
+            "offset": 0,
+            "slot": "27",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:106"
+          },
+          {
+            "label": "chengShiLevelSurety",
+            "offset": 0,
+            "slot": "28",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:107"
+          },
+          {
+            "label": "cityRechargeTotal",
+            "offset": 0,
+            "slot": "29",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:111"
+          },
+          {
+            "label": "chengShiRechargeWeight",
+            "offset": 0,
+            "slot": "30",
+            "type": "t_mapping(t_bytes32,t_uint256)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:116"
+          },
+          {
+            "label": "chengShiPioneer",
+            "offset": 0,
+            "slot": "31",
+            "type": "t_mapping(t_bytes32,t_address)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:120"
+          },
+          {
+            "label": "pioneerChengShi",
+            "offset": 0,
+            "slot": "32",
+            "type": "t_mapping(t_address,t_bytes32)",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:122"
+          },
+          {
+            "label": "secondsPerDay",
+            "offset": 0,
+            "slot": "33",
+            "type": "t_uint256",
+            "contract": "IntoCity",
+            "src": "contracts/IntoCity.sol:125"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_bytes32)": {
+            "label": "mapping(address => bytes32)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_address)": {
+            "label": "mapping(bytes32 => address)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_bool)": {
+            "label": "mapping(bytes32 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(bytes32 => mapping(uint256 => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_bool)": {
+            "label": "mapping(uint256 => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)824_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)509_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Set)509_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
     }
   }
 }

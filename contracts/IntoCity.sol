@@ -142,7 +142,7 @@ contract IntoCity is RoleAccess, Initializable {
         if (countyId == bytes32(0)) {
             return;
         }
-
+        amount = amount / 100;
         // 增加充值权重
         addCityDelegate(countyId, amount);
 
