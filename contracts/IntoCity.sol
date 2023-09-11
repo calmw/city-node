@@ -6,6 +6,10 @@ import "./IntoCityPioneer.sol";
 import "./IntoUserLocation.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
+interface Founds {
+    function getFifteenDayAverage() external view returns (uint256);
+}
+
 contract IntoCity is RoleAccess, Initializable {
 
     event IncreaseCityDelegate(
@@ -91,6 +95,8 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(address => bytes32) public pioneerChengShi;
     // 考核天，正式86400秒，测试300秒
     uint public secondsPerDay;
+    // 过去15天社交基金平均值的合约地址
+    address public foundsAddress;
 
 
     function initialize() public initializer {
@@ -105,6 +111,11 @@ contract IntoCity is RoleAccess, Initializable {
     // 管理员设置用户定位合约地址
     function adminSetUserLocationAddress(address userLocationAddress_) public onlyAdmin {
         userLocationAddress = userLocationAddress_;
+    }
+
+    // 管理员设置获取过去15天社交基金平均值的合约地址
+    function adminSetFoundsAddress(address foundsAddress_) public onlyAdmin {
+        foundsAddress = foundsAddress_;
     }
 
     function adminSetPioneer(bytes32 chengShiId_, address pioneer_) public onlyAdmin {
@@ -173,7 +184,7 @@ contract IntoCity is RoleAccess, Initializable {
         secondsPerDay = secondsPerDay_;
     }
 
-    // 先锋城市数量
+    // 先锋城市数量(这些先锋不一定都交保证金)
     function getPioneerCityNumber() public view returns (uint256) {
         return pioneerChengShiIds.length;
     }
@@ -270,21 +281,10 @@ contract IntoCity is RoleAccess, Initializable {
 
     }
 
-    // 管理员设置用户每天社交基金变更（只有增加）
-    function adminSetFounds(address userAddress_, uint256 amount_) public onlyAdmin {
-        uint256 today = getDay();
-        allFoundsTotal += amount_; // 全网不区分区县，所有累计新增社交基金值
-        allDailyFoundsTotal[today] += amount_; // 全网不区分区县，某天所有累计新增社交基金值
-        // 判断用户是否有对应的区县
-        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
-        bytes32 cityId = intoUserLocation.userCityId(userAddress_);
-        if (cityId == bytes32(0)) {
-            return;
-        }
-        cityFoundsRecord[cityId][today] += amount_; // 增加区县每天社交基金值
-        allCityDailyFoundsTotal[today] += amount_; // 新增社交基金,所有区县某天的累计值
-        cityFoundsTotal[cityId] += amount_; // 增加区县累计社交基金值
-        allCityFoundsTotal += amount_; // 增加所有区县累计社交基金值
+    // 获取前15天社交基金平均值
+    function getFifteenDayAverageFounds() public view returns (uint256) {
+        Founds founds = Founds(foundsAddress);
+        return founds.getFifteenDayAverage();
     }
 
     // 获取某一天社交基金量增量

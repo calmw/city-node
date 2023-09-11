@@ -11,7 +11,7 @@ func main() {
 	services.InitTestNet()
 	//services.InitMainNet()
 
-	services.InitCity()
+	//services.InitCity()
 	//services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
@@ -30,6 +30,9 @@ func main() {
 	//blockchain.AdminSetStartTime(time.Now().Unix())
 	// 批量执行增加或减少质押量
 	//tasks.Task()
+
+	// 获取前15天社交基金平均值
+	//blockchain.GetFifteenDayAverageFounds()
 
 	//blockchain.GetCityId(22)
 

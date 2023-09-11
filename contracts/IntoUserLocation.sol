@@ -86,33 +86,33 @@ contract IntoUserLocation is RoleAccess, Initializable {
         return uint256(day);
     }
 
-//    function setUserLocation(bytes32 cityId_, string calldata location_) public {
-//        require(!userHaveSetLocation[msg.sender], "cant not set any more");
-//        require(!compareStr(location_, ""), "location is empty");
-//        userNumberOfCity[cityId_] += 1;
-//        cityIds.push(cityId_); // 废弃
-//        cityInfo[cityId_] = location_;
-//        userLocationInfo[msg.sender] = location_;
-//        userCityId[msg.sender] = cityId_;
-//        userHaveSetLocation[msg.sender] = true;
-//        cityIdNum++;
-//        if (!cityIdExist[cityId_]) {
-//            cityIdsNoRepeat.push(cityId_);
-//            cityIdExist[cityId_] = true;
-//        }
-//
-//        // 给用户所在城市增加质押量
-//        setUserDelegate(cityId_, msg.sender);
-//
-//        emit UserLocationRecord(
-//            msg.sender,
-//            cityId_,
-//            location_
-//        );
-//    }
+    function setUserLocation(bytes32 cityId_, string calldata location_) public {
+        require(!userHaveSetLocation[msg.sender], "cant not set any more");
+        require(!compareStr(location_, ""), "location is empty");
+        userNumberOfCity[cityId_] += 1;
+        cityIds.push(cityId_); // 废弃
+        cityInfo[cityId_] = location_;
+        userLocationInfo[msg.sender] = location_;
+        userCityId[msg.sender] = cityId_;
+        userHaveSetLocation[msg.sender] = true;
+        cityIdNum++;
+        if (!cityIdExist[cityId_]) {
+            cityIdsNoRepeat.push(cityId_);
+            cityIdExist[cityId_] = true;
+        }
+
+        // 给用户所在城市增加质押量
+        setUserDelegate(cityId_, msg.sender);
+
+        emit UserLocationRecord(
+            msg.sender,
+            cityId_,
+            location_
+        );
+    }
 
     // 本次上线放开
-    function setUserLocation(bytes32 countyId_, bytes32 cityId_, string calldata location_) public {
+    function setUserLocationV2(bytes32 countyId_, bytes32 cityId_, string calldata location_) public {
         require(!userHaveSetLocation[msg.sender], "cant not set any more");
         require(!compareStr(location_, ""), "location is empty");
         userNumberOfCity[countyId_] += 1;

@@ -14,6 +14,7 @@ func InitMainNet() {
 		SetDelegateAddress:    "0x909448fBb09880AF2812d263f7E5C77dcfC2AB53",
 		PledgeStakeAddress:    "0x909448fBb09880AF2812d263f7E5C77dcfC2AB53",
 		RechargeWeightAddress: "0x0007B44b6Ca810EBff3ED4560cD7d997b08BA104",
+		GetFoundsAddress:      "0x20142400c97AD2c0A74d4C0400e482a973087033", // 获取社交基金值的合约
 		ToxAddress:            "0x96397347Ea2beE29713Bc48749eB277D6A36A407",
 		PrivateKey:            "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 	}

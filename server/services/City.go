@@ -11,6 +11,8 @@ func InitCity() {
 	//blockchain.AdminSetCityPioneerAddress()
 	// 管理员设置用户定位合约地址
 	//blockchain.AdminSetUserLocationAddress()
+	// 管理员设置获取过去15天社交基金平均值的合约地址
+	//blockchain.AdminSetFoundsAddress()
 
 	// 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
 
@@ -23,13 +25,14 @@ func InitCity() {
 	// --------
 
 	// 管理员设置城市先锋 ------------
-	blockchain.AdminSetPioneer("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0xC31Bd725D0C15c085a0860Be0c054F60B22c937F")
+	//blockchain.AdminSetPioneer("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0xC31Bd725D0C15c085a0860Be0c054F60B22c937F")
 	//blockchain.AdminSetPioneer("0xbb2d35b76dc3358825b55db25f3696363681ccd940f5d39cc6b1767b8e069404", "0x9a04896807Aa61458cB3f996F811022086C61698")
 	//blockchain.AdminRemovePioneer("0xaa3f3f93c743005d497d2a21cf5ac5132960e42496d9b45437722351f8524496", "0x6B35ba8b3b383714338686BcE4066B387Eab16C6")
 	//time.Sleep(time.Second * 3)
 
 	// 给城市先锋合约、用户定位合约、设置质押量合约添加管理员权限
 	//blockchain.AddCityAdmin()
+
 }
 
 func AdminSetDelegateTask() {

@@ -574,11 +574,6 @@
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "countyId_",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "bytes32",
         "name": "cityId_",
         "type": "bytes32"
       },
@@ -612,6 +607,29 @@
       }
     ],
     "name": "setUserLocationTest",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "countyId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "cityId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "location_",
+        "type": "string"
+      }
+    ],
+    "name": "setUserLocationV2",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

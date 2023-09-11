@@ -370,7 +370,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 //        // 社交基金5%奖励
         IntoCity city = IntoCity(cityAddress);
         uint pioneerAndCityNodeNumber = city.getPioneerAndCityNodeNumber(); // 城市节点上线后，需要加上城市节点的数量
-        uint256 allDailyFoundsTotal = city.allDailyFoundsTotal(yesterday);// 全网昨日所有城市新增社交基金
+        uint256 allDailyFoundsTotal = city.getFifteenDayAverageFounds();// 全网昨日所有城市新增社交基金
         if (pioneerAndCityNodeNumber == 0) {
             fundsReward[pioneerAddress_] += 0;
         } else {

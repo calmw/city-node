@@ -21,6 +21,7 @@ type CityNodeConfigs struct {
 	SetDelegateAddress    string
 	PledgeStakeAddress    string // 获取用户质押量的合约地址
 	RechargeWeightAddress string // 获取用户质押量的合约地址
+	GetFoundsAddress      string // 获取社交基金值的合约
 	ToxAddress            string
 	PrivateKey            string
 }

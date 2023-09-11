@@ -50,6 +50,23 @@ func AdminSetUserLocationAddress() {
 	fmt.Println(res, err)
 }
 
+// AdminSetFoundsAddress 管理员设置获取过去15天社交基金平均值的合约地址
+func AdminSetFoundsAddress() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := city.AdminSetFoundsAddress(auth, common.HexToAddress(CityNodeConfig.GetFoundsAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res, err)
+}
+
 // AdminSetPioneer 管理员设置城市先锋
 func AdminSetPioneer(chengShiId, pioneer string) {
 	Cli := Client(CityNodeConfig)
@@ -71,6 +88,23 @@ func AdminSetPioneer(chengShiId, pioneer string) {
 		return
 	}
 	fmt.Println(res.Hash(), err)
+}
+
+// GetFifteenDayAverageFounds 获取前15天社交基金平均值
+func GetFifteenDayAverageFounds() {
+	Cli := Client(CityNodeConfig)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	res, err := city.GetFifteenDayAverageFounds(nil)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res.String())
 }
 
 // AdminRemovePioneer 管理员删除城市先锋
