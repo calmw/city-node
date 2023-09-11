@@ -181,6 +181,23 @@ func AdminSetDelegate(userAddress string, amount, setType int64) {
 	fmt.Println(res.Hash(), setType, err)
 }
 
+// AdminSetSecondsPerDayCity 管理员设置每天秒数，用于测试
+func AdminSetSecondsPerDayCity(seconds int64) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := city.AdminSetSecondsPerDay(auth, big.NewInt(seconds))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res.Hash(), err)
+}
+
 // AddCityAdmin 给城市先锋合约、用户定位合约、设置质押量合约添加管理员权限
 func AddCityAdmin() {
 	Cli := Client(CityNodeConfig)

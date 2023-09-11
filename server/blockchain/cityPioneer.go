@@ -116,6 +116,40 @@ func AddCityPioneerAdmin() {
 	fmt.Println(res, err)
 }
 
+// AdminSetSecondsPerDayCityPioneer 管理员设置每天秒数，用于测试
+func AdminSetSecondsPerDayCityPioneer(seconds int64) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := cityPioneer.AdminSetSecondsPerDay(auth, big.NewInt(seconds))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res.Hash(), err)
+}
+
+// AdminSetPresidencyTime 管理员设置任期
+func AdminSetPresidencyTime(seconds int64) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := cityPioneer.AdminSetPresidencyTime(auth, big.NewInt(seconds))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res.Hash(), err)
+}
+
 // DepositSuretyTest 交保证金成为先锋
 func DepositSuretyTest(pioneerAddress string) {
 	Cli := Client(CityNodeConfig)

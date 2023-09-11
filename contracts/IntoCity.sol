@@ -89,6 +89,8 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => address) public chengShiPioneer;
     // 城市先锋地址 => 城市ID
     mapping(address => bytes32) public pioneerChengShi;
+    // 考核天，正式86400秒，测试300秒
+    uint public secondsPerDay;
 
 
     function initialize() public initializer {
@@ -166,6 +168,11 @@ contract IntoCity is RoleAccess, Initializable {
         chengShiLevelSurety[level_] = surety_;
     }
 
+    // 管理员设置每天秒数，用于测试
+    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
+        secondsPerDay = secondsPerDay_;
+    }
+
     // 先锋城市数量
     function getPioneerCityNumber() public view returns (uint256) {
         return pioneerChengShiIds.length;
@@ -208,7 +215,7 @@ contract IntoCity is RoleAccess, Initializable {
     }
 
     function getDay() public view returns (uint256){
-        uint day = block.timestamp / 300;
+        uint day = block.timestamp / secondsPerDay;
         return uint256(day);
     }
 

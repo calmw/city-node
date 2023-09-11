@@ -271,6 +271,19 @@
   {
     "inputs": [
       {
+        "internalType": "uint56",
+        "name": "secondsPerDay_",
+        "type": "uint56"
+      }
+    ],
+    "name": "adminSetSecondsPerDay",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "userLocationAddress_",
         "type": "address"
@@ -1087,6 +1100,19 @@
     "name": "renounceAdmin",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "secondsPerDay",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

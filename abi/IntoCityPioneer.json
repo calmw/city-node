@@ -173,6 +173,24 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amount_",
+        "type": "uint256"
+      }
+    ],
+    "name": "addBalance",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "cityLevel_",
         "type": "uint256"
@@ -222,12 +240,64 @@
   {
     "inputs": [
       {
+        "internalType": "uint56",
+        "name": "presidencyTime_",
+        "type": "uint56"
+      }
+    ],
+    "name": "adminSetPresidencyTime",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint56",
+        "name": "secondsPerDay_",
+        "type": "uint56"
+      }
+    ],
+    "name": "adminSetSecondsPerDay",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "startTime_",
+        "type": "uint256"
+      }
+    ],
+    "name": "adminSetStartTime",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "TOXAddress_",
         "type": "address"
       }
     ],
     "name": "adminSetTOXAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "userLocationAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "adminSetUserLocationAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -777,6 +847,61 @@
         "internalType": "uint256",
         "name": "returnSuretyTime",
         "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "suretyTime",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pioneerAddress_",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId_",
+        "type": "bytes32"
+      }
+    ],
+    "name": "pioneerTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "pioneers",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "presidencyTime",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -803,6 +928,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "secondsPerDay",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -813,16 +951,24 @@
         "internalType": "uint256",
         "name": "amount_",
         "type": "uint256"
-      },
-      {
-        "internalType": "bytes32",
-        "name": "cityId_",
-        "type": "bytes32"
       }
     ],
     "name": "setPioneerDelegate",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "startTime",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -858,6 +1004,19 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "userLocationAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",

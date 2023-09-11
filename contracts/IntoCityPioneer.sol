@@ -106,6 +106,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     address[] public  pioneers; // 所有先锋的集合
     // 用户定位合约地址
     address public userLocationAddress;
+    // 考核天，正式86400秒，测试300秒
+    uint public secondsPerDay;
+    // 考核天，正式86400*180秒，测试1800秒
+    uint public presidencyTime;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -146,6 +150,16 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
     }
 
+    // 管理员设置每天秒数，用于测试
+    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
+        secondsPerDay = secondsPerDay_;
+    }
+
+    // 管理员设置任期
+    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {
+        presidencyTime = presidencyTime_;
+    }
+
     // 管理员设置先锋每天新增充值权重
     function setPioneerDelegate(address pioneerAddress_, uint256 amount_) public onlyAdmin {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
@@ -182,7 +196,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     function getDay() public view returns (uint256){
-        uint day = block.timestamp / 300;
+        uint day = block.timestamp / secondsPerDay;
         return uint256(day);
     }
 
@@ -214,7 +228,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             return;
         }
         IntoCity city = IntoCity(cityAddress);
-        uint256 day = getDay() - pioneer.ctime / 300;
+        uint256 day = getDay() - pioneer.ctime / secondsPerDay;
 
         // 前三个月考核
         assessmentPioneer(cityId, pioneer, city, day);
@@ -343,7 +357,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
         uint256 today = getDay();
         // 任期结束，不发放奖励
-        if (today - pioneer.ctime / 300 >= 1800) {
+        if (today - pioneer.ctime / secondsPerDay >= presidencyTime) {
             return;
         }
         // 昨日，天

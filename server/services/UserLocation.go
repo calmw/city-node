@@ -1,11 +1,15 @@
 package services
 
+import "city-node-server/blockchain"
+
 func InitUserLocation() {
 
 	// 管理员设置城市合约地址
 	//blockchain.AdminSetCityAddressUserLocation()
 	// 管理员设置获取用户质押量合约地址
 	//blockchain.AdminSetPledgeStakeAddressUserLocation()
+	// 管理员设置每天秒数，用于测试
+	blockchain.AdminSetSecondsPerDayCityUserLocation(300) // 86400 , 300
 
 	//blockchain.SetUserLocationTest("0xaa3f3f93c743005d497d2a21cf5ac5132960e42496d9b45437722351f8524496", "05C0TS6p86w=", "0x77bd41fdE654FE0054b771Ec6985dC9d5247BAfe")
 	//blockchain.SetUserLocationTest("0xb3b348b5d62537a0d87eb58f09045cd2a2d2631fb72a5c58d912bf8f751f1ede", "7gZ4qrL761s=", "0x17dC6411D638672A073f23267C4735ca877AA623")

@@ -11,6 +11,9 @@ func InitCity() {
 	//blockchain.AdminSetCityPioneerAddress()
 	// 管理员设置用户定位合约地址
 	//blockchain.AdminSetUserLocationAddress()
+	// 管理员设置每天秒数，用于测试
+	blockchain.AdminSetSecondsPerDayCity(300) // 86400 , 300
+	//blockchain.AdminSetSecondsPerDayCity(86400)
 	// 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
 	//blockchain.AdminSetChengShiLevelAndSurety("0xaa3f3f93c743005d497d2a21cf5ac5132960e42496d9b45437722351f8524496", 1, 100000)
 	// -----
@@ -87,7 +90,7 @@ func InitCity() {
 	//blockchain.AdminSetPioneer("0x4209dce01c4f06b1b93a35e021ec2efea127ef4ae29a82be536a376504bef0cc", "0x06EfCb450059517f5b34a7cC4eFD80298825124E")
 	//blockchain.PioneerChengShi("0x06EfCb450059517f5b34a7cC4eFD80298825124E")
 	//blockchain.AdminSetPioneer("0x3d77372f2d82ba9f5d0b972086def85527c58999c521f33bb3047ccac794d06a", "0x1763271960D827D1DE4654D9E754021A0f5f94A5")
-	blockchain.PioneerChengShi("0x1763271960D827D1DE4654D9E754021A0f5f94A5")
+	//blockchain.PioneerChengShi("0x1763271960D827D1DE4654D9E754021A0f5f94A5")
 	// ------ 结束
 	//blockchain.AdminSetPioneer("0xaa3f3f93c743005d497d2a21cf5ac5132960e42496d9b45437722351f8524496", "0x77bd41fdE654FE0054b771Ec6985dC9d5247BAfe")
 	//blockchain.AdminSetPioneer("0x35cbb5a35a63817975c8f118ac59cf9e48a4f8109bb03276c58729c04540ebe7", "0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E")

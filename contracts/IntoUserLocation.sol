@@ -55,6 +55,8 @@ contract IntoUserLocation is RoleAccess, Initializable {
     mapping(bytes32 => bytes32[]) public chengShiIDCityIdSet;
     // 防止重复添加，区县ID=>(城市ID=>是否存在)
     mapping(bytes32 => mapping(bytes32 => bool)) public cityIdToChengShiIDExits;
+    // 考核天，正式86400秒，测试300秒
+    uint public secondsPerDay;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -70,12 +72,17 @@ contract IntoUserLocation is RoleAccess, Initializable {
         pledgeStakeAddress = pledgeStakeAddress_;
     }
 
+    // 管理员设置每天秒数，用于测试
+    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
+        secondsPerDay = secondsPerDay_;
+    }
+
     function compareStr(string calldata _str, string memory str) private pure returns (bool) {
         return keccak256(abi.encodePacked(_str)) == keccak256(abi.encodePacked(str));
     }
 
     function getDay() public view returns (uint256){
-        uint day = block.timestamp / 300;
+        uint day = block.timestamp / secondsPerDay;
         return uint256(day);
     }
 
@@ -131,7 +138,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
     // 设置城市与区县的映射
     function SetCityMapping(bytes32 countyId, bytes32 chengShiId) public {
         require(!cityIdToChengShiIDExits[countyId][chengShiId], "can not set any more");
-        cityIdChengShiID[chengShiId] = countyId;
+        cityIdChengShiID[countyId] = chengShiId;
         chengShiIDCityIdSet[chengShiId].push(countyId);
         cityIdToChengShiIDExits[countyId][chengShiId] = true;
     }

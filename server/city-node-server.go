@@ -1,16 +1,14 @@
 package main
 
-import (
-	"city-node-server/blockchain"
-)
+import "city-node-server/services"
 
 func main() {
 	//db.InitMysql()
 	//tasks.Task()
 
-	//services.InitCity()
-	//services.InitCityPioneer()
-	//services.InitUserLocation()
+	services.InitCity()
+	services.InitCityPioneer()
+	services.InitUserLocation()
 	//
 
 	//blockchain.AdminEditSurety("0x3edf72f7ab938a14e6aae3701a1e5acbb2512c840a019c6ead9d01415dbac864", 1, 100000)
@@ -19,7 +17,7 @@ func main() {
 
 	//
 	//blockchain.ApproveToxCityPioneer() // 向城市先锋合约approve
-	blockchain.CityPioneerBalance() // 城市先锋合约余额
+	//blockchain.CityPioneerBalance() // 城市先锋合约余额
 	//blockchain.DepositSurety()         // 交保证金，慎用，扣钱
 	//blockchain.DepositSuretyTest("0x08a01BE67fF47Ba2652b7dCE2005B47D81bAaC13") // DepositSuretyTest 交保证金成为先锋
 

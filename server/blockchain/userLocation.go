@@ -83,6 +83,23 @@ func SetUserLocation(cityId, location string) {
 	fmt.Println(res, err)
 }
 
+// AdminSetSecondsPerDayCityUserLocation 管理员设置每天秒数，用于测试
+func AdminSetSecondsPerDayCityUserLocation(seconds int64) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := userLocation.AdminSetSecondsPerDay(auth, big.NewInt(seconds))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res.Hash(), err)
+}
+
 // SetUserLocationTest 设置获取用户位置
 func SetUserLocationTest(cityId, location, userAddress string) {
 	Cli := Client(CityNodeConfig)
