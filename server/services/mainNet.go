@@ -18,8 +18,8 @@ func InitMainNet() {
 		PrivateKey:            "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
 	}
 
-	blockchain.AdminSetSecondsPerDayCityUserLocation(86400) // 86400 , 300
-	blockchain.AdminSetSecondsPerDayCityPioneer(86400)      // 86400 , 300
-	blockchain.AdminSetSecondsPerDayCity(86400)             // 86400 , 300
-	blockchain.AdminSetPresidencyTime(86400 * 180)          // 86400*180 , 1800
+	//blockchain.AdminSetSecondsPerDayCityUserLocation(86400) // 86400 , 300
+	//blockchain.AdminSetSecondsPerDayCityPioneer(86400)      // 86400 , 300
+	//blockchain.AdminSetSecondsPerDayCity(86400)             // 86400 , 300
+	//blockchain.AdminSetPresidencyTime(86400 * 180)          // 86400*180 , 1800
 }

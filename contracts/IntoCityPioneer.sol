@@ -369,12 +369,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
 //        // 社交基金5%奖励
         IntoCity city = IntoCity(cityAddress);
-        uint256 yesterdayFounds = city.getFounds(cityId, yesterday);// 昨日先锋绑定城市新增社交基金
+        uint pioneerAndCityNodeNumber = city.getPioneerAndCityNodeNumber(); // 城市节点上线后，需要加上城市节点的数量
         uint256 allDailyFoundsTotal = city.allDailyFoundsTotal(yesterday);// 全网昨日所有城市新增社交基金
-        if (allDailyFoundsTotal == 0) {
+        if (pioneerAndCityNodeNumber == 0) {
             fundsReward[pioneerAddress_] += 0;
         } else {
-            fundsReward[pioneerAddress_] += yesterdayFounds * 5 / 100 / allDailyFoundsTotal;
+            fundsReward[pioneerAddress_] += allDailyFoundsTotal * 5 / 100 / pioneerAndCityNodeNumber;
         }
 
 //        // 该城市新增质押量1%奖励，不累加
@@ -507,5 +507,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         delegateReward[user] += amount_;
         //先锋可以退的保证金
         suretyReward[user] += amount_;
+    }
+
+    // 获取先锋所需保证金，根据先锋地址
+    function getPioneerNumber() public view returns (uint256){
+        return pioneers.length;
     }
 }

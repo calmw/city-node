@@ -2,7 +2,6 @@ package main
 
 import (
 	"city-node-server/services"
-	"city-node-server/tasks"
 )
 
 func main() {
@@ -12,7 +11,7 @@ func main() {
 	services.InitTestNet()
 	//services.InitMainNet()
 
-	//services.InitCity()
+	services.InitCity()
 	//services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
@@ -30,7 +29,7 @@ func main() {
 	// 管理员设置开始考核时间,先交保证金，后考核
 	//blockchain.AdminSetStartTime(time.Now().Unix())
 	// 批量执行增加或减少质押量
-	tasks.Task()
+	//tasks.Task()
 
 	//blockchain.GetCityId(22)
 

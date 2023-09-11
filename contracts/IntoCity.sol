@@ -320,4 +320,13 @@ contract IntoCity is RoleAccess, Initializable {
         chengShiLevelSurety[level];
     }
 
+    // 获取先锋所需保证金，根据先锋地址
+    function getPioneerAndCityNodeNumber() public view returns (uint256){
+
+        IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+        uint256 pioneerNumber = intoCityPioneer.getPioneerNumber(); // 先锋数量
+        uint256 cityNodeNumber = 0; // 城市节点数量
+        return pioneerNumber + cityNodeNumber;
+    }
+
 }
