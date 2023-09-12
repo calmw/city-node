@@ -83,7 +83,7 @@ contract IntoCity is RoleAccess, Initializable {
     bytes32[] public pioneerChengShiIds;
     // 城市等级 => 该城市先锋需要缴纳的保证金
     mapping(uint256 => uint256) public chengShiLevelSurety;
-    // 区县ID => 质押 ,区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
+    // 区县ID => 质押 ,区县先锋所绑定区县新增充值权重（只用于区县先锋）的累计值
     mapping(bytes32 => uint256) public cityRechargeTotal;
     // 城市ID => 该城市的充值权重
 //    mapping(bytes32 => uint256) public chengShiRecharge; // 上线删除
@@ -144,6 +144,7 @@ contract IntoCity is RoleAccess, Initializable {
         hasSetPioneer[pioneer_] = false;
         IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
         intoCityPioneer.initPioneer(pioneer_);
+        intoCityPioneer.removePioneer(pioneer_);
 
         for (uint256 i = 0; i < pioneerChengShiIds.length; i++) {
             if (pioneerChengShiIds[i] == chengShiId_) {
@@ -159,6 +160,10 @@ contract IntoCity is RoleAccess, Initializable {
 
     // 设置用户充值量
     function adminSetRechargeAmount(address user, uint256 amount) public onlyAdmin {
+        IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+        if (block.timestamp < intoCityPioneer.startTime()) {
+            return;
+        }
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
 //        bytes32 chengShiId = intoUserLocation.getChengShiIdByAddress(user);
         bytes32 countyId = intoUserLocation.getCountyId(user);
@@ -333,8 +338,12 @@ contract IntoCity is RoleAccess, Initializable {
     }
 
     //初始化区县先锋绑定区县的累计质押量
-    function initCityDelegate(bytes32 cityId_) public onlyAdmin {
-        cityRechargeTotal[cityId_] = 0;
+    function initCityRechargeWeight(bytes32 chengShiId_) public onlyAdmin {
+        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+        bytes32[] memory countyIds_ = intoUserLocation.getCountyIdsByChengShiId(chengShiId_);
+        for (uint256 i = 0; i < countyIds_.length; i++) {
+            cityRechargeTotal[countyIds_[i]] = 0;
+        }
     }
 
     // 获取先锋所需保证金，根据先锋地址

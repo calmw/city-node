@@ -11,8 +11,8 @@ func main() {
 	services.InitTestNet()
 	//services.InitMainNet()
 
-	services.InitCity()
-	//services.InitCityPioneer()
+	//services.InitCity()
+	services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
 
@@ -37,8 +37,9 @@ func main() {
 
 	//blockchain.GetCityId(22)
 
-	// 设置映射关系
-	//blockchain.SetCityMapping("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0xe1b0f7944ee94273aa896973319bda53389ef3f1168c81a50e1c6c05307659ad")
+	// 设置城市ID位置,设置映射关系
+	//blockchain.SetCityMapping("0x29be82e0371a1163d2ec403932c8620efbaf1d3887712e74b1736edd32702b81", "0xbd3f3948984277e24c4d15a7c885bf744fc9529d59cbac338e6ef13b10216e3d", "VpkpHlhZATM=")
+
 	//services.AdminSetRechargeAmountTask()
 
 }

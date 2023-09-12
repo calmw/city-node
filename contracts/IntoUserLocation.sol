@@ -112,7 +112,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 本次上线放开
-    function setUserLocationV2(bytes32 countyId_, bytes32 cityId_, string calldata location_) public {
+    function setUserLocationV2(bytes32 countyId_, bytes32 chengShiId_, string calldata location_) public {
         require(!userHaveSetLocation[msg.sender], "cant not set any more");
         require(!compareStr(location_, ""), "location is empty");
         userNumberOfCity[countyId_] += 1;
@@ -128,10 +128,10 @@ contract IntoUserLocation is RoleAccess, Initializable {
         }
 
         // 设置城市ID，本次上线放开
-        SetCityChengShi(countyId_, cityId_);
+        SetCityChengShi(countyId_, chengShiId_);
 
         // 给用户所在城市增加质押量
-        setUserDelegate(cityId_, msg.sender);
+        setUserDelegate(chengShiId_, msg.sender);
 
         emit UserLocationRecord(
             msg.sender,
@@ -165,13 +165,22 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 设置城市与区县的映射，上线后过段时间关闭
-    function SetCityMapping(bytes32 countyId, bytes32 chengShiId, string calldata location_) public {
-        if (!cityIdToChengShiIDExits[countyId][chengShiId]) {
+    function SetCityMapping(bytes32 countyId, bytes32 chengShiId, string calldata location_) public returns (bool){
+//        cityIdToChengShiIDExits[chengShiId][countyId] = false;
+        if (!cityIdToChengShiIDExits[chengShiId][countyId]) {
             cityIdChengShiID[countyId] = chengShiId;
             chengShiIDCityIdSet[chengShiId].push(countyId);
             cityInfo[chengShiId] = location_;
-            cityIdToChengShiIDExits[countyId][chengShiId] = true;
+            cityIdToChengShiIDExits[chengShiId][countyId] = true;
+            return true;
         }
+        return false;
+    }
+
+    // 测试用
+    function SetCityMappingDel(bytes32 chengShiId, uint256 index) public onlyAdmin {
+        chengShiIDCityIdSet[chengShiId][index] = chengShiIDCityIdSet[chengShiId][chengShiIDCityIdSet[chengShiId].length - 1];
+        chengShiIDCityIdSet[chengShiId].pop();
     }
 
     // 设置城市与区县的映射，上线后过段时间关闭
@@ -184,12 +193,12 @@ contract IntoUserLocation is RoleAccess, Initializable {
 
     // 设置城市与区县的映射，本次上线放开
     function SetCityChengShi(bytes32 countyId, bytes32 chengShiId) private {
-        if (cityIdToChengShiIDExits[countyId][chengShiId]) {
+        if (cityIdToChengShiIDExits[chengShiId][countyId]) {
             return;
         }
         cityIdChengShiID[countyId] = chengShiId;
         chengShiIDCityIdSet[chengShiId].push(countyId);
-        cityIdToChengShiIDExits[countyId][chengShiId] = true;
+        cityIdToChengShiIDExits[chengShiId][countyId] = true;
     }
 
     // 根据用户获取区县ID

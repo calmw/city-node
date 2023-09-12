@@ -82,7 +82,13 @@
       }
     ],
     "name": "SetCityMapping",
-    "outputs": [],
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -105,6 +111,24 @@
       }
     ],
     "name": "SetCityMappingBatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "index",
+        "type": "uint256"
+      }
+    ],
+    "name": "SetCityMappingDel",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -630,7 +654,7 @@
       },
       {
         "internalType": "bytes32",
-        "name": "cityId_",
+        "name": "chengShiId_",
         "type": "bytes32"
       },
       {
