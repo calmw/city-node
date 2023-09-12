@@ -146,7 +146,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
         IPledgeStake pledgeStake = IPledgeStake(pledgeStakeAddress);
         uint256 delegate = pledgeStake.ownerWeight(user);
         uint256 today = getDay();
-        intoCity.incrCityDelegate(cityId_, delegate * 100, today);
+        intoCity.incrCountyOrChengShiDelegate(cityId_, delegate * 100, today);
     }
 
     // 定位过的用户数量

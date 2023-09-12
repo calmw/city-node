@@ -110,8 +110,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     uint public secondsPerDay;
     // 考核天，正式86400*180秒，测试1800秒
     uint public presidencyTime;
-    //  城市ID=>(天=>累计质押量)   充值权重
-    mapping(bytes32 => mapping(uint256 => uint256)) public rechargeDailyWeight;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -163,18 +161,17 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 管理员设置先锋每天新增充值权重
-    function setPioneerRechargeWeight(address pioneerAddress_, uint256 amount_) public onlyAdmin {
-        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
-        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
-        bytes32 chengShiId = intoUserLocation.getChengShiIdByAddress(pioneerAddress_);
-        rechargeDailyWeight[chengShiId][getDay()] += amount_;
-        emit DailyIncreaseDelegateRecord(
-            pioneer.pioneerAddress,
-            chengShiId,
-            amount_,
-            block.timestamp
-        );
-    }
+//    function setPioneerRechargeWeight(address pioneerAddress_, uint256 amount_) public onlyAdmin {
+//        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
+//        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+//        bytes32 chengShiId = intoUserLocation.getChengShiIdByAddress(pioneerAddress_);
+//        emit DailyIncreaseDelegateRecord(
+//            pioneer.pioneerAddress,
+//            chengShiId,
+//            amount_,
+//            block.timestamp
+//        );
+//    }
 
     // 考核和奖励任务
     function pioneerTask(address pioneerAddress_, bytes32 chengShiId_) public onlyAdmin {
@@ -226,7 +223,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
-    function checkPioneer(bytes32 cityId, address pioneerAddress_) private {
+    function checkPioneer(bytes32 chengShiId_, address pioneerAddress_) private {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         if (pioneer.assessmentStatus == true) {
             return;
@@ -235,35 +232,35 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 day = getDay() - pioneer.ctime / secondsPerDay;
 
         // 前三个月考核
-        assessmentPioneer(cityId, pioneer, city, day);
+        assessmentPioneer(chengShiId_, pioneer, city, day);
 
         // 计算退还保证金额度,并更新退还状态
-        calculateRefund(cityId, pioneer, city, day);
+        calculateRefund(chengShiId_, pioneer, city, day);
 
     }
 
     // 前三个月考核
-    function assessmentPioneer(bytes32 cityId, Pioneer storage pioneer, IntoCity city, uint256 day) private {
+    function assessmentPioneer(bytes32 chengShiId_, Pioneer storage pioneer, IntoCity city, uint256 day) private {
         if (pioneer.assessmentStatus) { // 已经通过终极考核
             return;
         }
         uint256 assessmentCriteriaThreshold; // 考核标准金额
 
-        uint256 pioneerCityTotalNewlyDelegate = city.cityRechargeTotal(cityId); // 先锋绑定的城市总的新增质押量
+        uint256 pioneerCityTotalNewlyDelegate = city.cityRechargeTotal(chengShiId_); // 先锋绑定的城市总的新增质押量
 
         if (day == 90) {
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][3] * 100;
             if (pioneerCityTotalNewlyDelegate < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
-                failedDelegate[cityId] = pioneerCityTotalNewlyDelegate;
-                city.setChengShiPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
+                failedDelegate[chengShiId_] = pioneerCityTotalNewlyDelegate;
+                city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
             }
         } else if (day == 60) {
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][2] * 100;
             if (pioneerCityTotalNewlyDelegate < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
-                failedDelegate[cityId] = pioneerCityTotalNewlyDelegate;
-                city.setChengShiPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
+                failedDelegate[chengShiId_] = pioneerCityTotalNewlyDelegate;
+                city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
             }
         } else if (day == 30) {
             // 检测是否满足直接考核通过
@@ -275,8 +272,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][1] * 100;
             if (pioneerCityTotalNewlyDelegate < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
-                failedDelegate[cityId] = pioneerCityTotalNewlyDelegate;
-                city.setChengShiPioneerAssessment(cityId); // 将该城市设置为先锋计划洛选城市
+                failedDelegate[chengShiId_] = pioneerCityTotalNewlyDelegate;
+                city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
             }
         }
     }
@@ -353,7 +350,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 每日奖励发放
-    function reward(bytes32 cityId, address pioneerAddress_) private {
+    function reward(bytes32 ChengShiId_, address pioneerAddress_) private {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         // 考核状态（按月考核）不正常，不发放奖励
         if (!pioneer.assessmentMonthStatus) {
@@ -382,7 +379,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
 
 //        // 该城市新增质押量1%奖励，不累加
-        uint256 yesterdayDelegate = city.getNewlyDelegate(cityId, yesterday);// 昨日新增质押权重
+        uint256 yesterdayDelegate = city.getDelegateByDayAndCityOrChengShiId(ChengShiId_, yesterday);// 昨日该城市新增质押权重
         delegateReward[pioneerAddress_] += yesterdayDelegate / 100;
 
         emit DailyRewardRecord(
