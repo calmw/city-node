@@ -175,14 +175,15 @@ contract IntoCity is RoleAccess, Initializable {
         }
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
         bytes32 countyId = intoUserLocation.getCountyId(user);
+        if (countyId == bytes32(0)) {
+            return;
+        }
         uint256 today = getDay();
         amount = amount / 100;
-        rechargeWeight += amount;//  全部累计充值权重
-        rechargeDailyWeight[today] += amount;//  天=>累计充值)   充值权重
-        if (countyId != bytes32(0)) {
-            rechargeDailyWeightRecord[countyId][today] += amount;//  区县ID=>(天=>累计充值)   充值权重
-            cityRechargeTotal[countyId] += amount;//  区县ID=>累计充值权重   充值权重
-        }
+        rechargeWeight += amount;// 全部累计充值权重
+        rechargeDailyWeight[today] += amount;// 天=>累计充值)   充值权重
+        rechargeDailyWeightRecord[countyId][today] += amount;// 区县ID=>(天=>累计充值)   充值权重
+        cityRechargeTotal[countyId] += amount;// 区县ID=>累计充值权重   充值权重
     }
 
     // 管理员设置先锋计划，城市等级以及该等级区县所需缴纳的保证金数额

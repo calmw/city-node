@@ -128,7 +128,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
         }
 
         // 设置城市ID，本次上线放开
-        SetCityChengShi(countyId_, chengShiId_);
+        SetCityChengShi(countyId_, chengShiId_,location_);
 
         // 给用户所在城市增加质押量
         setUserDelegate(chengShiId_, msg.sender);
@@ -199,13 +199,13 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 设置城市与区县的映射，本次上线放开
-    function SetCityChengShi(bytes32 countyId, bytes32 chengShiId) private {
-        if (cityIdToChengShiIDExits[chengShiId][countyId]) {
-            return;
-        }
+    function SetCityChengShi(bytes32 countyId, bytes32 chengShiId, string calldata location_) private {
         cityIdChengShiID[countyId] = chengShiId;
-        chengShiIDCityIdSet[chengShiId].push(countyId);
-        cityIdToChengShiIDExits[chengShiId][countyId] = true;
+        cityInfo[chengShiId] = location_;
+        if (!countyIdInChengShiId(countyId, chengShiId)) {
+            chengShiIDCityIdSet[chengShiId].push(countyId);
+        }
+
     }
 
     // 根据用户获取区县ID

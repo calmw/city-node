@@ -384,6 +384,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             delegateReward[pioneerAddress_]
         );
     }
+    // 每日奖励发放
+    function descBenefitPackageReward() public onlyAdmin {
+        for (uint256 i = 0; i < pioneers.length; i++) {
+            benefitPackageReward[pioneers[i]] = 0;
+        }
+    }
 
     // 用户提取福利包奖励
     function withdrawalBenefitPackageReward() public {
