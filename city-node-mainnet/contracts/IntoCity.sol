@@ -133,9 +133,18 @@ contract IntoCity is RoleAccess, Initializable {
         chengShiPioneer[chengShiId_] = pioneer_;
         pioneerChengShi[pioneer_] = chengShiId_;
         hasSetPioneer[pioneer_] = true;
-        if (chengShiPioneer[chengShiId_] != address(0)) {
+        if (!pioneerChengShiIdExits(chengShiId_)) {
             pioneerChengShiIds.push(chengShiId_);
         }
+    }
+
+    function pioneerChengShiIdExits(bytes32 chengShiId) public view returns (bool){
+        for (uint256 i = 0; i < pioneerChengShiIds.length; i++) {
+            if (chengShiId == pioneerChengShiIds[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function adminRemovePioneer(bytes32 chengShiId_, address pioneer_) public onlyAdmin {
@@ -165,7 +174,6 @@ contract IntoCity is RoleAccess, Initializable {
             return;
         }
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
-//        bytes32 chengShiId = intoUserLocation.getChengShiIdByAddress(user);
         bytes32 countyId = intoUserLocation.getCountyId(user);
         uint256 today = getDay();
         amount = amount / 100;
@@ -173,7 +181,6 @@ contract IntoCity is RoleAccess, Initializable {
         rechargeDailyWeight[today] += amount;//  天=>累计充值)   充值权重
         if (countyId != bytes32(0)) {
             rechargeDailyWeightRecord[countyId][today] += amount;//  区县ID=>(天=>累计充值)   充值权重
-//            cityOrChengShiWeightTotal[countyId] = amount;//  区县ID=>(天=>累计充值)   充值权重
             cityRechargeTotal[countyId] += amount;//  区县ID=>累计充值权重   充值权重
         }
     }
@@ -292,7 +299,6 @@ contract IntoCity is RoleAccess, Initializable {
                 bytes32 chengShiId = intoUserLocation.getChengShiIdByCountyId(countyId);
                 if (chengShiId != bytes32(0)) {
                     intoCityPioneer.pioneerTask(userAddress_, chengShiId); // 考核和保证金检测
-//                    incrCountyOrChengShiDelegate(chengShiId, amount_, today);// 增加城市质押量
                 }
             }
 //              增加区县质押量
@@ -307,7 +313,32 @@ contract IntoCity is RoleAccess, Initializable {
         if (yesterdayDelegate > maxDelegate) {
             setCityMaxDelegate(countyId, yesterdayDelegate, today - 1);
         }
+    }
 
+    function triggerPioneerTask(address user) public {
+        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+        bytes32 countyId = intoUserLocation.getCountyId(user);
+        bytes32 chengShiId = intoUserLocation.cityIdChengShiID(countyId);
+        if (chengShiId == bytes32(0)) {
+            return;
+        }
+        if (!isPioneerChengShi(chengShiId)) {
+            return;
+        }
+        address pioneerAddress = chengShiPioneer[chengShiId];
+        if (chengShiPioneer[chengShiId] != address(0)) {
+            IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+            intoCityPioneer.pioneerTask(pioneerAddress, chengShiId); // 考核和保证金检测
+        }
+    }
+
+    function isPioneerChengShi(bytes32 chengShiId) public view returns (bool){
+        for (uint256 i; i < pioneerChengShiIds.length; i++) {
+            if (chengShiId == pioneerChengShiIds[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // 获取前15天社交基金平均值
@@ -325,11 +356,6 @@ contract IntoCity is RoleAccess, Initializable {
     function getDelegate(bytes32 cityId_, uint256 day) public view returns (uint256){
         return cityDelegateRecord[cityId_][day];
     }
-
-    // 获取某一天新增质押（只算增加的）,根据天、城市或者区县ID获取
-//    function getDelegateByDayAndCityOrChengShiId(bytes32 cityIdOrChengShiId_, uint256 day) public view returns (uint256){
-//        return cityNewlyDelegateRecord[cityIdOrChengShiId_][day];
-//    }
 
     // 增加区县先锋绑定区县的累计质押量,增加总的质押量
     function addCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {

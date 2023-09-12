@@ -334,7 +334,7 @@ contract IntoCity is RoleAccess, Initializable {
 
     function isPioneerChengShi(bytes32 chengShiId) public view returns (bool){
         for (uint256 i; i < pioneerChengShiIds.length; i++) {
-            if (chengShiId == pioneerCityIds[i]) {
+            if (chengShiId == pioneerChengShiIds[i]) {
                 return true;
             }
         }

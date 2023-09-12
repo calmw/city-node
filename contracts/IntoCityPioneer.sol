@@ -162,26 +162,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         presidencyTime = presidencyTime_;
     }
 
-    // 管理员设置先锋每天新增充值权重
-//    function setPioneerRechargeWeight(address pioneerAddress_, uint256 amount_) public onlyAdmin {
-//        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
-//        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
-//        bytes32 chengShiId = intoUserLocation.getChengShiIdByAddress(pioneerAddress_);
-//        emit DailyIncreaseDelegateRecord(
-//            pioneer.pioneerAddress,
-//            chengShiId,
-//            amount_,
-//            block.timestamp
-//        );
-//    }
-
     // 考核和奖励任务
     function pioneerTask(address pioneerAddress_, bytes32 chengShiId_) public onlyAdmin {
-//        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
-
-//        IntoCity city = IntoCity(cityAddress);
-        // 增加先锋绑定的城市的累计质押量
-//        city.addCityDelegate(cityId_, amount_);
         // 更新奖励和考核
         uint256 today = getDay();
         if (!checkPioneerStatus[pioneerAddress_][today]) {

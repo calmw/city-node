@@ -39,7 +39,7 @@ func main() {
 	//blockchain.GetCityId(22)
 
 	// 设置城市ID位置,设置映射关系
-	blockchain.SetCityMapping("0x86e3ddd84723cca079292c3561d588befe5c409dc5f5e060facd762176ffcbbb", "0x80e0acd0d90d9b42cc6c9a59d0e61f11e73bd5ba88f544447c11b287c0665ca5", "+uG0pR2/zHc=")
+	blockchain.SetCityMapping("0x818c1d2b3417786f35375c0a532bbd70a98cfcba5040c9dae6a64ac90de11d37", "0xb8f09d587defd54aa24dbb770b3773f29a658b080f95d6cf12aa0c8f6e97cef8", "E48M4KQJ3To=")
 
 	//services.AdminSetRechargeAmountTask()
 
