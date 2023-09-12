@@ -992,3 +992,9 @@
 {"level":"error","time":"2023-09-12T19:02:37.513+0800","line":"blockchain/cityPioneer.go:198","msg":"rpc error: code = Unknown desc = execution reverted: you are not pioneer","serviceName":"into"}
 {"level":"error","time":"2023-09-12T19:03:03.112+0800","line":"blockchain/cityPioneer.go:198","msg":"rpc error: code = Unknown desc = execution reverted: you are not pioneer","serviceName":"into"}
 {"level":"error","time":"2023-09-12T19:38:31.635+0800","line":"blockchain/city.go:87","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-12T21:35:25.943+0800","line":"blockchain/city.go:64","msg":"invalid nonce; got 578, expected 580: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-12T21:35:35.968+0800","line":"blockchain/city.go:271","msg":"Post \"https://rpc-8.matchscan.io/\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-09-12T21:36:54.435+0800","line":"blockchain/city.go:47","msg":"invalid nonce; got 587, expected 588: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-12T21:37:01.359+0800","line":"blockchain/city.go:271","msg":"invalid nonce; got 588, expected 589: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-12T21:37:20.633+0800","line":"blockchain/city.go:271","msg":"invalid nonce; got 590, expected 591: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-12T21:43:48.315+0800","line":"blockchain/cityPioneer.go:38","msg":"Post \"https://rpc-8.matchscan.io/\": EOF","serviceName":"into"}

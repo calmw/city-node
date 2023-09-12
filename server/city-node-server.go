@@ -3,16 +3,17 @@ package main
 import (
 	"city-node-server/blockchain"
 	"city-node-server/services"
+	"time"
 )
 
 func main() {
 	//db.InitMysql()
 	//tasks.Task()
 
-	services.InitTestNet()
-	//services.InitMainNet()
+	//services.InitTestNet()
+	services.InitMainNet()
 
-	services.InitCity()
+	//services.InitCity()
 	//services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
@@ -29,7 +30,7 @@ func main() {
 
 	// 管理员设置开始考核时间,先交保证金，后考核
 	//blockchain.AdminSetStartTime(time.Now().Add(time.Hour * 1000000).Unix())
-	//blockchain.AdminSetStartTime(time.Now().Unix())
+	blockchain.AdminSetStartTime(time.Now().Unix())
 	// 批量执行增加或减少质押量
 	//tasks.Task()
 
@@ -39,7 +40,7 @@ func main() {
 	//blockchain.GetCityId(22)
 
 	// 设置城市ID位置,设置映射关系
-	blockchain.SetCityMapping("0x818c1d2b3417786f35375c0a532bbd70a98cfcba5040c9dae6a64ac90de11d37", "0xb8f09d587defd54aa24dbb770b3773f29a658b080f95d6cf12aa0c8f6e97cef8", "E48M4KQJ3To=")
+	//blockchain.SetCityMapping("0x818c1d2b3417786f35375c0a532bbd70a98cfcba5040c9dae6a64ac90de11d37", "0xb8f09d587defd54aa24dbb770b3773f29a658b080f95d6cf12aa0c8f6e97cef8", "E48M4KQJ3To=")
 
 	//services.AdminSetRechargeAmountTask()
 
