@@ -984,3 +984,11 @@
 {"level":"error","time":"2023-09-12T15:30:15.842+0800","line":"blockchain/city.go:87","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-09-12T15:49:31.724+0800","line":"blockchain/city.go:87","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-09-12T16:23:48.363+0800","line":"blockchain/city.go:212","msg":"invalid nonce; got 5215, expected 5216: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-12T18:59:19.329+0800","line":"blockchain/cityPioneer.go:198","msg":"rpc error: code = Unknown desc = execution reverted: you are not pioneer","serviceName":"into"}
+{"level":"error","time":"2023-09-12T18:59:45.544+0800","line":"blockchain/cityPioneer.go:198","msg":"rpc error: code = Unknown desc = execution reverted: you are not pioneer","serviceName":"into"}
+{"level":"error","time":"2023-09-12T19:00:08.195+0800","line":"blockchain/cityPioneer.go:198","msg":"rpc error: code = Unknown desc = execution reverted: you are not pioneer","serviceName":"into"}
+{"level":"error","time":"2023-09-12T19:02:10.101+0800","line":"blockchain/city.go:87","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-12T19:02:10.676+0800","line":"blockchain/cityPioneer.go:198","msg":"rpc error: code = Unknown desc = execution reverted: you are not pioneer","serviceName":"into"}
+{"level":"error","time":"2023-09-12T19:02:37.513+0800","line":"blockchain/cityPioneer.go:198","msg":"rpc error: code = Unknown desc = execution reverted: you are not pioneer","serviceName":"into"}
+{"level":"error","time":"2023-09-12T19:03:03.112+0800","line":"blockchain/cityPioneer.go:198","msg":"rpc error: code = Unknown desc = execution reverted: you are not pioneer","serviceName":"into"}
+{"level":"error","time":"2023-09-12T19:38:31.635+0800","line":"blockchain/city.go:87","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}

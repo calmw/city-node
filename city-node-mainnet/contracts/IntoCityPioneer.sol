@@ -219,7 +219,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].suretyTime = block.timestamp;
         pioneerInfo[msg.sender].cityLevel = city.chengShiLevel(chengShiId);
-        city.initCityRechargeWeight(chengShiId);// 将先锋绑定的城市的新增质押量变为0
+        if(chengShiId!=bytes32(0)){
+            city.initCityRechargeWeight(chengShiId);// 将先锋绑定的城市的新增质押量变为0
+        }
         // 更新已交保证金先锋数量
         pioneers.push(msg.sender);
     }

@@ -12,7 +12,7 @@ func main() {
 	services.InitTestNet()
 	//services.InitMainNet()
 
-	//services.InitCity()
+	services.InitCity()
 	//services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
@@ -24,7 +24,7 @@ func main() {
 	//
 	//blockchain.ApproveToxCityPioneer() // 向城市先锋合约approve
 	//blockchain.CityPioneerBalance() // 城市先锋合约余额
-	//blockchain.DepositSurety()         // 交保证金，慎用，扣钱
+	//blockchain.DepositSurety() // 交保证金，慎用，扣钱
 	//blockchain.DepositSuretyTest("0x08a01BE67fF47Ba2652b7dCE2005B47D81bAaC13") // DepositSuretyTest 交保证金成为先锋
 
 	// 管理员设置开始考核时间,先交保证金，后考核
@@ -39,7 +39,7 @@ func main() {
 	//blockchain.GetCityId(22)
 
 	// 设置城市ID位置,设置映射关系
-	blockchain.SetCityMapping("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "6WPQrWhP2DQ=")
+	blockchain.SetCityMapping("0x86e3ddd84723cca079292c3561d588befe5c409dc5f5e060facd762176ffcbbb", "0x80e0acd0d90d9b42cc6c9a59d0e61f11e73bd5ba88f544447c11b287c0665ca5", "+uG0pR2/zHc=")
 
 	//services.AdminSetRechargeAmountTask()
 

@@ -667,6 +667,25 @@
         "type": "bytes32"
       }
     ],
+    "name": "cityOrChengShiWeightTotal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "name": "cityPioneer",
     "outputs": [
       {
@@ -732,6 +751,30 @@
   {
     "inputs": [
       {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "countyNewlyPioneerDelegateRecord",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
@@ -752,7 +795,7 @@
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "cityId_",
+        "name": "countyId_",
         "type": "bytes32"
       },
       {
@@ -766,7 +809,7 @@
         "type": "uint256"
       }
     ],
-    "name": "descCityDelegate",
+    "name": "descCountyOrChengShiDelegate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -812,6 +855,30 @@
       }
     ],
     "name": "getChengShiRechargeWeight",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "day",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDailyDelegateByChengShiID",
     "outputs": [
       {
         "internalType": "uint256",
@@ -897,30 +964,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "cityId_",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "day",
-        "type": "uint256"
-      }
-    ],
-    "name": "getNewlyDelegate",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "getPioneerAndCityNodeNumber",
     "outputs": [
@@ -982,7 +1025,7 @@
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "cityId_",
+        "name": "countyId_",
         "type": "bytes32"
       },
       {
@@ -996,7 +1039,7 @@
         "type": "uint256"
       }
     ],
-    "name": "incrCityDelegate",
+    "name": "incrCountyOrChengShiDelegate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1005,11 +1048,11 @@
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "cityId_",
+        "name": "chengShiId_",
         "type": "bytes32"
       }
     ],
-    "name": "initCityDelegate",
+    "name": "initCityRechargeWeight",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1111,6 +1154,62 @@
         "internalType": "bytes32",
         "name": "",
         "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "rechargeDailyWeight",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "rechargeDailyWeightRecord",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "rechargeWeight",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",

@@ -28,13 +28,15 @@ func InitCity() {
 	//blockchain.AdminSetChengShiLevelAndSurety("0x158b43ff3f04bfd1487d9112b3589528a7eb62dd38916bba315b536e69f97fd4", 3, 40000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xbd3f3948984277e24c4d15a7c885bf744fc9529d59cbac338e6ef13b10216e3d", 3, 40000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0x9159fc828b5ea826b73279d2bee6e5a18cbcabad7f90b12264505d4d61f5b064", 1, 100000)
-	blockchain.AdminSetChengShiLevelAndSurety("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", 2, 60000)
+	//blockchain.AdminSetChengShiLevelAndSurety("0x21897f13a80f729953b217858c04dc07dcc6c909a4fe19dedd85745de71698d5", 2, 60000)
+	blockchain.AdminSetChengShiLevelAndSurety("0x80e0acd0d90d9b42cc6c9a59d0e61f11e73bd5ba88f544447c11b287c0665ca5", 3, 40000)
 	// --------
 	time.Sleep(time.Second * 3)
-	// 管理员设置城市先锋 ------------
-	blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x2F443072324b1777a79c2530Db1eE36270F7D2Aa")
-	//blockchain.AdminSetPioneer("0x158b43ff3f04bfd1487d9112b3589528a7eb62dd38916bba315b536e69f97fd4", "0x8Fbe1A1967A8FDaaAd6207356A4d37CaD497488b")
-	//blockchain.AdminSetPioneer("0x291ab56b0fa225d0c7e26139f33fddc04343453345855ad5f0b207fe57932841", "0xe91E938F4A2a5f9e2388Fb5a6881115C74b3C8E2")
+	// 管理员设置城市先锋 ------------ 0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E
+	//blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0xa75a076c5529b3813f53c9bd24ab1f7da37994fc")
+	//blockchain.AdminRemovePioneer("0x158b43ff3f04bfd1487d9112b3589528a7eb62dd38916bba315b536e69f97fd4", "0x8Fbe1A1967A8FDaaAd6207356A4d37CaD497488b")
+	blockchain.AdminSetPioneer("0x80e0acd0d90d9b42cc6c9a59d0e61f11e73bd5ba88f544447c11b287c0665ca5", "0x03e0FE62Ae80B26946EFbcfC5fdA265deF8e1620")
+	//blockchain.AdminSetPioneer("0x21897f13a80f729953b217858c04dc07dcc6c909a4fe19dedd85745de71698d5", "0xa75a076c5529b3813f53c9bd24ab1f7da37994fc")
 	//blockchain.AdminSetPioneer("0xbd3f3948984277e24c4d15a7c885bf744fc9529d59cbac338e6ef13b10216e3d", "0xeC4f4BBB29c2332B385C7C2ac82c0B37d131EE4E")
 	//blockchain.AdminSetPioneer("0x9159fc828b5ea826b73279d2bee6e5a18cbcabad7f90b12264505d4d61f5b064", "0xDB257161aa49a2353a8D7E5eee0f25D55a20c720")
 	//blockchain.AdminRemovePioneer("0xf7d89a46c223f9704a010c7077eb586fd7208822821abefa1a5e0fc5a420cbe3", "0x56a2066B4cD0954f0B49Df6835a670Aed946B265")

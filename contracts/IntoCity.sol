@@ -165,7 +165,6 @@ contract IntoCity is RoleAccess, Initializable {
             return;
         }
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
-//        bytes32 chengShiId = intoUserLocation.getChengShiIdByAddress(user);
         bytes32 countyId = intoUserLocation.getCountyId(user);
         uint256 today = getDay();
         amount = amount / 100;
@@ -173,7 +172,6 @@ contract IntoCity is RoleAccess, Initializable {
         rechargeDailyWeight[today] += amount;//  天=>累计充值)   充值权重
         if (countyId != bytes32(0)) {
             rechargeDailyWeightRecord[countyId][today] += amount;//  区县ID=>(天=>累计充值)   充值权重
-//            cityOrChengShiWeightTotal[countyId] = amount;//  区县ID=>(天=>累计充值)   充值权重
             cityRechargeTotal[countyId] += amount;//  区县ID=>累计充值权重   充值权重
         }
     }
@@ -310,6 +308,30 @@ contract IntoCity is RoleAccess, Initializable {
 
     }
 
+    function triggerPioneerTask(address user) public {
+
+        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+        bytes32 countyId = intoUserLocation.getCountyId(user);
+        bytes32 chengShiId = intoUserLocation.cityIdChengShiID(countyId);
+        if (chengShiId == bytes32(0)) {
+            return;
+        }
+        if (!IsPioneerChengShi(chengShiId)) {
+            return;
+        }
+        IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+        intoCityPioneer.pioneerTask(user, chengShiId); // 考核和保证金检测
+    }
+
+    function IsPioneerChengShi(bytes32 chengShiId) public view returns (bool){
+        for (uint256 i; i < pioneerChengShiIds.length; i++) {
+            if (chengShiId == pioneerCityIds[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // 获取前15天社交基金平均值
     function getFifteenDayAverageFounds() public view returns (uint256) {
         Founds founds = Founds(foundsAddress);
@@ -325,11 +347,6 @@ contract IntoCity is RoleAccess, Initializable {
     function getDelegate(bytes32 cityId_, uint256 day) public view returns (uint256){
         return cityDelegateRecord[cityId_][day];
     }
-
-    // 获取某一天新增质押（只算增加的）,根据天、城市或者区县ID获取
-//    function getDelegateByDayAndCityOrChengShiId(bytes32 cityIdOrChengShiId_, uint256 day) public view returns (uint256){
-//        return cityNewlyDelegateRecord[cityIdOrChengShiId_][day];
-//    }
 
     // 增加区县先锋绑定区县的累计质押量,增加总的质押量
     function addCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {
