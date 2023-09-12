@@ -338,8 +338,12 @@ contract IntoCity is RoleAccess, Initializable {
     }
 
     //初始化区县先锋绑定区县的累计质押量
-    function initCityDelegate(bytes32 cityId_) public onlyAdmin {
-        cityRechargeTotal[cityId_] = 0;
+    function initCityRechargeWeight(bytes32 chengShiId_) public onlyAdmin {
+        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+        bytes32[] memory countyIds_ = intoUserLocation.getCountyIdsByChengShiId(chengShiId_);
+        for (uint256 i = 0; i < countyIds_.length; i++) {
+            cityRechargeTotal[countyIds_[i]] = 0;
+        }
     }
 
     // 获取先锋所需保证金，根据先锋地址

@@ -166,6 +166,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
 
     // 设置城市与区县的映射，上线后过段时间关闭
     function SetCityMapping(bytes32 countyId, bytes32 chengShiId, string calldata location_) public returns (bool){
+//        cityIdToChengShiIDExits[chengShiId][countyId] = false;
         if (!cityIdToChengShiIDExits[chengShiId][countyId]) {
             cityIdChengShiID[countyId] = chengShiId;
             chengShiIDCityIdSet[chengShiId].push(countyId);

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"city-node-server/blockchain"
 	"city-node-server/services"
 )
 
@@ -12,7 +13,7 @@ func main() {
 	//services.InitMainNet()
 
 	//services.InitCity()
-	services.InitCityPioneer()
+	//services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
 
@@ -38,7 +39,7 @@ func main() {
 	//blockchain.GetCityId(22)
 
 	// 设置城市ID位置,设置映射关系
-	//blockchain.SetCityMapping("0x29be82e0371a1163d2ec403932c8620efbaf1d3887712e74b1736edd32702b81", "0xbd3f3948984277e24c4d15a7c885bf744fc9529d59cbac338e6ef13b10216e3d", "VpkpHlhZATM=")
+	blockchain.SetCityMapping("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "6WPQrWhP2DQ=")
 
 	//services.AdminSetRechargeAmountTask()
 

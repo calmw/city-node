@@ -219,7 +219,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].suretyTime = block.timestamp;
         pioneerInfo[msg.sender].cityLevel = city.chengShiLevel(chengShiId);
-        city.initCityDelegate(chengShiId);// 将先锋绑定的城市的新增质押量变为0
+        city.initCityRechargeWeight(chengShiId);// 将先锋绑定的城市的新增质押量变为0
         // 更新已交保证金先锋数量
         pioneers.push(msg.sender);
     }
@@ -513,7 +513,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[pioneerTest_].assessmentMonthStatus = true;
         pioneerInfo[pioneerTest_].ctime = block.timestamp;
         pioneerInfo[pioneerTest_].cityLevel = city.cityLevel(cityId);
-        city.initCityDelegate(cityId);// 将先锋绑定的城市的新增质押量变为0
+        city.initCityRechargeWeight(cityId);// 将先锋绑定的城市的新增质押量变为0
     }
 
     // 给收益增加测试数据
