@@ -528,4 +528,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     function setPioneer(address pioneer) public {
         pioneers.push(pioneer);
     }
+
+    // 增加交完保证金先锋用户
+    function initPioneer(address pioneer) public {
+       delete pioneerInfo[pioneer];
+    }
 }

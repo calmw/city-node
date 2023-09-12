@@ -11,7 +11,7 @@ func main() {
 	services.InitTestNet()
 	//services.InitMainNet()
 
-	//services.InitCity()
+	services.InitCity()
 	//services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
@@ -39,6 +39,6 @@ func main() {
 
 	// 设置映射关系
 	//blockchain.SetCityMapping("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0xe1b0f7944ee94273aa896973319bda53389ef3f1168c81a50e1c6c05307659ad")
-	services.AdminSetRechargeAmountTask()
+	//services.AdminSetRechargeAmountTask()
 
 }

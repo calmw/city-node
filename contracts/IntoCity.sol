@@ -142,6 +142,8 @@ contract IntoCity is RoleAccess, Initializable {
         chengShiPioneer[chengShiId_] = address(0);
         pioneerChengShi[pioneer_] = bytes32(0);
         hasSetPioneer[pioneer_] = false;
+        IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+        intoCityPioneer.initPioneer(pioneer_);
 
         for (uint256 i = 0; i < pioneerChengShiIds.length; i++) {
             if (pioneerChengShiIds[i] == chengShiId_) {
