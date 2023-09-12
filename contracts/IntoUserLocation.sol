@@ -165,19 +165,19 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 设置城市与区县的映射，上线后过段时间关闭
-    function SetCityMapping(bytes32 countyId, bytes32 chengShiId) public {
+    function SetCityMapping(bytes32 countyId, bytes32 chengShiId, string calldata location_) public {
         if (!cityIdToChengShiIDExits[countyId][chengShiId]) {
             cityIdChengShiID[countyId] = chengShiId;
             chengShiIDCityIdSet[chengShiId].push(countyId);
+            cityInfo[chengShiId] = location_;
             cityIdToChengShiIDExits[countyId][chengShiId] = true;
         }
-
     }
 
     // 设置城市与区县的映射，上线后过段时间关闭
-    function SetCityMappingBatch(bytes32[] calldata countyIds, bytes32[] calldata chengShiIds) public {
+    function SetCityMappingBatch(bytes32[] calldata countyIds, bytes32[] calldata chengShiIds, string[] calldata locations_) public {
         for (uint i; i < countyIds.length; i++) {
-            SetCityMapping(countyIds[i], chengShiIds[i]);
+            SetCityMapping(countyIds[i], chengShiIds[i], locations_[i]);
         }
 
     }

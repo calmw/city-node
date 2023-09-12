@@ -122,6 +122,34 @@ func SetUserLocationTest(cityId, location, userAddress string) {
 	fmt.Println(res, err)
 }
 
+// SetCityMapping 设置获取用户位置ID映射
+func SetCityMapping(countyId, chengShiId string) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	if strings.Contains(countyId, "0x") {
+		countyId = strings.ReplaceAll(countyId, "0x", "")
+	}
+	common.Hex2Bytes(countyId)
+	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(countyId))
+	//
+	if strings.Contains(chengShiId, "0x") {
+		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
+	}
+	common.Hex2Bytes(chengShiId)
+	chengShiIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
+	_, err = userLocation.SetCityMapping(auth, cityIdBytes32, chengShiIdBytes32)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(err)
+}
+
 // GetCityId 获取cityId
 func GetCityId(cityIdIndex int64) {
 	Cli := Client(CityNodeConfig)

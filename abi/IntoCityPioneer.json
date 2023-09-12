@@ -342,6 +342,25 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "alreadyRewardRateTotal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
@@ -957,16 +976,11 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "pioneerAddress_",
+        "name": "pioneer",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount_",
-        "type": "uint256"
       }
     ],
-    "name": "setPioneerDelegate",
+    "name": "setPioneer",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

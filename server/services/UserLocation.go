@@ -1,5 +1,7 @@
 package services
 
+import "city-node-server/blockchain"
+
 func InitUserLocation() {
 
 	// 管理员设置城市合约地址
@@ -21,5 +23,5 @@ func InitUserLocation() {
 	//blockchain.SetUserLocationTest("0x3d77372f2d82ba9f5d0b972086def85527c58999c521f33bb3047ccac794d06a", "x4Kmjs9f7w4=", "0x1763271960D827D1DE4654D9E754021A0f5f94A5")
 	//blockchain.SetUserLocationTest("0x4209dce01c4f06b1b93a35e021ec2efea127ef4ae29a82be536a376504bef0cc", "XxOqpfI6Eo4=", "0x06EfCb450059517f5b34a7cC4eFD80298825124E")
 	//blockchain.SetUserLocationTest("0xbb2d35b76dc3358825b55db25f3696363681ccd940f5d39cc6b1767b8e069404", "19Oc48iM8WQ=", "0x9a04896807Aa61458cB3f996F811022086C61698")
-	//blockchain.SetUserLocationTest("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "Dk4xzONyA9T2EdPpiSjVqw==", "0xC31Bd725D0C15c085a0860Be0c054F60B22c937F")
+	blockchain.SetUserLocationTest("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "Dk4xzONyA9T2EdPpiSjVqw==", "0xC31Bd725D0C15c085a0860Be0c054F60B22c937F")
 }

@@ -110,6 +110,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     uint public secondsPerDay;
     // 考核天，正式86400*180秒，测试1800秒
     uint public presidencyTime;
+    // 先锋地址 => 已经退的比例
+    mapping(address => uint256) public alreadyRewardRateTotal;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -379,7 +381,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
 
 //        // 该城市新增质押量1%奖励，不累加
-        uint256 yesterdayDelegate = city.getDelegateByDayAndCityOrChengShiId(ChengShiId_, yesterday);// 昨日该城市新增质押权重
+        uint256 yesterdayDelegate = city.getDailyDelegateByChengShiID(ChengShiId_, yesterday);// 昨日该城市新增质押权重
         delegateReward[pioneerAddress_] += yesterdayDelegate / 100;
 
         emit DailyRewardRecord(
@@ -451,6 +453,13 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         suretyReward[msg.sender] = 0; // 更新可可退还保证金数额
         // 更新已退还记录
         suretyRewardRecord[msg.sender] += suretyReward[msg.sender];
+        // 更新已领取的比例
+        if ((block.timestamp - pioneerInfo[msg.sender].ctime) < 60 * secondsPerDay) {
+            alreadyRewardRateTotal[msg.sender] += alreadyRewardRate[msg.sender][1];
+        } else {
+            alreadyRewardRateTotal[msg.sender] += alreadyRewardRate[msg.sender][2];
+        }
+        // alreadyRewardRate
         emit WithdrawalRewardRecord(
             msg.sender,
             suretyReward[msg.sender],

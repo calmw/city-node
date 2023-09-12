@@ -27,6 +27,7 @@ func main() {
 	//blockchain.DepositSuretyTest("0x08a01BE67fF47Ba2652b7dCE2005B47D81bAaC13") // DepositSuretyTest 交保证金成为先锋
 
 	// 管理员设置开始考核时间,先交保证金，后考核
+	//blockchain.AdminSetStartTime(time.Now().Add(time.Hour * 1000000).Unix())
 	//blockchain.AdminSetStartTime(time.Now().Unix())
 	// 批量执行增加或减少质押量
 	//tasks.Task()
@@ -36,6 +37,8 @@ func main() {
 
 	//blockchain.GetCityId(22)
 
+	// 设置映射关系
+	//blockchain.SetCityMapping("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0xe1b0f7944ee94273aa896973319bda53389ef3f1168c81a50e1c6c05307659ad")
 	services.AdminSetRechargeAmountTask()
 
 }

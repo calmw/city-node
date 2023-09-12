@@ -74,6 +74,11 @@
         "internalType": "bytes32",
         "name": "chengShiId",
         "type": "bytes32"
+      },
+      {
+        "internalType": "string",
+        "name": "location_",
+        "type": "string"
       }
     ],
     "name": "SetCityMapping",
@@ -92,6 +97,11 @@
         "internalType": "bytes32[]",
         "name": "chengShiIds",
         "type": "bytes32[]"
+      },
+      {
+        "internalType": "string[]",
+        "name": "locations_",
+        "type": "string[]"
       }
     ],
     "name": "SetCityMappingBatch",
