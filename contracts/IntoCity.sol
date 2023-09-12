@@ -133,9 +133,18 @@ contract IntoCity is RoleAccess, Initializable {
         chengShiPioneer[chengShiId_] = pioneer_;
         pioneerChengShi[pioneer_] = chengShiId_;
         hasSetPioneer[pioneer_] = true;
-        if (chengShiPioneer[chengShiId_] != address(0)) {
+        if (!pioneerChengShiIdExits(chengShiId_)) {
             pioneerChengShiIds.push(chengShiId_);
         }
+    }
+
+    function pioneerChengShiIdExits(bytes32 chengShiId) public view returns (bool){
+        for (uint256 i = 0; i < pioneerChengShiIds.length; i++) {
+            if (chengShiId == pioneerChengShiIds[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     function adminRemovePioneer(bytes32 chengShiId_, address pioneer_) public onlyAdmin {
@@ -309,21 +318,20 @@ contract IntoCity is RoleAccess, Initializable {
     }
 
     function triggerPioneerTask(address user) public {
-
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
         bytes32 countyId = intoUserLocation.getCountyId(user);
         bytes32 chengShiId = intoUserLocation.cityIdChengShiID(countyId);
         if (chengShiId == bytes32(0)) {
             return;
         }
-        if (!IsPioneerChengShi(chengShiId)) {
+        if (!isPioneerChengShi(chengShiId)) {
             return;
         }
         IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
         intoCityPioneer.pioneerTask(user, chengShiId); // 考核和保证金检测
     }
 
-    function IsPioneerChengShi(bytes32 chengShiId) public view returns (bool){
+    function isPioneerChengShi(bytes32 chengShiId) public view returns (bool){
         for (uint256 i; i < pioneerChengShiIds.length; i++) {
             if (chengShiId == pioneerCityIds[i]) {
                 return true;
