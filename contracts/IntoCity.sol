@@ -299,7 +299,6 @@ contract IntoCity is RoleAccess, Initializable {
                 bytes32 chengShiId = intoUserLocation.getChengShiIdByCountyId(countyId);
                 if (chengShiId != bytes32(0)) {
                     intoCityPioneer.pioneerTask(userAddress_, chengShiId); // 考核和保证金检测
-//                    incrCountyOrChengShiDelegate(chengShiId, amount_, today);// 增加城市质押量
                 }
             }
 //              增加区县质押量
@@ -314,7 +313,6 @@ contract IntoCity is RoleAccess, Initializable {
         if (yesterdayDelegate > maxDelegate) {
             setCityMaxDelegate(countyId, yesterdayDelegate, today - 1);
         }
-
     }
 
     function triggerPioneerTask(address user) public {
@@ -327,8 +325,11 @@ contract IntoCity is RoleAccess, Initializable {
         if (!isPioneerChengShi(chengShiId)) {
             return;
         }
-        IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-        intoCityPioneer.pioneerTask(user, chengShiId); // 考核和保证金检测
+        address pioneerAddress = chengShiPioneer[chengShiId];
+        if (chengShiPioneer[chengShiId] != address(0)) {
+            IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+            intoCityPioneer.pioneerTask(pioneerAddress, chengShiId); // 考核和保证金检测
+        }
     }
 
     function isPioneerChengShi(bytes32 chengShiId) public view returns (bool){
