@@ -5,8 +5,8 @@ const ProxyAddr = "0xebD06631510A66968f0379A4deB896d3eE7DD6ED" // 主网
 
 // 可升级合约
 async function main() {
-    console.log("ImplementationAddress is", await upgrades.erc1967.getImplementationAddress(ProxyAddr));
-    console.log("ProxyAdmin is", await upgrades.erc1967.getAdminAddress(ProxyAddr));
+    // console.log("ImplementationAddress is", await upgrades.erc1967.getImplementationAddress(ProxyAddr));
+    // console.log("ProxyAdmin is", await upgrades.erc1967.getAdminAddress(ProxyAddr));
     const MyContractV2 = await ethers.getContractFactory("IntoCity");
     // 升级
     // const overrides = {

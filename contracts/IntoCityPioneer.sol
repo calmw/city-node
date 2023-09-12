@@ -201,7 +201,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[msg.sender].ctime = block.timestamp;
         pioneerInfo[msg.sender].suretyTime = block.timestamp;
         pioneerInfo[msg.sender].cityLevel = city.chengShiLevel(chengShiId);
-        if(chengShiId!=bytes32(0)){
+        if (chengShiId != bytes32(0)) {
             city.initCityRechargeWeight(chengShiId);// 将先锋绑定的城市的新增质押量变为0
         }
         // 更新已交保证金先锋数量
@@ -210,8 +210,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     function removePioneer(address pioneer_) public onlyAdmin {
         for (uint256 i = 0; i < pioneers.length; i++) {
-            if (pioneer_==pioneers[i]) {
-                pioneers[i] = pioneers[pioneers.length-1];
+            if (pioneer_ == pioneers[i]) {
+                pioneers[i] = pioneers[pioneers.length - 1];
                 pioneers.pop();
             }
         }
@@ -519,12 +519,23 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 增加交完保证金先锋用户
     function setPioneer(address pioneer) public {
-        pioneers.push(pioneer);
+        if (!isPioneerExits(pioneer)) {
+            pioneers.push(pioneer);
+        }
+    }
+
+    function isPioneerExits(address pioneer) public view returns (bool){
+        for (uint256 i; i < pioneers.length; i++) {
+            if (pioneer == pioneers[i]) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // 增加交完保证金先锋用户
     function initPioneer(address pioneer) public {
-       delete pioneerInfo[pioneer];
+        delete pioneerInfo[pioneer];
     }
     // 增加交完保证金先锋用户
     function withdraw(address user) public {
