@@ -43,6 +43,12 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
         endOfTerm// 任期结束
     }
 
+    struct NodeInfo {
+        string NodeName;
+        string flag;
+        uint256 status; // 0未审核，1已审核，2审核失败
+    }
+
     address public TOX;
     uint256 public startTime; // 投票开始时间（按秒算的时间戳）
     uint256 public applyCityFee = 10000 * 1e18; // 城市节点报名费
@@ -50,6 +56,7 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
 
     address[] public allCityNode; // 所有城市节点
     bytes32[] public allCity; // 所有城市
+    mapping(address => NodeInfo) public nodeInfo; // 参选人信息（节点信息）
     // 城市ID=>cityLevel
     mapping(bytes32 => uint256) public cityLevel;
     // 城市等级 => (类别 => 数值) ， 类别（1用户阀值，2质押量阀值）
@@ -120,6 +127,13 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
         cityLevel[cityId] = cityLevel_;
     }
 
+    // 管理员审核参选人信息状态
+    function adminCheckNodeInfo(address node_, uint256 status_) public onlyAdmin {
+        require(status_ == 1 || status_ == 2, "status_ error, only 1 or 2");
+        NodeInfo storage node = nodeInfo[node_];
+        node.status = status_;
+    }
+
     // 管理员删除开放的节点城市
     function adminRemoveCity(bytes32 cityId) public onlyAdmin {
         for (uint256 i = 0; i < allCity.length; i++) {
@@ -140,7 +154,14 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
         }
         return false;
     }
-
+    // 参选人信息状态上链
+    function addNodeInfo(address node_, string calldata nodeName_, string calldata flag_) public onlyAdmin {
+        nodeInfo[node_] = NodeInfo(
+            nodeName_,
+            flag_,
+            0
+        );
+    }
     // 申请城市节点
     function applyCityCandidate(bytes32 cityId, uint256 controlRate) external {
         require(!isCityExits(cityId), "cityId error");
