@@ -1000,3 +1000,21 @@
 {"level":"error","time":"2023-09-12T21:43:48.315+0800","line":"blockchain/cityPioneer.go:38","msg":"Post \"https://rpc-8.matchscan.io/\": EOF","serviceName":"into"}
 {"level":"error","time":"2023-09-12T22:21:09.786+0800","line":"blockchain/city.go:277","msg":"invalid nonce; got 602, expected 604: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"error","time":"2023-09-12T22:21:19.436+0800","line":"blockchain/cityPioneer.go:107","msg":"invalid nonce; got 605, expected 607: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T10:32:25.175+0800","line":"blockchain/city.go:87","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-13T10:33:21.050+0800","line":"blockchain/city.go:87","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-13T10:34:07.906+0800","line":"blockchain/city.go:87","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-13T10:34:40.476+0800","line":"blockchain/city.go:87","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:08:49.823+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 683, expected 684: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:08:51.051+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 683, expected 684: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:08:52.393+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 683, expected 684: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:08:53.158+0800","line":"blockchain/city.go:87","msg":"503 Service Temporarily Unavailable: <html>\r\n<head><title>503 Service Temporarily Unavailable</title></head>\r\n<body>\r\n<center><h1>503 Service Temporarily Unavailable</h1></center>\r\n<hr><center>nginx/1.22.1</center>\r\n</body>\r\n</html>\r\n","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:08:53.633+0800","line":"blockchain/city.go:87","msg":"503 Service Temporarily Unavailable: <html>\r\n<head><title>503 Service Temporarily Unavailable</title></head>\r\n<body>\r\n<center><h1>503 Service Temporarily Unavailable</h1></center>\r\n<hr><center>nginx/1.22.1</center>\r\n</body>\r\n</html>\r\n","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:08:59.075+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 683, expected 684: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:09:04.850+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 686, expected 687: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:09:06.083+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 686, expected 687: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:09:07.441+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 686, expected 687: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:09:52.684+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 689, expected 690: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:10:07.587+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 690, expected 691: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:11:47.012+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 698, expected 699: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:12:18.715+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 699, expected 700: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-13T11:12:54.185+0800","line":"blockchain/city.go:87","msg":"invalid nonce; got 701, expected 702: invalid sequence: invalid sequence","serviceName":"into"}

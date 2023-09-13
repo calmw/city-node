@@ -216,6 +216,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
     }
 
+    function removeAllPioneer() public onlyAdmin {
+        for (uint256 i = 0; i < pioneers.length; i++) {
+            pioneers.pop();
+        }
+    }
+
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
     function checkPioneer(bytes32 chengShiId_, address pioneerAddress_) private {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
@@ -389,8 +395,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             benefitPackageReward[pioneers[i]] = 0;
         }
     }
+
     function descBenefitPackageRewardByAddress(address user, uint256 amount) public onlyAdmin {
-            benefitPackageReward[user] -= amount;
+        benefitPackageReward[user] -= amount;
     }
 
     // 用户提取福利包奖励
@@ -540,14 +547,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
         return false;
     }
-
-    // 增加交完保证金先锋用户
+//
+//    // 增加交完保证金先锋用户
     function initPioneer(address pioneer) public {
         delete pioneerInfo[pioneer];
     }
-    // 增加交完保证金先锋用户
-    function withdraw(address user) public {
-        IERC20 TOX = IERC20(TOXAddress);
-        TOX.transfer(user, 20000000000000000000000);
-    }
+//    // 增加交完保证金先锋用户
+//    function withdraw(address user) public {
+//        IERC20 TOX = IERC20(TOXAddress);
+//        TOX.transfer(user, 20000000000000000000000);
+//    }
 }
