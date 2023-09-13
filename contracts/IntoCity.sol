@@ -276,7 +276,7 @@ contract IntoCity is RoleAccess, Initializable {
         return uint256(day);
     }
 
-// 设置先锋对应城市的充值权重
+// 获取先锋对应城市的充值权重
     function getChengShiRechargeWeight(bytes32 chengShiId) public view returns (uint256){
         IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
         bytes32[] memory cityIds = intoUserLocation.getCountyIdsByChengShiId(chengShiId);
