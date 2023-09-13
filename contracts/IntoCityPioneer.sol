@@ -112,6 +112,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     uint public presidencyTime;
     // 先锋地址 => 已经退的比例
     mapping(address => uint256) public alreadyRewardRateTotal;
+    // 先锋地址 => 考核失败时间
+    mapping(address => uint256) public failedAt;
+    // 先锋地址 => (类别=>考核成功时间)，类别（1第一个月，2第二个月，3第三个月，4第一个月直接达到最高标准通过，后面不在考核）
+    mapping(address => mapping(uint256 => uint256)) public successAt;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -214,11 +218,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
     }
 
-    function removeAllPioneer() public onlyAdmin {
-        for (uint256 i = 0; i < pioneers.length; i++) {
-            pioneers.pop();
-        }
-    }
+    // 删除全部先锋
+//    function removeAllPioneer() public onlyAdmin {
+//        for (uint256 i = 0; i < pioneers.length; i++) {
+//            pioneers.pop();
+//        }
+//    }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
     function checkPioneer(bytes32 chengShiId_, address pioneerAddress_) private {
@@ -251,30 +256,40 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][3] * 100;
             if (pioneerChengShiTotalRechargeWeight < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
+                failedAt[pioneer.pioneerAddress] = block.timestamp;
                 failedDelegate[chengShiId_] = pioneerChengShiTotalRechargeWeight;
                 city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
+            } else {
+                successAt[pioneer.pioneerAddress][3] = block.timestamp;
             }
 //        } else if (day == 60) {//  上线放开--------------------------------------------------------------------------------------------------------------------
         } else if (day >= 60) {
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][2] * 100;
             if (pioneerChengShiTotalRechargeWeight < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
+                failedAt[pioneer.pioneerAddress] = block.timestamp;
                 failedDelegate[chengShiId_] = pioneerChengShiTotalRechargeWeight;
                 city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
+            } else {
+                successAt[pioneer.pioneerAddress][2] = block.timestamp;
             }
 //        } else if (day == 30) {//  上线放开--------------------------------------------------------------------------------------------------------------------
         } else if (day >= 30) {
             // 检测是否满足直接考核通过
             if (pioneerChengShiTotalRechargeWeight >= assessmentCriteria[pioneer.cityLevel][3] * 100) { //直接达到m3考核标准，也就是直接通过终极考核
                 pioneer.assessmentStatus = true;
+                successAt[pioneer.pioneerAddress][4] = block.timestamp;
                 return;
             }
             // 没达到M3，考核M1
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][1] * 100;
             if (pioneerChengShiTotalRechargeWeight < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
+                failedAt[pioneer.pioneerAddress] = block.timestamp;
                 failedDelegate[chengShiId_] = pioneerChengShiTotalRechargeWeight;
                 city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
+            } else {
+                successAt[pioneer.pioneerAddress][1] = block.timestamp;
             }
         }
     }
