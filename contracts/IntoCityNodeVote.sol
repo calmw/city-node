@@ -267,5 +267,7 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
         IERC20(TOX).transfer(winner, cityApplyFee[cityId]);
     }
 
+    // 奖励 ，考虑怎么触发
+
 
 }
