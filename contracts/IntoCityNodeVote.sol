@@ -68,12 +68,6 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
     mapping(address => uint256) public globalNodeCandidateVotes;
     // 城市节点 => control rate（收益支配比例）
     mapping(address => uint256) public cityNodeControlRate;
-    // 城市ID=>城市节点竞选成功者地址
-//    mapping(bytes32 => address)  public cityNodes; // 竞选成功的城市节点
-    // 城市ID=>全球节点竞选者（前三天参与竞选该城市的全球节点地址）
-//    mapping(bytes32 => address[])  public cityNodes;
-    // 全球节点竞选者（前三天参与竞选该城市的全球节点地址）=>该全球节点的票数
-//    mapping(address => uint256)  public cityNodes;
     // 城市ID=>全球节点竞选者票数最高者地址（当选者地址，只要不为空，就说明第一阶段有当选成功者）
     mapping(bytes32 => address)  public cityNodeGlobalNode;
     // 城市ID=>全球节点竞选者票数最高值（最大票数）
@@ -261,12 +255,16 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
         }
     }
 
-    // 第二阶段投票结束结算，在投票结束后调用
-    function checkVote() public onlyAdmin{
+    // 第二阶段投票结束结算，在投票结束后调用，根据城市执行，服务端先获取城市，再循环调用该方法
+    function checkVote(bytes32 cityId) public onlyAdmin {
         require(voteStatus == VoteStatus.userVoteEnd, "Voting is not in an end state");
+
+        address winner = cityNodeWinner[cityId];
+        if (winner == address(0)) {// 该城市没有竞选成功者，没人参与竞选
+            return;
+        }
         // 获得参与该城市节点竞选人所有的报名费
-//        address TOX = cityNodeVote.TOX();
-//        IERC20(TOX).transfer(cityNode, cityApplyFee);
+        IERC20(TOX).transfer(winner, cityApplyFee[cityId]);
     }
 
 
