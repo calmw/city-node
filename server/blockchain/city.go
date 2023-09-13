@@ -147,6 +147,24 @@ func PioneerChengShi(pioneer string) {
 	fmt.Println(hexutils.BytesToHex(Bytes32ToBytes(res)), err)
 }
 
+// CountyNewlyPioneerDelegateRecord 根据区县ID和天查询新增质押量
+func CountyNewlyPioneerDelegateRecord(countyId [32]byte, day int64) (error, *big.Int) {
+	Cli := Client(CityNodeConfig)
+	//_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, big.NewInt(0)
+	}
+	amount, err := city.CountyNewlyPioneerDelegateRecord(nil, countyId, big.NewInt(day))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, big.NewInt(0)
+	}
+	fmt.Println(common.Bytes2Hex(Bytes32ToBytes(countyId)), amount.String(), err)
+	return nil, amount
+}
+
 // GetPioneerCityNumber 查看先锋城市数量
 func GetPioneerCityNumber() {
 	Cli := Client(CityNodeConfig)

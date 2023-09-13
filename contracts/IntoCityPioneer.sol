@@ -91,7 +91,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(address => mapping(uint256 => uint256)) public alreadyRewardRate;
     // 先锋地址 => 先锋已经退还的保证金
     mapping(address => uint256) public suretyRewardRecord;
-    // 先锋城市ID => 先锋考核失败时候的累计新增质押量（绑定城市的累计质押量）
+    // 先锋城市ID => 先锋考核失败时候的累计充值权重（绑定城市的累计充值权重）
     mapping(bytes32 => uint256) public failedDelegate;
     // 每天定时任务执行状态
     mapping(uint256 => bool)public  dailyTaskStatus;
@@ -169,7 +169,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (!checkPioneerStatus[pioneerAddress_][today]) {
             // 考核
             checkPioneer(chengShiId_, pioneerAddress_);
-            checkPioneerStatus[pioneerAddress_][today] = true;
+//            checkPioneerStatus[pioneerAddress_][today] = true;
 
             // 奖励
             reward(chengShiId_, pioneerAddress_);
@@ -248,21 +248,24 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
         uint256 pioneerCityTotalNewlyDelegate = city.cityRechargeTotal(chengShiId_); // 先锋绑定的城市总的新增质押量
 
-        if (day == 90) {
+//        if (day == 90) {  //  上线放开--------------------------------------------------------------------------------------------------------------------
+        if (day >= 90) {
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][3] * 100;
             if (pioneerCityTotalNewlyDelegate < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
                 failedDelegate[chengShiId_] = pioneerCityTotalNewlyDelegate;
                 city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
             }
-        } else if (day == 60) {
+//        } else if (day == 60) {//  上线放开--------------------------------------------------------------------------------------------------------------------
+        } else if (day >= 60) {
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][2] * 100;
             if (pioneerCityTotalNewlyDelegate < assessmentCriteriaThreshold) {
                 pioneer.assessmentMonthStatus = false;
                 failedDelegate[chengShiId_] = pioneerCityTotalNewlyDelegate;
                 city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
             }
-        } else if (day == 30) {
+//        } else if (day == 30) {//  上线放开--------------------------------------------------------------------------------------------------------------------
+        } else if (day >= 30) {
             // 检测是否满足直接考核通过
             if (pioneerCityTotalNewlyDelegate >= assessmentCriteria[pioneer.cityLevel][3] * 100) { //直接达到m3考核标准，也就是直接通过终极考核
                 pioneer.assessmentStatus = true;

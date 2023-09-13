@@ -138,6 +138,13 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "adminRemoveAllPioneer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "bytes32",
@@ -218,16 +225,11 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "userAddress_",
+        "name": "foundsAddress_",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount_",
-        "type": "uint256"
       }
     ],
-    "name": "adminSetFounds",
+    "name": "adminSetFoundsAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -264,6 +266,19 @@
       }
     ],
     "name": "adminSetRechargeAmount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint56",
+        "name": "secondsPerDay_",
+        "type": "uint56"
+      }
+    ],
+    "name": "adminSetSecondsPerDay",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -659,6 +674,25 @@
         "type": "bytes32"
       }
     ],
+    "name": "cityOrChengShiWeightTotal",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
     "name": "cityPioneer",
     "outputs": [
       {
@@ -724,6 +758,30 @@
   {
     "inputs": [
       {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "countyNewlyPioneerDelegateRecord",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
@@ -744,7 +802,7 @@
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "cityId_",
+        "name": "countyId_",
         "type": "bytes32"
       },
       {
@@ -758,7 +816,7 @@
         "type": "uint256"
       }
     ],
-    "name": "descCityDelegate",
+    "name": "descCountyOrChengShiDelegate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -783,6 +841,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "foundsAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "bytes32",
@@ -791,6 +862,30 @@
       }
     ],
     "name": "getChengShiRechargeWeight",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "day",
+        "type": "uint256"
+      }
+    ],
+    "name": "getDailyDelegateByChengShiID",
     "outputs": [
       {
         "internalType": "uint256",
@@ -839,6 +934,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getFifteenDayAverageFounds",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "bytes32",
@@ -863,19 +971,8 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "cityId_",
-        "type": "bytes32"
-      },
-      {
-        "internalType": "uint256",
-        "name": "day",
-        "type": "uint256"
-      }
-    ],
-    "name": "getNewlyDelegate",
+    "inputs": [],
+    "name": "getPioneerAndCityNodeNumber",
     "outputs": [
       {
         "internalType": "uint256",
@@ -935,7 +1032,7 @@
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "cityId_",
+        "name": "countyId_",
         "type": "bytes32"
       },
       {
@@ -949,7 +1046,7 @@
         "type": "uint256"
       }
     ],
-    "name": "incrCityDelegate",
+    "name": "incrCountyOrChengShiDelegate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -958,11 +1055,11 @@
     "inputs": [
       {
         "internalType": "bytes32",
-        "name": "cityId_",
+        "name": "chengShiId_",
         "type": "bytes32"
       }
     ],
-    "name": "initCityDelegate",
+    "name": "initCityRechargeWeight",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -996,6 +1093,25 @@
   {
     "inputs": [
       {
+        "internalType": "bytes32",
+        "name": "chengShiId",
+        "type": "bytes32"
+      }
+    ],
+    "name": "isPioneerChengShi",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
@@ -1007,6 +1123,25 @@
         "internalType": "bytes32",
         "name": "",
         "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId",
+        "type": "bytes32"
+      }
+    ],
+    "name": "pioneerChengShiIdExits",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
       }
     ],
     "stateMutability": "view",
@@ -1072,6 +1207,62 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "rechargeDailyWeight",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "rechargeDailyWeightRecord",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "rechargeWeight",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "account",
         "type": "address"
@@ -1087,6 +1278,19 @@
     "name": "renounceAdmin",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "secondsPerDay",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -1142,6 +1346,19 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "triggerPioneerTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

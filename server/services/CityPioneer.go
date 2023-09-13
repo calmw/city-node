@@ -1,17 +1,13 @@
 package services
 
-import (
-	"city-node-server/blockchain"
-)
-
 func InitCityPioneer() {
 
 	// 管理员设置TOX代币地址
-	blockchain.AdminSetTOXAddress()
+	//blockchain.AdminSetTOXAddress()
 	// 管理员设置城市合约地址
-	blockchain.AdminSetCityAddress()
+	//blockchain.AdminSetCityAddress()
 	// 管理员设置增加用户合约余额合约地址
-	blockchain.AdminSetMiningAddress()
+	//blockchain.AdminSetMiningAddress()
 	//
 	////// 设置城市先锋考核标准
 	//blockchain.AdminSetAssessmentCriteria(1, 1, 2500)
@@ -25,7 +21,7 @@ func InitCityPioneer() {
 	//blockchain.AdminSetAssessmentCriteria(3, 3, 2500)
 	//
 	//// AddCityPioneerAdmin 给城市合约、IntoMining设置用户（增加用户合约余额）添加管理员权限
-	blockchain.AddCityPioneerAdmin()
+	//blockchain.AddCityPioneerAdmin()
 
 	// 管理员设置开始考核时间,先交保证金，后考核
 	//blockchain.AdminSetStartTime(time.Now().Unix())

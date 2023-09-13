@@ -31,7 +31,7 @@ var (
 
 // CityMetaData contains all meta data concerning the City contract.
 var CityMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"DecreaseCityDelegate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"IncreaseCityDelegate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"}],\"name\":\"addCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"level_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"surety_\",\"type\":\"uint256\"}],\"name\":\"adminEditSurety\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"adminPopPioneerChengShiId\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"pioneer_\",\"type\":\"address\"}],\"name\":\"adminRemovePioneer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"level_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"surety_\",\"type\":\"uint256\"}],\"name\":\"adminSetChengShiLevelAndSurety\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityPioneerAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityPioneerAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"setType\",\"type\":\"uint256\"}],\"name\":\"adminSetDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"foundsAddress_\",\"type\":\"address\"}],\"name\":\"adminSetFoundsAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"pioneer_\",\"type\":\"address\"}],\"name\":\"adminSetPioneer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"adminSetRechargeAmount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint56\",\"name\":\"secondsPerDay_\",\"type\":\"uint56\"}],\"name\":\"adminSetSecondsPerDay\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userLocationAddress_\",\"type\":\"address\"}],\"name\":\"adminSetUserLocationAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allCityDailyFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allCityDelegateTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allCityFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allCityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allDailyFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"chengShiLevel\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"chengShiLevelSurety\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"chengShiPioneer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"chengShiRechargeWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityDelegateRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityDelegateTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityFoundsRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityLevel\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityMaxDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityNewlyDelegateRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityPioneer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityPioneerAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityPioneerAssessment\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityRechargeTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"dailyTaskStatus\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"today\",\"type\":\"uint256\"}],\"name\":\"descCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"earnestMoney\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"foundsAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId\",\"type\":\"bytes32\"}],\"name\":\"getChengShiRechargeWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"day\",\"type\":\"uint256\"}],\"name\":\"getDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getFifteenDayAverageFounds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"day\",\"type\":\"uint256\"}],\"name\":\"getFounds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"day\",\"type\":\"uint256\"}],\"name\":\"getNewlyDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPioneerAndCityNodeNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPioneerCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneer_\",\"type\":\"address\"}],\"name\":\"getSuretyByPioneerAddress\",\"outputs\":[],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"hasSetPioneer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"today\",\"type\":\"uint256\"}],\"name\":\"incrCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"}],\"name\":\"initCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerChengShi\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerChengShiIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerCity\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerCityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"secondsPerDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"}],\"name\":\"setChengShiPioneerAssessment\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"day_\",\"type\":\"uint256\"}],\"name\":\"setCityMaxDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"surety\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"userLocationAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"DecreaseCityDelegate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"cityId\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"IncreaseCityDelegate\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"}],\"name\":\"addCityDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"level_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"surety_\",\"type\":\"uint256\"}],\"name\":\"adminEditSurety\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"adminPopPioneerChengShiId\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"pioneer_\",\"type\":\"address\"}],\"name\":\"adminRemovePioneer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"level_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"surety_\",\"type\":\"uint256\"}],\"name\":\"adminSetChengShiLevelAndSurety\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityPioneerAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityPioneerAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"setType\",\"type\":\"uint256\"}],\"name\":\"adminSetDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"foundsAddress_\",\"type\":\"address\"}],\"name\":\"adminSetFoundsAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"pioneer_\",\"type\":\"address\"}],\"name\":\"adminSetPioneer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"}],\"name\":\"adminSetRechargeAmount\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint56\",\"name\":\"secondsPerDay_\",\"type\":\"uint56\"}],\"name\":\"adminSetSecondsPerDay\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"userLocationAddress_\",\"type\":\"address\"}],\"name\":\"adminSetUserLocationAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allCityDailyFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allCityDelegateTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allCityFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allCityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"allDailyFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"chengShiLevel\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"chengShiLevelSurety\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"chengShiPioneer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"chengShiRechargeWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityDelegateRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityDelegateTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityFoundsRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityFoundsTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityLevel\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityMaxDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"cityNewlyDelegateRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityOrChengShiWeightTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityPioneer\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityPioneerAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityPioneerAssessment\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"cityRechargeTotal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"countyNewlyPioneerDelegateRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"dailyTaskStatus\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"countyId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"today\",\"type\":\"uint256\"}],\"name\":\"descCountyOrChengShiDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"earnestMoney\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"foundsAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId\",\"type\":\"bytes32\"}],\"name\":\"getChengShiRechargeWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"day\",\"type\":\"uint256\"}],\"name\":\"getDailyDelegateByChengShiID\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"day\",\"type\":\"uint256\"}],\"name\":\"getDelegate\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getFifteenDayAverageFounds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"day\",\"type\":\"uint256\"}],\"name\":\"getFounds\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPioneerAndCityNodeNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getPioneerCityNumber\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneer_\",\"type\":\"address\"}],\"name\":\"getSuretyByPioneerAddress\",\"outputs\":[],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"hasSetPioneer\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"countyId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"today\",\"type\":\"uint256\"}],\"name\":\"incrCountyOrChengShiDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"}],\"name\":\"initCityRechargeWeight\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerChengShi\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerChengShiIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerCity\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerCityIds\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"rechargeDailyWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"rechargeDailyWeightRecord\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"rechargeWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"secondsPerDay\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"}],\"name\":\"setChengShiPioneerAssessment\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"cityId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"amount_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"day_\",\"type\":\"uint256\"}],\"name\":\"setCityMaxDelegate\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"surety\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"userLocationAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // CityABI is the input ABI used to generate the binding from.
@@ -769,6 +769,37 @@ func (_City *CityCallerSession) CityNewlyDelegateRecord(arg0 [32]byte, arg1 *big
 	return _City.Contract.CityNewlyDelegateRecord(&_City.CallOpts, arg0, arg1)
 }
 
+// CityOrChengShiWeightTotal is a free data retrieval call binding the contract method 0x2139df5b.
+//
+// Solidity: function cityOrChengShiWeightTotal(bytes32 ) view returns(uint256)
+func (_City *CityCaller) CityOrChengShiWeightTotal(opts *bind.CallOpts, arg0 [32]byte) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "cityOrChengShiWeightTotal", arg0)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// CityOrChengShiWeightTotal is a free data retrieval call binding the contract method 0x2139df5b.
+//
+// Solidity: function cityOrChengShiWeightTotal(bytes32 ) view returns(uint256)
+func (_City *CitySession) CityOrChengShiWeightTotal(arg0 [32]byte) (*big.Int, error) {
+	return _City.Contract.CityOrChengShiWeightTotal(&_City.CallOpts, arg0)
+}
+
+// CityOrChengShiWeightTotal is a free data retrieval call binding the contract method 0x2139df5b.
+//
+// Solidity: function cityOrChengShiWeightTotal(bytes32 ) view returns(uint256)
+func (_City *CityCallerSession) CityOrChengShiWeightTotal(arg0 [32]byte) (*big.Int, error) {
+	return _City.Contract.CityOrChengShiWeightTotal(&_City.CallOpts, arg0)
+}
+
 // CityPioneer is a free data retrieval call binding the contract method 0xa02018a3.
 //
 // Solidity: function cityPioneer(bytes32 ) view returns(address)
@@ -891,6 +922,37 @@ func (_City *CitySession) CityRechargeTotal(arg0 [32]byte) (*big.Int, error) {
 // Solidity: function cityRechargeTotal(bytes32 ) view returns(uint256)
 func (_City *CityCallerSession) CityRechargeTotal(arg0 [32]byte) (*big.Int, error) {
 	return _City.Contract.CityRechargeTotal(&_City.CallOpts, arg0)
+}
+
+// CountyNewlyPioneerDelegateRecord is a free data retrieval call binding the contract method 0x6c6865e4.
+//
+// Solidity: function countyNewlyPioneerDelegateRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CityCaller) CountyNewlyPioneerDelegateRecord(opts *bind.CallOpts, arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "countyNewlyPioneerDelegateRecord", arg0, arg1)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// CountyNewlyPioneerDelegateRecord is a free data retrieval call binding the contract method 0x6c6865e4.
+//
+// Solidity: function countyNewlyPioneerDelegateRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CitySession) CountyNewlyPioneerDelegateRecord(arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	return _City.Contract.CountyNewlyPioneerDelegateRecord(&_City.CallOpts, arg0, arg1)
+}
+
+// CountyNewlyPioneerDelegateRecord is a free data retrieval call binding the contract method 0x6c6865e4.
+//
+// Solidity: function countyNewlyPioneerDelegateRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CityCallerSession) CountyNewlyPioneerDelegateRecord(arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	return _City.Contract.CountyNewlyPioneerDelegateRecord(&_City.CallOpts, arg0, arg1)
 }
 
 // DailyTaskStatus is a free data retrieval call binding the contract method 0x0c069666.
@@ -1017,6 +1079,37 @@ func (_City *CityCallerSession) GetChengShiRechargeWeight(chengShiId [32]byte) (
 	return _City.Contract.GetChengShiRechargeWeight(&_City.CallOpts, chengShiId)
 }
 
+// GetDailyDelegateByChengShiID is a free data retrieval call binding the contract method 0x7f9d45b7.
+//
+// Solidity: function getDailyDelegateByChengShiID(bytes32 chengShiId_, uint256 day) view returns(uint256)
+func (_City *CityCaller) GetDailyDelegateByChengShiID(opts *bind.CallOpts, chengShiId_ [32]byte, day *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "getDailyDelegateByChengShiID", chengShiId_, day)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// GetDailyDelegateByChengShiID is a free data retrieval call binding the contract method 0x7f9d45b7.
+//
+// Solidity: function getDailyDelegateByChengShiID(bytes32 chengShiId_, uint256 day) view returns(uint256)
+func (_City *CitySession) GetDailyDelegateByChengShiID(chengShiId_ [32]byte, day *big.Int) (*big.Int, error) {
+	return _City.Contract.GetDailyDelegateByChengShiID(&_City.CallOpts, chengShiId_, day)
+}
+
+// GetDailyDelegateByChengShiID is a free data retrieval call binding the contract method 0x7f9d45b7.
+//
+// Solidity: function getDailyDelegateByChengShiID(bytes32 chengShiId_, uint256 day) view returns(uint256)
+func (_City *CityCallerSession) GetDailyDelegateByChengShiID(chengShiId_ [32]byte, day *big.Int) (*big.Int, error) {
+	return _City.Contract.GetDailyDelegateByChengShiID(&_City.CallOpts, chengShiId_, day)
+}
+
 // GetDay is a free data retrieval call binding the contract method 0x14ba5c09.
 //
 // Solidity: function getDay() view returns(uint256)
@@ -1139,37 +1232,6 @@ func (_City *CitySession) GetFounds(cityId_ [32]byte, day *big.Int) (*big.Int, e
 // Solidity: function getFounds(bytes32 cityId_, uint256 day) view returns(uint256)
 func (_City *CityCallerSession) GetFounds(cityId_ [32]byte, day *big.Int) (*big.Int, error) {
 	return _City.Contract.GetFounds(&_City.CallOpts, cityId_, day)
-}
-
-// GetNewlyDelegate is a free data retrieval call binding the contract method 0x745f43e6.
-//
-// Solidity: function getNewlyDelegate(bytes32 cityId_, uint256 day) view returns(uint256)
-func (_City *CityCaller) GetNewlyDelegate(opts *bind.CallOpts, cityId_ [32]byte, day *big.Int) (*big.Int, error) {
-	var out []interface{}
-	err := _City.contract.Call(opts, &out, "getNewlyDelegate", cityId_, day)
-
-	if err != nil {
-		return *new(*big.Int), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
-
-	return out0, err
-
-}
-
-// GetNewlyDelegate is a free data retrieval call binding the contract method 0x745f43e6.
-//
-// Solidity: function getNewlyDelegate(bytes32 cityId_, uint256 day) view returns(uint256)
-func (_City *CitySession) GetNewlyDelegate(cityId_ [32]byte, day *big.Int) (*big.Int, error) {
-	return _City.Contract.GetNewlyDelegate(&_City.CallOpts, cityId_, day)
-}
-
-// GetNewlyDelegate is a free data retrieval call binding the contract method 0x745f43e6.
-//
-// Solidity: function getNewlyDelegate(bytes32 cityId_, uint256 day) view returns(uint256)
-func (_City *CityCallerSession) GetNewlyDelegate(cityId_ [32]byte, day *big.Int) (*big.Int, error) {
-	return _City.Contract.GetNewlyDelegate(&_City.CallOpts, cityId_, day)
 }
 
 // GetPioneerAndCityNodeNumber is a free data retrieval call binding the contract method 0xd9eedd34.
@@ -1447,6 +1509,99 @@ func (_City *CitySession) PioneerCityIds(arg0 *big.Int) ([32]byte, error) {
 // Solidity: function pioneerCityIds(uint256 ) view returns(bytes32)
 func (_City *CityCallerSession) PioneerCityIds(arg0 *big.Int) ([32]byte, error) {
 	return _City.Contract.PioneerCityIds(&_City.CallOpts, arg0)
+}
+
+// RechargeDailyWeight is a free data retrieval call binding the contract method 0xe53efdaa.
+//
+// Solidity: function rechargeDailyWeight(uint256 ) view returns(uint256)
+func (_City *CityCaller) RechargeDailyWeight(opts *bind.CallOpts, arg0 *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "rechargeDailyWeight", arg0)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// RechargeDailyWeight is a free data retrieval call binding the contract method 0xe53efdaa.
+//
+// Solidity: function rechargeDailyWeight(uint256 ) view returns(uint256)
+func (_City *CitySession) RechargeDailyWeight(arg0 *big.Int) (*big.Int, error) {
+	return _City.Contract.RechargeDailyWeight(&_City.CallOpts, arg0)
+}
+
+// RechargeDailyWeight is a free data retrieval call binding the contract method 0xe53efdaa.
+//
+// Solidity: function rechargeDailyWeight(uint256 ) view returns(uint256)
+func (_City *CityCallerSession) RechargeDailyWeight(arg0 *big.Int) (*big.Int, error) {
+	return _City.Contract.RechargeDailyWeight(&_City.CallOpts, arg0)
+}
+
+// RechargeDailyWeightRecord is a free data retrieval call binding the contract method 0x1be94253.
+//
+// Solidity: function rechargeDailyWeightRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CityCaller) RechargeDailyWeightRecord(opts *bind.CallOpts, arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "rechargeDailyWeightRecord", arg0, arg1)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// RechargeDailyWeightRecord is a free data retrieval call binding the contract method 0x1be94253.
+//
+// Solidity: function rechargeDailyWeightRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CitySession) RechargeDailyWeightRecord(arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	return _City.Contract.RechargeDailyWeightRecord(&_City.CallOpts, arg0, arg1)
+}
+
+// RechargeDailyWeightRecord is a free data retrieval call binding the contract method 0x1be94253.
+//
+// Solidity: function rechargeDailyWeightRecord(bytes32 , uint256 ) view returns(uint256)
+func (_City *CityCallerSession) RechargeDailyWeightRecord(arg0 [32]byte, arg1 *big.Int) (*big.Int, error) {
+	return _City.Contract.RechargeDailyWeightRecord(&_City.CallOpts, arg0, arg1)
+}
+
+// RechargeWeight is a free data retrieval call binding the contract method 0xb61a2470.
+//
+// Solidity: function rechargeWeight() view returns(uint256)
+func (_City *CityCaller) RechargeWeight(opts *bind.CallOpts) (*big.Int, error) {
+	var out []interface{}
+	err := _City.contract.Call(opts, &out, "rechargeWeight")
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// RechargeWeight is a free data retrieval call binding the contract method 0xb61a2470.
+//
+// Solidity: function rechargeWeight() view returns(uint256)
+func (_City *CitySession) RechargeWeight() (*big.Int, error) {
+	return _City.Contract.RechargeWeight(&_City.CallOpts)
+}
+
+// RechargeWeight is a free data retrieval call binding the contract method 0xb61a2470.
+//
+// Solidity: function rechargeWeight() view returns(uint256)
+func (_City *CityCallerSession) RechargeWeight() (*big.Int, error) {
+	return _City.Contract.RechargeWeight(&_City.CallOpts)
 }
 
 // SecondsPerDay is a free data retrieval call binding the contract method 0x63809953.
@@ -1836,67 +1991,67 @@ func (_City *CityTransactorSession) BatchAddAdmin(amounts []common.Address) (*ty
 	return _City.Contract.BatchAddAdmin(&_City.TransactOpts, amounts)
 }
 
-// DescCityDelegate is a paid mutator transaction binding the contract method 0x546a96e1.
+// DescCountyOrChengShiDelegate is a paid mutator transaction binding the contract method 0x943af977.
 //
-// Solidity: function descCityDelegate(bytes32 cityId_, uint256 amount_, uint256 today) returns()
-func (_City *CityTransactor) DescCityDelegate(opts *bind.TransactOpts, cityId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
-	return _City.contract.Transact(opts, "descCityDelegate", cityId_, amount_, today)
+// Solidity: function descCountyOrChengShiDelegate(bytes32 countyId_, uint256 amount_, uint256 today) returns()
+func (_City *CityTransactor) DescCountyOrChengShiDelegate(opts *bind.TransactOpts, countyId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
+	return _City.contract.Transact(opts, "descCountyOrChengShiDelegate", countyId_, amount_, today)
 }
 
-// DescCityDelegate is a paid mutator transaction binding the contract method 0x546a96e1.
+// DescCountyOrChengShiDelegate is a paid mutator transaction binding the contract method 0x943af977.
 //
-// Solidity: function descCityDelegate(bytes32 cityId_, uint256 amount_, uint256 today) returns()
-func (_City *CitySession) DescCityDelegate(cityId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
-	return _City.Contract.DescCityDelegate(&_City.TransactOpts, cityId_, amount_, today)
+// Solidity: function descCountyOrChengShiDelegate(bytes32 countyId_, uint256 amount_, uint256 today) returns()
+func (_City *CitySession) DescCountyOrChengShiDelegate(countyId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
+	return _City.Contract.DescCountyOrChengShiDelegate(&_City.TransactOpts, countyId_, amount_, today)
 }
 
-// DescCityDelegate is a paid mutator transaction binding the contract method 0x546a96e1.
+// DescCountyOrChengShiDelegate is a paid mutator transaction binding the contract method 0x943af977.
 //
-// Solidity: function descCityDelegate(bytes32 cityId_, uint256 amount_, uint256 today) returns()
-func (_City *CityTransactorSession) DescCityDelegate(cityId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
-	return _City.Contract.DescCityDelegate(&_City.TransactOpts, cityId_, amount_, today)
+// Solidity: function descCountyOrChengShiDelegate(bytes32 countyId_, uint256 amount_, uint256 today) returns()
+func (_City *CityTransactorSession) DescCountyOrChengShiDelegate(countyId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
+	return _City.Contract.DescCountyOrChengShiDelegate(&_City.TransactOpts, countyId_, amount_, today)
 }
 
-// IncrCityDelegate is a paid mutator transaction binding the contract method 0x32be05a0.
+// IncrCountyOrChengShiDelegate is a paid mutator transaction binding the contract method 0xc8d4824a.
 //
-// Solidity: function incrCityDelegate(bytes32 cityId_, uint256 amount_, uint256 today) returns()
-func (_City *CityTransactor) IncrCityDelegate(opts *bind.TransactOpts, cityId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
-	return _City.contract.Transact(opts, "incrCityDelegate", cityId_, amount_, today)
+// Solidity: function incrCountyOrChengShiDelegate(bytes32 countyId_, uint256 amount_, uint256 today) returns()
+func (_City *CityTransactor) IncrCountyOrChengShiDelegate(opts *bind.TransactOpts, countyId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
+	return _City.contract.Transact(opts, "incrCountyOrChengShiDelegate", countyId_, amount_, today)
 }
 
-// IncrCityDelegate is a paid mutator transaction binding the contract method 0x32be05a0.
+// IncrCountyOrChengShiDelegate is a paid mutator transaction binding the contract method 0xc8d4824a.
 //
-// Solidity: function incrCityDelegate(bytes32 cityId_, uint256 amount_, uint256 today) returns()
-func (_City *CitySession) IncrCityDelegate(cityId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
-	return _City.Contract.IncrCityDelegate(&_City.TransactOpts, cityId_, amount_, today)
+// Solidity: function incrCountyOrChengShiDelegate(bytes32 countyId_, uint256 amount_, uint256 today) returns()
+func (_City *CitySession) IncrCountyOrChengShiDelegate(countyId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
+	return _City.Contract.IncrCountyOrChengShiDelegate(&_City.TransactOpts, countyId_, amount_, today)
 }
 
-// IncrCityDelegate is a paid mutator transaction binding the contract method 0x32be05a0.
+// IncrCountyOrChengShiDelegate is a paid mutator transaction binding the contract method 0xc8d4824a.
 //
-// Solidity: function incrCityDelegate(bytes32 cityId_, uint256 amount_, uint256 today) returns()
-func (_City *CityTransactorSession) IncrCityDelegate(cityId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
-	return _City.Contract.IncrCityDelegate(&_City.TransactOpts, cityId_, amount_, today)
+// Solidity: function incrCountyOrChengShiDelegate(bytes32 countyId_, uint256 amount_, uint256 today) returns()
+func (_City *CityTransactorSession) IncrCountyOrChengShiDelegate(countyId_ [32]byte, amount_ *big.Int, today *big.Int) (*types.Transaction, error) {
+	return _City.Contract.IncrCountyOrChengShiDelegate(&_City.TransactOpts, countyId_, amount_, today)
 }
 
-// InitCityDelegate is a paid mutator transaction binding the contract method 0x3ecdb6b5.
+// InitCityRechargeWeight is a paid mutator transaction binding the contract method 0x3e211318.
 //
-// Solidity: function initCityDelegate(bytes32 cityId_) returns()
-func (_City *CityTransactor) InitCityDelegate(opts *bind.TransactOpts, cityId_ [32]byte) (*types.Transaction, error) {
-	return _City.contract.Transact(opts, "initCityDelegate", cityId_)
+// Solidity: function initCityRechargeWeight(bytes32 chengShiId_) returns()
+func (_City *CityTransactor) InitCityRechargeWeight(opts *bind.TransactOpts, chengShiId_ [32]byte) (*types.Transaction, error) {
+	return _City.contract.Transact(opts, "initCityRechargeWeight", chengShiId_)
 }
 
-// InitCityDelegate is a paid mutator transaction binding the contract method 0x3ecdb6b5.
+// InitCityRechargeWeight is a paid mutator transaction binding the contract method 0x3e211318.
 //
-// Solidity: function initCityDelegate(bytes32 cityId_) returns()
-func (_City *CitySession) InitCityDelegate(cityId_ [32]byte) (*types.Transaction, error) {
-	return _City.Contract.InitCityDelegate(&_City.TransactOpts, cityId_)
+// Solidity: function initCityRechargeWeight(bytes32 chengShiId_) returns()
+func (_City *CitySession) InitCityRechargeWeight(chengShiId_ [32]byte) (*types.Transaction, error) {
+	return _City.Contract.InitCityRechargeWeight(&_City.TransactOpts, chengShiId_)
 }
 
-// InitCityDelegate is a paid mutator transaction binding the contract method 0x3ecdb6b5.
+// InitCityRechargeWeight is a paid mutator transaction binding the contract method 0x3e211318.
 //
-// Solidity: function initCityDelegate(bytes32 cityId_) returns()
-func (_City *CityTransactorSession) InitCityDelegate(cityId_ [32]byte) (*types.Transaction, error) {
-	return _City.Contract.InitCityDelegate(&_City.TransactOpts, cityId_)
+// Solidity: function initCityRechargeWeight(bytes32 chengShiId_) returns()
+func (_City *CityTransactorSession) InitCityRechargeWeight(chengShiId_ [32]byte) (*types.Transaction, error) {
+	return _City.Contract.InitCityRechargeWeight(&_City.TransactOpts, chengShiId_)
 }
 
 // Initialize is a paid mutator transaction binding the contract method 0x8129fc1c.

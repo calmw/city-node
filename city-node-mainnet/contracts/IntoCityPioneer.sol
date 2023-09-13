@@ -440,13 +440,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         // 将奖励转账到用户合约余额
-        setUserBalance(msg.sender, delegateReward[msg.sender], 17);
+        uint256 amount = delegateReward[msg.sender];
+        setUserBalance(msg.sender, amount, 17);
         delegateRewardStatus[msg.sender] = true;
-        delegateRewardReceived[msg.sender] += delegateReward[msg.sender]; // 更新已领取新增质押奖励
+        delegateRewardReceived[msg.sender] += amount; // 更新已领取新增质押奖励
         delegateReward[msg.sender] = 0; // 更新可领取新增质押奖励
         emit WithdrawalRewardRecord(
             msg.sender,
-            delegateReward[msg.sender],
+            amount,
             3
         );
     }
