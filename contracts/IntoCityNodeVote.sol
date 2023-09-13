@@ -269,5 +269,8 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
 
     // 奖励 ，考虑怎么触发
 
+    // 锁仓期截止，释放TOX
+    function unlockTOX() public {
 
+    }
 }
