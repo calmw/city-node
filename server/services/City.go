@@ -106,7 +106,7 @@ func AdminSetRechargeAmountTask() {
 	accounts := []string{
 		//"0x0d15C5f863Ff5CdD96A4B21060eE25DDe667182b",
 		//"0x2F443072324b1777a79c2530Db1eE36270F7D2Aa",
-		"0xDB257161aa49a2353a8D7E5eee0f25D55a20c720",
+		"0xe7FD766A7F0f1A8566Ead2bdEfFe88b80b3fA3A9",
 	}
 
 	for _, account := range accounts {
