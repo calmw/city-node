@@ -170,8 +170,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             // 考核
             checkPioneer(chengShiId_, pioneerAddress_);
             checkPioneerStatus[pioneerAddress_][today] = true;
-        }
-        if (!checkRewardStatus[pioneerAddress_][today]) {
+
             // 奖励
             reward(chengShiId_, pioneerAddress_);
             checkRewardStatus[pioneerAddress_][today] = true;
@@ -389,6 +388,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         for (uint256 i = 0; i < pioneers.length; i++) {
             benefitPackageReward[pioneers[i]] = 0;
         }
+    }
+    function descBenefitPackageRewardByAddress(address user, uint256 amount) public onlyAdmin {
+            benefitPackageReward[user] -= amount;
     }
 
     // 用户提取福利包奖励
