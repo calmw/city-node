@@ -10,14 +10,6 @@ interface IntoMining {
     function addBalanceWithTypes(address sender, uint256 amount, uint256 types) external; // 增加用户合约余额
 }
 
-interface IERC20 {
-    function balanceOf(address account) external view returns (uint256);
-
-    function transfer(address to, uint256 amount) external returns (bool);
-
-    function transferFrom(address from, address to, uint256 amount) external returns (bool);
-}
-
 contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 每日新增质押事件

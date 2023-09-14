@@ -10,6 +10,14 @@ interface IPledgeStake {
     function ownerWeight(address _addr) external view returns (uint256 count);
 }
 
+interface IERC20 {
+    function balanceOf(address account) external view returns (uint256);
+
+    function transfer(address to, uint256 amount) external returns (bool);
+
+    function transferFrom(address from, address to, uint256 amount) external returns (bool);
+}
+
 contract IntoUserLocation is RoleAccess, Initializable {
 
     event UserLocationRecord(
@@ -57,9 +65,19 @@ contract IntoUserLocation is RoleAccess, Initializable {
     mapping(bytes32 => mapping(bytes32 => bool)) public cityIdToChengShiIDExits;
     // 考核天，正式86400秒，测试300秒
     uint public secondsPerDay;
+    // 关闭定位，定位黑名单,后期花钱定位（花钱设置）
+    mapping(address => bool) public userDisable;
+    uint256 public enableToxNumber; // 用户开启定位所需TOX数量
+    address public TOXAddress; // TOX代币合约地址
+    address[] public disableLbsUsers;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
+    }
+
+    // 管理员设置TOX代币地址
+    function adminSetTOXAddress(address TOXAddress_) public onlyAdmin {
+        TOXAddress = TOXAddress_;
     }
 
     // 管理员设置城市合约地址
@@ -113,6 +131,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
 
     // 本次上线放开
     function setUserLocationV2(bytes32 countyId_, bytes32 chengShiId_, string calldata location_) public {
+        require(!userDisable[msg.sender], "LBS disable");
         require(!userHaveSetLocation[msg.sender], "cant not set any more");
         require(!compareStr(location_, ""), "location is empty");
         userNumberOfCity[countyId_] += 1;
@@ -128,7 +147,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
         }
 
         // 设置城市ID，本次上线放开
-        SetCityChengShi(countyId_, chengShiId_,location_);
+        SetCityChengShi(countyId_, chengShiId_, location_);
 
         // 给用户所在城市增加质押量
         setUserDelegate(chengShiId_, msg.sender);
@@ -231,6 +250,46 @@ contract IntoUserLocation is RoleAccess, Initializable {
                 cityIdExist[cityIds[i]] = true;
             }
         }
+    }
+
+    // 用户关闭定位
+    function disableLbs() public {
+        userDisable[msg.sender] = true;
+        if (!isDisableLbsUsersExits(msg.sender)) {
+            disableLbsUsers.push(msg.sender);
+        }
+    }
+
+    // 判断用户是否开启定位
+    function isDisableLbsUsersExits(address user) public view returns (bool){
+        for (uint256 i = 0; i < disableLbsUsers.length; i++) {
+            if (user == disableLbsUsers[i]) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // 获取不开启定位的数量
+    function getDisableLbsUsersNumber() public view returns (uint256){
+        return disableLbsUsers.length;
+    }
+
+    // 用户开启定位,暂不开放
+//    function enableLbs() public {
+//        // 交钱
+//        IERC20 TOXContract = IERC20(TOXAddress);
+//        uint256 userBalance = TOXContract.balanceOf(msg.sender);
+//
+//        require(userBalance >= 1e25, "your balance is insufficient"); // 余额不足
+//        TOXContract.transferFrom(msg.sender, address(this), surety);
+//        // 更新状态
+//        userDisable[msg.sender] = false;
+//    }
+    // 开启用户定位,测试
+    function enableLbs(address user) public onlyAdmin {
+        // 更新状态
+        userDisable[user] = false;
     }
 
     function setUserLocationTest(bytes32 cityId_, address user, string calldata location_) public onlyAdmin {

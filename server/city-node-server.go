@@ -8,8 +8,8 @@ func main() {
 	//db.InitMysql()
 	//tasks.Task()
 
-	services.InitTestNet()
-	//services.InitMainNet()
+	//services.InitTestNet()
+	services.InitMainNet()
 
 	//services.InitCity()
 	//services.InitCityPioneer()
@@ -40,10 +40,10 @@ func main() {
 	// 设置城市ID位置,设置映射关系
 	//blockchain.SetCityMapping("0x818c1d2b3417786f35375c0a532bbd70a98cfcba5040c9dae6a64ac90de11d37", "0xb8f09d587defd54aa24dbb770b3773f29a658b080f95d6cf12aa0c8f6e97cef8", "E48M4KQJ3To=")
 
-	services.AdminSetRechargeAmountTask()
+	//services.AdminSetRechargeAmountTask()
 
 	// 根据城市ID查询往日新增质押
-	//blockchain.GetNewlyDelegateRecordByChengId("0x1d78790980b5a4917a2dfa1a4016ad10af0de8987f7a310acbc9baf85cad17f0", 19612)
-	//blockchain.GetNewlyDelegateRecordByChengId("0xd6b40febaa0ddd0e1e2674e83d08653b02ee51bef854cb11fe76ee91c1e9cfee", 19612)
+	//blockchain.GetNewlyDelegateRecordByChengId("0x1d78790980b5a4917a2dfa1a4016ad10af0de8987f7a310acbc9baf85cad17f0", 19613) // 183430 000000000000000000
+	//blockchain.GetNewlyDelegateRecordByChengId("0xd6b40febaa0ddd0e1e2674e83d08653b02ee51bef854cb11fe76ee91c1e9cfee", 19613) // 655770 000000000000000000
 
 }

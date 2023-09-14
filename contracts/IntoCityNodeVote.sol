@@ -34,19 +34,28 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
     );
 
     enum VoteStatus{
-        none,
-        globalVoting,
-        globalVoteEnd,
-        userVoting,
-        userVoteEnd,
+        none, // 未开始
+        globalVoting,// 全球节点投票进行中
+        globalVoteEnd, // 全球节点投票结束
+        userVoting, // 用户投票进行中
+        userVoteEnd, // 用户投票结束
         incumbency,// 任期
         endOfTerm// 任期结束
     }
 
     struct NodeInfo {
-        string NodeName;
+        address node;
+        string avatar;
+        string nodeName;
         string flag;
-        uint256 status; // 0未审核，1已审核，2审核失败
+        uint256 status; //0 不存在 1未审核，2已审核，3审核失败
+    }
+
+    struct CandidateInfo {
+        bytes32 cityId; // 城市ID
+        address candidate; // 参选人地址
+        uint256 rate; //分配比例
+        uint256 votes; //当前累计投票数量
     }
 
     address public TOX;
@@ -63,12 +72,26 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => uint256))public  activityCriteria; // 城市激活标准
     // 城市ID => 该城市所有申请竞选的费用
     mapping(bytes32 => uint256) public cityApplyFee;
-    // 城市ID => (投票人地址 => (候选人地址 => 投票数量))
+    // 城市ID => (投票人地址 => (候选人地址 => 投票数量)) 投票数量为投票结束，追加投票
     mapping(bytes32 => mapping(address => mapping(address => uint256))) public userVoteRecord;
-    // 城市ID => (候选人地址 => 候选人当前票数)
+    // 城市ID => (投票人地址 => (候选人地址 => 投票数量)) 投票数量为投票期间正常投票
+    mapping(bytes32 => mapping(address => mapping(address => uint256))) public userVoteVoteEndRecord;
+    // 城市ID => (候选人地址 => 候选人当前票数)，候选人累计票数,包含竞选结束的
     mapping(bytes32 => mapping(address => uint256)) public candidateCount;
+    // 城市ID => (候选人地址 => 候选人当前票数)，候选人累计票数,只累加竞选期间的
+    mapping(bytes32 => mapping(address => uint256)) public candidateVotingCount;
+    // 候选人地址 => 候选人参选时间
+    mapping(address => uint256) public candidateApplyTime;
+    // 候选人地址 => 候选人参选的城市ID
+//    mapping(address => bytes32) public candidateApplyCityId;
+    // 城市ID => (候选人地址 => 候选人当前票数)，候选人截止当选成功累计票数
+    mapping(bytes32 => mapping(address => uint256)) public candidateVoteEndCount;
+    // 参选人地址=>参选人城市; 一个人只能参选一个城市，下一次可以更换城市
+    mapping(address => bytes32) public candidateApplyCityId;
     // 城市ID => []候选人地址
     mapping(bytes32 => address[]) public cityCandidate;
+    // 城市ID => 投票数量(该城市累计投票数量)
+    mapping(bytes32 => uint256) public cityVotes;
     // 城市ID => 数组，参与该城市竞选的全球节点地址
     mapping(bytes32 => address[]) public globalNodeCityCandidate;
     // 全球节点地址 => 该全球节点的质押量（票数）
@@ -83,6 +106,12 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
     mapping(bytes32 => address) public cityNodeWinner;
     // 城市节点 => 候选人最大票数
     mapping(bytes32 => uint256) public cityNodeMaxVotes;
+    // 城市ID=>(参选人地址=>追加票数)
+    mapping(bytes32 => mapping(address => uint256)) public additionalVoting;
+    // 城市ID=>(候选人地址=>投票结束排名)
+    mapping(bytes32 => mapping(address => uint256)) public votingRanking;
+    // 天，正式86400秒，测试300秒
+    uint public secondsPerDay;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -127,11 +156,22 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
         cityLevel[cityId] = cityLevel_;
     }
 
-    // 管理员审核参选人信息状态
-    function adminCheckNodeInfo(address node_, uint256 status_) public onlyAdmin {
+    // 管理员审核参选人信息状态,//0 不存在 1已审核,2未审核，3审核失败
+    function adminSetNodeInfoStatus(address node_, uint256 status_) public onlyAdmin {
         require(status_ == 1 || status_ == 2, "status_ error, only 1 or 2");
         NodeInfo storage node = nodeInfo[node_];
         node.status = status_;
+    }
+
+    // 用户修改节点信息,//0 不存在 1已审核,2待审核，【3审核失败，可选】
+    function userEditNodeInfo(string calldata avatar_, string calldata flag_, string calldata nodeName_) public {
+        NodeInfo storage node = nodeInfo[msg.sender];
+        require(node.status != 1, "can not edit any more");
+        node.node = msg.sender;
+        node.avatar = avatar_;
+        node.flag = flag_;
+        node.nodeName = nodeName_;
+        node.status = 2;
     }
 
     // 管理员删除开放的节点城市
@@ -155,13 +195,18 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
         return false;
     }
     // 参选人信息状态上链
-    function addNodeInfo(address node_, string calldata nodeName_, string calldata flag_) public onlyAdmin {
-        nodeInfo[node_] = NodeInfo(
-            nodeName_,
-            flag_,
-            0
-        );
-    }
+//    function addNodeInfo(address node_, string calldata nodeName_, string calldata flag_) public onlyAdmin {
+//        //  address node;
+//        //        string avatar;
+//        //        string nodeName;
+//        //        string flag;
+//        //        uint256 status;
+//        nodeInfo[node_] = NodeInfo(
+//            nodeName_,
+//            flag_,
+//            0
+//        );
+//    }
     // 申请城市节点
     function applyCityCandidate(bytes32 cityId, uint256 controlRate) external {
         require(!isCityExits(cityId), "cityId error");
@@ -174,6 +219,7 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
         }
         cityNodeControlRate[msg.sender] = controlRate;// 设置候选人的支配比例
         cityApplyFee[cityId] += applyCityFee; // 该城市总的报名费
+        candidateApplyCityId[msg.sender] = cityId;//参选人城市
         emit ApplyCandidateRecord(
             msg.sender,
             applyCityFee
@@ -220,19 +266,31 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
     // 普通用户给候选人投票
     function vote(address candidate, bytes32 cityId, uint256 toxNum) external {
         require(!isCityExits(cityId), "cityId error");
-        require(voteStatus == VoteStatus.userVoting, "voting is not in progress");
+        require(voteStatus == VoteStatus.userVoting || voteStatus == VoteStatus.incumbency, "voting is not in progress");
         require(isAddressExits(cityCandidate[cityId], candidate), "candidate and cityId are mismatching");
         uint256 userBalance = IERC20(TOX).balanceOf(msg.sender);
         require(userBalance >= toxNum, "Insufficient balance");
 
+        // additionalVoting
+        if (voteStatus == VoteStatus.userVoting) {
+            candidateVoteEndCount[cityId][candidate] += toxNum;// 更新当前候选人票数，只统计投票期间
+            userVoteVoteEndRecord[cityId][msg.sender][candidate] += toxNum; // 用户投票，指统计投票期间
+            candidateVotingCount[cityId][candidate] += toxNum;// 更新当前候选人票数，不包含追加投票
+        }
         IERC20(TOX).transferFrom(msg.sender, address(this), toxNum);
-        userVoteRecord[cityId][msg.sender][candidate] += toxNum;
-        candidateCount[cityId][candidate] += toxNum;// 更新当前候选人票数
+        userVoteRecord[cityId][msg.sender][candidate] += toxNum; // 包含追加投票
+        candidateCount[cityId][candidate] += toxNum;// 更新当前候选人票数，包含追加投票
 
         // 判断当前候选人，在得到该投票后，是否是当前最多票数者
         if (candidateCount[cityId][candidate] > cityNodeMaxVotes[cityId]) {
             cityNodeMaxVotes[cityId] = candidateCount[cityId][candidate];// 更新最大票数
             cityNodeWinner[cityId] = candidate; // 更新票数最多的候选人
+            // 更新当前城市竞选期间票数排名
+            updateVotingRanking(cityId);
+        }else{
+            // 更新当前城市竞选结束后票数排名
+            updateRanking(cityId);
+
         }
 
         emit VoteRecord(
@@ -241,6 +299,46 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
             cityId,
             toxNum
         );
+    }
+
+    // 更新当前城市竞选结束后票数排名
+    function updateRanking(bytes32 cityId) private {
+        address[] storage allCandidate = cityCandidate[cityId];
+        if (allCandidate.length == 0 || allCandidate.length == 1) {
+            return;
+        }
+        address small = address(0);
+        address big = address(0);
+        for (uint i = 1; i < allCandidate.length; i++) {
+            for (uint j; j < allCandidate.length - 1; j++) {
+                if (candidateCount[cityId][allCandidate[j]] > candidateCount[cityId][allCandidate[j + 1]]) {
+                    small = allCandidate[j + 1];
+                    big = allCandidate[j];
+                    allCandidate[j + 1] = big;
+                    allCandidate[j] = small;
+                }
+            }
+        }
+    }
+
+    // 更新当前城市竞选期间票数排名
+    function updateVotingRanking(bytes32 cityId) private {
+        address[] storage allCandidate = cityCandidate[cityId];
+        if (allCandidate.length == 0 || allCandidate.length == 1) {
+            return;
+        }
+        address small = address(0);
+        address big = address(0);
+        for (uint i = 1; i < allCandidate.length; i++) {
+            for (uint j; j < allCandidate.length - 1; j++) {
+                if (candidateVotingCount[cityId][allCandidate[j]] > candidateVotingCount[cityId][allCandidate[j + 1]]) {
+                    small = allCandidate[j + 1];
+                    big = allCandidate[j];
+                    allCandidate[j + 1] = big;
+                    allCandidate[j] = small;
+                }
+            }
+        }
     }
 
     // 撤票，在竞选期间，投票可以撤票（全部撤回）
@@ -290,8 +388,84 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
 
     // 奖励 ，考虑怎么触发
 
-    // 锁仓期截止，释放TOX
+    // 若所投票的候選人末當選，24小时后解锁為其投票的TOX，需自行领回，服务端辅助调用
     function unlockTOX() public {
 
     }
+
+    /// API  ------------------------------------------------------------------------------------开始------------------------------------------------------------------------------------
+    // 用户查看所在城市全部的候选人
+//    function getCandidateByCityId() public returns (address[] memory){
+//        // 查询用户所在城市
+//
+//        // 查询该城市所有参选者，已审核的
+//
+//
+//        return address[address(0)];
+//    }
+//    // 查看所有城市（开放可参选的城市）
+//    function getAllCity() public returns (address[] memory){
+//        // 查询用户所在城市
+//
+//        // 查询该城市所有参选者，已审核的
+//
+//
+//        return address[];
+//    }
+//    // 查看参选人信息，可判断用户是否参选，作为候选人
+//    function getCandidateByAddress() public returns (address[]memory ){
+//        // 查询用户所在城市
+//
+//        // 查询该城市所有参选者，已审核的
+//
+//
+//        return address[];
+//    }
+    // 获取某个城市参选人列表
+    function getCandidateByCityId(bytes32 cityId) public view returns (CandidateInfo[] memory){
+        address[] memory candidates = cityCandidate[cityId];
+        uint256 candidatesLength = candidates.length;
+        CandidateInfo[] memory candidateInfo = new CandidateInfo[](candidatesLength);
+
+        // 查询该城市所有参选者，已审核的
+        for (uint256 i = 0; i < candidates.length; i++) {
+            candidateInfo[i] = CandidateInfo(
+                cityId,
+                candidates[i],
+                cityNodeControlRate[candidates[i]],
+                candidateCount[cityId][candidates[i]]
+            );
+        }
+
+        return candidateInfo;
+    }
+    // 参选结果
+    function getCandidateResult() public view returns (uint256, bool){
+        // 查询用户参选的城市
+        // 查询当前名次
+
+        // 查询竞选结果
+
+        return (1, true);
+    }
+
+    // 参选详情,参选人自己查询
+    function getCandidateInfo() public returns (uint256, uint256, uint256, uint256, uint256){
+        // 查询用户参选的城市
+        bytes32 cityId = candidateApplyCityId[msg.sender];
+        // 参选城市节点报名费
+//        applyCityFee;
+        // 分红比例：候选人设置的支配比例
+        uint256 controlRate = cityNodeControlRate[msg.sender];
+        // 参与时间
+        uint256 applyTime = candidateApplyTime[msg.sender];
+        // 任期截止时间
+        uint256 endTime = startTime += secondsPerDay * (10 + 180);
+        // 获得投票数量
+        uint256 voteNumber = candidateCount[cityId][msg.sender];
+        return (applyCityFee, controlRate, applyTime, endTime, voteNumber);
+    }
+    /// API  ------------------------------------------------------------------------------------结束------------------------------------------------------------------------------------
+
+
 }
