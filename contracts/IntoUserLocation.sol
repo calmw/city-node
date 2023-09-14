@@ -275,6 +275,16 @@ contract IntoUserLocation is RoleAccess, Initializable {
         return disableLbsUsers.length;
     }
 
+    // 获取城市的总人数
+    function getChengShiUserNumber(bytes32 chengShiId) public view returns (uint256){
+        bytes32[] memory cityIds_ = getCountyIdsByChengShiId(chengShiId);
+        uint256 userNumber;
+        for (uint256 i = 0; i < cityIds_.length; i++) {
+            userNumber += userNumberOfCity[cityIds_[i]];
+        }
+        return userNumber;
+    }
+
     // 用户开启定位,暂不开放
 //    function enableLbs() public {
 //        // 交钱

@@ -8,8 +8,8 @@ func main() {
 	//db.InitMysql()
 	//tasks.Task()
 
-	//services.InitTestNet()
-	services.InitMainNet()
+	services.InitTestNet()
+	//services.InitMainNet()
 
 	//services.InitCity()
 	//services.InitCityPioneer()

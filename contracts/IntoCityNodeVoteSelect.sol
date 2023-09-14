@@ -3,7 +3,6 @@ pragma solidity ^0.8.13;
 
 import "./RoleAccess.sol";
 import "./IntoCityNodeVote.sol";
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 contract IntoCityNodeVoteSelect is RoleAccess, Initializable {

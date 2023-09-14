@@ -108,6 +108,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(address => uint256) public failedAt;
     // 先锋地址 => (类别=>考核成功时间)，类别（1第一个月，2第二个月，3第三个月，4第一个月直接达到最高标准通过，后面不在考核）
     mapping(address => mapping(uint256 => uint256)) public successAt;
+    // 先锋地址 => 考核成功时间
+    mapping(address => uint256) public successTime;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -252,7 +254,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 failedDelegate[chengShiId_] = pioneerChengShiTotalRechargeWeight;
                 city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
             } else {
-                successAt[pioneer.pioneerAddress][3] = block.timestamp;
+                successTime[pioneer.pioneerAddress] = block.timestamp;
             }
 //        } else if (day == 60) {//  上线放开--------------------------------------------------------------------------------------------------------------------
         } else if (day >= 60) {
@@ -263,7 +265,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 failedDelegate[chengShiId_] = pioneerChengShiTotalRechargeWeight;
                 city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
             } else {
-                successAt[pioneer.pioneerAddress][2] = block.timestamp;
+                successTime[pioneer.pioneerAddress] = block.timestamp;
             }
 //        } else if (day == 30) {//  上线放开--------------------------------------------------------------------------------------------------------------------
         } else if (day >= 30) {
@@ -281,7 +283,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 failedDelegate[chengShiId_] = pioneerChengShiTotalRechargeWeight;
                 city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
             } else {
-                successAt[pioneer.pioneerAddress][1] = block.timestamp;
+                successTime[pioneer.pioneerAddress] = block.timestamp;
             }
         }
     }
