@@ -5,7 +5,7 @@ import "./RoleAccess.sol";
 import "./IntoCityNodeVote.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
-contract IntoCityNodeVoteSelect is RoleAccess, Initializable {
+contract IntoCityNodeVoteApi is RoleAccess, Initializable {
 
 
     address public TOX;

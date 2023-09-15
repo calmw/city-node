@@ -24,6 +24,40 @@ func AdminSetAssessmentCriteria(cityLevel, month, point int64) {
 	fmt.Println(criteria, err)
 }
 
+// AdminSetAssessmentReturnRate 管理员设置保证金退还比例
+func AdminSetAssessmentReturnRate(cityLevel, month, point int64) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	criteria, err := cityPioneer.AdminSetAssessmentReturnRate(auth, big.NewInt(cityLevel), big.NewInt(month), big.NewInt(point))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(criteria, err)
+}
+
+// AdminSetAssessmentReturnCriteria 管理员设置城市先锋保证金退还标准；点数
+func AdminSetAssessmentReturnCriteria(cityLevel, month, point int64) {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	criteria, err := cityPioneer.AdminSetAssessmentReturnCriteria(auth, big.NewInt(cityLevel), big.NewInt(month), big.NewInt(point))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(criteria, err)
+}
+
 // AdminSetStartTime 管理员设置开始考核时间
 func AdminSetStartTime(startTime int64) {
 	Cli := Client(CityNodeConfig)

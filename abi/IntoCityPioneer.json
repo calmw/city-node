@@ -196,6 +196,52 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "chengShiLevel_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "month_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "point_",
+        "type": "uint256"
+      }
+    ],
+    "name": "adminSetAssessmentReturnCriteria",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "chengShiLevel_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "month_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "point_",
+        "type": "uint256"
+      }
+    ],
+    "name": "adminSetAssessmentReturnRate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "cityAddress_",
         "type": "address"
@@ -622,6 +668,19 @@
   {
     "inputs": [],
     "name": "depositSurety",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pioneerTest_",
+        "type": "address"
+      }
+    ],
+    "name": "depositSuretyTest",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1148,6 +1207,19 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

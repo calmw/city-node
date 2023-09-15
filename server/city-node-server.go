@@ -2,11 +2,11 @@ package main
 
 import (
 	"city-node-server/services"
+	"city-node-server/tasks"
 )
 
 func main() {
 	//db.InitMysql()
-	//tasks.Task()
 
 	services.InitTestNet()
 	//services.InitMainNet()
@@ -30,7 +30,7 @@ func main() {
 	//blockchain.AdminSetStartTime(time.Now().Add(time.Hour * 1000000).Unix())
 	//blockchain.AdminSetStartTime(time.Now().Unix())
 	// 批量执行增加或减少质押量
-	//tasks.Task()
+	tasks.Task()
 
 	// 获取前15天社交基金平均值
 	//blockchain.GetFifteenDayAverageFounds()
@@ -38,7 +38,7 @@ func main() {
 	//blockchain.GetCityId(22)
 
 	// 设置城市ID位置,设置映射关系
-	//blockchain.SetCityMapping("0x818c1d2b3417786f35375c0a532bbd70a98cfcba5040c9dae6a64ac90de11d37", "0xb8f09d587defd54aa24dbb770b3773f29a658b080f95d6cf12aa0c8f6e97cef8", "E48M4KQJ3To=")
+	//blockchain.SetCityMapping("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "WcDz8o2H5og=")
 
 	//services.AdminSetRechargeAmountTask()
 

@@ -221,24 +221,24 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
         return false;
     }
 
-    // 申请城市节点
-    function applyCityCandidate(bytes32 cityId, uint256 controlRate) external {
-        require(!isCityExits(cityId), "cityId error");
-        uint256 userBalance = IERC20(TOX).balanceOf(msg.sender);
-        require(userBalance >= applyCityFee, "Insufficient balance");
-        IERC20(TOX).transferFrom(msg.sender, address(this), applyCityFee);
-
-        if (!inAddressList(cityCandidate[cityId], msg.sender)) {// 添加城市候选人
-            cityCandidate[cityId].push(msg.sender);
-        }
-        cityNodeControlRate[msg.sender] = controlRate;// 设置候选人的支配比例
-        cityApplyFee[cityId] += applyCityFee; // 该城市总的报名费
-        candidateApplyCityId[msg.sender] = cityId;//参选人城市
-        emit ApplyCandidateRecord(
-            msg.sender,
-            applyCityFee
-        );
-    }
+    // 申请城市节点 ，不能注释的方法
+//    function applyCityCandidate(bytes32 cityId, uint256 controlRate) external {
+//        require(!isCityExits(cityId), "cityId error");
+//        uint256 userBalance = IERC20(TOX).balanceOf(msg.sender);
+//        require(userBalance >= applyCityFee, "Insufficient balance");
+//        IERC20(TOX).transferFrom(msg.sender, address(this), applyCityFee);
+//
+//        if (!inAddressList(cityCandidate[cityId], msg.sender)) {// 添加城市候选人
+//            cityCandidate[cityId].push(msg.sender);
+//        }
+//        cityNodeControlRate[msg.sender] = controlRate;// 设置候选人的支配比例
+//        cityApplyFee[cityId] += applyCityFee; // 该城市总的报名费
+//        candidateApplyCityId[msg.sender] = cityId;//参选人城市
+//        emit ApplyCandidateRecord(
+//            msg.sender,
+//            applyCityFee
+//        );
+//    }
 
     // 全球节点申请城市节点
     function globalNodeApplyCityNode(bytes32 cityId, uint256 controlRate) external {
@@ -381,23 +381,6 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
         IERC20(TOX).transfer(msg.sender, toxNum);
         // 减少候选人票数
         candidateCount[cityId][candidate] -= toxNum;
-    }
-
-    // 服务端任务，更新投票状态，默认0
-    function setVoteStatus(uint256 status) public {
-        if (status == uint256(VoteStatus.globalVoting)) { // 1 全球节点投票中
-            voteStatus = VoteStatus.globalVoting;
-        } else if (status == uint256(VoteStatus.globalVoteEnd)) { // 2 全球节点投票结束
-            voteStatus = VoteStatus.globalVoteEnd;
-        } else if (status == uint256(VoteStatus.userVoting)) { // 3 用户投票中
-            voteStatus = VoteStatus.userVoting;
-        } else if (status == uint256(VoteStatus.userVoteEnd)) { // 4 用户投票结束
-            voteStatus = VoteStatus.userVoteEnd;
-        } else if (status == uint256(VoteStatus.incumbency)) { // 5 任期
-            voteStatus = VoteStatus.incumbency;
-        } else if (status == uint256(VoteStatus.endOfTerm)) { // 6 任期结束
-            voteStatus = VoteStatus.endOfTerm;
-        }
     }
 
     // 第二阶段投票结束结算，在投票结束后调用，根据城市执行，服务端先获取城市，再循环调用该方法
