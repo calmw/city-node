@@ -1087,3 +1087,7 @@
 {"level":"error","time":"2023-09-15T11:10:53.317+0800","line":"blockchain/city.go:254","msg":"invalid nonce; got 7881, expected 7882: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"error","time":"2023-09-15T11:34:02.866+0800","line":"blockchain/city.go:254","msg":"invalid nonce; got 8017, expected 8018: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"error","time":"2023-09-15T11:37:10.593+0800","line":"blockchain/city.go:254","msg":"invalid nonce; got 8079, expected 8080: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-15T11:43:28.147+0800","line":"blockchain/city.go:87","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-09-15T11:45:19.593+0800","line":"blockchain/city.go:230","msg":"invalid nonce; got 8231, expected 8232: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-15T12:02:57.034+0800","line":"blockchain/city.go:230","msg":"invalid nonce; got 8537, expected 8538: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-09-15T12:12:36.952+0800","line":"blockchain/city.go:230","msg":"invalid nonce; got 8739, expected 8740: invalid sequence: invalid sequence","serviceName":"into"}

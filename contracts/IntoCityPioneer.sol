@@ -102,7 +102,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     uint public secondsPerDay;
     // 考核天，正式86400*180秒，测试1800秒
     uint public presidencyTime;
-    // 先锋地址 => 已经退的比例
+    // 先锋地址 => 已经退的比例，领取保证金时，累加
     mapping(address => uint256) public alreadyRewardRateTotal;
     // 先锋地址 => 考核失败时间
     mapping(address => uint256) public failedAt;
@@ -295,7 +295,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (day == 30) {
             // 直接考核通过，退还100%，满足M3退还标准，直接退100%
             for (uint j = 3; j > 0; j--) {
-                if (pioneerChengShiTotalRechargeWeight >= assessmentReturnCriteria[chengLevel][j] * 100) {
+                if (pioneerChengShiTotalRechargeWeight >= assessmentReturnCriteria[chengLevel][j]) {
                     pioneer.returnSuretyRate = assessmentReturnRate[chengLevel][j];
                     suretyReturn = surety * pioneer.returnSuretyRate / 100;
                     pioneer.returnSuretyStatus = true;
@@ -307,7 +307,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         } else if (day == 60) {
             uint256 firstMonthRate = alreadyRewardRate[pioneer.pioneerAddress][1];
             for (uint i = 6; i > 3; i--) {
-                if (pioneerChengShiTotalRechargeWeight >= assessmentReturnCriteria[chengLevel][i] * 100) {
+                if (pioneerChengShiTotalRechargeWeight >= assessmentReturnCriteria[chengLevel][i]) {
                     if (assessmentReturnRate[chengLevel][i] <= firstMonthRate) { // 满足退还额度标准的情况下，需要第二个月的退还比例大于第一个月的
                         break;
                     }
