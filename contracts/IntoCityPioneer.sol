@@ -100,7 +100,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     address public userLocationAddress;
     // 考核天，正式86400秒，测试300秒
     uint public secondsPerDay;
-    // 考核天，正式86400*180秒，测试1800秒
+    // 考核天，正式86400*180秒，测试10*180秒
     uint public presidencyTime;
     // 先锋地址 => 已经退的比例，领取保证金时，累加
     mapping(address => uint256) public alreadyRewardRateTotal;
@@ -220,14 +220,34 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             }
         }
         pioneerInfo[pioneer_].assessmentStatus = false;
-    }
+        alreadyRewardRate[pioneer_][1] = 0;
+        alreadyRewardRate[pioneer_][2] = 0;
+        alreadyRewardRateTotal[pioneer_] = 0;
 
-    // 删除全部先锋
-//    function removeAllPioneer() public onlyAdmin {
-//        for (uint256 i = 0; i < pioneers.length; i++) {
-//            pioneers.pop();
-//        }
-//    }
+        // 先锋地址 => 先锋福利包收益
+        benefitPackageReward[pioneer_] = 0;
+        // 先锋地址 => 已领取的先锋福利包收益
+        benefitPackageRewardReceived[pioneer_] = 0;
+        // 先锋地址 => 先锋社交基金收益
+        fundsReward[pioneer_] = 0;
+        // 先锋地址 => 已领取的先锋社交基金收益
+        fundsRewardReceived[pioneer_] = 0;
+        // 先锋地址 => 先锋新增质押收益
+        delegateReward[pioneer_] = 0;
+        // 先锋地址 => 已领取的先锋新增质押收益
+        delegateRewardReceived[pioneer_] = 0;
+        // 先锋地址 => 先锋可以退的保证金
+        suretyReward[pioneer_] = 0;
+        // 先锋地址 => (月份=>退的比例)，月份为1和2，比例为整数
+        alreadyRewardRate[pioneer_][1] = 0;
+        alreadyRewardRate[pioneer_][2] = 0;
+        // 先锋地址 => 先锋已经退还的保证金
+        suretyRewardRecord[pioneer_] = 0;
+        benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
+        fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
+        delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
+
+    }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
     function checkPioneer(bytes32 chengShiId_, address pioneerAddress_) private {
@@ -333,7 +353,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
         uint256 today = getDay();
         // 任期结束，不发放奖励
-        if (today - pioneer.ctime / secondsPerDay >= presidencyTime) {
+        if (today - (pioneer.ctime / secondsPerDay) >= (presidencyTime / secondsPerDay)) {
             return;
         }
         // 昨日，天
@@ -343,7 +363,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint bonus = 93333333333333333333;
         benefitPackageReward[pioneerAddress_] += bonus;
 
-//        // 社交基金5%奖励
+        // 社交基金5%奖励
         IntoCity city = IntoCity(cityAddress);
         uint pioneerAndCityNodeNumber = city.getPioneerAndCityNodeNumber(); // 城市节点上线后，需要加上城市节点的数量
         uint256 allDailyFoundsTotal = city.getFifteenDayAverageFounds();// 全网昨日所有城市新增社交基金
@@ -353,7 +373,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             fundsReward[pioneerAddress_] += allDailyFoundsTotal * 5 / 100 / pioneerAndCityNodeNumber;
         }
 
-//        // 该城市新增质押量1%奖励，不累加
+        // 该城市新增质押量1%奖励，不累加
         uint256 yesterdayDelegate = city.getDailyDelegateByChengShiID(ChengShiId_, yesterday);// 昨日该城市新增质押权重
         delegateReward[pioneerAddress_] += yesterdayDelegate / 100;
 
@@ -484,18 +504,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         city.initCityRechargeWeight(cityId);// 将先锋绑定的城市的新增质押量变为0
     }
 
-    // 给收益增加测试数据
-//    function addBalance(address user, uint256 amount_) public onlyAdmin {
-//        //先锋福利包收益
-//        benefitPackageReward[user] += amount_;
-//        //先锋社交基金收益
-//        fundsReward[user] += amount_;
-//        //先锋新增质押收益
-//        delegateReward[user] += amount_;
-//        //先锋可以退的保证金
-//        suretyReward[user] += amount_;
-//    }
-
     // 获取先锋所需保证金，根据先锋地址
     function getPioneerNumber() public view returns (uint256){
         return pioneers.length;
@@ -517,14 +525,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         return false;
     }
 
-//    // 增加交完保证金先锋用户
+    // 增加交完保证金先锋用户
     function initPioneer(address pioneer) public {
         delete pioneerInfo[pioneer];
     }
 
     // 提取本合约TOX余额到指定用户
-    function withdraw(address user) public {
-        IERC20 TOX = IERC20(TOXAddress);
-        TOX.transfer(user, 200000000000000000000000);
-    }
+//    function withdraw(address user) public {
+//        IERC20 TOX = IERC20(TOXAddress);
+//        TOX.transfer(user, 200000000000000000000000);
+//    }
 }
