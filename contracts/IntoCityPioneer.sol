@@ -107,7 +107,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 先锋地址 => 考核失败时间
     mapping(address => uint256) public failedAt;
     // 先锋地址 => (类别=>考核成功时间)，类别（1第一个月，2第二个月，3第三个月，4第一个月直接达到最高标准通过，后面不在考核）
-    mapping(address => mapping(uint256 => uint256)) public successAt;
+    mapping(address => mapping(uint256 => uint256)) public successAt; // 废弃
     // 先锋地址 => 考核成功时间
     mapping(address => uint256) public successTime;
 
@@ -284,9 +284,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         } else if (day == 30) {
             execStatus = true;
             // 检测是否满足直接考核通过
-            if (pioneerChengShiTotalRechargeWeight >= assessmentCriteria[pioneer.cityLevel][3] * 100) { //直接达到m3考核标准，也就是直接通过终极考核
+            if (pioneerChengShiTotalRechargeWeight >= assessmentCriteria[pioneer.cityLevel][3]) { //直接达到m3考核标准，也就是直接通过终极考核
                 pioneer.assessmentStatus = true;
-                successAt[pioneer.pioneerAddress][4] = block.timestamp;
+                successTime[pioneer.pioneerAddress] = block.timestamp;
                 return;
             }
             // 没达到M3，考核M1

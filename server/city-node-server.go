@@ -10,7 +10,7 @@ func main() {
 	services.InitTestNet()
 	//services.InitMainNet()
 
-	//services.InitCity()
+	services.InitCity()
 	//services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
