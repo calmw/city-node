@@ -22,12 +22,13 @@ func InitCity() {
 	//blockchain.AdminSetChengShiLevelAndSurety("0xf7d89a46c223f9704a010c7077eb586fd7208822821abefa1a5e0fc5a420cbe3", 2, 60000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xa3c9a043a733fc013604651b53591dec8cc6a09c7ebebb413fa826d0a3388cfe", 3, 40000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xb6fc3268053782f854d25c8835b5b14310b43055e85822cb7a429b38e509672f", 3, 40000)
+	//blockchain.AdminSetChengShiLevelAndSurety("0x8549d0e3957c74e498e26c5207d83edbfcf4f2df01e4105964f334c752e1a51a", 3, 40000)
 	// --------
 	//time.Sleep(time.Second * 3)
 	// 管理员设置城市先锋 ------------ 0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E
-	//blockchain.AdminRemovePioneer("0xb6fc3268053782f854d25c8835b5b14310b43055e85822cb7a429b38e509672f", "0xe7FD766A7F0f1A8566Ead2bdEfFe88b80b3fA3A9")
+	//blockchain.AdminSetPioneer("0x8549d0e3957c74e498e26c5207d83edbfcf4f2df01e4105964f334c752e1a51a", "0xCe07c0Df73EE82A1F77b0bD3c6967a7f6a29342B")
+	//blockchain.AdminRemovePioneer("0x8549d0e3957c74e498e26c5207d83edbfcf4f2df01e4105964f334c752e1a51a", "0xCe07c0Df73EE82A1F77b0bD3c6967a7f6a29342B")
 	//blockchain.AdminSetPioneer("0xb6fc3268053782f854d25c8835b5b14310b43055e85822cb7a429b38e509672f", "0xe7FD766A7F0f1A8566Ead2bdEfFe88b80b3fA3A9")
-	//blockchain.AdminSetPioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x0151D7707B3D20d8Fcaa9A6448bc42663cF46736")
 	//blockchain.AdminRemovePioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x0151D7707B3D20d8Fcaa9A6448bc42663cF46736")
 	//blockchain.AdminSetPioneer("0xbb2d35b76dc3358825b55db25f3696363681ccd940f5d39cc6b1767b8e069404", "0x9a04896807Aa61458cB3f996F811022086C61698")
 	////time.Sleep(time.Second * 3)

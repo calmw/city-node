@@ -341,7 +341,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             }
         }
         suretyReward[pioneer.pioneerAddress] += suretyReturn;
-
     }
 
     // 每日奖励发放
