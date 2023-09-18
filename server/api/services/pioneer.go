@@ -41,15 +41,18 @@ type FHSum struct {
 
 func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRechargeWeightByPioneerAddress) (int, PioneerWeight) {
 	var pioneer models2.RechargeWeight
+	var total FHSum
 	whereCondition := fmt.Sprintf("pioneer='%s'", strings.ToLower(userReq.Pioneer))
 	db.Mysql.Table("recharge_weight").Where(whereCondition).First(&pioneer)
 	var rechargeWeight []models2.RechargeWeight
 	whereCondition = fmt.Sprintf("pioneer='%s'", strings.ToLower(userReq.Pioneer))
 
 	db.Mysql.Table("recharge_weight").Select("`county_id`,`pioneer`").Where(whereCondition).Group("county_id").Find(&rechargeWeight)
+	db.Mysql.Table("recharge_weight").Where(whereCondition).Select("sum(weight) as total").Scan(&total)
 	pioneerWeight := PioneerWeight{
-		CityId:   pioneer.CityId,
-		Location: pioneer.CityLocation,
+		CityId:      pioneer.CityId,
+		Location:    pioneer.CityLocation,
+		TotalWeight: decimal.NewFromFloat(total.Total),
 	}
 	for _, rc := range rechargeWeight {
 		fmt.Println(rc.Pioneer, rc.CountyId, "_____+++++___________")
@@ -66,7 +69,7 @@ func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRecharge
 
 		// 获取区县位置信息
 		_, countyLocation := GetCountyInfo(rc.CountyId)
-		var total FHSum
+		total.Total = 0
 		db.Mysql.Table("recharge_weight").Where(whereCondition).Select("sum(weight) as total").Scan(&total)
 		whereCondition = fmt.Sprintf("county_id='%s'", rc.CountyId)
 		pioneerWeight.PioneerCounty = append(pioneerWeight.PioneerCounty, PioneerCountyData{
