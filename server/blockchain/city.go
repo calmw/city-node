@@ -161,7 +161,6 @@ func CountyNewlyPioneerDelegateRecord(countyId [32]byte, day int64) (error, *big
 		log.Logger.Sugar().Error(err)
 		return err, big.NewInt(0)
 	}
-	fmt.Println(common.Bytes2Hex(Bytes32ToBytes(countyId)), amount.String(), err)
 	return nil, amount
 }
 
@@ -179,7 +178,6 @@ func RechargeDailyWeightRecord(countyId [32]byte, day int64) (error, *big.Int) {
 		log.Logger.Sugar().Error(err)
 		return err, big.NewInt(0)
 	}
-	fmt.Println(common.Bytes2Hex(Bytes32ToBytes(countyId)), amount.String(), err)
 	return nil, amount
 }
 

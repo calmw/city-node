@@ -329,14 +329,17 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 	// 查询明文地址
 	var areaCode models.AreaCode
 	var whereCondition, locationInfo string
+	var locationType int64
 	if len(code) == 2 {
 		code0, _ := strconv.ParseInt(code[0], 10, 64)
 		code1, _ := strconv.ParseInt(code[1], 10, 64)
+		locationType = 1
 		whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
 	} else if len(code) == 3 {
 		code0, _ := strconv.ParseInt(code[0], 10, 64)
 		code1, _ := strconv.ParseInt(code[1], 10, 64)
 		code2, _ := strconv.ParseInt(code[2], 10, 64)
+		locationType = 2
 		whereCondition = fmt.Sprintf("country_code=%d and city_code=%d and ad_code=%d", code0, code1, code2)
 	}
 	err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
@@ -351,12 +354,13 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 	err = db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Table("user_location").Create(&models.UserLocation{
-			User:            userAddress,
-			CountyId:        countyId,
-			CityId:          cityId,
+			User:            strings.ToLower(userAddress),
+			CountyId:        strings.ToLower(countyId),
+			CityId:          strings.ToLower(cityId),
 			LocationEncrypt: locationEncrypt,
 			Location:        locationInfo,
 			AreaCode:        locationCode,
+			LocationType:    locationType,
 		})
 	}
 	return nil

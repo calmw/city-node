@@ -27,44 +27,42 @@ func GetPioneerRechargeWeight() {
 		if err != nil {
 			continue
 		}
-		fmt.Println("pioneer:", pioneerAddress)
 		// 获取先锋对应的城市ID
 		err, cityId := blockchain.PioneerChengShi(pioneerAddress)
 		if err != nil {
 			continue
 		}
 		// 获取城市位置信息
-		err, cityLocation := GetCityInfo("0x" + hexutils.BytesToHex(blockchain.Bytes32ToBytes(cityId)))
-		if err != nil {
-			continue
-		}
-		fmt.Println(1212)
+		_, cityLocation := GetCityInfo("0x" + hexutils.BytesToHex(blockchain.Bytes32ToBytes(cityId)))
+		fmt.Println("pioneer:", i, pioneerAddress, hexutils.BytesToHex(blockchain.Bytes32ToBytes(cityId)), cityLocation)
 		// 获取先锋城市所有的区县ID
 		err, countyIds := blockchain.GetCountyIdsByChengShiIdBytes32(cityId)
 		if err != nil {
 			continue
 		}
+
+		//fmt.Println(i, err, "++++++++++++++", countyIds)
 		for _, countyId := range countyIds {
 			// 获取区县位置信息
-			err, countyLocation := GetCountyInfo("0x" + hexutils.BytesToHex(blockchain.Bytes32ToBytes(countyId)))
-			if err != nil {
-				continue
-			}
+			_, countyLocation := GetCountyInfo("0x" + hexutils.BytesToHex(blockchain.Bytes32ToBytes(countyId)))
+
 			// 获取区县ID某天的充值权重
-			for day := int(today); day > int(today)-20; day-- {
+			for day := int(today); day > int(today)-12; day-- {
 				err, weight := blockchain.RechargeDailyWeightRecord(countyId, int64(day))
-				fmt.Println(weight.String(), "---------")
+				t := time.Unix(int64(day*86400+1), 0)
+
+				fmt.Println(t.Format("2006-01-02 15:04:05"), pioneerAddress, "0x"+strings.ToLower(hexutils.BytesToHex(blockchain.Bytes32ToBytes(countyId))), weight, "++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+				//fmt.Println(t.Format("2006-01-02 15:04:05"), "---------")
 				if err != nil {
+					fmt.Println(t.Format("2006-01-02 15:04:05"), weight, "---------------------------------------------------------------")
 					continue
 				}
-				//E18 := big.NewInt(1e18)
-				//newWeight := E18.Div(weight, E18)
 				newWeight := decimal.NewFromBigInt(weight, 0)
 				err = InsertRechargeWeight(pioneerAddress, "0x"+hexutils.BytesToHex(blockchain.Bytes32ToBytes(cityId)), "0x"+hexutils.BytesToHex(blockchain.Bytes32ToBytes(countyId)), cityLocation, countyLocation,
 					int64(day),
 					newWeight)
 				if err != nil {
-					continue
+					fmt.Println(t.Format("2006-01-02 15:04:05"), weight, "---------------------------------------------------------------", err)
 				}
 			}
 
@@ -97,21 +95,20 @@ func GetCityInfo(cityId string) (error, string) {
 func InsertRechargeWeight(pioneer, cityId, countyId, cityLocation, countyLocation string, day int64, weight decimal.Decimal) error {
 	var rechargeWeight models.RechargeWeight
 	t := time.Unix(day*86400+1, 0)
-	whereCondition := fmt.Sprintf("city_id='%s' and day='%s'", cityId, t.Format("2006-01-02 15:04:05"))
+	whereCondition := fmt.Sprintf("city_id='%s' and county_id='%s' and day='%s'", cityId, countyId, t.Format("2006-01-02 15:04:05"))
 	err := db.Mysql.Table("recharge_weight").Where(whereCondition).First(&rechargeWeight).Error
 
 	t.Format("2006-01-02 15:04:05")
 
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Table("recharge_weight").Create(&models.RechargeWeight{
-			Pioneer:        pioneer,
-			CountyId:       countyId,
-			CityId:         cityId,
-			CityLocation:   cityLocation,
-			CountyLocation: countyLocation,
+			Pioneer:        strings.ToLower(pioneer),
+			CountyId:       strings.ToLower(countyId),
+			CityId:         strings.ToLower(cityId),
+			CityLocation:   strings.ToLower(cityLocation),
+			CountyLocation: strings.ToLower(countyLocation),
 			Weight:         weight,
-			//Date:     t.Format("2006-01-02 15:04:05"),
-			Day: t.Format("2006-01-02 15:04:05"),
+			Day:            t.Format("2006-01-02 15:04:05"),
 		})
 	}
 	return err

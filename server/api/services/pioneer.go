@@ -7,6 +7,7 @@ import (
 	models2 "city-node-server/models"
 	"fmt"
 	"github.com/shopspring/decimal"
+	"strings"
 )
 
 type Pioneer struct{}
@@ -40,16 +41,18 @@ type FHSum struct {
 
 func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRechargeWeightByPioneerAddress) (int, PioneerWeight) {
 	var pioneer models2.RechargeWeight
-	whereCondition := fmt.Sprintf("pioneer='%s'", userReq.Pioneer)
+	whereCondition := fmt.Sprintf("pioneer='%s'", strings.ToLower(userReq.Pioneer))
 	db.Mysql.Table("recharge_weight").Where(whereCondition).First(&pioneer)
 	var rechargeWeight []models2.RechargeWeight
-	whereCondition = fmt.Sprintf("pioneer='%s'", userReq.Pioneer)
-	db.Mysql.Table("recharge_weight").Where(whereCondition).Group("county_id").Find(&rechargeWeight)
+	whereCondition = fmt.Sprintf("pioneer='%s'", strings.ToLower(userReq.Pioneer))
+
+	db.Mysql.Table("recharge_weight").Select("`county_id`,`pioneer`").Where(whereCondition).Group("county_id").Find(&rechargeWeight)
 	pioneerWeight := PioneerWeight{
 		CityId:   pioneer.CityId,
 		Location: pioneer.CityLocation,
 	}
 	for _, rc := range rechargeWeight {
+		fmt.Println(rc.Pioneer, rc.CountyId, "_____+++++___________")
 		var rechargeWeightDaily []models2.RechargeWeight
 		var pioneerWeightDailys []PioneerWeightDaily
 		whereCondition = fmt.Sprintf("county_id='%s'", rc.CountyId)
@@ -60,16 +63,27 @@ func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRecharge
 				Weight: dw.Weight,
 			})
 		}
+
+		// 获取区县位置信息
+		_, countyLocation := GetCountyInfo(rc.CountyId)
 		var total FHSum
 		db.Mysql.Table("recharge_weight").Where(whereCondition).Select("sum(weight) as total").Scan(&total)
 		whereCondition = fmt.Sprintf("county_id='%s'", rc.CountyId)
 		pioneerWeight.PioneerCounty = append(pioneerWeight.PioneerCounty, PioneerCountyData{
 			CountyId:           rc.CountyId,
-			Location:           rc.CountyLocation,
+			Location:           countyLocation,
 			TotalWeight:        decimal.NewFromFloat(total.Total),
 			PioneerWeightDaily: pioneerWeightDailys,
 		})
 	}
 
 	return statecode.CommonSuccess, pioneerWeight
+}
+
+func GetCountyInfo(countyId string) (error, string) {
+	var userLocation models2.UserLocation
+	countyId = strings.ToLower(countyId)
+	whereCondition := fmt.Sprintf("county_id='%s'", countyId)
+	err := db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
+	return err, userLocation.Location
 }
