@@ -131,20 +131,20 @@ func AdminRemovePioneer(chengShiId, pioneer string) {
 }
 
 // PioneerChengShi 查看先锋城市
-func PioneerChengShi(pioneer string) {
+func PioneerChengShi(pioneer string) (error, [32]byte) {
 	Cli := Client(CityNodeConfig)
-	//_, auth := GetAuth(Cli)
 	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err, [32]byte{}
 	}
 	res, err := city.PioneerChengShi(nil, common.HexToAddress(pioneer))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err, [32]byte{}
 	}
 	fmt.Println(hexutils.BytesToHex(Bytes32ToBytes(res)), err)
+	return nil, res
 }
 
 // CountyNewlyPioneerDelegateRecord 根据区县ID和天查询新增质押量
@@ -157,6 +157,24 @@ func CountyNewlyPioneerDelegateRecord(countyId [32]byte, day int64) (error, *big
 		return err, big.NewInt(0)
 	}
 	amount, err := city.CountyNewlyPioneerDelegateRecord(nil, countyId, big.NewInt(day))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, big.NewInt(0)
+	}
+	fmt.Println(common.Bytes2Hex(Bytes32ToBytes(countyId)), amount.String(), err)
+	return nil, amount
+}
+
+// RechargeDailyWeightRecord 根据区县ID和天查询新增充值权重
+func RechargeDailyWeightRecord(countyId [32]byte, day int64) (error, *big.Int) {
+	Cli := Client(CityNodeConfig)
+	//_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, big.NewInt(0)
+	}
+	amount, err := city.RechargeDailyWeightRecord(nil, countyId, big.NewInt(day))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, big.NewInt(0)
@@ -358,6 +376,57 @@ func AdminEditSurety(cityId string, level, earnestMoney int64) {
 	}
 	fmt.Println(res, err)
 }
+
+// PioneerCity 获取先锋对应的城市ID
+func PioneerCity(pioneerAddress string) (error, string) {
+	Cli := Client(CityNodeConfig)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
+	res, err := city.PioneerChengShi(nil, common.HexToAddress(pioneerAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
+
+	return nil, string(Bytes32ToBytes(res))
+}
+
+// CityRechargeTotal 获取区县对应的累计充值权重
+func CityRechargeTotal(countyId [32]byte) (error, *big.Int) {
+	Cli := Client(CityNodeConfig)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, nil
+	}
+	res, err := city.CityRechargeTotal(nil, countyId)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, nil
+	}
+
+	return nil, res
+}
+
+//// RechargeDailyWeightRecord 获取区县某一天对应的充值权重
+//func RechargeDailyWeightRecord(countyId [32]byte) (error, *big.Int) {
+//	Cli := Client(CityNodeConfig)
+//	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err, nil
+//	}
+//	res, err := city.RechargeDailyWeightRecord(nil, countyId)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err, nil
+//	}
+//
+//	return nil, res
+//}
 
 func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
 	query := event.BuildQuery(

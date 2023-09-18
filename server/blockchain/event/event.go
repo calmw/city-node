@@ -13,6 +13,7 @@ type Sig string
 const (
 	IncreaseCityDelegate Sig = "IncreaseCityDelegate(bytes32,uint256)"
 	DecreaseCityDelegate Sig = "DecreaseCityDelegate(bytes32,uint256)"
+	UserLocationRecord   Sig = "UserLocationRecord(address,bytes32,string)"
 )
 
 type Event struct {
@@ -28,6 +29,11 @@ var IncreaseCityDelegateEvent = Event{
 var DecreaseCityDelegateEvent = Event{
 	DecreaseCityDelegate,
 	"DecreaseCityDelegate",
+}
+
+var UserLocationRecordEvent = Event{
+	UserLocationRecord,
+	"UserLocationRecord",
 }
 
 func BuildQuery(contract common.Address, sig Sig, startBlock *big.Int, endBlock *big.Int) eth.FilterQuery {

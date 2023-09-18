@@ -10,14 +10,6 @@ interface IPledgeStake {
     function ownerWeight(address _addr) external view returns (uint256 count);
 }
 
-interface IERC20 {
-    function balanceOf(address account) external view returns (uint256);
-
-    function transfer(address to, uint256 amount) external returns (bool);
-
-    function transferFrom(address from, address to, uint256 amount) external returns (bool);
-}
-
 contract IntoUserLocation is RoleAccess, Initializable {
 
     event UserLocationRecord(
@@ -173,7 +165,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
         return cityIds.length;
     }
 
-    // 定位过的用户数量
+    // 获取城市ID对应的所有区县ID
     function getCountyIdsByChengShiId(bytes32 chengShiId) public view returns (bytes32[] memory) {
         return chengShiIDCityIdSet[chengShiId];
     }

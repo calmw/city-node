@@ -234,3 +234,31 @@ func DepositSurety() {
 	}
 	fmt.Println(criteria, err)
 }
+func GetPioneer(index int64) (error, string) {
+	Cli := Client(CityNodeConfig)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
+	pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(index))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
+	return nil, pioneer.String()
+}
+func GetPioneerNumber() (error, int64) {
+	Cli := Client(CityNodeConfig)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, 0
+	}
+	number, err := cityPioneer.GetPioneerNumber(nil)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, 0
+	}
+	return nil, number.Int64()
+}

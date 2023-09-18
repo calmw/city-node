@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 import "./IntoCity.sol";
 import "./RoleAccess.sol";
+import "./interface/IERC20.sol";
 import "./IntoUserLocation.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 

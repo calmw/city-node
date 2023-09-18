@@ -1,16 +1,18 @@
 package main
 
 import (
+	"city-node-server/db"
 	"city-node-server/services"
+	"city-node-server/tasks"
 )
 
 func main() {
-	//db.InitMysql()
+	db.InitMysql()
 
-	services.InitTestNet()
-	//services.InitMainNet()
+	//services.InitTestNet()
+	services.InitMainNet()
 
-	services.InitCity()
+	//services.InitCity()
 	//services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
@@ -37,12 +39,25 @@ func main() {
 	//blockchain.GetCityId(22)
 
 	// 设置城市ID位置,设置映射关系
-	//blockchain.SetCityMapping("0x180c563a51cbf2bde90bdd4fd506a5cb5b0b474c14164d37d5bb96dfe43f0024", "0x8549d0e3957c74e498e26c5207d83edbfcf4f2df01e4105964f334c752e1a51a", "gkJ6lFWahdQ=")
+	//blockchain.SetCityMapping("0xc0cbf0aab88509841c40d83825fdd91fdaf6884ab253d63aa559979ecb633e95", "0xf0d851e51c9ebb39dcecd7685ab590d6f69ff2b3c32b225e96ac51928e57d957", "ihooqau20JSZxfjB0gZCEQ==")
 
 	//services.AdminSetRechargeAmountTask()
 
 	// 根据城市ID查询往日新增质押
 	//blockchain.GetNewlyDelegateRecordByChengId("0x1d78790980b5a4917a2dfa1a4016ad10af0de8987f7a310acbc9baf85cad17f0", 19613) // 183430 000000000000000000
-	//blockchain.GetNewlyDelegateRecordByChengId("0xd6b40febaa0ddd0e1e2674e83d08653b02ee51bef854cb11fe76ee91c1e9cfee", 19613) // 655770 000000000000000000
+	//blockchain.GetNewlyDelegateRecordByChengId("0x1981a72a1320024da2570a1fa9c91299a0c7e3b999ebe7990b2611a251cb94a3", 19615) // 19616 000000000000000000
+
+	// 根据区县ID和天查询新增充值权重
+	//blockchain.GetRechargeDailyWeightRecordByChengId("0x936557454f464570813fe0c6e164d114cfc2d49eb5478f4e9867805eb4d3667b", 19616) // 19616 000000000000000000
+
+	//fmt.Println(utils.ThreeDesEncrypt("0,126"))
+	//fmt.Println(utils.ThreeDesDecrypt("j5BSvQJvDEQ="))
+	//fmt.Println(utils.Keccak256("0,136"))
+	//fmt.Println(utils.Keccak256("0,136,621122")) //0x5BC49BF2BB0F74F6B3321451F04FE277696611BC6A0A2D144F034B27C914F8F0
+	//0x5BC49BF2BB0F74F6B3321451F04FE277696611BC6A0A2D144F034B27C914F8F0
+	//0xF5C444D5602DE5D09258A569DF33128E716AD2AC84A5AE2B2CC90A4D06B7AD33
+	//0xF5C444D5602DE5D09258A569DF33128E716AD2AC84A5AE2B2CC90A4D06B7AD33
+
+	tasks.GetPioneerRechargeWeight()
 
 }
