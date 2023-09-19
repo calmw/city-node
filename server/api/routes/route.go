@@ -13,6 +13,7 @@ func InitRoute(e *gin.Engine) *gin.Engine {
 	// pledge-defi backend
 	userLocationController := controllers.UserLocationController{}
 	v1Group.GET("/getLocationByUserAddress", userLocationController.GetLocationByUserAddress) // 根据用户地址获取用户地区信息 , http://127.0.0.1:8000/api/v1/getLocationByUserAddress?User=0xeea7fcbFdD1EAAc2e790EAc9d375B2ef105a4262
+	v1Group.GET("/userLocation", userLocationController.UserLocation)
 
 	pioneerController := controllers.PioneerController{}
 	v1Group.GET("/getRechargeWeightByPioneerAddress", pioneerController.GetRechargeWeightByPioneerAddress) // 根据城市先锋账户地址查询对应城市每天的充值权重

@@ -31,3 +31,18 @@ func (c *UserLocationController) GetLocationByUserAddress(ctx *gin.Context) {
 	res.Response(ctx, statecode.CommonSuccess, data)
 	return
 }
+
+func (c *UserLocationController) UserLocation(ctx *gin.Context) {
+	res := response.Gin{Res: ctx}
+	req := request.Location{}
+	ctx.ShouldBindQuery(&req)
+
+	errCode, data := services.NewUserLocation().UserLocation(&req)
+	if errCode != statecode.CommonSuccess {
+		res.Response(ctx, errCode, nil)
+		return
+	}
+
+	res.Response(ctx, statecode.CommonSuccess, data)
+	return
+}
