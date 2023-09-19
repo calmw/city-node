@@ -13,3 +13,7 @@
 #### 生成city合约代码
 
 - abigen --abi ../abi/IntoCity.json --pkg intoCityNode --type City --out ./binding/city.go
+
+#### 生成city合约代码
+
+- abigen --abi ../abi/IntoBind.json --pkg intoCityNode --type City --out ./binding/bind.go
