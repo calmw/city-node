@@ -4,16 +4,6 @@ import (
 	"github.com/shopspring/decimal"
 )
 
-//CREATE TABLE `recharge_weight` (
-//  `id` int unsigned NOT NULL AUTO_INCREMENT,
-//  `county_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-//  `city_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-//  `weight` decimal(40,0) DEFAULT NULL,
-//  `location` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-//  `date` date DEFAULT NULL,
-//  PRIMARY KEY (`id`)
-//) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 type RechargeWeight struct {
 	Id             int             `gorm:"column:id;primaryKey"`
 	Pioneer        string          `json:"pioneer" gorm:"column:pioneer"`

@@ -1,0 +1,7 @@
+[
+  {
+    "host": "www.example1.com",
+    "dir": "/wkspace/city-node/server/api",
+    "log": "/wkspace/city-node/log/logs/webserver_log.log"
+  }
+]
