@@ -7,6 +7,7 @@ import (
 	models2 "city-node-server/models"
 	"fmt"
 	"github.com/shopspring/decimal"
+	"gorm.io/gorm"
 	"strings"
 )
 
@@ -37,6 +38,35 @@ type PioneerWeightDaily struct {
 
 type FHSum struct {
 	Total float64
+}
+
+func (c *Pioneer) Reward(req *request.Reward) (int, []models2.Reward) {
+	var rewards []models2.Reward
+
+	tx := db.Mysql.Model(&models2.Reward{})
+	if req.Pioneer != "" {
+		fmt.Println(1223322)
+		tx = tx.Where("pioneer=?", req.Pioneer)
+	}
+	if req.Start != "" {
+		tx = tx.Where("ctime>=? and ctime<=?", req.Start, req.End)
+	}
+	page := 1 // 第5页
+	if req.Page > 0 {
+		page = req.Page
+	}
+	pageSize := 10
+	if req.PageSize > 0 {
+		pageSize = req.PageSize
+	}
+	offset := (page - 1) * pageSize // 计算偏移量
+	//tx = tx.Preload()
+	fmt.Println(offset, page, pageSize, req.Page, 11111)
+	err := tx.Debug().Limit(pageSize).Offset(offset).Find(&rewards).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return statecode.CommonErrServerErr, rewards
+	}
+	return statecode.CommonSuccess, rewards
 }
 
 func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRechargeWeightByPioneerAddress) (int, PioneerWeight) {

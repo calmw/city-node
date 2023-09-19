@@ -17,5 +17,7 @@ func InitRoute(e *gin.Engine) *gin.Engine {
 	pioneerController := controllers.PioneerController{}
 	v1Group.GET("/getRechargeWeightByPioneerAddress", pioneerController.GetRechargeWeightByPioneerAddress) // 根据城市先锋账户地址查询对应城市每天的充值权重
 
+	v1Group.GET("/reward", pioneerController.Reward) // 奖励查询
+
 	return e
 }

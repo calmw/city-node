@@ -2,10 +2,19 @@ package blockchain
 
 import (
 	intoCityNode "city-node-server/binding"
+	"city-node-server/blockchain/event"
+	"city-node-server/db"
 	"city-node-server/log"
+	"city-node-server/models"
+	"context"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/shopspring/decimal"
+	"gorm.io/gorm"
 	"math/big"
+	"strings"
+	"time"
 )
 
 func AdminSetAssessmentCriteria(cityLevel, month, point int64) {
@@ -261,4 +270,64 @@ func GetPioneerNumber() (error, int64) {
 		return err, 0
 	}
 	return nil, number.Int64()
+}
+
+func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
+	query := event.BuildQuery(
+		common.HexToAddress(CityNodeConfig.CityPioneerAddress),
+		event.DailyRewardRecord,
+		big.NewInt(startBlock),
+		big.NewInt(endBlock),
+	)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	logs, err := Cli.FilterLogs(ctx, query)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	cancel()
+	abi, _ := intoCityNode.CityPioneerMetaData.GetAbi()
+
+	for _, logE := range logs {
+		logData, err := abi.Unpack(event.DailyRewardRecordEvent.EventName, logE.Data)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return err
+		}
+		var timestamp int64
+		pioneerAddress := strings.ToLower(logData[0].(common.Address).String())
+		nodeReward := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
+		foundsReward := decimal.NewFromBigInt(logData[2].(*big.Int), 0)
+		delegateReward := decimal.NewFromBigInt(logData[3].(*big.Int), 0)
+		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
+		fmt.Println(header, err)
+		if err == nil {
+			timestamp = int64(header.Time)
+		}
+		fmt.Println(pioneerAddress, nodeReward, foundsReward, delegateReward, timestamp, 99899)
+
+		err = InsertDailyReward(pioneerAddress, foundsReward, delegateReward, nodeReward, int64(logE.BlockNumber), timestamp)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func InsertDailyReward(pioneerAddress string, foundsReward, delegateReward, nodeReward decimal.Decimal, blockHeight, timestamp int64) error {
+
+	var reward models.Reward
+	whereCondition := fmt.Sprintf("pioneer='%s' and block_height='%d'", pioneerAddress, blockHeight)
+	err := db.Mysql.Table("reward").Where(whereCondition).First(&reward).Error
+	if err == gorm.ErrRecordNotFound {
+		db.Mysql.Table("reward").Create(&models.Reward{
+			Pioneer:        pioneerAddress,
+			FoundsReward:   foundsReward,
+			DelegateReward: delegateReward,
+			NodeReward:     nodeReward,
+			BlockHeight:    blockHeight,
+			Ctime:          time.Unix(timestamp, 0),
+		})
+	}
+	return nil
 }
