@@ -10,12 +10,14 @@ ADD start.sh /wkspace/start.sh
 
 RUN chmod -R 777 "/wkspace/city_node"
 RUN chmod -R 777 "/wkspace/task"
+RUN chmod -R 777 "/wkspace/start.sh"
 
 VOLUME ["/project"]
 
 EXPOSE 8000
 
-ENTRYPOINT ["nohup", "/wkspace/city_node"," & ", "nohup","/wkspace/task"]
+#ENTRYPOINT ["nohup", "/wkspace/city_node"," & ", "nohup","/wkspace/task"]
+ENTRYPOINT ["/wkspace/start.sh"]
 
 
 
