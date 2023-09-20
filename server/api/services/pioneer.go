@@ -45,7 +45,7 @@ func (c *Pioneer) Reward(req *request.Reward) (int, int64, []models2.Reward) {
 
 	tx := db.Mysql.Model(&models2.Reward{})
 	if req.Pioneer != "" {
-		tx = tx.Where("pioneer=?", req.Pioneer)
+		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
 	}
 	if req.Start != "" {
 		tx = tx.Where("ctime>=? and ctime<=?", req.Start, req.End)
@@ -117,7 +117,7 @@ func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, int64, []mod
 
 	tx := db.Mysql.Model(&models2.RechargeWeight{})
 	if req.Pioneer != "" {
-		tx = tx.Where("pioneer=?", req.Pioneer)
+		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
 	}
 	if req.Start != "" {
 		tx = tx.Where("day>=? and day<=?", req.Start, req.End)

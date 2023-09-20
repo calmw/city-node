@@ -29,7 +29,7 @@ func (c *UserLocationService) UserLocation(req *request.Location) (int, int64, [
 
 	tx := db.Mysql.Model(&models2.UserLocation{})
 	if req.User != "" {
-		tx = tx.Where("user=?", req.User)
+		tx = tx.Where("user=?", strings.ToLower(req.User))
 	}
 
 	var total int64
