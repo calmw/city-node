@@ -17,7 +17,7 @@ VOLUME ["/project"]
 EXPOSE 8000
 
 #ENTRYPOINT ["nohup", "/wkspace/city_node"," & ", "nohup","/wkspace/task"]
-ENTRYPOINT ["/wkspace/start.sh"]
+#ENTRYPOINT ["/wkspace/start.sh"]
 
 
 
