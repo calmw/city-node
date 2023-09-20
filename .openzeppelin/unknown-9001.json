@@ -51565,7 +51565,7 @@
             "label": "pioneerInfo",
             "offset": 0,
             "slot": "8",
-            "type": "t_mapping(t_address,t_struct(Pioneer)2446_storage)",
+            "type": "t_mapping(t_address,t_struct(Pioneer)2452_storage)",
             "contract": "IntoCityPioneer",
             "src": "contracts/IntoCityPioneer.sol:84"
           },
@@ -51811,7 +51811,7 @@
             "label": "mapping(address => mapping(uint256 => uint256))",
             "numberOfBytes": "32"
           },
-          "t_mapping(t_address,t_struct(Pioneer)2446_storage)": {
+          "t_mapping(t_address,t_struct(Pioneer)2452_storage)": {
             "label": "mapping(address => struct IntoCityPioneer.Pioneer)",
             "numberOfBytes": "32"
           },
@@ -51847,7 +51847,7 @@
             ],
             "numberOfBytes": "64"
           },
-          "t_struct(Pioneer)2446_storage": {
+          "t_struct(Pioneer)2452_storage": {
             "label": "struct IntoCityPioneer.Pioneer",
             "members": [
               {

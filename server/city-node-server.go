@@ -13,6 +13,7 @@ func main() {
 	//services.InitMainNet()
 
 	services.InitCity()
+	task()
 	//services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
