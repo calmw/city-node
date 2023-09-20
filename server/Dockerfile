@@ -22,5 +22,7 @@ ENTRYPOINT ["nohup", "/wkspace/city_node && ", "nohup","/wkspace/task"]
 # 运行容器
 # docker run -itd  --network=dev -p 9000:8000 -v /Users/cisco/Desktop/workspace/docker/dev/project:/project --name citynode citynode
 
+# docker run -itd  --network=dev -p 9000:8000 -v /wkspace/docker/project:/project --name citynode city-node
+
 
 

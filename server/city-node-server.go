@@ -1,14 +1,13 @@
 package main
 
 import (
-	"city-node-server/db"
 	"city-node-server/services"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
 func main() {
-	db.InitMysql()
+	//db.InitMysql()
 
 	services.InitTestNet()
 	//services.InitMainNet()
