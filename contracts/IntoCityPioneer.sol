@@ -247,6 +247,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
         fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
         delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
+        failedAt[pioneer_] = 0;// 清楚失败时间
+        successTime[pioneer_] = 0;// 清楚成功时间
 
     }
 
@@ -298,7 +300,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
         if (pioneerChengShiTotalRechargeWeight < assessmentCriteriaThreshold) {
             pioneer.assessmentMonthStatus = false;
-            failedAt[pioneer.pioneerAddress] = block.timestamp;
+            if (failedAt[pioneer.pioneerAddress] <= 0) {
+                failedAt[pioneer.pioneerAddress] = block.timestamp;
+            }
             failedDelegate[chengShiId_] = pioneerChengShiTotalRechargeWeight * 1e18;
             city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
         } else {

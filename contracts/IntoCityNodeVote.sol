@@ -303,10 +303,10 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
             cityNodeMaxVotes[cityId] = candidateCount[cityId][candidate];// 更新最大票数
             cityNodeWinner[cityId] = candidate; // 更新票数最多的候选人
             // 更新当前城市竞选期间票数排名
-            sortVotingRanking(cityId);
+//            sortVotingRanking(cityId);
         } else {
             // 更新当前城市竞选结束后票数排名
-            sortRanking(cityId);
+//            sortRanking(cityId);
         }
 
         // 添加该城市的投票人

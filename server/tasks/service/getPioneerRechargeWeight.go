@@ -1,4 +1,4 @@
-package tasks
+package service
 
 import (
 	"city-node-server/blockchain"

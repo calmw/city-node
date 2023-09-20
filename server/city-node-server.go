@@ -3,7 +3,9 @@ package main
 import (
 	"city-node-server/db"
 	"city-node-server/services"
-	"city-node-server/tasks"
+	"city-node-server/tasks/service"
+	"github.com/jasonlvhit/gocron"
+	"time"
 )
 
 func main() {
@@ -31,7 +33,7 @@ func main() {
 	//blockchain.AdminSetStartTime(time.Now().Add(time.Hour * 1000000).Unix())
 	//blockchain.AdminSetStartTime(time.Now().Unix())
 	// 批量执行增加或减少质押量
-	tasks.Task()
+	//tasks.Task()
 
 	// 获取前15天社交基金平均值
 	//blockchain.GetFifteenDayAverageFounds()
@@ -60,5 +62,19 @@ func main() {
 
 	//tasks.GetPioneerRechargeWeight()
 	//services.IntoBind()
+
+}
+
+func task() {
+
+	s := gocron.NewScheduler()
+	s.ChangeLoc(time.UTC)
+	_ = s.Every(30).Seconds().From(gocron.NextTick()).Do(service.PollBlockTask)
+	//_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(PollBlockTask)
+	//_ = s.Every(1).Day().From(gocron.NextTick()).Do(GetPioneerRechargeWeight)
+	// ----
+	//_ = s.Every(2).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
+	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
+	<-s.Start() // Start all the pending jobs
 
 }

@@ -1,10 +1,9 @@
-package tasks
+package service
 
 import (
 	"city-node-server/blockchain"
 	"city-node-server/log"
 	"context"
-	"fmt"
 )
 
 const PoolStep = 999
@@ -17,13 +16,12 @@ func PollBlockTask() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(number, startBlock)
 	endBlock := startBlock + PoolStep
 	if endBlock > number {
 		return
 	}
 	// 用户定位事件处理
-	_ = blockchain.GetUserLocationRecordEvent(Cli, int64(startBlock), int64(endBlock))
+	//_ = blockchain.GetUserLocationRecordEvent(Cli, int64(startBlock), int64(endBlock))
 
 	// 城市先锋奖励事件
 	_ = blockchain.GetDailyRewardRecordEvent(Cli, int64(startBlock), int64(endBlock))

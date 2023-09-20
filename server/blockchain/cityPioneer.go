@@ -303,7 +303,7 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 		if err == nil {
 			timestamp = int64(header.Time)
 		}
-		err = InsertDailyReward(pioneerAddress, foundsReward, delegateReward, nodeReward, int64(logE.BlockNumber), timestamp)
+		err = InsertDailyReward(pioneerAddress, header.TxHash.String(), foundsReward, delegateReward, nodeReward, int64(logE.BlockNumber), timestamp)
 		if err != nil {
 			return err
 		}
@@ -311,13 +311,14 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 	return nil
 }
 
-func InsertDailyReward(pioneerAddress string, foundsReward, delegateReward, nodeReward decimal.Decimal, blockHeight, timestamp int64) error {
+func InsertDailyReward(pioneerAddress, tx_hash string, foundsReward, delegateReward, nodeReward decimal.Decimal, blockHeight, timestamp int64) error {
 	var reward models.Reward
 	whereCondition := fmt.Sprintf("pioneer='%s' and block_height='%d'", strings.ToLower(pioneerAddress), blockHeight)
 	err := db.Mysql.Table("reward").Where(whereCondition).First(&reward).Error
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Table("reward").Create(&models.Reward{
 			Pioneer:        pioneerAddress,
+			TxHash:         tx_hash,
 			FoundsReward:   foundsReward,
 			DelegateReward: delegateReward,
 			NodeReward:     nodeReward,
