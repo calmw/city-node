@@ -32,20 +32,20 @@ func (c *PioneerController) GetRechargeWeightByPioneerAddress(ctx *gin.Context) 
 	return
 }
 
-//func (c *PioneerController) RechargeWeight(ctx *gin.Context) {
-//	res := response.Gin{Res: ctx}
-//	req := request.RechargeWeight{}
-//	ctx.ShouldBindQuery(&req)
-//
-//	errCode, data := services.NewPioneer().GetRechargeWeightByPioneerAddress(&req)
-//	if errCode != statecode.CommonSuccess {
-//		res.Response(ctx, errCode, nil)
-//		return
-//	}
-//
-//	res.Response(ctx, statecode.CommonSuccess, data)
-//	return
-//}
+func (c *PioneerController) RechargeWeight(ctx *gin.Context) {
+	res := response.Gin{Res: ctx}
+	req := request.RechargeWeight{}
+	ctx.ShouldBindQuery(&req)
+
+	errCode, data := services.NewPioneer().RechargeWeight(&req)
+	if errCode != statecode.CommonSuccess {
+		res.Response(ctx, errCode, nil)
+		return
+	}
+
+	res.Response(ctx, statecode.CommonSuccess, data)
+	return
+}
 
 func (c *PioneerController) Reward(ctx *gin.Context) {
 	res := response.Gin{Res: ctx}

@@ -269,6 +269,42 @@ func GetChengShiIdByCityIdByte32(countyId [32]byte) (error, string) {
 	return nil, "0x" + common.Bytes2Hex(Bytes32ToBytes(res))
 }
 
+// CityInfo 获取区县对应的加密信息
+func CityInfo(countyId [32]byte) (error, string) {
+	Cli := Client(CityNodeConfig)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
+	location, err := userLocation.CityInfo(nil, countyId)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
+	code := strings.Split(location, ",")
+	// 查询明文地址
+	var areaCode models.AreaCode
+	var whereCondition string
+	if len(code) == 2 {
+		code0, _ := strconv.ParseInt(code[0], 10, 64)
+		code1, _ := strconv.ParseInt(code[1], 10, 64)
+		whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
+	} else if len(code) == 3 {
+		code0, _ := strconv.ParseInt(code[0], 10, 64)
+		code1, _ := strconv.ParseInt(code[1], 10, 64)
+		code2, _ := strconv.ParseInt(code[2], 10, 64)
+		if code2 == 0 {
+			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
+		} else {
+			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d and ad_code=%d", code0, code1, code2)
+		}
+	}
+	err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
+
+	return nil, areaCode.CountryName + " " + areaCode.CityName + " " + areaCode.AreaName
+}
+
 func GetUserLocationRecord() error {
 	Cli := Client(CityNodeConfig)
 	startBlock := GetStartBlock()
@@ -340,7 +376,11 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 		code1, _ := strconv.ParseInt(code[1], 10, 64)
 		code2, _ := strconv.ParseInt(code[2], 10, 64)
 		locationType = 2
-		whereCondition = fmt.Sprintf("country_code=%d and city_code=%d and ad_code=%d", code0, code1, code2)
+		if code2 == 0 {
+			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
+		} else {
+			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d and ad_code=%d", code0, code1, code2)
+		}
 	}
 	err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
 	if err == gorm.ErrRecordNotFound {
@@ -352,8 +392,9 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 	var userLocation models.UserLocation
 	whereCondition = fmt.Sprintf("user='%s' and city_id='%s' and location_encrypt='%s' and area_code='%s' and county_id='%s'", userAddress, cityId, locationEncrypt, locationCode, countyId)
 	err = db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
+	fmt.Println(err, 9878)
 	if err == gorm.ErrRecordNotFound {
-		db.Mysql.Table("user_location").Create(&models.UserLocation{
+		db.Mysql.Model(&models.UserLocation{}).Create(&models.UserLocation{
 			User:            strings.ToLower(userAddress),
 			CountyId:        strings.ToLower(countyId),
 			CityId:          strings.ToLower(cityId),

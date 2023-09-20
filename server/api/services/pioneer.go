@@ -111,47 +111,30 @@ func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRecharge
 	return statecode.CommonSuccess, pioneerWeight
 }
 
-func (c *Pioneer) RechargeWeight(userReq *request.RechargeWeight) (int, PioneerWeight) {
-	var pioneer models2.RechargeWeight
-	var total FHSum
-	whereCondition := fmt.Sprintf("pioneer='%s'", strings.ToLower(userReq.Pioneer))
-	db.Mysql.Table("recharge_weight").Where(whereCondition).First(&pioneer)
-	var rechargeWeight []models2.RechargeWeight
-	whereCondition = fmt.Sprintf("pioneer='%s'", strings.ToLower(userReq.Pioneer))
+func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, []models2.RechargeWeight) {
+	var rechargeWeights []models2.RechargeWeight
 
-	db.Mysql.Table("recharge_weight").Select("`county_id`,`pioneer`").Where(whereCondition).Group("county_id").Find(&rechargeWeight)
-	db.Mysql.Table("recharge_weight").Where(whereCondition).Select("sum(weight) as total").Scan(&total)
-	pioneerWeight := PioneerWeight{
-		CityId:      pioneer.CityId,
-		Location:    pioneer.CityLocation,
-		TotalWeight: decimal.NewFromFloat(total.Total),
+	tx := db.Mysql.Model(&models2.RechargeWeight{})
+	if req.Pioneer != "" {
+		tx = tx.Where("pioneer=?", req.Pioneer)
 	}
-	for _, rc := range rechargeWeight {
-		var rechargeWeightDaily []models2.RechargeWeight
-		var pioneerWeightDailys []PioneerWeightDaily
-		whereCondition = fmt.Sprintf("county_id='%s'", rc.CountyId)
-		db.Mysql.Table("recharge_weight").Where(whereCondition).Order("day desc").Find(&rechargeWeightDaily)
-		for _, dw := range rechargeWeightDaily {
-			pioneerWeightDailys = append(pioneerWeightDailys, PioneerWeightDaily{
-				Day:    dw.Day,
-				Weight: dw.Weight,
-			})
-		}
-
-		// 获取区县位置信息
-		_, countyLocation := GetCountyInfo(rc.CountyId)
-		total.Total = 0
-		db.Mysql.Table("recharge_weight").Where(whereCondition).Select("sum(weight) as total").Scan(&total)
-		whereCondition = fmt.Sprintf("county_id='%s'", rc.CountyId)
-		pioneerWeight.PioneerCounty = append(pioneerWeight.PioneerCounty, PioneerCountyData{
-			CountyId:           rc.CountyId,
-			Location:           countyLocation,
-			TotalWeight:        decimal.NewFromFloat(total.Total),
-			PioneerWeightDaily: pioneerWeightDailys,
-		})
+	if req.Start != "" {
+		tx = tx.Where("day>=? and day<=?", req.Start, req.End)
 	}
-
-	return statecode.CommonSuccess, pioneerWeight
+	page := 1 // 第5页
+	if req.Page > 0 {
+		page = req.Page
+	}
+	pageSize := 10
+	if req.PageSize > 0 {
+		pageSize = req.PageSize
+	}
+	offset := (page - 1) * pageSize // 计算偏移量
+	err := tx.Debug().Limit(pageSize).Offset(offset).Find(&rechargeWeights).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return statecode.CommonErrServerErr, rechargeWeights
+	}
+	return statecode.CommonSuccess, rechargeWeights
 }
 
 func GetCountyInfo(countyId string) (error, string) {
