@@ -9,6 +9,7 @@ import (
 	"github.com/status-im/keycard-go/hexutils"
 	"gorm.io/gorm"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -21,6 +22,7 @@ func GetPioneerRechargeWeight() {
 	if err != nil {
 		return
 	}
+	yesterday := today - 1
 	for i := 0; i < int(number); i++ {
 		err, pioneerAddress := blockchain.GetPioneer(int64(i))
 		if err != nil {
@@ -41,17 +43,21 @@ func GetPioneerRechargeWeight() {
 
 		for _, countyId := range countyIds {
 			// 获取区县位置信息
-			_, countyLocation := blockchain.CityInfo(countyId)
-			if err != nil {
-				return
+			//_, countyLocation := blockchain.CityInfo(countyId)
+			_, countyLocation := GetCountyInfo("0x" + hexutils.BytesToHex(blockchain.Bytes32ToBytes(countyId)))
+			if countyLocation == "" { //
+				continue
 			}
 			// 获取区县ID某天的充值权重
-			for day := int(today); day > int(today)-12; day-- {
+			for day := int(yesterday); day > int(yesterday)-12; day-- {
 				err, weight := blockchain.RechargeDailyWeightRecord(countyId, int64(day))
 				if err != nil {
 					continue
 				}
 				newWeight := decimal.NewFromBigInt(weight, 0)
+				lock := sync.RWMutex{}
+				lock.Lock()
+				defer lock.Unlock()
 				_ = InsertRechargeWeight(pioneerAddress, "0x"+hexutils.BytesToHex(blockchain.Bytes32ToBytes(cityId)), "0x"+hexutils.BytesToHex(blockchain.Bytes32ToBytes(countyId)), cityLocation, countyLocation,
 					int64(day),
 					newWeight)
@@ -60,13 +66,6 @@ func GetPioneerRechargeWeight() {
 	}
 }
 
-func GetCountyInfo(countyId string) (error, string) {
-	var userLocation models.UserLocation // 0x8d5987855d6fb0c8244ef7ac2fbbb520362efd748da8b8233f13a2269ace5455
-	countyId = strings.ToLower(countyId)
-	whereCondition := fmt.Sprintf("county_id='%s'", countyId)
-	err := db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
-	return err, userLocation.Location
-}
 func GetCityInfo(cityId string) (error, string) {
 	var userLocation models.UserLocation
 	cityId = strings.ToLower(cityId)
@@ -82,12 +81,27 @@ func GetCityInfo(cityId string) (error, string) {
 	return err, location
 }
 
+func GetCountyInfo(countyId string) (error, string) {
+	var userLocation models.UserLocation
+	countyId = strings.ToLower(countyId)
+	whereCondition := fmt.Sprintf("county_id='%s'", countyId)
+	err := db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
+	var location string
+	if err == nil {
+		l := strings.Split(userLocation.Location, " ")
+		if len(l) >= 2 {
+			location = l[0] + "-" + l[1] + "-" + l[2]
+		}
+	}
+	return err, location
+}
+
 func InsertRechargeWeight(pioneer, cityId, countyId, cityLocation, countyLocation string, day int64, weight decimal.Decimal) error {
 	var rechargeWeight models.RechargeWeight
 	t := time.Unix(day*86400+1, 0)
-	whereCondition := fmt.Sprintf("city_id='%s' and county_id='%s' and day='%s'", cityId, countyId, t.Format("2006-01-02 15:04:05"))
+	whereCondition := fmt.Sprintf("city_id='%s' and county_id='%s' and day='%s' and pioneer='%s'",
+		strings.ToLower(cityId), strings.ToLower(countyId), t.Format("2006-01-02 15:04:05"), strings.ToLower(pioneer))
 	err := db.Mysql.Table("recharge_weight").Where(whereCondition).First(&rechargeWeight).Error
-
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Table("recharge_weight").Create(&models.RechargeWeight{
 			Pioneer:        strings.ToLower(pioneer),

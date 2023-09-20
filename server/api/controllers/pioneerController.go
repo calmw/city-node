@@ -37,13 +37,16 @@ func (c *PioneerController) RechargeWeight(ctx *gin.Context) {
 	req := request.RechargeWeight{}
 	ctx.ShouldBindQuery(&req)
 
-	errCode, data := services.NewPioneer().RechargeWeight(&req)
+	errCode, total, data := services.NewPioneer().RechargeWeight(&req)
 	if errCode != statecode.CommonSuccess {
 		res.Response(ctx, errCode, nil)
 		return
 	}
 
-	res.Response(ctx, statecode.CommonSuccess, data)
+	res.Response(ctx, statecode.CommonSuccess, map[string]interface{}{
+		"total": total,
+		"data":  data,
+	})
 	return
 }
 
@@ -52,12 +55,15 @@ func (c *PioneerController) Reward(ctx *gin.Context) {
 	var req request.Reward
 	ctx.ShouldBindQuery(&req)
 
-	errCode, data := services.NewPioneer().Reward(&req)
+	errCode, total, data := services.NewPioneer().Reward(&req)
 	if errCode != statecode.CommonSuccess {
 		res.Response(ctx, errCode, nil)
 		return
 	}
 
-	res.Response(ctx, statecode.CommonSuccess, data)
+	res.Response(ctx, statecode.CommonSuccess, map[string]interface{}{
+		"total": total,
+		"data":  data,
+	})
 	return
 }

@@ -40,17 +40,18 @@ type FHSum struct {
 	Total float64
 }
 
-func (c *Pioneer) Reward(req *request.Reward) (int, []models2.Reward) {
+func (c *Pioneer) Reward(req *request.Reward) (int, int64, []models2.Reward) {
 	var rewards []models2.Reward
 
 	tx := db.Mysql.Model(&models2.Reward{})
 	if req.Pioneer != "" {
-		fmt.Println(1223322)
 		tx = tx.Where("pioneer=?", req.Pioneer)
 	}
 	if req.Start != "" {
 		tx = tx.Where("ctime>=? and ctime<=?", req.Start, req.End)
 	}
+	var total int64
+	tx.Count(&total)
 	page := 1 // 第5页
 	if req.Page > 0 {
 		page = req.Page
@@ -62,9 +63,9 @@ func (c *Pioneer) Reward(req *request.Reward) (int, []models2.Reward) {
 	offset := (page - 1) * pageSize // 计算偏移量
 	err := tx.Debug().Limit(pageSize).Offset(offset).Find(&rewards).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return statecode.CommonErrServerErr, rewards
+		return statecode.CommonErrServerErr, 0, rewards
 	}
-	return statecode.CommonSuccess, rewards
+	return statecode.CommonSuccess, total, rewards
 }
 
 func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRechargeWeightByPioneerAddress) (int, PioneerWeight) {
@@ -111,7 +112,7 @@ func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRecharge
 	return statecode.CommonSuccess, pioneerWeight
 }
 
-func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, []models2.RechargeWeight) {
+func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, int64, []models2.RechargeWeight) {
 	var rechargeWeights []models2.RechargeWeight
 
 	tx := db.Mysql.Model(&models2.RechargeWeight{})
@@ -121,6 +122,8 @@ func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, []models2.Re
 	if req.Start != "" {
 		tx = tx.Where("day>=? and day<=?", req.Start, req.End)
 	}
+	var total int64
+	tx.Count(&total)
 	page := 1 // 第5页
 	if req.Page > 0 {
 		page = req.Page
@@ -130,11 +133,9 @@ func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, []models2.Re
 		pageSize = req.PageSize
 	}
 	offset := (page - 1) * pageSize // 计算偏移量
-	err := tx.Debug().Limit(pageSize).Offset(offset).Find(&rechargeWeights).Error
-	if err != nil && err != gorm.ErrRecordNotFound {
-		return statecode.CommonErrServerErr, rechargeWeights
-	}
-	return statecode.CommonSuccess, rechargeWeights
+	tx.Limit(pageSize).Offset(offset).Find(&rechargeWeights)
+
+	return statecode.CommonSuccess, total, rechargeWeights
 }
 
 func GetCountyInfo(countyId string) (error, string) {

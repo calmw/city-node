@@ -24,7 +24,7 @@ func (c *UserLocationService) GetLocationByUserAddress(userReq *request.GetLocat
 	return statecode.CommonSuccess, userLocation
 }
 
-func (c *UserLocationService) UserLocation(req *request.Location) (int, []models2.UserLocation) {
+func (c *UserLocationService) UserLocation(req *request.Location) (int, int64, []models2.UserLocation) {
 	var userLocations []models2.UserLocation
 
 	tx := db.Mysql.Model(&models2.UserLocation{})
@@ -32,6 +32,8 @@ func (c *UserLocationService) UserLocation(req *request.Location) (int, []models
 		tx = tx.Where("user=?", req.User)
 	}
 
+	var total int64
+	tx.Count(&total)
 	page := 1 // 第5页
 	if req.Page > 0 {
 		page = req.Page
@@ -43,7 +45,7 @@ func (c *UserLocationService) UserLocation(req *request.Location) (int, []models
 	offset := (page - 1) * pageSize // 计算偏移量
 	err := tx.Debug().Limit(pageSize).Offset(offset).Find(&userLocations).Error
 	if err != nil && err != gorm.ErrRecordNotFound {
-		return statecode.CommonErrServerErr, userLocations
+		return statecode.CommonErrServerErr, 0, userLocations
 	}
-	return statecode.CommonSuccess, userLocations
+	return statecode.CommonSuccess, total, userLocations
 }

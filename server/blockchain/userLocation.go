@@ -390,9 +390,9 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 	}
 
 	var userLocation models.UserLocation
-	whereCondition = fmt.Sprintf("user='%s' and city_id='%s' and location_encrypt='%s' and area_code='%s' and county_id='%s'", userAddress, cityId, locationEncrypt, locationCode, countyId)
+	whereCondition = fmt.Sprintf("user='%s' and city_id='%s' and location_encrypt='%s' and area_code='%s' and county_id='%s'",
+		strings.ToLower(userAddress), strings.ToLower(cityId), locationEncrypt, locationCode, strings.ToLower(countyId))
 	err = db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
-	fmt.Println(err, 9878)
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Model(&models.UserLocation{}).Create(&models.UserLocation{
 			User:            strings.ToLower(userAddress),

@@ -31,7 +31,7 @@ func main() {
 	//blockchain.AdminSetStartTime(time.Now().Add(time.Hour * 1000000).Unix())
 	//blockchain.AdminSetStartTime(time.Now().Unix())
 	// 批量执行增加或减少质押量
-	//tasks.Task()
+	tasks.Task()
 
 	// 获取前15天社交基金平均值
 	//blockchain.GetFifteenDayAverageFounds()
@@ -58,7 +58,7 @@ func main() {
 	//0xF5C444D5602DE5D09258A569DF33128E716AD2AC84A5AE2B2CC90A4D06B7AD33
 	//0xF5C444D5602DE5D09258A569DF33128E716AD2AC84A5AE2B2CC90A4D06B7AD33
 
-	tasks.GetPioneerRechargeWeight()
+	//tasks.GetPioneerRechargeWeight()
 	//services.IntoBind()
 
 }

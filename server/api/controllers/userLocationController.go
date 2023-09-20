@@ -37,12 +37,15 @@ func (c *UserLocationController) UserLocation(ctx *gin.Context) {
 	req := request.Location{}
 	ctx.ShouldBindQuery(&req)
 
-	errCode, data := services.NewUserLocation().UserLocation(&req)
+	errCode, total, data := services.NewUserLocation().UserLocation(&req)
 	if errCode != statecode.CommonSuccess {
 		res.Response(ctx, errCode, nil)
 		return
 	}
 
-	res.Response(ctx, statecode.CommonSuccess, data)
+	res.Response(ctx, statecode.CommonSuccess, map[string]interface{}{
+		"total": total,
+		"data":  data,
+	})
 	return
 }
