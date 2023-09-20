@@ -84,7 +84,6 @@ func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRecharge
 		TotalWeight: decimal.NewFromFloat(total.Total),
 	}
 	for _, rc := range rechargeWeight {
-		fmt.Println(rc.Pioneer, rc.CountyId, "_____+++++___________")
 		var rechargeWeightDaily []models2.RechargeWeight
 		var pioneerWeightDailys []PioneerWeightDaily
 		whereCondition = fmt.Sprintf("county_id='%s'", rc.CountyId)
