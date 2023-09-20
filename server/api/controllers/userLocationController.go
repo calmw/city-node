@@ -45,7 +45,7 @@ func (c *UserLocationController) UserLocation(ctx *gin.Context) {
 
 	res.Response(ctx, statecode.CommonSuccess, map[string]interface{}{
 		"total": total,
-		"data":  data,
+		"list":  data,
 	})
 	return
 }

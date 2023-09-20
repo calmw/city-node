@@ -45,7 +45,7 @@ func (c *PioneerController) RechargeWeight(ctx *gin.Context) {
 
 	res.Response(ctx, statecode.CommonSuccess, map[string]interface{}{
 		"total": total,
-		"data":  data,
+		"list":  data,
 	})
 	return
 }
@@ -63,7 +63,7 @@ func (c *PioneerController) Reward(ctx *gin.Context) {
 
 	res.Response(ctx, statecode.CommonSuccess, map[string]interface{}{
 		"total": total,
-		"data":  data,
+		"list":  data,
 	})
 	return
 }
