@@ -49,3 +49,18 @@ func (c *UserLocationController) UserLocation(ctx *gin.Context) {
 	})
 	return
 }
+
+func (c *UserLocationController) GetCityIdByCityName(ctx *gin.Context) {
+	res := response.Gin{Res: ctx}
+	req := request.CityName{}
+	ctx.ShouldBindQuery(&req)
+
+	errCode, data := services.NewUserLocation().CityId(&req)
+	if errCode != statecode.CommonSuccess {
+		res.Response(ctx, errCode, nil)
+		return
+	}
+
+	res.Response(ctx, statecode.CommonSuccess, data)
+	return
+}

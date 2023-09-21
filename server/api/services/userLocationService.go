@@ -5,8 +5,10 @@ import (
 	"city-node-server/api/models/request"
 	"city-node-server/db"
 	models2 "city-node-server/models"
+	"city-node-server/utils"
 	"fmt"
 	"gorm.io/gorm"
+	"strconv"
 	"strings"
 )
 
@@ -48,4 +50,24 @@ func (c *UserLocationService) UserLocation(req *request.Location) (int, int64, [
 		return statecode.CommonErrServerErr, 0, userLocations
 	}
 	return statecode.CommonSuccess, total, userLocations
+}
+
+func (c *UserLocationService) CityId(req *request.CityName) (int, string) {
+
+	if req.Name == "" {
+		return statecode.CommonErrServerErr, ""
+	}
+
+	var areaCode models2.AreaCode
+
+	err := db.Mysql.Model(&models2.AreaCode{}).Where("city_name=?", req.Name).First(&areaCode).Debug().Error
+	var codeStr string
+	if err == nil {
+		CountryCodeStr := strconv.FormatInt(int64(areaCode.CountryCode), 10)
+		CityCodeStr := strconv.FormatInt(int64(areaCode.CityCode), 10)
+		codeStr = fmt.Sprintf("%s,%s", CountryCodeStr, CityCodeStr)
+	} else {
+		return statecode.CommonErrServerErr, ""
+	}
+	return statecode.CommonSuccess, utils.ThreeDesEncrypt(codeStr)
 }

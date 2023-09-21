@@ -481,7 +481,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 退还保证金到钱包账户
         IERC20 TOX = IERC20(TOXAddress);
         TOX.transfer(msg.sender, balance);
-        // 更新已退还记录
+        // 更新已领取的数量
         suretyRewardRecord[msg.sender] += balance;
         // 更新已领取的比例
         alreadyRewardRateTotal[msg.sender] += pioneerInfo[msg.sender].returnSuretyRate;

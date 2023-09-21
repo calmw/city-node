@@ -2,7 +2,8 @@
 pragma solidity ^0.8.13;
 
 import "./RoleAccess.sol";
-import "./IntoUserLocation.sol";
+import "./interface/IUserLocation.sol";
+import "./interface/IERC20.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 contract IntoCityNodeVote is RoleAccess, Initializable {
@@ -222,23 +223,23 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
     }
 
     // 申请城市节点 ，不能注释的方法
-//    function applyCityCandidate(bytes32 cityId, uint256 controlRate) external {
-//        require(!isCityExits(cityId), "cityId error");
-//        uint256 userBalance = IERC20(TOX).balanceOf(msg.sender);
-//        require(userBalance >= applyCityFee, "Insufficient balance");
-//        IERC20(TOX).transferFrom(msg.sender, address(this), applyCityFee);
-//
-//        if (!inAddressList(cityCandidate[cityId], msg.sender)) {// 添加城市候选人
-//            cityCandidate[cityId].push(msg.sender);
-//        }
-//        cityNodeControlRate[msg.sender] = controlRate;// 设置候选人的支配比例
-//        cityApplyFee[cityId] += applyCityFee; // 该城市总的报名费
-//        candidateApplyCityId[msg.sender] = cityId;//参选人城市
-//        emit ApplyCandidateRecord(
-//            msg.sender,
-//            applyCityFee
-//        );
-//    }
+    function applyCityCandidate(bytes32 cityId, uint256 controlRate) external {
+        require(!isCityExits(cityId), "cityId error");
+        uint256 userBalance = IERC20(TOX).balanceOf(msg.sender);
+        require(userBalance >= applyCityFee, "Insufficient balance");
+        IERC20(TOX).transferFrom(msg.sender, address(this), applyCityFee);
+
+        if (!inAddressList(cityCandidate[cityId], msg.sender)) {// 添加城市候选人
+            cityCandidate[cityId].push(msg.sender);
+        }
+        cityNodeControlRate[msg.sender] = controlRate;// 设置候选人的支配比例
+        cityApplyFee[cityId] += applyCityFee; // 该城市总的报名费
+        candidateApplyCityId[msg.sender] = cityId;//参选人城市
+        emit ApplyCandidateRecord(
+            msg.sender,
+            applyCityFee
+        );
+    }
 
     // 全球节点申请城市节点
     function globalNodeApplyCityNode(bytes32 cityId, uint256 controlRate) external {
@@ -302,10 +303,10 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
             cityNodeMaxVotes[cityId] = candidateCount[cityId][candidate];// 更新最大票数
             cityNodeWinner[cityId] = candidate; // 更新票数最多的候选人
             // 更新当前城市竞选期间票数排名
-            sortVotingRanking(cityId);
+//            sortVotingRanking(cityId);
         } else {
             // 更新当前城市竞选结束后票数排名
-            sortRanking(cityId);
+//            sortRanking(cityId);
         }
 
         // 添加该城市的投票人
@@ -328,44 +329,44 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
     }
 
     // 更新当前城市竞选结束后票数排名
-    function sortRanking(bytes32 cityId) private {
-        address[] storage allCandidate = cityCandidate[cityId];
-        if (allCandidate.length == 0 || allCandidate.length == 1) {
-            return;
-        }
-        address small = address(0);
-        address big = address(0);
-        for (uint i = 1; i < allCandidate.length; i++) {
-            for (uint j; j < allCandidate.length - 1; j++) {
-                if (candidateCount[cityId][allCandidate[j]] > candidateCount[cityId][allCandidate[j + 1]]) {
-                    small = allCandidate[j + 1];
-                    big = allCandidate[j];
-                    allCandidate[j + 1] = big;
-                    allCandidate[j] = small;
-                }
-            }
-        }
-    }
+//    function sortRanking(bytes32 cityId) private {
+//        address[] storage allCandidate = cityCandidate[cityId];
+//        if (allCandidate.length == 0 || allCandidate.length == 1) {
+//            return;
+//        }
+//        address small = address(0);
+//        address big = address(0);
+//        for (uint i = 1; i < allCandidate.length; i++) {
+//            for (uint j; j < allCandidate.length - 1; j++) {
+//                if (candidateCount[cityId][allCandidate[j]] > candidateCount[cityId][allCandidate[j + 1]]) {
+//                    small = allCandidate[j + 1];
+//                    big = allCandidate[j];
+//                    allCandidate[j + 1] = big;
+//                    allCandidate[j] = small;
+//                }
+//            }
+//        }
+//    }
 
     // 更新当前城市竞选期间票数排名
-    function sortVotingRanking(bytes32 cityId) private {
-        address[] storage allCandidate = cityCandidate[cityId];
-        if (allCandidate.length == 0 || allCandidate.length == 1) {
-            return;
-        }
-        address small = address(0);
-        address big = address(0);
-        for (uint i = 1; i < allCandidate.length; i++) {
-            for (uint j; j < allCandidate.length - 1; j++) {
-                if (candidateVotingCount[cityId][allCandidate[j]] > candidateVotingCount[cityId][allCandidate[j + 1]]) {
-                    small = allCandidate[j + 1];
-                    big = allCandidate[j];
-                    allCandidate[j + 1] = big;
-                    allCandidate[j] = small;
-                }
-            }
-        }
-    }
+//    function sortVotingRanking(bytes32 cityId) private {
+//        address[] storage allCandidate = cityCandidate[cityId];
+//        if (allCandidate.length == 0 || allCandidate.length == 1) {
+//            return;
+//        }
+//        address small = address(0);
+//        address big = address(0);
+//        for (uint i = 1; i < allCandidate.length; i++) {
+//            for (uint j; j < allCandidate.length - 1; j++) {
+//                if (candidateVotingCount[cityId][allCandidate[j]] > candidateVotingCount[cityId][allCandidate[j + 1]]) {
+//                    small = allCandidate[j + 1];
+//                    big = allCandidate[j];
+//                    allCandidate[j + 1] = big;
+//                    allCandidate[j] = small;
+//                }
+//            }
+//        }
+//    }
 
     // 撤票，在竞选期间，投票可以撤票（全部撤回）
     function revokeVoting(address candidate, bytes32 cityId) public {
@@ -404,7 +405,7 @@ contract IntoCityNodeVote is RoleAccess, Initializable {
     // 查看所有城市（开放可参选的城市）
     function getAllCity() public returns (CityInfo[] memory){
         CityInfo[] memory cityInfo_ = new CityInfo[](allCityIds.length);
-        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
+        IUserLocation intoUserLocation = IUserLocation(userLocationAddress);
         for (uint256 i = 0; i < allCityIds.length; i++) {
             // 更新城市状态
             updateCityStatus(allCityIds[i]);

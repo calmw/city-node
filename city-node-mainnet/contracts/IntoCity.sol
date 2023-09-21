@@ -22,6 +22,13 @@ contract IntoCity is RoleAccess, Initializable {
         uint256 amount
     );
 
+    event RechargeRecord(
+        address user,
+        bytes32 countyId,
+        uint256 amount,
+        uint256 time
+    );
+
     // 先锋计划合约地址
     address public cityPioneerAddress;
     // 用户定位合约地址
@@ -97,7 +104,7 @@ contract IntoCity is RoleAccess, Initializable {
     uint public secondsPerDay;
     // 过去15天社交基金平均值的合约地址
     address public foundsAddress;
-    //  城市ID=>(天=>累计充值)   充值权重
+    //  城市ID=>(天=>当天累计充值)   充值权重
     mapping(bytes32 => mapping(uint256 => uint256)) public rechargeDailyWeightRecord;
     //  天=>累计充值)   充值权重
     mapping(uint256 => uint256) public rechargeDailyWeight;
@@ -107,6 +114,8 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => uint256) public cityOrChengShiWeightTotal; // 废弃
     // 区县ID => (天=>质押量）,新增质押量，不算减去的
     mapping(bytes32 => mapping(uint256 => uint256)) public countyNewlyPioneerDelegateRecord;
+    //  城市ID=>(天=>当天到之前累计充值)   充值权重
+    mapping(bytes32 => mapping(uint256 => uint256)) public rechargeDailyTotalWeightRecord;
 
 
     function initialize() public initializer {
@@ -189,8 +198,17 @@ contract IntoCity is RoleAccess, Initializable {
         amount = amount / 100;
         rechargeWeight += amount;// 全部累计充值权重
         rechargeDailyWeight[today] += amount;// 天=>累计充值)   充值权重
-        rechargeDailyWeightRecord[countyId][today] += amount;// 区县ID=>(天=>累计充值)   充值权重
+        rechargeDailyWeightRecord[countyId][today] += amount;// 区县ID=>(天=>当天累计充值)   充值权重
+//        rechargeDailyTotalWeightRecord[countyId][today] += amount;// 区县ID=>(天=>当天累计充值)   充值权重
+
         cityRechargeTotal[countyId] += amount;// 区县ID=>累计充值权重   充值权重
+
+        emit RechargeRecord(
+            user,
+            countyId,
+            amount,
+            block.timestamp
+        );
     }
 
     // 管理员设置先锋计划，城市等级以及该等级区县所需缴纳的保证金数额

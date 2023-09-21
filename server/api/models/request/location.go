@@ -9,3 +9,6 @@ type Location struct {
 	Page     int    `json:"page" form:"page" binding:"omitempty"`
 	PageSize int    `json:"page_size" form:"page_size" binding:"omitempty,numeric"`
 }
+type CityName struct {
+	Name string `json:"name" form:"name" binding:"omitempty"`
+}
