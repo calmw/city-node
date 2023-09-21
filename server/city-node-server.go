@@ -12,8 +12,14 @@ func main() {
 	services.InitTestNet()
 	//services.InitMainNet()
 
-	//services.InitCity()
-	//task()
+	services.InitCity()
+	task()
+	//time.Sleep(time.Second * 120)
+	//services.AdminSetRechargeAmountTask2500()
+	//time.Sleep(time.Second * 60 * 7)
+	//services.AdminSetRechargeAmountTask5000()
+	//time.Sleep(time.Second * 60 * 50)
+
 	//services.InitCityPioneer()
 	//services.InitUserLocation()
 	//
@@ -68,8 +74,8 @@ func task() {
 
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
-	_ = s.Every(2).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
-	_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
+	_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
+	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
 	<-s.Start() // Start all the pending jobs
 
 }

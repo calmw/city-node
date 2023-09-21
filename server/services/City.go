@@ -83,3 +83,51 @@ func AdminSetRechargeAmountTask() {
 		blockchain.AdminSetRechargeAmount(account, int64(inc))
 	}
 }
+
+func AdminSetRechargeAmountTask2500() {
+	//inc := 5000
+	inc := 250000
+	//inc := 1000
+	//inc := 1000000000
+	accounts := []string{
+		"0xCe07c0Df73EE82A1F77b0bD3c6967a7f6a29342B",
+	}
+
+	for _, account := range accounts {
+		time.Sleep(time.Second * 2)
+		// 批量执行增加或减少质押量
+		blockchain.AdminSetRechargeAmount(account, int64(inc))
+	}
+}
+
+func AdminSetRechargeAmountTask5000() {
+	//inc := 5000
+	inc := 500000
+	//inc := 1000
+	//inc := 1000000000
+	accounts := []string{
+		"0xCe07c0Df73EE82A1F77b0bD3c6967a7f6a29342B",
+	}
+
+	for _, account := range accounts {
+		time.Sleep(time.Second * 2)
+		// 批量执行增加或减少质押量
+		blockchain.AdminSetRechargeAmount(account, int64(inc))
+	}
+}
+
+func AdminSetRechargeAmountTask7500() {
+	//inc := 5000
+	inc := 750000
+	//inc := 1000
+	//inc := 1000000000
+	accounts := []string{
+		"0xCe07c0Df73EE82A1F77b0bD3c6967a7f6a29342B",
+	}
+
+	for _, account := range accounts {
+		time.Sleep(time.Second * 2)
+		// 批量执行增加或减少质押量
+		blockchain.AdminSetRechargeAmount(account, int64(inc))
+	}
+}

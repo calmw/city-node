@@ -1,20 +1,27 @@
 FROM alpine
 MAINTAINER wang "calm.wang@hotmail.com"
 ENV REFRESHED_AT = 2023-02-19
+ENV WKDIR = wkspace
 
-WORKDIR wkspace
+WORKDIR $WKDIR
 
 ADD city_node /wkspace/city_node
 ADD task /wkspace/task
 ADD start.sh /wkspace/start.sh
 
 RUN apk add --update bash && rm -rf /var/cache/apk/*
-RUN apk add add vim
-RUN apk add add git
-RUN apk add add golang
-RUN chmod -R 777 "/wkspace/city_node"
-RUN chmod -R 777 "/wkspace/task"
-RUN chmod -R 777 "/wkspace/start.sh"
+RUN apk add vim
+RUN apk add git
+RUN apk add go
+RUN apk add openssh-client
+RUN mkdir -p /root/.ssh/
+RUN ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+RUN git clone -b test_cityPioneer https://github.com/calmw/city-node.git
+WORKDIR $WKDIR/city-node/server
+RUN go build /wkspace/citynode/api/city_node.go
+#RUN chmod -R 777 "/wkspace/city_node"
+#RUN chmod -R 777 "/wkspace/task"
+#RUN chmod -R 777 "/wkspace/start.sh"
 
 VOLUME ["/project"]
 

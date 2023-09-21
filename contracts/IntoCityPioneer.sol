@@ -344,6 +344,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         } else if (day == 60) {
             uint256 firstMonthRate = alreadyRewardRate[pioneer.pioneerAddress][1];
             for (uint i = 6; i > 3; i--) {
+                testValue[pioneer.pioneerAddress][i] = assessmentReturnCriteria[chengLevel][i];
+                testValue[pioneer.pioneerAddress][i * 2] = pioneerChengShiTotalRechargeWeight;
                 if (pioneerChengShiTotalRechargeWeight >= assessmentReturnCriteria[chengLevel][i]) {
                     if (assessmentReturnRate[chengLevel][i] <= firstMonthRate) { // 满足退还额度标准的情况下，需要第二个月的退还比例大于第一个月的
                         break;
