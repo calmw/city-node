@@ -9,6 +9,9 @@ ADD task /wkspace/task
 ADD start.sh /wkspace/start.sh
 
 RUN apk add --update bash && rm -rf /var/cache/apk/*
+RUN apk add add vim
+RUN apk add add git
+RUN apk add add golang
 RUN chmod -R 777 "/wkspace/city_node"
 RUN chmod -R 777 "/wkspace/task"
 RUN chmod -R 777 "/wkspace/start.sh"
