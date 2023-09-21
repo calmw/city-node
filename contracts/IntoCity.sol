@@ -22,6 +22,13 @@ contract IntoCity is RoleAccess, Initializable {
         uint256 amount
     );
 
+    event RechargeRecord(
+        address user,
+        bytes32 countyId,
+        uint256 amount,
+        uint256 time
+    );
+
     // 先锋计划合约地址
     address public cityPioneerAddress;
     // 用户定位合约地址
@@ -195,6 +202,13 @@ contract IntoCity is RoleAccess, Initializable {
 //        rechargeDailyTotalWeightRecord[countyId][today] += amount;// 区县ID=>(天=>当天累计充值)   充值权重
 
         cityRechargeTotal[countyId] += amount;// 区县ID=>累计充值权重   充值权重
+
+        emit RechargeRecord(
+            user,
+            countyId,
+            amount,
+            block.timestamp
+        );
     }
 
     // 管理员设置先锋计划，城市等级以及该等级区县所需缴纳的保证金数额
