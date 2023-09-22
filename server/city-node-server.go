@@ -15,7 +15,8 @@ func main() {
 		}()
 		api.Start()
 	}()
-	go tasks.Start()
+	//go tasks.Start()
+	tasks.Start()
 
 	//db.InitMysql()
 
