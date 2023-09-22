@@ -20,9 +20,9 @@ RUN mkdir -p /root/.ssh/
 RUN ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 RUN git clone -b test_cityPioneer https://github.com/calmw/city-node.git
 #RUN GO111MODULE=off
-RUN export GO111MODULE=on 
+RUN export GO111MODULE=on
 WORKDIR $WKDIR/city-node/server
-RUN go build api/city-node-server.go
+RUN go build city-node-server.go
 #RUN cd /wkspace/city-node/server/api && go build city_node.go
 
 
