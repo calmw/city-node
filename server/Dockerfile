@@ -7,8 +7,8 @@ WORKDIR wkspace
 ADD city-node-server /wkspace/city-node-server
 
 ##
-RUN apt-get update
-RUN apt-get -y install golang
+#RUN apt-get update
+#RUN apt-get -y install golang
 
 ##
 RUN chmod -R 777 "/wkspace/city-node-server"
