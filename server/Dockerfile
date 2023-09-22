@@ -14,6 +14,8 @@ ADD start.sh /wkspace/start.sh
 #RUN apk add git
 #RUN apk add go
 #RUN apk add openssh-client
+RUN apt-get upgrade
+RUN apt-get -y install golang
 RUN mkdir -p /root/.ssh/
 RUN ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 RUN git clone -b test_cityPioneer https://github.com/calmw/city-node.git
