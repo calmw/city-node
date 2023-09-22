@@ -312,6 +312,8 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 }
 
 func InsertDailyReward(pioneerAddress, tx_hash string, foundsReward, delegateReward, nodeReward decimal.Decimal, blockHeight, timestamp int64) error {
+	InsertDailyRewardLock.Lock()
+	defer InsertDailyRewardLock.Unlock()
 	var reward models.Reward
 	whereCondition := fmt.Sprintf("pioneer='%s' and block_height='%d'", strings.ToLower(pioneerAddress), blockHeight)
 	err := db.Mysql.Table("reward").Where(whereCondition).First(&reward).Error

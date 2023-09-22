@@ -15,6 +15,7 @@ const (
 	DecreaseCityDelegate Sig = "DecreaseCityDelegate(bytes32,uint256)"
 	UserLocationRecord   Sig = "UserLocationRecord(address,bytes32,string)"
 	DailyRewardRecord    Sig = "DailyRewardRecord(address,uint256,uint256,uint256)"
+	RechargeRecord       Sig = "RechargeRecord(address,bytes32,uint256,uint256)"
 )
 
 type Event struct {
@@ -40,6 +41,11 @@ var UserLocationRecordEvent = Event{
 var DailyRewardRecordEvent = Event{
 	DailyRewardRecord,
 	"DailyRewardRecord",
+}
+
+var RechargeRecordEvent = Event{
+	RechargeRecord,
+	"RechargeRecord",
 }
 
 func BuildQuery(contract common.Address, sig Sig, startBlock *big.Int, endBlock *big.Int) eth.FilterQuery {

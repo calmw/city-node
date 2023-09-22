@@ -1,4 +1,4 @@
-FROM alpine
+FROM golang As build
 MAINTAINER wang "calm.wang@hotmail.com"
 ENV REFRESHED_AT = 2023-02-19
 ENV WKDIR = wkspace
@@ -17,8 +17,12 @@ RUN apk add openssh-client
 RUN mkdir -p /root/.ssh/
 RUN ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 RUN git clone -b test_cityPioneer https://github.com/calmw/city-node.git
+#RUN GO111MODULE=off
 WORKDIR $WKDIR/city-node/server
-RUN go build /wkspace/citynode/api/city_node.go
+RUN go build api/city_node.go
+#RUN cd /wkspace/city-node/server/api && go build city_node.go
+
+
 #RUN chmod -R 777 "/wkspace/city_node"
 #RUN chmod -R 777 "/wkspace/task"
 #RUN chmod -R 777 "/wkspace/start.sh"

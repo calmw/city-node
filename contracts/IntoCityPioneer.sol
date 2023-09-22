@@ -336,6 +336,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                     pioneer.returnSuretyTime = block.timestamp;
                     alreadyRewardRate[pioneer.pioneerAddress][1] = assessmentReturnRate[chengLevel][j]; // 第一个月退的比例
                     suretyMonthWeight[pioneer.pioneerAddress][1] = pioneerChengShiTotalRechargeWeight; // 第一个月考核通过时候，权重值
+                    suretyReward[pioneer.pioneerAddress] += suretyReturn;// 增加可退还保证金
                     break;
                 }
             }
@@ -354,11 +355,11 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                     pioneer.returnSuretyTime = block.timestamp;
                     alreadyRewardRate[pioneer.pioneerAddress][2] = assessmentReturnRate[chengLevel][i] - firstMonthRate; // 第2个月退的比例
                     suretyMonthWeight[pioneer.pioneerAddress][2] = pioneerChengShiTotalRechargeWeight; // 第2个月考核通过时候，权重值
+                    suretyReward[pioneer.pioneerAddress] += suretyReturn;// 增加可退还保证金
                     break;
                 }
             }
         }
-        suretyReward[pioneer.pioneerAddress] += suretyReturn;
     }
 
     // 每日奖励发放

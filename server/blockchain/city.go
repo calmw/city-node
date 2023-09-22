@@ -10,7 +10,9 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/shopspring/decimal"
 	"github.com/status-im/keycard-go/hexutils"
+	"gorm.io/gorm"
 	"math/big"
 	"strings"
 	"time"
@@ -491,4 +493,69 @@ func GetDecreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 
 func CreateAdminSetDelegate(adminSetDelegate models.AdminSetDelegate) {
 	db.Mysql.Table("admin_set_delegate").Create(&adminSetDelegate)
+}
+
+func GetRechargeRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
+	query := event.BuildQuery(
+		common.HexToAddress(CityNodeConfig.CityAddress),
+		event.UserLocationRecord,
+		big.NewInt(startBlock),
+		big.NewInt(endBlock),
+	)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	logs, err := Cli.FilterLogs(ctx, query)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	cancel()
+	abi, _ := intoCityNode.CityMetaData.GetAbi()
+	for _, logE := range logs {
+		logData, err := abi.Unpack(event.RechargeRecordEvent.EventName, logE.Data)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return err
+		}
+		userAddress := logData[0].(common.Address)
+		countyId := "0x" + common.Bytes2Hex(Bytes32ToBytes(logData[1].([32]uint8)))
+		amount := logData[2].(big.Int)
+		ctime := logData[3].(int64)
+		err, cityId := GetCityIdBytes32ByCountyId(countyId)
+		InsertRechargeRecordEvent(
+			userAddress.String(),
+			countyId,
+			cityId,
+			decimal.NewFromBigInt(&amount, 0),
+			ctime,
+		)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func InsertRechargeRecordEvent(userAddress, countyId string, countyIdBytes32 [32]byte, amount decimal.Decimal, ctime int64) error {
+	InsertRechargeRecordEventLock.Lock()
+	defer InsertRechargeRecordEventLock.Unlock()
+	err, cityId := GetChengShiIdByCityIdByte32(countyIdBytes32)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+
+	var rechargeRecord models.RechargeRecord
+	whereCondition := fmt.Sprintf("user='%s' and county_id='%s' and city_id='%s' and amount='%d' and ctime='%d'",
+		strings.ToLower(userAddress), strings.ToLower(countyId), strings.ToLower(cityId), amount, ctime)
+	err = db.Mysql.Table("user_location").Where(whereCondition).First(&rechargeRecord).Error
+	if err == gorm.ErrRecordNotFound {
+		db.Mysql.Model(&models.RechargeRecord{}).Create(&models.RechargeRecord{
+			User:     strings.ToLower(userAddress),
+			CountyId: strings.ToLower(countyId),
+			CityId:   strings.ToLower(cityId),
+			Amount:   amount,
+			Ctime:    time.Unix(ctime, 0),
+		})
+	}
+	return nil
 }

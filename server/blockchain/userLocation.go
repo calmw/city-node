@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/status-im/keycard-go/hexutils"
 	"gorm.io/gorm"
 	"math/big"
 	"strconv"
@@ -305,6 +306,23 @@ func CityInfo(countyId [32]byte) (error, string) {
 	return nil, areaCode.CountryName + " " + areaCode.CityName + " " + areaCode.AreaName
 }
 
+// GetCityIdBytes32ByCountyId 获取区县对应的加密信息
+func GetCityIdBytes32ByCountyId(countyId string) (error, [32]byte) {
+	Cli := Client(CityNodeConfig)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, [32]byte{}
+	}
+	cityId, err := userLocation.CityIdChengShiID(nil, BytesToByte32(hexutils.HexToBytes(countyId)))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, [32]byte{}
+	}
+
+	return nil, cityId
+}
+
 func GetUserLocationRecord() error {
 	Cli := Client(CityNodeConfig)
 	startBlock := GetStartBlock()
@@ -357,6 +375,8 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 }
 
 func InsertUserLocation(userAddress, countyId string, code []string, locationEncrypt, locationCode string, countyIdBytes32 [32]byte) error {
+	InsertUserLocationLock.Lock()
+	defer InsertUserLocationLock.Unlock()
 	err, cityId := GetChengShiIdByCityIdByte32(countyIdBytes32)
 	if err != nil {
 		log.Logger.Sugar().Error(err)

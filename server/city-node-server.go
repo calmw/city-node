@@ -9,11 +9,10 @@ import (
 func main() {
 	//db.InitMysql()
 
-	services.InitTestNet()
-	//services.InitMainNet()
-
-	services.InitCity()
-	task()
+	//services.InitTestNet()
+	services.InitMainNet()
+	//services.InitCity()
+	//task()
 	//time.Sleep(time.Second * 120)
 	//services.AdminSetRechargeAmountTask2500()
 	//time.Sleep(time.Second * 60 * 7)

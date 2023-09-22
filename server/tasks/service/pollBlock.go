@@ -26,6 +26,9 @@ func PollBlockTask() {
 	// 城市先锋奖励事件
 	_ = blockchain.GetDailyRewardRecordEvent(Cli, int64(startBlock), int64(endBlock))
 
+	// 增加充值事件
+	_ = blockchain.GetRechargeRecordEvent(Cli, int64(startBlock), int64(endBlock))
+
 	// 更新区块高度
 	blockchain.SetSTartBlock(int64(startBlock + 1000))
 }

@@ -97,6 +97,8 @@ func GetCountyInfo(countyId string) (error, string) {
 }
 
 func InsertRechargeWeight(pioneer, cityId, countyId, cityLocation, countyLocation string, day int64, weight decimal.Decimal) error {
+	blockchain.InsertRechargeWeightLock.Lock()
+	defer blockchain.InsertRechargeWeightLock.Unlock()
 	var rechargeWeight models.RechargeWeight
 	t := time.Unix(day*86400+1, 0)
 	whereCondition := fmt.Sprintf("city_id='%s' and county_id='%s' and day='%s' and pioneer='%s'",
