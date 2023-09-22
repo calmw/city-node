@@ -14,7 +14,7 @@ ADD start.sh /wkspace/start.sh
 #RUN apk add git
 #RUN apk add go
 #RUN apk add openssh-client
-RUN apt-get upgrade
+RUN apt-get update
 RUN apt-get -y install golang
 RUN mkdir -p /root/.ssh/
 RUN ssh-keyscan -H github.com >> ~/.ssh/known_hosts
