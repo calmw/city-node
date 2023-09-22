@@ -9,17 +9,17 @@ ADD city_node /wkspace/city_node
 ADD task /wkspace/task
 ADD start.sh /wkspace/start.sh
 
-RUN apk add --update bash && rm -rf /var/cache/apk/*
-RUN apk add vim
-RUN apk add git
-RUN apk add go
-RUN apk add openssh-client
+#RUN apk add --update bash && rm -rf /var/cache/apk/*
+#RUN apk add vim
+#RUN apk add git
+#RUN apk add go
+#RUN apk add openssh-client
 RUN mkdir -p /root/.ssh/
 RUN ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 RUN git clone -b test_cityPioneer https://github.com/calmw/city-node.git
 #RUN GO111MODULE=off
 WORKDIR $WKDIR/city-node/server
-RUN go build api/city_node.go
+RUN go build api/city-node-server.go
 #RUN cd /wkspace/city-node/server/api && go build city_node.go
 
 
