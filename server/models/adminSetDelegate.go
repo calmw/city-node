@@ -3,14 +3,15 @@ package models
 import (
 	"city-node-server/db"
 	"errors"
+	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 )
 
 type AdminSetDelegate struct {
-	Id      int32  `gorm:"column:id;primaryKey"`
-	CityId  string `json:"city_id" gorm:"column:city_id"`
-	Amount  string `json:"amount" gorm:"column:amount"`
-	SetType int64  `json:"set_type" gorm:"column:set_type"`
+	Id      int32           `gorm:"column:id;primaryKey"`
+	CityId  string          `json:"city_id" gorm:"column:city_id"`
+	Amount  decimal.Decimal `json:"amount" gorm:"column:amount"`
+	SetType int64           `json:"set_type" gorm:"column:set_type"`
 }
 
 func NewAdminSetDelegate() *AdminSetDelegate {

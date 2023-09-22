@@ -75,11 +75,11 @@ func GetCityDelegateEvent() error {
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 	}
-	err = GetDecreaseCityDelegateEvent(Cli, int64(startBlock), int64(endBlock))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-	}
-	SetSTartBlock(int64(startBlock + 1000))
+	//err = GetDecreaseCityDelegateEvent(Cli, int64(startBlock), int64(endBlock))
+	//if err != nil {
+	//	log.Logger.Sugar().Error(err)
+	//}
+	//SetSTartBlock(int64(startBlock + 1000))
 	return nil
 }
 
@@ -100,7 +100,6 @@ func BytesToByte32(bytes []byte) [32]byte {
 }
 
 func GetStartBlock() uint64 {
-	// 2307995
 	var blockStore = models.BlockStore{}
 	db.Mysql.Table("block_store").Where("id=1").First(&blockStore)
 	return blockStore.StartBlock

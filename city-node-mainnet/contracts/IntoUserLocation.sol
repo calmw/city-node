@@ -157,7 +157,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
         IPledgeStake pledgeStake = IPledgeStake(pledgeStakeAddress);
         uint256 delegate = pledgeStake.ownerWeight(user);
         uint256 today = getDay();
-        intoCity.incrCountyOrChengShiDelegate(cityId_, delegate * 100, today);
+        intoCity.incrCountyOrChengShiDelegate(user, cityId_, delegate * 100, today);
     }
 
     // 定位过的用户数量
@@ -293,28 +293,32 @@ contract IntoUserLocation is RoleAccess, Initializable {
         // 更新状态
         userDisable[user] = false;
     }
-
-    function setUserLocationTest(bytes32 cityId_, address user, string calldata location_) public onlyAdmin {
-        userNumberOfCity[cityId_] += 1;
-        cityIds.push(cityId_); // 废弃
-        cityInfo[cityId_] = location_;
-        userLocationInfo[user] = location_;
-        userCityId[user] = cityId_;
-        userHaveSetLocation[user] = true;
-        cityIdNum++;
-        if (!cityIdExist[cityId_]) {
-            cityIdsNoRepeat.push(cityId_);
-            cityIdExist[cityId_] = true;
-        }
-
-        // 给用户所在城市增加质押量
-        setUserDelegate(cityId_, msg.sender);
-
-        emit UserLocationRecord(
-            msg.sender,
-            cityId_,
-            location_
-        );
+    // 开启用户定位,测试
+    function editUserCountyId(address user, bytes32 countyId) public onlyAdmin {
+        userCityId[user] = countyId;
     }
+
+//    function setUserLocationTest(bytes32 cityId_, address user, string calldata location_) public onlyAdmin {
+//        userNumberOfCity[cityId_] += 1;
+//        cityIds.push(cityId_); // 废弃
+//        cityInfo[cityId_] = location_;
+//        userLocationInfo[user] = location_;
+//        userCityId[user] = cityId_;
+//        userHaveSetLocation[user] = true;
+//        cityIdNum++;
+//        if (!cityIdExist[cityId_]) {
+//            cityIdsNoRepeat.push(cityId_);
+//            cityIdExist[cityId_] = true;
+//        }
+//
+//        // 给用户所在城市增加质押量
+//        setUserDelegate(cityId_, msg.sender);
+//
+//        emit UserLocationRecord(
+//            msg.sender,
+//            cityId_,
+//            location_
+//        );
+//    }
 
 }

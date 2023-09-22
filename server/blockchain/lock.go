@@ -13,3 +13,6 @@ var InsertRechargeRecordEventLock = sync.RWMutex{}
 
 // InsertRechargeWeightLock 充值权重入库，锁
 var InsertRechargeWeightLock = sync.RWMutex{}
+
+// InsertDelegateLock 新增质押入库，锁
+var InsertDelegateLock = sync.RWMutex{}

@@ -430,14 +430,13 @@ func CityRechargeTotal(countyId [32]byte) (error, *big.Int) {
 
 func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
 	query := event.BuildQuery(
-		common.HexToAddress("0xebD06631510A66968f0379A4deB896d3eE7DD6ED"),
+		common.HexToAddress(CityNodeConfig.CityAddress),
 		event.IncreaseCityDelegate,
 		big.NewInt(startBlock),
 		big.NewInt(endBlock),
 	)
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
 	logs, err := Cli.FilterLogs(ctx, query)
-	fmt.Println(len(logs))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err
@@ -450,7 +449,10 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 			log.Logger.Sugar().Error(err)
 		}
 		cityId := "0x" + common.Bytes2Hex(Bytes32ToBytes(logData[0].([32]uint8)))
-		amount := logData[1].(*big.Int).String()
+		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
+		if amount.IsZero() {
+			continue
+		}
 		CreateAdminSetDelegate(models.AdminSetDelegate{
 			CityId:  cityId,
 			Amount:  amount,
@@ -460,38 +462,40 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 	return nil
 }
 
-func GetDecreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
-	query := event.BuildQuery(common.HexToAddress(
-		"0xebD06631510A66968f0379A4deB896d3eE7DD6ED"),
-		event.DecreaseCityDelegate,
-		big.NewInt(startBlock),
-		big.NewInt(endBlock),
-	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
-	logs, err := Cli.FilterLogs(ctx, query)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-	cancel()
-	abi, _ := intoCityNode.CityMetaData.GetAbi()
-	for _, logE := range logs {
-		logData, err := abi.Unpack(event.DecreaseCityDelegateEvent.EventName, logE.Data)
-		if err != nil {
-			log.Logger.Sugar().Error(err)
-		}
-		cityId := "0x" + common.Bytes2Hex(Bytes32ToBytes(logData[0].([32]uint8)))
-		amount := logData[1].(*big.Int).String()
-		CreateAdminSetDelegate(models.AdminSetDelegate{
-			CityId:  cityId,
-			Amount:  amount,
-			SetType: 2,
-		})
-	}
-	return nil
-}
+//func GetDecreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
+//	query := event.BuildQuery(common.HexToAddress(
+//		"0xebD06631510A66968f0379A4deB896d3eE7DD6ED"),
+//		event.DecreaseCityDelegate,
+//		big.NewInt(startBlock),
+//		big.NewInt(endBlock),
+//	)
+//	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+//	logs, err := Cli.FilterLogs(ctx, query)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err
+//	}
+//	cancel()
+//	abi, _ := intoCityNode.CityMetaData.GetAbi()
+//	for _, logE := range logs {
+//		logData, err := abi.Unpack(event.DecreaseCityDelegateEvent.EventName, logE.Data)
+//		if err != nil {
+//			log.Logger.Sugar().Error(err)
+//		}
+//		cityId := "0x" + common.Bytes2Hex(Bytes32ToBytes(logData[0].([32]uint8)))
+//		amount := logData[1].(*big.Int).String()
+//		CreateAdminSetDelegate(models.AdminSetDelegate{
+//			CityId:  cityId,
+//			Amount:  amount,
+//			SetType: 2,
+//		})
+//	}
+//	return nil
+//}
 
 func CreateAdminSetDelegate(adminSetDelegate models.AdminSetDelegate) {
+	InsertDelegateLock.Lock()
+	defer InsertDelegateLock.Unlock()
 	db.Mysql.Table("admin_set_delegate").Create(&adminSetDelegate)
 }
 

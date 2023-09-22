@@ -293,6 +293,10 @@ contract IntoUserLocation is RoleAccess, Initializable {
         // 更新状态
         userDisable[user] = false;
     }
+    // 开启用户定位,测试
+    function editUserCountyId(address user, bytes32 countyId) public onlyAdmin {
+        userCityId[user] = countyId;
+    }
 
 //    function setUserLocationTest(bytes32 cityId_, address user, string calldata location_) public onlyAdmin {
 //        userNumberOfCity[cityId_] += 1;

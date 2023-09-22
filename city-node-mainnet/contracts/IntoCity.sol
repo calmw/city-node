@@ -13,11 +13,13 @@ interface Founds {
 contract IntoCity is RoleAccess, Initializable {
 
     event IncreaseCityDelegate(
+        address user,
         bytes32 cityId,
         uint256 amount
     );
 
     event DecreaseCityDelegate(
+        address user,
         bytes32 cityId,
         uint256 amount
     );
@@ -241,19 +243,20 @@ contract IntoCity is RoleAccess, Initializable {
     }
 
     // 增加区县/城市质押量
-    function incrCountyOrChengShiDelegate(bytes32 countyId_, uint256 amount_, uint256 today) public onlyAdmin {
+    function incrCountyOrChengShiDelegate(address user_, bytes32 countyId_, uint256 amount_, uint256 today) public onlyAdmin {
         cityDelegate[countyId_] += amount_;
         // 增加区县按天的质押记录
         cityNewlyDelegateRecord[countyId_][today] += amount_;
         countyNewlyPioneerDelegateRecord[countyId_][today] += amount_; // 增加先锋城市每天质押量
         emit IncreaseCityDelegate(
+            user_,
             countyId_,
             amount_
         );
     }
 
     // 减少区县质押量
-    function descCountyOrChengShiDelegate(bytes32 countyId_, uint256 amount_, uint256 today) public onlyAdmin {
+    function descCountyOrChengShiDelegate(address user_, bytes32 countyId_, uint256 amount_, uint256 today) public onlyAdmin {
         if (cityDelegate[countyId_] >= amount_) {
             cityDelegate[countyId_] -= amount_;
         } else {
@@ -267,6 +270,7 @@ contract IntoCity is RoleAccess, Initializable {
         }
 
         emit DecreaseCityDelegate(
+            user_,
             countyId_,
             amount_
         );
@@ -327,10 +331,10 @@ contract IntoCity is RoleAccess, Initializable {
                 }
             }
 //              增加区县质押量
-            incrCountyOrChengShiDelegate(countyId, amount_, today);// 同时增加区县质押量，和城市质押量可以各取各的
+            incrCountyOrChengShiDelegate(userAddress_,countyId, amount_, today);// 同时增加区县质押量，和城市质押量可以各取各的
         } else if (setType == 2) {// 减少
             // 减少区县质押量
-            descCountyOrChengShiDelegate(countyId, amount_, today);
+            descCountyOrChengShiDelegate(userAddress_,countyId, amount_, today);
         }
 //         更新区县历史某天最大质押值
         uint256 yesterdayDelegate = cityDelegateRecord[countyId][today - 1];
@@ -380,12 +384,6 @@ contract IntoCity is RoleAccess, Initializable {
 // 获取某一天质押量（包含增加和减少）
     function getDelegate(bytes32 cityId_, uint256 day) public view returns (uint256){
         return cityDelegateRecord[cityId_][day];
-    }
-
-// 增加区县先锋绑定区县的累计质押量,增加总的质押量
-    function addCityDelegate(bytes32 cityId_, uint256 amount_) public onlyAdmin {
-        cityRechargeTotal[cityId_] += amount_;
-        allCityDelegateTotal += amount_;
     }
 
 //初始化区县先锋绑定区县的累计质押量
