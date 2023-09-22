@@ -339,7 +339,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                     pioneer.returnSuretyStatus = true;
                     pioneer.returnSuretyTime = block.timestamp;
                     alreadyRewardRate[pioneer.pioneerAddress][1] = assessmentReturnRate[chengLevel][j]; // 第一个月退的比例
-                    suretyMonthWeight[pioneer.pioneerAddress][1] = pioneerChengShiTotalRechargeWeight; // 第一个月考核通过时候，权重值
+                    suretyMonthWeight[pioneer.pioneerAddress][1] = pioneerChengShiTotalRechargeWeight; // 第1个月结束的时候，权重值
                     suretyReward[pioneer.pioneerAddress] += suretyReturn;// 增加可退还保证金
                     break;
                 }
@@ -358,7 +358,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                     pioneer.returnSuretyStatus = true;
                     pioneer.returnSuretyTime = block.timestamp;
                     alreadyRewardRate[pioneer.pioneerAddress][2] = assessmentReturnRate[chengLevel][i] - firstMonthRate; // 第2个月退的比例
-                    suretyMonthWeight[pioneer.pioneerAddress][2] = pioneerChengShiTotalRechargeWeight; // 第2个月考核通过时候，权重值
+                    suretyMonthWeight[pioneer.pioneerAddress][2] = pioneerChengShiTotalRechargeWeight; // 第2个月结束的时候，权重值
                     suretyReward[pioneer.pioneerAddress] += suretyReturn;// 增加可退还保证金
                     break;
                 }
@@ -424,13 +424,13 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(benefitPackageReward[msg.sender] > 0, "balance insufficient");
         uint256 balance = benefitPackageReward[msg.sender];
+        benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
 
         // 将奖励转账到用户合约余额
         setUserBalance(msg.sender, benefitPackageReward[msg.sender], 19);
         // 更新领取状态(全部领完才算已领取)
         benefitPackageRewardStatus[msg.sender] = true;
         benefitPackageRewardReceived[msg.sender] += balance; // 更新已领取福利包奖励
-        benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
         emit WithdrawalRewardRecord(
             msg.sender,
             balance,
@@ -444,12 +444,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(fundsReward[msg.sender] > 0, "balance insufficient");
         uint256 balance = fundsReward[msg.sender];
+        fundsReward[msg.sender] = 0; // 更新可领取社交基金奖励
         // 将奖励转账到用户合约余额
         setUserBalance(msg.sender, balance, 18);
         // 更新领取状态(全部领完才算已领取)
         fundsRewardStatus[msg.sender] = true;
         fundsRewardReceived[msg.sender] += balance; // 更新已领取社交基金奖励
-        fundsReward[msg.sender] = 0; // 更新可领取社交基金奖励
         emit WithdrawalRewardRecord(
             msg.sender,
             balance,
@@ -463,11 +463,11 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(delegateReward[msg.sender] > 0, "balance insufficient");
         uint256 balance = delegateReward[msg.sender];
+        delegateReward[msg.sender] = 0; // 更新可领取新增质押奖励
         // 将奖励转账到用户合约余额
         setUserBalance(msg.sender, balance, 17);
         delegateRewardStatus[msg.sender] = true;
         delegateRewardReceived[msg.sender] += balance; // 更新已领取新增质押奖励
-        delegateReward[msg.sender] = 0; // 更新可领取新增质押奖励
         emit WithdrawalRewardRecord(
             msg.sender,
             balance,

@@ -330,3 +330,63 @@ func InsertDailyReward(pioneerAddress, tx_hash string, foundsReward, delegateRew
 	}
 	return nil
 }
+
+func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
+	query := event.BuildQuery(
+		common.HexToAddress(CityNodeConfig.CityPioneerAddress),
+		event.DailyRewardRecord,
+		big.NewInt(startBlock),
+		big.NewInt(endBlock),
+	)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	logs, err := Cli.FilterLogs(ctx, query)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	cancel()
+	abi, _ := intoCityNode.CityPioneerMetaData.GetAbi()
+
+	for _, logE := range logs {
+		logData, err := abi.Unpack(event.WithdrawalRewardRecordEvent.EventName, logE.Data)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return err
+		}
+		var timestamp int64
+		pioneerAddress := strings.ToLower(logData[0].(common.Address).String())
+		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
+		wType := decimal.NewFromBigInt(logData[2].(*big.Int), 0)
+		//wType := decimal.NewFromBigInt(logData[3].(*big.Int), 0)
+		fmt.Println(logData, 789878)
+		fmt.Println(amount, wType)
+		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
+		if err == nil {
+			timestamp = int64(header.Time)
+		}
+		err = InsertWithdrawalRewardRecord(pioneerAddress, header.TxHash.String(), amount, wType, int64(logE.BlockNumber), timestamp)
+		if err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func InsertWithdrawalRewardRecord(pioneerAddress, tx_hash string, amount, rewardType decimal.Decimal, blockHeight, timestamp int64) error {
+	InsertWithdrawalRewardRecordLock.Lock()
+	defer InsertWithdrawalRewardRecordLock.Unlock()
+	var rewardWithdraw models.RewardWithdraw
+	whereCondition := fmt.Sprintf("pioneer='%s' and block_height='%d'", strings.ToLower(pioneerAddress), blockHeight)
+	err := db.Mysql.Table("reward_withdraw").Where(whereCondition).First(&rewardWithdraw).Error
+	if err == gorm.ErrRecordNotFound {
+		db.Mysql.Table("reward_withdraw").Create(&models.RewardWithdraw{
+			Pioneer:     pioneerAddress,
+			TxHash:      tx_hash,
+			Amount:      amount,
+			RewardType:  rewardType,
+			BlockHeight: blockHeight,
+			Ctime:       time.Unix(timestamp, 0),
+		})
+	}
+	return nil
+}

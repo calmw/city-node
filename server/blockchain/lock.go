@@ -16,3 +16,6 @@ var InsertRechargeWeightLock = sync.RWMutex{}
 
 // InsertDelegateLock 新增质押入库，锁
 var InsertDelegateLock = sync.RWMutex{}
+
+// InsertWithdrawalRewardRecordLock 新增质押入库，锁
+var InsertWithdrawalRewardRecordLock = sync.RWMutex{}

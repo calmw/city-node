@@ -1,6 +1,6 @@
-//package main
+package main
 
-package tasks
+//package tasks
 
 //
 import (
