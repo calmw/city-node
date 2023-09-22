@@ -92,7 +92,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(address => bool)public  fundsRewardStatus; // 用户社交基金奖励提取状态
     mapping(address => bool)public  delegateRewardStatus; // 用户新增质押奖励提取状态
     // 城市先锋地址=>(天数=>是否执行过)
-    mapping(address => mapping(uint256 => bool))public  checkPioneerStatus; //每天一次考核
+    mapping(address => mapping(uint256 => bool))public  checkPioneerStatus; //每天一次考核，废弃
     // 城市先锋地址=>(天数=>是否执行过)
     mapping(address => mapping(uint256 => bool))public  checkRewardStatus; //每天一次奖励
     uint256 public  startTime; //开始考核时间
@@ -114,6 +114,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 先锋地址 => （月份=>权重值）；权重值，计算可领取保证金时刻的充值权重
     mapping(address => mapping(uint => uint)) public suretyMonthWeight;
     mapping(address => mapping(uint => uint)) public testValue; //用于测试
+    // 城市先锋地址=>(天数=>是否执行过)
+    mapping(uint256 => mapping(address => bool))public  checkPioneerDailyStatus; //每天一次考核
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -125,14 +127,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 管理员设置城市合约地址
-    function adminSetCityAddress(address cityAddress_) public onlyAdmin {
-        cityAddress = cityAddress_;
-    }
-
-    // 管理员设置用户定位合约地址
-    function adminSetUserLocationAddress(address userLocationAddress_) public onlyAdmin {
-        userLocationAddress = userLocationAddress_;
-    }
+//    function adminSetCityAddress(address cityAddress_) public onlyAdmin {
+//        cityAddress = cityAddress_;
+//    }
+//
+//    // 管理员设置用户定位合约地址
+//    function adminSetUserLocationAddress(address userLocationAddress_) public onlyAdmin {
+//        userLocationAddress = userLocationAddress_;
+//    }
 
     // 管理员设置增加用户合约余额合约地址
 //    function adminSetMiningAddress(address miningAddress_) public onlyAdmin {
@@ -177,12 +179,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     function pioneerTask(address pioneerAddress_, bytes32 chengShiId_) public onlyAdmin {
         // 更新奖励和考核
         uint256 today = getDay();
-        if (!checkPioneerStatus[pioneerAddress_][today]) {
+//        if (!checkPioneerStatus[pioneerAddress_][today]) {
+        if (!checkPioneerDailyStatus[today][pioneerAddress_]) {
             // 考核
             checkPioneer(chengShiId_, pioneerAddress_);
             // 奖励
             reward(chengShiId_, pioneerAddress_);
-            checkRewardStatus[pioneerAddress_][today] = true;
+//            checkRewardStatus[pioneerAddress_][today] = true;
+            checkPioneerDailyStatus[today][pioneerAddress_] = true;
         }
     }
 
@@ -485,7 +489,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 更新已领取的数量
         suretyRewardRecord[msg.sender] += balance;
         // 更新已领取的比例
-        alreadyRewardRateTotal[msg.sender] += pioneerInfo[msg.sender].returnSuretyRate;
+        alreadyRewardRateTotal[msg.sender] = pioneerInfo[msg.sender].returnSuretyRate;
         // alreadyRewardRate
 
         emit WithdrawalRewardRecord(
