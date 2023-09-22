@@ -1,4 +1,4 @@
-package main
+package tasks
 
 import (
 	"city-node-server/db"
@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func main() {
+func Start() {
 	db.InitMysql()
 
 	services.InitMainNet()

@@ -1,16 +1,26 @@
 package main
 
 import (
+	"city-node-server/api"
 	"city-node-server/services"
+	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
 func main() {
+	go func() {
+		defer func() {
+			recover()
+		}()
+		api.Start()
+	}()
+	tasks.Start()
+
 	//db.InitMysql()
 
 	//services.InitTestNet()
-	services.InitMainNet()
+	//services.InitMainNet()
 	//services.InitCity()
 	//task()
 	//time.Sleep(time.Second * 120)
