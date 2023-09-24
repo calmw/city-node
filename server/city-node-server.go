@@ -9,7 +9,6 @@ import (
 )
 
 func main() {
-	api.Start()
 	go func() {
 		defer func() {
 			recover()
