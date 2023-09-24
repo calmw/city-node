@@ -298,27 +298,4 @@ contract IntoUserLocation is RoleAccess, Initializable {
         userCityId[user] = countyId;
     }
 
-//    function setUserLocationTest(bytes32 cityId_, address user, string calldata location_) public onlyAdmin {
-//        userNumberOfCity[cityId_] += 1;
-//        cityIds.push(cityId_); // 废弃
-//        cityInfo[cityId_] = location_;
-//        userLocationInfo[user] = location_;
-//        userCityId[user] = cityId_;
-//        userHaveSetLocation[user] = true;
-//        cityIdNum++;
-//        if (!cityIdExist[cityId_]) {
-//            cityIdsNoRepeat.push(cityId_);
-//            cityIdExist[cityId_] = true;
-//        }
-//
-//        // 给用户所在城市增加质押量
-//        setUserDelegate(cityId_, msg.sender);
-//
-//        emit UserLocationRecord(
-//            msg.sender,
-//            cityId_,
-//            location_
-//        );
-//    }
-
 }
