@@ -2,7 +2,6 @@
 
 package tasks
 
-//
 import (
 	"city-node-server/db"
 	"city-node-server/services"
@@ -20,7 +19,7 @@ func Start() {
 	s.ChangeLoc(time.UTC)
 	//_ = s.Every(30).Seconds().From(gocron.NextTick()).Do(service.PollBlockTask)
 	_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTask)
-	_ = s.Every(1).Day().From(gocron.NextTick()).Do(service.GetPioneerRechargeWeight)
+	_ = s.Every(1).Day().From(gocron.NextTick()).From(gocron.NextTick()).Do(service.GetPioneerRechargeWeight)
 	<-s.Start()
 
 }
