@@ -10,11 +10,17 @@ import (
 
 func InitMysql() {
 	log.Logger.Info("Init Mysql")
+	//dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+	//	`root`,
+	//	`city_node`,
+	//	`8.130.102.48`,
+	//	`3306`,
+	//	`city_node`)
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		`root`,
-		`city_node`,
-		`8.130.102.48`,
-		`3306`,
+		`root_into_city_node`,
+		`127.0.0.1`,
+		`3307`,
 		`city_node`)
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN:                       dsn,   // DSN data source name
