@@ -17,7 +17,7 @@ VOLUME ["/project"]
 
 EXPOSE 8000
 
-ENTRYPOINT ["/wkspace/city-node-server"]
+#ENTRYPOINT ["/wkspace/city-node-server"]
 
 
 
@@ -25,7 +25,7 @@ ENTRYPOINT ["/wkspace/city-node-server"]
 # 运行容器
 # docker run -itd  --network=dev -p 9000:8000 -v /Users/cisco/Desktop/workspace:/project --name city-node city-node
 
-# docker run -itd  --network=dev -p 9000:8000 -v /wkspace/docker/project:/project --name citynode city-node
+# docker run -itd  --network=dev -p 9000:8000 -v /wkspace/docker/project:/project --name city-node city-node
 
 
 
