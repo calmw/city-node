@@ -19,8 +19,8 @@ func InitMysql() {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		`root`,
 		`city_node`,
-		`8.130.102.48`,
-		`3306`,
+		`43.206.223.248`,
+		`3307`,
 		`city_node`)
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN:                       dsn,   // DSN data source name
