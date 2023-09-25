@@ -20,7 +20,7 @@ func InitMysql() {
 		`root`,
 		`root_into_city_node`,
 		`127.0.0.1`,
-		`3307`,
+		`3306`,
 		`city_node`)
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN:                       dsn,   // DSN data source name
