@@ -6,6 +6,8 @@ WORKDIR wkspace
 
 ADD city-node-server /wkspace/city-node-server
 
+COPY ca-bundle.crt /etc/ssl/certs/ca-bundle.crt
+COPY ca-bundle.trust.crt /etc/ssl/certs/ca-bundle.trust.crt
 ##
 #RUN apt-get update
 #RUN apt-get -y install golang
