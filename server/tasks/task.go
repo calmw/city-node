@@ -3,6 +3,7 @@
 package tasks
 
 import (
+	"city-node-server/blockchain"
 	"city-node-server/db"
 	"city-node-server/services"
 	"city-node-server/tasks/service"
@@ -20,6 +21,7 @@ func Start() {
 	//_ = s.Every(30).Seconds().From(gocron.NextTick()).Do(service.PollBlockTask)
 	_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTask)
 	_ = s.Every(1).Day().From(gocron.NextTick()).From(gocron.NextTick()).Do(service.GetPioneerRechargeWeight)
+	_ = s.Every(4).Hours().From(gocron.NextTick()).From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTask)
 	<-s.Start()
 
 }

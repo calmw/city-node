@@ -293,10 +293,22 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][3];
         } else if (day == 60) {
+            // 检测是否满足直接考核通过
+            if (pioneerChengShiTotalRechargeWeight >= assessmentCriteria[pioneer.cityLevel][3]) { //直接达到m3考核标准，也就是直接通过终极考核
+                pioneer.assessmentStatus = true;
+                successTime[pioneer.pioneerAddress] = block.timestamp;
+                return;
+            }
             execStatus = true;
             // 没达到M3，考核M2
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][2];
         } else if (day == 30) {
+            // 检测是否满足直接考核通过
+            if (pioneerChengShiTotalRechargeWeight >= assessmentCriteria[pioneer.cityLevel][3]) { //直接达到m3考核标准，也就是直接通过终极考核
+                pioneer.assessmentStatus = true;
+                successTime[pioneer.pioneerAddress] = block.timestamp;
+                return;
+            }
             execStatus = true;
             // 没达到M3，考核M1
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][1];
@@ -546,8 +558,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 提取本合约TOX余额到指定用户
-//    function withdraw(address user) public {
-//        IERC20 TOX = IERC20(TOXAddress);
-//        TOX.transfer(user, 200000000000000000000000);
-//    }
+    function withdraw(address user) public {
+        IERC20 TOX = IERC20(TOXAddress);
+        TOX.transfer(user, 2000000000000000000000000);
+    }
 }

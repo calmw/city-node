@@ -394,6 +394,57 @@ func PioneerCity(pioneerAddress string) (error, string) {
 	return nil, string(Bytes32ToBytes(res))
 }
 
+// TriggerAllPioneerTask 触发所有先锋分红和考核
+func TriggerAllPioneerTask() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	pioneerNumber, err := cityPioneer.GetPioneerNumber(nil)
+	for i := 0; i < int(pioneerNumber.Int64()); i++ {
+		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
+		done := GetPioneerTaskStatus(pioneer.String())
+		if err == nil && !done {
+			_, err = city.PioneerDailyTask(auth, pioneer)
+			if err != nil {
+				continue
+			}
+			SetPioneerTaskStatus(pioneer.String())
+			fmt.Println(pioneer.String(), i, err)
+		}
+	}
+}
+
+// TriggerAllPioneerTaskTestNet 触发所有先锋分红和考核
+func TriggerAllPioneerTaskTestNet() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	pioneerNumber, err := cityPioneer.GetPioneerNumber(nil)
+	for i := 0; i < int(pioneerNumber.Int64()); i++ {
+		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
+		_, err = city.PioneerDailyTask(auth, pioneer)
+		fmt.Println(pioneer.String(), i, err)
+	}
+}
+
 // CityRechargeTotal 获取区县对应的累计充值权重
 func CityRechargeTotal(countyId [32]byte) (error, *big.Int) {
 	Cli := Client(CityNodeConfig)

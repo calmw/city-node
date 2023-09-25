@@ -2,28 +2,22 @@ package main
 
 import (
 	"city-node-server/api"
-	"city-node-server/services"
+	"city-node-server/blockchain"
 	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
 func main() {
-	go func() {
-		defer func() {
-			recover()
-		}()
-		api.Start()
-	}()
-	//go tasks.Start()
-	tasks.Start()
-
-	//db.InitMysql()
 
 	//services.InitTestNet()
-	//services.InitMainNet()
 	//services.InitCity()
 	//task()
+
+	//db.InitMysql()
+	//blockchain.TriggerAllPioneerTask()
+
+	//services.InitMainNet()
 	//time.Sleep(time.Second * 120)
 	//services.AdminSetRechargeAmountTask2500()
 	//time.Sleep(time.Second * 60 * 7)
@@ -40,6 +34,7 @@ func main() {
 
 	//
 	//blockchain.ApproveToxCityPioneer() // 向城市先锋合约approve
+	//blockchain.ApproveTox("0x35b821D00e9733Eb0F51195b173EA0AF2ac81736")
 	//blockchain.CityPioneerBalance() // 城市先锋合约余额
 	//blockchain.DepositSurety() // 交保证金，慎用，扣钱
 	//blockchain.DepositSuretyTest("0x08a01BE67fF47Ba2652b7dCE2005B47D81bAaC13") // DepositSuretyTest 交保证金成为先锋
@@ -78,13 +73,22 @@ func main() {
 	//tasks.GetPioneerRechargeWeight()
 	//services.IntoBind()
 
+	go func() {
+		defer func() {
+			recover()
+		}()
+		api.Start()
+	}()
+	tasks.Start()
+
 }
 
 func task() {
 
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
-	_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
+	//_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
+	_ = s.Every(4).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
 	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
 	<-s.Start() // Start all the pending jobs
 

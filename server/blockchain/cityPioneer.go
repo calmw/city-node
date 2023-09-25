@@ -390,3 +390,24 @@ func InsertWithdrawalRewardRecord(pioneerAddress, tx_hash string, amount, reward
 	}
 	return nil
 }
+
+func GetPioneerTaskStatus(pioneerAddress string) bool {
+	var pioneerTask models.PioneerTask
+	t := time.Now()
+	whereCondition := fmt.Sprintf("pioneer='%s' and date='%s'", strings.ToLower(pioneerAddress), t.Format("2006-01-02"))
+	err := db.Mysql.Model(&models.PioneerTask{}).Where(whereCondition).First(&pioneerTask).Error
+	if err == gorm.ErrRecordNotFound {
+		db.Mysql.Model(&models.PioneerTask{}).Create(&models.PioneerTask{
+			Pioneer: strings.ToLower(pioneerAddress),
+			Date:    time.Now(),
+		})
+		return false
+	}
+	return pioneerTask.Status > 0
+}
+
+func SetPioneerTaskStatus(pioneerAddress string) error {
+	whereCondition := fmt.Sprintf("pioneer='%s'", strings.ToLower(pioneerAddress))
+	log.Logger.Sugar().Info("pioneer task success ", pioneerAddress)
+	return db.Mysql.Model(&models.PioneerTask{}).Where(whereCondition).Update("status", 1).Error
+}

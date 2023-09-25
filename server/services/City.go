@@ -24,14 +24,18 @@ func InitCity() {
 	//blockchain.AdminSetChengShiLevelAndSurety("0xb6fc3268053782f854d25c8835b5b14310b43055e85822cb7a429b38e509672f", 3, 40000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xf0d851e51c9ebb39dcecd7685ab590d6f69ff2b3c32b225e96ac51928e57d957", 3, 40000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a", 3, 40000)
-	blockchain.AdminSetChengShiLevelAndSurety("0x71672b46f47097e2f0ebbd289c1c88e4e8558f02b70e3efa669142c1c9e9b6a1", 1, 100000)
-	time.Sleep(time.Second * 5)
+	//blockchain.AdminSetChengShiLevelAndSurety("0x71672b46f47097e2f0ebbd289c1c88e4e8558f02b70e3efa669142c1c9e9b6a1", 1, 100000)
+	//time.Sleep(time.Second * 5)
 	// --------
 	//time.Sleep(time.Second * 3)
 	// 管理员设置城市先锋 ------------ 0x95023738d7165bdc0da5544a021c1e9cfc1bc3f5f3e2351b8edd6abff1c02aab
 	//blockchain.AdminSetPioneer("0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a", "0x714956178a484805EBe00f5Cef30bC7e7323C30F")
-	//blockchain.AdminRemovePioneer("0x71672b46f47097e2f0ebbd289c1c88e4e8558f02b70e3efa669142c1c9e9b6a1", "0xFAa3e964bB91fc62270DCf3DBfa7Bf9e8239E697")
+	//blockchain.AdminRemovePioneer("0x8549d0e3957c74e498e26c5207d83edbfcf4f2df01e4105964f334c752e1a51a", "0xCe07c0Df73EE82A1F77b0bD3c6967a7f6a29342B")
 	//time.Sleep(time.Second * 5)
+	//blockchain.AdminSetPioneer("0x8549d0e3957c74e498e26c5207d83edbfcf4f2df01e4105964f334c752e1a51a", "0xCe07c0Df73EE82A1F77b0bD3c6967a7f6a29342B")
+	//time.Sleep(time.Second * 5)
+	blockchain.AdminRemovePioneer("0x71672b46f47097e2f0ebbd289c1c88e4e8558f02b70e3efa669142c1c9e9b6a1", "0xFAa3e964bB91fc62270DCf3DBfa7Bf9e8239E697")
+	time.Sleep(time.Second * 5)
 	blockchain.AdminSetPioneer("0x71672b46f47097e2f0ebbd289c1c88e4e8558f02b70e3efa669142c1c9e9b6a1", "0xFAa3e964bB91fc62270DCf3DBfa7Bf9e8239E697")
 	//blockchain.AdminSetPioneer("0xb6fc3268053782f854d25c8835b5b14310b43055e85822cb7a429b38e509672f", "0xe7FD766A7F0f1A8566Ead2bdEfFe88b80b3fA3A9")
 	//blockchain.AdminRemovePioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x0151D7707B3D20d8Fcaa9A6448bc42663cF46736")
@@ -57,14 +61,14 @@ func AdminSetDelegateTask() {
 	//dec := randInt * 500
 	accounts := []string{
 		"0xCe07c0Df73EE82A1F77b0bD3c6967a7f6a29342B",
-		//"0x2F443072324b1777a79c2530Db1eE36270F7D2Aa",
+		"0xFAa3e964bB91fc62270DCf3DBfa7Bf9e8239E697",
 	}
 
 	for _, account := range accounts {
 		//time.Sleep(time.Second * 2)
 		// 批量执行增加或减少质押量
 		blockchain.AdminSetDelegate(account, int64(inc), 1)
-		//time.Sleep(time.Second * 2)
+		time.Sleep(time.Second * 1)
 		//blockchain.AdminSetDelegate(account, int64(dec), 2)
 	}
 }

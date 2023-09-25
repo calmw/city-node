@@ -30,6 +30,12 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
+      {
+        "indexed": false,
         "internalType": "bytes32",
         "name": "cityId",
         "type": "bytes32"
@@ -47,6 +53,12 @@
   {
     "anonymous": false,
     "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      },
       {
         "indexed": false,
         "internalType": "bytes32",
@@ -814,6 +826,11 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "user_",
+        "type": "address"
+      },
+      {
         "internalType": "bytes32",
         "name": "countyId_",
         "type": "bytes32"
@@ -1044,6 +1061,11 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "user_",
+        "type": "address"
+      },
+      {
         "internalType": "bytes32",
         "name": "countyId_",
         "type": "bytes32"
@@ -1220,6 +1242,19 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "pioneerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "pioneerDailyTask",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes32",
         "name": "",
         "type": "bytes32"
@@ -1383,6 +1418,19 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_addr",
+        "type": "address"
+      }
+    ],
+    "name": "syncCityCheck",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
