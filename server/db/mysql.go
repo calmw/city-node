@@ -19,7 +19,7 @@ func InitMysql() {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		`root`,
 		`city_node`,
-		`127.0.0.1`,
+		`mysql8`,
 		`3306`,
 		`city_node`)
 	db, err := gorm.Open(mysql.New(mysql.Config{
