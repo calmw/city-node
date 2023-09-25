@@ -15,7 +15,7 @@ VOLUME ["/project"]
 
 EXPOSE 8000
 
-ENTRYPOINT ["/wkspace/city-node-server"]
+#ENTRYPOINT ["/wkspace/city-node-server"]
 
 
 
