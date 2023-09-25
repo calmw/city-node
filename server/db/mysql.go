@@ -18,7 +18,7 @@ func InitMysql() {
 	//	`city_node`)
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		`root`,
-		`root_into_city_node`,
+		`city_node`,
 		`127.0.0.1`,
 		`3306`,
 		`city_node`)
