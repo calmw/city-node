@@ -81,6 +81,8 @@ func main() {
 	}()
 	tasks.Start()
 
+	//blockchain.TriggerAllPioneerTask()
+
 }
 
 func task() {
