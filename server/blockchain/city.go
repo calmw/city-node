@@ -480,6 +480,9 @@ func CityRechargeTotal(countyId [32]byte) (error, *big.Int) {
 //}
 
 func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
+	defer func() {
+		recover()
+	}()
 	query := event.BuildQuery(
 		common.HexToAddress(CityNodeConfig.CityAddress),
 		event.IncreaseCityDelegate,
@@ -498,6 +501,10 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 		logData, err := abi.Unpack(event.IncreaseCityDelegateEvent.EventName, logE.Data)
 		if err != nil {
 			log.Logger.Sugar().Error(err)
+		}
+		if len(logData) <= 0 {
+			log.Logger.Sugar().Error("logData len 0")
+			continue
 		}
 		cityId := "0x" + common.Bytes2Hex(Bytes32ToBytes(logData[0].([32]uint8)))
 		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
