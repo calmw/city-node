@@ -408,7 +408,9 @@ func TriggerAllPioneerTask() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
+	time.Sleep(time.Second)
 	pioneerNumber, err := cityPioneer.GetPioneerNumber(nil)
+	time.Sleep(time.Second)
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
 		done := GetPioneerTaskStatus(pioneer.String())
