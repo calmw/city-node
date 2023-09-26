@@ -218,6 +218,25 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneers.push(msg.sender);
     }
 
+    // 修改先锋信息
+    function editPioneerInfo(address pioneerAddress_) public {
+        pioneerInfo[pioneerAddress_].cityLevel = 2;
+    }
+
+    // 检查先锋是否需要补交保证金
+    function checkSurety(address pioneer_) public pure returns (uint256){
+        if (pioneer_ == 0x714956178a484805EBe00f5Cef30bC7e7323C30F) {
+            return 20000e18;
+        }
+        return 0;
+    }
+
+    // 先锋补交保证金
+    function paySurety() public {
+        IERC20 TOXContract = IERC20(TOXAddress);
+        TOXContract.transferFrom(msg.sender, address(this), 20000e18);
+    }
+
     function removePioneer(address pioneer_) public onlyAdmin {
         for (uint256 i = 0; i < pioneers.length; i++) {
             if (pioneer_ == pioneers[i]) {

@@ -1,18 +1,16 @@
 package main
 
 import (
-	"city-node-server/api"
 	"city-node-server/blockchain"
 	"city-node-server/services"
-	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
 func main() {
-	//services.InitMainNet()
+	services.InitMainNet()
 	//services.InitTestNet()
-	//services.InitCity()
+	services.InitCity()
 	//task()
 
 	//db.InitMysql()
@@ -74,13 +72,13 @@ func main() {
 	//tasks.GetPioneerRechargeWeight()
 	//services.IntoBind()
 
-	go func() {
-		defer func() {
-			recover()
-		}()
-		api.Start()
-	}()
-	tasks.Start() // 正式
+	//go func() {
+	//	defer func() {
+	//		recover()
+	//	}()
+	//	api.Start()
+	//}()
+	//tasks.Start() // 正式
 	//tasks.Start2() // 测试
 
 	//clearTestNet()

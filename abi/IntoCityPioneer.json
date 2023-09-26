@@ -173,101 +173,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "cityLevel_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "month_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "point_",
-        "type": "uint256"
-      }
-    ],
-    "name": "adminSetAssessmentCriteria",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "chengShiLevel_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "month_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "point_",
-        "type": "uint256"
-      }
-    ],
-    "name": "adminSetAssessmentReturnCriteria",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "chengShiLevel_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "month_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "point_",
-        "type": "uint256"
-      }
-    ],
-    "name": "adminSetAssessmentReturnRate",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "cityAddress_",
-        "type": "address"
-      }
-    ],
-    "name": "adminSetCityAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "miningAddress_",
-        "type": "address"
-      }
-    ],
-    "name": "adminSetMiningAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "uint56",
         "name": "presidencyTime_",
         "type": "uint56"
@@ -294,38 +199,12 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "startTime_",
-        "type": "uint256"
-      }
-    ],
-    "name": "adminSetStartTime",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "address",
         "name": "TOXAddress_",
         "type": "address"
       }
     ],
     "name": "adminSetTOXAddress",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "userLocationAddress_",
-        "type": "address"
-      }
-    ],
-    "name": "adminSetUserLocationAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -531,6 +410,30 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "checkPioneerDailyStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
@@ -574,6 +477,25 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pioneer_",
+        "type": "address"
+      }
+    ],
+    "name": "checkSurety",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
     "type": "function"
   },
   {
@@ -693,6 +615,19 @@
       }
     ],
     "name": "descBenefitPackageRewardByAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pioneerAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "editPioneerInfo",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -919,6 +854,13 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paySurety",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -1208,6 +1150,30 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "testValue",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "userLocationAddress",
     "outputs": [
@@ -1218,6 +1184,19 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "withdraw",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
