@@ -11,6 +11,15 @@ import (
 	"math/big"
 )
 
+const (
+	// 1 用户定位事件处理，2 城市先锋奖励事件，3增加充值事件，4获取新增质押事件，5获取奖励领取事件
+	LocationEvent = iota + 1
+	RewardEvent
+	RechargeEvent
+	DelegateEvent
+	WithdrawEvent
+)
+
 type CityNodeConfigs struct {
 	ChainId               int64
 	RPC                   string
@@ -63,25 +72,28 @@ func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
 	}
 }
 
-func GetCityDelegateEvent() error {
-	Cli := Client(CityNodeConfig)
-	startBlock := GetStartBlock()
-	number, err := Cli.BlockNumber(context.Background())
-	endBlock := startBlock + 999
-	if endBlock > number {
-		return nil
-	}
-	err = GetIncreaseCityDelegateEvent(Cli, int64(startBlock), int64(endBlock))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-	}
-	//err = GetDecreaseCityDelegateEvent(Cli, int64(startBlock), int64(endBlock))
-	//if err != nil {
-	//	log.Logger.Sugar().Error(err)
-	//}
-	//SetSTartBlock(int64(startBlock + 1000))
-	return nil
-}
+//func GetCityDelegateEvent() error {
+//	Cli := Client(CityNodeConfig)
+//	err, startBlock := GetStartBlock()
+//	if err != nil {
+//		return err
+//	}
+//	number, err := Cli.BlockNumber(context.Background())
+//	endBlock := startBlock + 999
+//	if endBlock > number {
+//		return nil
+//	}
+//	err = GetIncreaseCityDelegateEvent(Cli, int64(startBlock), int64(endBlock))
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//	}
+//	//err = GetDecreaseCityDelegateEvent(Cli, int64(startBlock), int64(endBlock))
+//	//if err != nil {
+//	//	log.Logger.Sugar().Error(err)
+//	//}
+//	//SetSTartBlock(int64(startBlock + 1000))
+//	return nil
+//}
 
 func Bytes32ToBytes(bytes32 [32]byte) []byte {
 	var by []byte
@@ -99,12 +111,12 @@ func BytesToByte32(bytes []byte) [32]byte {
 	return by
 }
 
-func GetStartBlock() uint64 {
+func GetStartBlock(id int64) (error, uint64) {
 	var blockStore = models.BlockStore{}
-	db.Mysql.Table("block_store").Where("id=1").First(&blockStore)
-	return blockStore.StartBlock
+	err := db.Mysql.Table("block_store").Where("id=?", id).First(&blockStore).Error
+	return err, uint64(blockStore.StartBlock)
 }
 
-func SetSTartBlock(startBlock int64) {
-	db.Mysql.Table("block_store").Where("id=1").Update("start_block", startBlock)
+func SetSTartBlock(startBlock, id int64) {
+	db.Mysql.Model(&models.BlockStore{}).Where("id=?", id).Update("start_block", startBlock)
 }

@@ -1,35 +1,6 @@
 package models
 
-import (
-	"city-node-server/db"
-	"errors"
-	"gorm.io/gorm"
-)
-
 type BlockStore struct {
-	Id         int32  `gorm:"column:id;primaryKey"`
-	StartBlock uint64 `json:"start_block" gorm:"column:start_block"`
-}
-
-func NewBlockStore() *BlockStore {
-	return &BlockStore{}
-}
-
-// Set Multi-Sign
-func (m *BlockStore) Set() error {
-
-	return nil
-}
-
-// Get Multi-Sign
-func (m *BlockStore) Get(chainId int) error {
-	err := db.Mysql.Table("multi_sign").Where("chain_id", chainId).First(&m).Debug().Error
-	if err != nil {
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			return nil
-		} else {
-			return errors.New("record select err " + err.Error())
-		}
-	}
-	return nil
+	Id         int   `gorm:"column:id;primaryKey"` // 1 用户定位事件处理，2 城市先锋奖励事件，3增加充值事件，4获取新增质押事件，5获取奖励领取事件
+	StartBlock int64 `json:"start_block" gorm:"column:start_block"`
 }

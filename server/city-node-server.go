@@ -4,6 +4,7 @@ import (
 	"city-node-server/api"
 	"city-node-server/blockchain"
 	"city-node-server/services"
+	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -73,19 +74,19 @@ func main() {
 	//tasks.GetPioneerRechargeWeight()
 	//services.IntoBind()
 
-	//go func() {
-	//	defer func() {
-	//		recover()
-	//	}()
-	//	api.Start()
-	//}()
-	//tasks.Start() // 正式
-	api.Start()
+	go func() {
+		defer func() {
+			recover()
+		}()
+		api.Start()
+	}()
+	tasks.Start() // 正式
 	//tasks.Start2() // 测试
 
 	//clearTestNet()
 
 	//blockchain.TriggerAllPioneerTask()
+	//blockchain.RestoreUserLocation("") // 重新获取并存储用户位置信息，从链上查询，不是从事件获取
 
 }
 

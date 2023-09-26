@@ -15,7 +15,14 @@ func Start2() {
 
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
-	_ = s.Every(5).Seconds().From(gocron.NextTick()).Do(service.PollBlockTaskTest)
+	_ = s.Every(30).Seconds().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
+	//_ = s.Every(1).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
+	//_ = s.Every(3).Hours().From(gocron.NextTick()).Do(service.PollBlockTaskGetDailyRewardRecordEvent)
+	//_ = s.Every(1).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetRechargeRecordEvent)
+	//_ = s.Every(1).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetIncreaseCityDelegateEvent)
+	//_ = s.Every(1).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetWithdrawalRewardRecordEvent)
+	//_ = s.Every(1).Day().From(gocron.NextTick()).From(gocron.NextTick()).Do(service.GetPioneerRechargeWeight)
+	//_ = s.Every(4).Hours().From(gocron.NextTick()).From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTask)
 	<-s.Start()
 
 }

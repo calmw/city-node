@@ -234,6 +234,69 @@ func GetDay() (error, int64) {
 	return nil, res.Int64()
 }
 
+func RestoreUserLocation(user string) error {
+	Cli := Client(CityNodeConfig)
+	user = strings.ToLower(user)
+	userLocationContract, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	locationEncrypt, err := userLocationContract.UserLocationInfo(nil, common.HexToAddress(user))
+	if err != nil || locationEncrypt == "" {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+
+	countyIdBytes32, err := userLocationContract.UserCityId(nil, common.HexToAddress(user))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+
+	cityIdBytes32, err := userLocationContract.CityIdChengShiID(nil, countyIdBytes32)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	cityId := "0x" + common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32))
+	countyId := "0x" + common.Bytes2Hex(Bytes32ToBytes(countyIdBytes32))
+	locationCode := utils.ThreeDesDecrypt(locationEncrypt)
+	code := strings.Split(locationCode, ",")
+
+	if code[2] == "" {
+		code[2] = "0"
+	}
+	// 查询明文地址
+	uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
+	err, location := utils.HttpGet(uri)
+	if err != nil {
+		return err
+	}
+	var locationInfo LocationInfo
+	err = json.Unmarshal(location, &locationInfo)
+	if err != nil {
+		return err
+	}
+
+	var userLocation models.UserLocation
+	whereCondition := fmt.Sprintf("user='%s' and city_id='%s' and area_code='%s' and county_id='%s'",
+		user, strings.ToLower(cityId), locationCode, strings.ToLower(countyId))
+	err = db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
+	if err == gorm.ErrRecordNotFound {
+		db.Mysql.Model(&models.UserLocation{}).Create(&models.UserLocation{
+			User:            user,
+			CountyId:        strings.ToLower(countyId),
+			CityId:          strings.ToLower(cityId),
+			LocationEncrypt: locationEncrypt,
+			Location:        locationInfo.Data.CountryName + " " + locationInfo.Data.CityName + " " + locationInfo.Data.AreaName,
+			AreaCode:        locationEncrypt,
+			LocationType:    2,
+		})
+	}
+	return nil
+}
+
 // GetChengShiIdByCityId 获取cityId
 func GetChengShiIdByCityId(countyId string) (error, string) {
 	Cli := Client(CityNodeConfig)
@@ -323,21 +386,21 @@ func GetCityIdBytes32ByCountyId(countyId string) (error, [32]byte) {
 	return nil, cityId
 }
 
-func GetUserLocationRecord() error {
-	Cli := Client(CityNodeConfig)
-	startBlock := GetStartBlock()
-	number, err := Cli.BlockNumber(context.Background())
-	endBlock := startBlock + 999
-	if endBlock > number {
-		return nil
-	}
-	err = GetUserLocationRecordEvent(Cli, int64(startBlock), int64(endBlock))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-	return nil
-}
+//func GetUserLocationRecord() error {
+//	Cli := Client(CityNodeConfig)
+//	startBlock := GetStartBlock()
+//	number, err := Cli.BlockNumber(context.Background())
+//	endBlock := startBlock + 999
+//	if endBlock > number {
+//		return nil
+//	}
+//	err = GetUserLocationRecordEvent(Cli, int64(startBlock), int64(endBlock))
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err
+//	}
+//	return nil
+//}
 
 func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
 	query := event.BuildQuery(
