@@ -230,15 +230,16 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerPaySurety[pioneer_] = amount_;
     }
 
-// 检查先锋是否需要补交保证金
+    // 检查先锋是否需要补交保证金
     function checkSurety(address pioneer_) public view returns (uint256){
         return pioneerPaySurety[pioneer_];
     }
 
-// 先锋补交保证金
+    // 先锋补交保证金
     function paySurety() public {
         IERC20 TOXContract = IERC20(TOXAddress);
         TOXContract.transferFrom(msg.sender, address(this), pioneerPaySurety[msg.sender]);
+        pioneerPaySurety[msg.sender] = 0;
     }
 
     function removePioneer(address pioneer_) public onlyAdmin {
