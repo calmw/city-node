@@ -179,13 +179,11 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     function pioneerTask(address pioneerAddress_, bytes32 chengShiId_) public onlyAdmin {
         // 更新奖励和考核
         uint256 today = getDay();
-//        if (!checkPioneerStatus[pioneerAddress_][today]) {
         if (!checkPioneerDailyStatus[today][pioneerAddress_]) {
             // 考核
             checkPioneer(chengShiId_, pioneerAddress_);
             // 奖励
             reward(chengShiId_, pioneerAddress_);
-//            checkRewardStatus[pioneerAddress_][today] = true;
             checkPioneerDailyStatus[today][pioneerAddress_] = true;
         }
     }
