@@ -1,6 +1,7 @@
 package main
 
 import (
+	"city-node-server/api"
 	"city-node-server/blockchain"
 	"city-node-server/services"
 	"city-node-server/tasks"
@@ -73,14 +74,14 @@ func main() {
 	//tasks.GetPioneerRechargeWeight()
 	//services.IntoBind()
 
-	//go func() {
-	//	defer func() {
-	//		recover()
-	//	}()
-	//	api.Start()
-	//}()
-	//tasks.Start() // 正式
-	tasks.Start2() // 测试
+	go func() {
+		defer func() {
+			recover()
+		}()
+		api.Start()
+	}()
+	tasks.Start() // 正式
+	//tasks.Start2() // 测试
 
 	//clearTestNet()
 
