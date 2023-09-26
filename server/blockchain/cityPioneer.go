@@ -273,6 +273,8 @@ func GetPioneerNumber() (error, int64) {
 }
 
 func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
+	InsertDailyRewardLock.Lock()
+	defer InsertDailyRewardLock.Unlock()
 	query := event.BuildQuery(
 		common.HexToAddress(CityNodeConfig.CityPioneerAddress),
 		event.DailyRewardRecord,
@@ -312,15 +314,19 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 }
 
 func InsertDailyReward(pioneerAddress, tx_hash string, foundsReward, delegateReward, nodeReward decimal.Decimal, blockHeight, timestamp int64) error {
-	InsertDailyRewardLock.Lock()
-	defer InsertDailyRewardLock.Unlock()
+
 	var reward models.Reward
 	whereCondition := fmt.Sprintf("pioneer='%s' and block_height='%d'", strings.ToLower(pioneerAddress), blockHeight)
 	err := db.Mysql.Table("reward").Where(whereCondition).First(&reward).Error
 	if err == gorm.ErrRecordNotFound {
+		// 获取城市信息
+		var userLocation models.UserLocation
+		db.Mysql.Model(&models.UserLocation{}).Where("user=?", strings.ToLower(pioneerAddress)).First(&userLocation)
+		// 插入数据
 		db.Mysql.Table("reward").Create(&models.Reward{
 			Pioneer:        pioneerAddress,
 			TxHash:         tx_hash,
+			City:           userLocation.Location,
 			FoundsReward:   foundsReward,
 			DelegateReward: delegateReward,
 			NodeReward:     nodeReward,

@@ -3,12 +3,13 @@ package main
 import (
 	"city-node-server/blockchain"
 	"city-node-server/services"
+	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
 func main() {
-
+	//services.InitMainNet()
 	//services.InitTestNet()
 	//services.InitCity()
 	//task()
@@ -78,9 +79,10 @@ func main() {
 	//	}()
 	//	api.Start()
 	//}()
-	//tasks.Start()
+	//tasks.Start() // 正式
+	tasks.Start2() // 测试
 
-	clearTestNet()
+	//clearTestNet()
 
 	//blockchain.TriggerAllPioneerTask()
 
@@ -96,7 +98,7 @@ func task() {
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
 	//_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
-	_ = s.Every(4).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
+	_ = s.Every(50).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
 	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
 	<-s.Start() // Start all the pending jobs
 

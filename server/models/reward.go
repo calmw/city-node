@@ -9,6 +9,7 @@ type Reward struct {
 	Id             int             `gorm:"column:id;primaryKey"`
 	Pioneer        string          `json:"pioneer" gorm:"column:pioneer"`
 	TxHash         string          `json:"tx_hash" gorm:"column:tx_hash"`
+	City           string          `json:"city" gorm:"column:city"`
 	FoundsReward   decimal.Decimal `json:"founds_reward" gorm:"column:founds_reward"`
 	DelegateReward decimal.Decimal `json:"delegate_reward" gorm:"column:delegate_reward"`
 	NodeReward     decimal.Decimal `json:"node_reward" gorm:"column:node_reward"`
