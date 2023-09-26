@@ -439,7 +439,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
 
         // 将奖励转账到用户合约余额
-        setUserBalance(msg.sender, benefitPackageReward[msg.sender], 19);
+        setUserBalance(msg.sender, balance, 19);
         // 更新领取状态(全部领完才算已领取)
         benefitPackageRewardStatus[msg.sender] = true;
         benefitPackageRewardReceived[msg.sender] += balance; // 更新已领取福利包奖励

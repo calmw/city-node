@@ -22,6 +22,7 @@ ENTRYPOINT ["/wkspace/city-node-server"]
 
 # 运行容器
 # docker run -itd  --network=dev -p 9000:8000 -v /Users/cisco/Desktop/workspace:/project --name city-node city-node
+# docker run -itd  --network=into-background_into_backend -p 8000:8000 -v /wkspace:/project --name city-node city-node:0.1.9
 
 # docker run -itd  --network=dev -p 9000:8000 -v /wkspace/docker/project:/project --name city-node city-node
 
