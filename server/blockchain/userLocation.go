@@ -8,13 +8,13 @@ import (
 	"city-node-server/models"
 	"city-node-server/utils"
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/status-im/keycard-go/hexutils"
 	"gorm.io/gorm"
 	"math/big"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -271,40 +271,40 @@ func GetChengShiIdByCityIdByte32(countyId [32]byte) (error, string) {
 }
 
 // CityInfo 获取区县对应的加密信息
-func CityInfo(countyId [32]byte) (error, string) {
-	Cli := Client(CityNodeConfig)
-	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, ""
-	}
-	location, err := userLocation.CityInfo(nil, countyId)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, ""
-	}
-	code := strings.Split(location, ",")
-	// 查询明文地址
-	var areaCode models.AreaCode
-	var whereCondition string
-	if len(code) == 2 {
-		code0, _ := strconv.ParseInt(code[0], 10, 64)
-		code1, _ := strconv.ParseInt(code[1], 10, 64)
-		whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
-	} else if len(code) == 3 {
-		code0, _ := strconv.ParseInt(code[0], 10, 64)
-		code1, _ := strconv.ParseInt(code[1], 10, 64)
-		code2, _ := strconv.ParseInt(code[2], 10, 64)
-		if code2 == 0 {
-			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
-		} else {
-			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d and ad_code=%d", code0, code1, code2)
-		}
-	}
-	err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
-
-	return nil, areaCode.CountryName + " " + areaCode.CityName + " " + areaCode.AreaName
-}
+//func CityInfo(countyId [32]byte) (error, string) {
+//	Cli := Client(CityNodeConfig)
+//	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err, ""
+//	}
+//	location, err := userLocation.CityInfo(nil, countyId)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err, ""
+//	}
+//	code := strings.Split(location, ",")
+//	// 查询明文地址
+//	var areaCode models.AreaCode
+//	var whereCondition string
+//	if len(code) == 2 {
+//		code0, _ := strconv.ParseInt(code[0], 10, 64)
+//		code1, _ := strconv.ParseInt(code[1], 10, 64)
+//		whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
+//	} else if len(code) == 3 {
+//		code0, _ := strconv.ParseInt(code[0], 10, 64)
+//		code1, _ := strconv.ParseInt(code[1], 10, 64)
+//		code2, _ := strconv.ParseInt(code[2], 10, 64)
+//		if code2 == 0 {
+//			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
+//		} else {
+//			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d and ad_code=%d", code0, code1, code2)
+//		}
+//	}
+//	err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
+//
+//	return nil, areaCode.CountryName + " " + areaCode.CityName + " " + areaCode.AreaName
+//}
 
 // GetCityIdBytes32ByCountyId 获取区县对应的加密信息
 func GetCityIdBytes32ByCountyId(countyId string) (error, [32]byte) {
@@ -374,6 +374,18 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 	return nil
 }
 
+type LocationInfo struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Data struct {
+		CountryName string `json:"country_name"`
+		CityName    string `json:"city_name"`
+		CityCode    int    `json:"city_code"`
+		AdCode      int    `json:"ad_code"`
+		AreaName    string `json:"area_name"`
+	} `json:"data"`
+}
+
 func InsertUserLocation(userAddress, countyId string, code []string, locationEncrypt, locationCode string, countyIdBytes32 [32]byte) error {
 	InsertUserLocationLock.Lock()
 	defer InsertUserLocationLock.Unlock()
@@ -382,36 +394,24 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 		log.Logger.Sugar().Error(err)
 		return err
 	}
-	// 查询明文地址
-	var areaCode models.AreaCode
-	var whereCondition, locationInfo string
-	var locationType int64
-	if len(code) == 2 {
-		code0, _ := strconv.ParseInt(code[0], 10, 64)
-		code1, _ := strconv.ParseInt(code[1], 10, 64)
-		locationType = 1
-		whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
-	} else if len(code) == 3 {
-		code0, _ := strconv.ParseInt(code[0], 10, 64)
-		code1, _ := strconv.ParseInt(code[1], 10, 64)
-		code2, _ := strconv.ParseInt(code[2], 10, 64)
-		locationType = 2
-		if code2 == 0 {
-			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
-		} else {
-			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d and ad_code=%d", code0, code1, code2)
-		}
+	if code[2] == "" {
+		code[2] = "0"
 	}
-	err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
-	if err == gorm.ErrRecordNotFound {
-		locationInfo = ""
-	} else {
-		locationInfo = areaCode.CountryName + " " + areaCode.CityName + " " + areaCode.AreaName
+	// 查询明文地址
+	uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
+	err, location := utils.HttpGet(uri)
+	if err != nil {
+		return err
+	}
+	var locationInfo LocationInfo
+	err = json.Unmarshal(location, &locationInfo)
+	if err != nil {
+		return err
 	}
 
 	var userLocation models.UserLocation
-	whereCondition = fmt.Sprintf("user='%s' and city_id='%s' and location_encrypt='%s' and area_code='%s' and county_id='%s'",
-		strings.ToLower(userAddress), strings.ToLower(cityId), locationEncrypt, locationCode, strings.ToLower(countyId))
+	whereCondition := fmt.Sprintf("user='%s' and city_id='%s' and area_code='%s' and county_id='%s'",
+		strings.ToLower(userAddress), strings.ToLower(cityId), locationCode, strings.ToLower(countyId))
 	err = db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Model(&models.UserLocation{}).Create(&models.UserLocation{
@@ -419,9 +419,9 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 			CountyId:        strings.ToLower(countyId),
 			CityId:          strings.ToLower(cityId),
 			LocationEncrypt: locationEncrypt,
-			Location:        locationInfo,
+			Location:        locationInfo.Data.CountryName + " " + locationInfo.Data.CityName + " " + locationInfo.Data.AreaName,
 			AreaCode:        locationCode,
-			LocationType:    locationType,
+			LocationType:    2,
 		})
 	}
 	return nil

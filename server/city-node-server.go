@@ -4,7 +4,6 @@ import (
 	"city-node-server/api"
 	"city-node-server/blockchain"
 	"city-node-server/services"
-	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -64,7 +63,7 @@ func main() {
 	//blockchain.GetRechargeDailyWeightRecordByChengId("0x936557454f464570813fe0c6e164d114cfc2d49eb5478f4e9867805eb4d3667b", 19616) // 19616 000000000000000000
 
 	//fmt.Println(utils.ThreeDesEncrypt("0,126"))
-	//fmt.Println(utils.ThreeDesDecrypt("j5BSvQJvDEQ="))
+	//fmt.Println(utils.ThreeDesDecrypt("rGlTv2yBVxk="))
 	//fmt.Println(utils.Keccak256("0,136"))
 	//fmt.Println(utils.Keccak256("0,136,621122")) //0x5BC49BF2BB0F74F6B3321451F04FE277696611BC6A0A2D144F034B27C914F8F0
 	//0x5BC49BF2BB0F74F6B3321451F04FE277696611BC6A0A2D144F034B27C914F8F0
@@ -74,13 +73,14 @@ func main() {
 	//tasks.GetPioneerRechargeWeight()
 	//services.IntoBind()
 
-	go func() {
-		defer func() {
-			recover()
-		}()
-		api.Start()
-	}()
-	tasks.Start() // 正式
+	//go func() {
+	//	defer func() {
+	//		recover()
+	//	}()
+	//	api.Start()
+	//}()
+	//tasks.Start() // 正式
+	api.Start()
 	//tasks.Start2() // 测试
 
 	//clearTestNet()
@@ -99,7 +99,7 @@ func task() {
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
 	//_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
-	_ = s.Every(50).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
+	_ = s.Every(14).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
 	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
 	<-s.Start() // Start all the pending jobs
 
