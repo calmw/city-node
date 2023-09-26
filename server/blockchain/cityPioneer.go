@@ -297,6 +297,7 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 			return err
 		}
 		var timestamp int64
+		var txHash string
 		pioneerAddress := strings.ToLower(logData[0].(common.Address).String())
 		nodeReward := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
 		foundsReward := decimal.NewFromBigInt(logData[2].(*big.Int), 0)
@@ -305,7 +306,18 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 		if err == nil {
 			timestamp = int64(header.Time)
 		}
-		err = InsertDailyReward(pioneerAddress, header.TxHash.String(), foundsReward, delegateReward, nodeReward, int64(logE.BlockNumber), timestamp)
+		if header != nil {
+			txHash = header.TxHash.String()
+		}
+		fmt.Println(header)
+		fmt.Println(pioneerAddress)
+		fmt.Println(txHash)
+		fmt.Println(foundsReward)
+		fmt.Println(delegateReward)
+		fmt.Println(nodeReward)
+		fmt.Println(int64(logE.BlockNumber))
+		fmt.Println(timestamp)
+		err = InsertDailyReward(pioneerAddress, txHash, foundsReward, delegateReward, nodeReward, int64(logE.BlockNumber), timestamp)
 		if err != nil {
 			return err
 		}

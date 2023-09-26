@@ -43,7 +43,7 @@ type FHSum struct {
 func (c *Pioneer) Reward(req *request.Reward) (int, int64, []models2.Reward) {
 	var rewards []models2.Reward
 
-	tx := db.Mysql.Model(&models2.Reward{})
+	tx := db.Mysql.Model(&models2.Reward{}).Order("ctime desc")
 	if req.Pioneer != "" {
 		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
 	}

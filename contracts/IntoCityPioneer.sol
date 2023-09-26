@@ -286,6 +286,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 pioneerChengShiTotalRechargeWeight = city.getChengShiRechargeWeight(chengShiId_) / 1e18; // 先锋绑定的城市总的新增充值权重,这里的值是充值量除以100的权重
         uint256 assessmentCriteriaThreshold; // 考核标准金额
         bool execStatus;
+        if (!pioneer.assessmentMonthStatus) { // 如果按月考核失败，将不再考核
+            return;
+        }
 
         if (day == 90) {
             execStatus = true;
