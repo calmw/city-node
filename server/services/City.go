@@ -26,7 +26,7 @@ func InitCity() {
 	//blockchain.AdminSetChengShiLevelAndSurety("0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a", 3, 40000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0x71672b46f47097e2f0ebbd289c1c88e4e8558f02b70e3efa669142c1c9e9b6a1", 1, 100000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0x8791cf7226e6b3c30f0557f8f0aaa201d606061d431d70458876f22dca6bb210", 2, 60000)
-	blockchain.AdminSetChengShiLevelAndSurety("0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a", 2, 60000)
+	//blockchain.AdminSetChengShiLevelAndSurety("0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a", 2, 60000)
 	//time.Sleep(time.Second * 5)
 	// --------
 	//time.Sleep(time.Second * 3)

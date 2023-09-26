@@ -8,15 +8,15 @@ import (
 )
 
 func main() {
-	services.InitMainNet()
+	//services.InitMainNet()
 	//services.InitTestNet()
-	services.InitCity()
+	//services.InitCity()
 	//task()
 
 	//db.InitMysql()
 	//blockchain.TriggerAllPioneerTask()
 
-	//services.InitMainNet()
+	services.InitMainNet()
 	//time.Sleep(time.Second * 120)
 	//services.AdminSetRechargeAmountTask2500()
 	//time.Sleep(time.Second * 60 * 7)
@@ -34,7 +34,7 @@ func main() {
 	//
 	//blockchain.ApproveToxCityPioneer() // 向城市先锋合约approve
 	//blockchain.ApproveTox("0x35b821D00e9733Eb0F51195b173EA0AF2ac81736")
-	//blockchain.CityPioneerBalance() // 城市先锋合约余额
+	blockchain.CityPioneerBalance() // 城市先锋合约余额
 	//blockchain.DepositSurety() // 交保证金，慎用，扣钱
 	//blockchain.DepositSuretyTest("0x08a01BE67fF47Ba2652b7dCE2005B47D81bAaC13") // DepositSuretyTest 交保证金成为先锋
 
