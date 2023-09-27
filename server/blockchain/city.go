@@ -492,7 +492,7 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 		big.NewInt(startBlock),
 		big.NewInt(endBlock),
 	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
 	logs, err := Cli.FilterLogs(ctx, query)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -530,7 +530,7 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 //		big.NewInt(startBlock),
 //		big.NewInt(endBlock),
 //	)
-//	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+//	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
 //	logs, err := Cli.FilterLogs(ctx, query)
 //	if err != nil {
 //		log.Logger.Sugar().Error(err)
@@ -567,7 +567,7 @@ func GetRechargeRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) e
 		big.NewInt(startBlock),
 		big.NewInt(endBlock),
 	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
 	logs, err := Cli.FilterLogs(ctx, query)
 	if err != nil {
 		log.Logger.Sugar().Error(err)

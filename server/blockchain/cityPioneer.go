@@ -281,7 +281,7 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 		big.NewInt(startBlock),
 		big.NewInt(endBlock),
 	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
 	logs, err := Cli.FilterLogs(ctx, query)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -356,7 +356,7 @@ func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock 
 		big.NewInt(startBlock),
 		big.NewInt(endBlock),
 	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
 	logs, err := Cli.FilterLogs(ctx, query)
 	if err != nil {
 		log.Logger.Sugar().Error(err)

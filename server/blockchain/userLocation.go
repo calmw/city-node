@@ -409,7 +409,7 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 		big.NewInt(startBlock),
 		big.NewInt(endBlock),
 	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(5))
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
 	logs, err := Cli.FilterLogs(ctx, query)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -464,11 +464,13 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 	uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
 	err, location := utils.HttpGet(uri)
 	if err != nil {
+		log.Logger.Sugar().Error(err)
 		return err
 	}
 	var locationInfo LocationInfo
 	err = json.Unmarshal(location, &locationInfo)
 	if err != nil {
+		log.Logger.Sugar().Error(err)
 		return err
 	}
 
