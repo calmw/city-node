@@ -319,8 +319,6 @@ func GetChengShiIdByCityId(countyId string) (error, string) {
 		return err, ""
 	}
 	common.Hex2Bytes(countyId)
-	fmt.Println(countyId, 8978)
-	fmt.Println(common.Hex2Bytes(countyId))
 	countyIdBytes32 := BytesToByte32(common.Hex2Bytes(countyId))
 	res, err := userLocation.CityIdChengShiID(nil, countyIdBytes32)
 	if err != nil {
@@ -442,6 +440,10 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 		locationEncrypt := logData[2].(string)
 		locationCode := utils.ThreeDesDecrypt(locationEncrypt)
 		code := strings.Split(locationCode, ",")
+		if len(code) < 2 {
+			log.Logger.Sugar().Warnln("用户位置加密信息解析错误", userAddress.String(), locationCode, locationEncrypt, code)
+			continue
+		}
 		err = InsertUserLocation(userAddress.String(), countyId, code, locationEncrypt, locationCode, countyId2)
 		if err != nil {
 			return err
@@ -473,25 +475,24 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 	if code[2] == "" {
 		code[2] = "0"
 	}
-	// 查询明文地址
-	uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
-	err, location := utils.HttpGet(uri)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-	var locationInfo LocationInfo
-	err = json.Unmarshal(location, &locationInfo)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-
 	var userLocation models.UserLocation
 	whereCondition := fmt.Sprintf("user='%s' and city_id='%s' and area_code='%s' and county_id='%s'",
 		strings.ToLower(userAddress), strings.ToLower(cityId), locationCode, strings.ToLower(countyId))
 	err = db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
 	if err == gorm.ErrRecordNotFound {
+		// 查询明文地址
+		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
+		err, location := utils.HttpGet(uri)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return err
+		}
+		var locationInfo LocationInfo
+		err = json.Unmarshal(location, &locationInfo)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return err
+		}
 		db.Mysql.Model(&models.UserLocation{}).Create(&models.UserLocation{
 			User:            strings.ToLower(userAddress),
 			CountyId:        strings.ToLower(countyId),

@@ -384,8 +384,6 @@ func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock 
 		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
 		wType := decimal.NewFromBigInt(logData[2].(*big.Int), 0)
 		//wType := decimal.NewFromBigInt(logData[3].(*big.Int), 0)
-		fmt.Println(logData, 789878)
-		fmt.Println(amount, wType)
 		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
 		if err == nil {
 			timestamp = int64(header.Time)

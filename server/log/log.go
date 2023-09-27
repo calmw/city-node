@@ -17,7 +17,7 @@ func init() {
 	// https://github.com/uber-go/zap/blob/master/FAQ.md
 	hook := lumberjack.Logger{
 		Filename:   getCurrentAbPathByCaller() + "/logs/log.log", // 日志文件路径
-		MaxSize:    50,                                           // 每个日志文件保存的最大尺寸 单位：M
+		MaxSize:    5,                                            // 每个日志文件保存的最大尺寸 单位：M
 		MaxBackups: 20,                                           // 日志文件最多保存多少个备份
 		MaxAge:     7,                                            // 文件最多保存多少天
 		Compress:   true,                                         // 是否压缩

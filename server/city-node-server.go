@@ -3,6 +3,7 @@ package main
 import (
 	"city-node-server/blockchain"
 	"city-node-server/services"
+	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -34,7 +35,7 @@ func main() {
 	//
 	//blockchain.ApproveToxCityPioneer() // 向城市先锋合约approve
 	//blockchain.ApproveTox("0x35b821D00e9733Eb0F51195b173EA0AF2ac81736")
-	blockchain.CityPioneerBalance() // 城市先锋合约余额
+	//blockchain.CityPioneerBalance() // 城市先锋合约余额
 	//blockchain.DepositSurety() // 交保证金，慎用，扣钱
 	//blockchain.DepositSuretyTest("0x08a01BE67fF47Ba2652b7dCE2005B47D81bAaC13") // DepositSuretyTest 交保证金成为先锋
 
@@ -80,7 +81,7 @@ func main() {
 	//}()
 	//api.Start()
 	//tasks.Start() // 正式
-	//tasks.Start2() // 测试
+	tasks.Start2() // 测试
 
 	//clearTestNet()
 

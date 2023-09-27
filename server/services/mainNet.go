@@ -2,13 +2,11 @@ package services
 
 import (
 	"city-node-server/blockchain"
-	"fmt"
 	"os"
 )
 
 func InitMainNet() {
 	key := os.Getenv("META_ACCOUNT")
-	fmt.Println(key, 567567)
 	blockchain.CityNodeConfig = blockchain.CityNodeConfigs{
 		ChainId:               9001,
 		RPC:                   "https://rpc-7.matchscan.io/",

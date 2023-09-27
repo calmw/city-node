@@ -5,6 +5,7 @@ import (
 	"city-node-server/log"
 	"city-node-server/models"
 	"context"
+	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -118,5 +119,6 @@ func GetStartBlock(id int64) (error, uint64) {
 }
 
 func SetSTartBlock(startBlock, id int64) {
+	fmt.Println("更新区块高度", startBlock)
 	db.Mysql.Model(&models.BlockStore{}).Where("id=?", id).Update("start_block", startBlock)
 }

@@ -4,7 +4,6 @@ import (
 	"city-node-server/blockchain"
 	"city-node-server/log"
 	"context"
-	"fmt"
 )
 
 //const PoolStep = 999
@@ -26,7 +25,6 @@ func PollBlockTaskGetUserLocationRecordEvent() {
 	if endBlock > number {
 		return
 	}
-	fmt.Println(startBlock, endBlock)
 	// 用户定位事件处理
 	blockchain.GetUserLocationRecordEvent(Cli, int64(startBlock), int64(endBlock))
 	//err = blockchain.GetUserLocationRecordEvent(Cli, int64(startBlock), int64(endBlock))
@@ -75,7 +73,6 @@ func PollBlockTaskGetRechargeRecordEvent() {
 	if endBlock > number {
 		return
 	}
-	fmt.Println(startBlock, endBlock)
 	// 用户定位事件处理
 	err = blockchain.GetRechargeRecordEvent(Cli, int64(startBlock), int64(endBlock))
 	if err != nil {
@@ -100,7 +97,6 @@ func PollBlockTaskGetIncreaseCityDelegateEvent() {
 	if endBlock > number {
 		return
 	}
-	fmt.Println(startBlock, endBlock)
 	// 用户定位事件处理
 	err = blockchain.GetIncreaseCityDelegateEvent(Cli, int64(startBlock), int64(endBlock))
 	if err != nil {
@@ -125,7 +121,6 @@ func PollBlockTaskGetWithdrawalRewardRecordEvent() {
 	if endBlock > number {
 		return
 	}
-	fmt.Println(startBlock, endBlock)
 	// 用户定位事件处理
 	err = blockchain.GetWithdrawalRewardRecordEvent(Cli, int64(startBlock), int64(endBlock))
 	if err != nil {
@@ -151,7 +146,6 @@ func PollBlockTaskGetWithdrawalRewardRecordEvent() {
 //		return
 //	}
 //
-//	fmt.Println(startBlock, endBlock)
 //	wg := sync.WaitGroup{}
 //	wg.Add(5)
 //

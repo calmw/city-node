@@ -3,7 +3,6 @@ package validate
 import (
 	"city-node-server/api/common/statecode"
 	"city-node-server/api/models/request"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"io"
@@ -19,7 +18,6 @@ func (v *UserLocation) GetLocationByUserAddress(c *gin.Context, req *request.Get
 
 	//err := c.ShouldBind(req)
 	err := c.BindQuery(req)
-	fmt.Println(err)
 	if err == io.EOF {
 		return statecode.ParameterEmptyErr
 	} else if err != nil {
