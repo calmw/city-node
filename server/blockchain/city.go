@@ -1,7 +1,7 @@
 package blockchain
 
 import (
-	intoCityNode "city-node-server/binding"
+	intoCityNode2 "city-node-server/binding/intoCityNode"
 	"city-node-server/blockchain/event"
 	"city-node-server/db"
 	"city-node-server/log"
@@ -22,7 +22,7 @@ import (
 func AdminSetCityPioneerAddress() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -39,7 +39,7 @@ func AdminSetCityPioneerAddress() {
 func AdminSetUserLocationAddress() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -56,7 +56,7 @@ func AdminSetUserLocationAddress() {
 func AdminSetFoundsAddress() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -73,7 +73,7 @@ func AdminSetFoundsAddress() {
 func AdminSetPioneer(chengShiId, pioneer string) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -95,7 +95,7 @@ func AdminSetPioneer(chengShiId, pioneer string) {
 // GetFifteenDayAverageFounds 获取前15天社交基金平均值
 func GetFifteenDayAverageFounds() {
 	Cli := Client(CityNodeConfig)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -113,7 +113,7 @@ func GetFifteenDayAverageFounds() {
 func AdminRemovePioneer(chengShiId, pioneer string) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -135,7 +135,7 @@ func AdminRemovePioneer(chengShiId, pioneer string) {
 // PioneerChengShi 查看先锋城市
 func PioneerChengShi(pioneer string) (error, [32]byte) {
 	Cli := Client(CityNodeConfig)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, [32]byte{}
@@ -153,7 +153,7 @@ func PioneerChengShi(pioneer string) (error, [32]byte) {
 func CountyNewlyPioneerDelegateRecord(countyId [32]byte, day int64) (error, *big.Int) {
 	Cli := Client(CityNodeConfig)
 	//_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, big.NewInt(0)
@@ -170,7 +170,7 @@ func CountyNewlyPioneerDelegateRecord(countyId [32]byte, day int64) (error, *big
 func RechargeDailyWeightRecord(countyId [32]byte, day int64) (error, *big.Int) {
 	Cli := Client(CityNodeConfig)
 	//_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, big.NewInt(0)
@@ -186,7 +186,7 @@ func RechargeDailyWeightRecord(countyId [32]byte, day int64) (error, *big.Int) {
 // GetPioneerCityNumber 查看先锋城市数量
 func GetPioneerCityNumber() {
 	Cli := Client(CityNodeConfig)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -202,7 +202,7 @@ func GetPioneerCityNumber() {
 // PioneerChengShiId 查看先锋城市数量
 func PioneerChengShiId(chengShiIndex int64) {
 	Cli := Client(CityNodeConfig)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -219,7 +219,7 @@ func PioneerChengShiId(chengShiIndex int64) {
 func AdminPopPioneerChengShiId() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -236,7 +236,7 @@ func AdminPopPioneerChengShiId() {
 func AdminSetDelegate(userAddress string, amount, setType int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -260,7 +260,7 @@ func AdminSetDelegate(userAddress string, amount, setType int64) {
 func AdminSetRechargeAmount(userAddress string, amount int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -279,7 +279,7 @@ func AdminSetRechargeAmount(userAddress string, amount int64) {
 func AdminSetSecondsPerDayCity(seconds int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -296,7 +296,7 @@ func AdminSetSecondsPerDayCity(seconds int64) {
 func AddCityAdmin() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -331,7 +331,7 @@ func AddCityAdmin() {
 func AdminSetChengShiLevelAndSurety(cityId string, level, earnestMoney int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -356,7 +356,7 @@ func AdminSetChengShiLevelAndSurety(cityId string, level, earnestMoney int64) {
 func AdminEditSurety(cityId string, level, earnestMoney int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -380,7 +380,7 @@ func AdminEditSurety(cityId string, level, earnestMoney int64) {
 // PioneerCity 获取先锋对应的城市ID
 func PioneerCity(pioneerAddress string) (error, string) {
 	Cli := Client(CityNodeConfig)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, ""
@@ -398,12 +398,12 @@ func PioneerCity(pioneerAddress string) (error, string) {
 func TriggerAllPioneerTask() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -430,12 +430,12 @@ func TriggerAllPioneerTask() {
 func TriggerAllPioneerTaskTestNet() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -451,7 +451,7 @@ func TriggerAllPioneerTaskTestNet() {
 // CityRechargeTotal 获取区县对应的累计充值权重
 func CityRechargeTotal(countyId [32]byte) (error, *big.Int) {
 	Cli := Client(CityNodeConfig)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, nil
@@ -499,7 +499,7 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 		return err
 	}
 	cancel()
-	abi, _ := intoCityNode.CityMetaData.GetAbi()
+	abi, _ := intoCityNode2.CityMetaData.GetAbi()
 	for _, logE := range logs {
 		logData, err := abi.Unpack(event.IncreaseCityDelegateEvent.EventName, logE.Data)
 		if err != nil {
@@ -574,7 +574,7 @@ func GetRechargeRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) e
 		return err
 	}
 	cancel()
-	abi, _ := intoCityNode.CityMetaData.GetAbi()
+	abi, _ := intoCityNode2.CityMetaData.GetAbi()
 	for _, logE := range logs {
 		logData, err := abi.Unpack(event.RechargeRecordEvent.EventName, logE.Data)
 		if err != nil {

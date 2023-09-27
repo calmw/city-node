@@ -1,7 +1,7 @@
 package blockchain
 
 import (
-	intoCityNode "city-node-server/binding"
+	intoCityNode2 "city-node-server/binding/intoCityNode"
 	"city-node-server/blockchain/event"
 	"city-node-server/db"
 	"city-node-server/log"
@@ -20,7 +20,7 @@ import (
 func AdminSetAssessmentCriteria(cityLevel, month, point int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -37,7 +37,7 @@ func AdminSetAssessmentCriteria(cityLevel, month, point int64) {
 func AdminSetAssessmentReturnRate(cityLevel, month, point int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -54,7 +54,7 @@ func AdminSetAssessmentReturnRate(cityLevel, month, point int64) {
 func AdminSetAssessmentReturnCriteria(cityLevel, month, point int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -71,7 +71,7 @@ func AdminSetAssessmentReturnCriteria(cityLevel, month, point int64) {
 func AdminSetStartTime(startTime int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -88,7 +88,7 @@ func AdminSetStartTime(startTime int64) {
 func AdminSetTOXAddress() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -105,7 +105,7 @@ func AdminSetTOXAddress() {
 func AdminSetCityAddress() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -122,7 +122,7 @@ func AdminSetCityAddress() {
 func AdminSetMiningAddress() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -139,7 +139,7 @@ func AdminSetMiningAddress() {
 func AddCityPioneerAdmin() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -163,7 +163,7 @@ func AddCityPioneerAdmin() {
 func AdminSetSecondsPerDayCityPioneer(seconds int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -180,7 +180,7 @@ func AdminSetSecondsPerDayCityPioneer(seconds int64) {
 func AdminSetPresidencyTime(seconds int64) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -197,7 +197,7 @@ func AdminSetPresidencyTime(seconds int64) {
 func DepositSuretyTest(pioneerAddress string) {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -231,7 +231,7 @@ func DepositSuretyTest(pioneerAddress string) {
 func DepositSurety() {
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -245,7 +245,7 @@ func DepositSurety() {
 }
 func GetPioneer(index int64) (error, string) {
 	Cli := Client(CityNodeConfig)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, ""
@@ -259,7 +259,7 @@ func GetPioneer(index int64) (error, string) {
 }
 func GetPioneerNumber() (error, int64) {
 	Cli := Client(CityNodeConfig)
-	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, 0
@@ -288,7 +288,7 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 		return err
 	}
 	cancel()
-	abi, _ := intoCityNode.CityPioneerMetaData.GetAbi()
+	abi, _ := intoCityNode2.CityPioneerMetaData.GetAbi()
 
 	for _, logE := range logs {
 		logData, err := abi.Unpack(event.DailyRewardRecordEvent.EventName, logE.Data)
@@ -363,7 +363,7 @@ func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock 
 		return err
 	}
 	cancel()
-	abi, _ := intoCityNode.CityPioneerMetaData.GetAbi()
+	abi, _ := intoCityNode2.CityPioneerMetaData.GetAbi()
 
 	for _, logE := range logs {
 		logData, err := abi.Unpack(event.WithdrawalRewardRecordEvent.EventName, logE.Data)
