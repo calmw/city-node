@@ -221,7 +221,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 修改先锋信息
-    function editPioneerInfo(address pioneerAddress_) public {
+    function editPioneerInfo(address pioneerAddress_) public onlyAdmin{
         pioneerInfo[pioneerAddress_].ctime = startTime;
     }
 
