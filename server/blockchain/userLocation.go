@@ -280,23 +280,23 @@ func RestoreUserLocation(user string) error {
 	if code[2] == "" {
 		code[2] = "0"
 	}
-	// 查询明文地址
-	uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
-	err, location := utils.HttpGet(uri)
-	if err != nil {
-		return err
-	}
-	var locationInfo LocationInfo
-	err = json.Unmarshal(location, &locationInfo)
-	if err != nil {
-		return err
-	}
 
 	var userLocation models.UserLocation
 	whereCondition := fmt.Sprintf("user='%s' and city_id='%s' and area_code='%s' and county_id='%s'",
 		user, strings.ToLower(cityId), locationCode, strings.ToLower(countyId))
 	err = db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
 	if err == gorm.ErrRecordNotFound {
+		// 查询明文地址
+		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
+		err, location := utils.HttpGet(uri)
+		if err != nil {
+			return err
+		}
+		var locationInfo LocationInfo
+		err = json.Unmarshal(location, &locationInfo)
+		if err != nil {
+			return err
+		}
 		db.Mysql.Model(&models.UserLocation{}).Create(&models.UserLocation{
 			User:            user,
 			CountyId:        strings.ToLower(countyId),
@@ -440,7 +440,10 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 		locationEncrypt := logData[2].(string)
 		locationCode := utils.ThreeDesDecrypt(locationEncrypt)
 		code := strings.Split(locationCode, ",")
-		if len(code) < 2 {
+		if len(code) == 2 {
+			code = append(code, "0")
+		}
+		if len(code) < 3 {
 			log.Logger.Sugar().Warnln("用户位置加密信息解析错误", userAddress.String(), locationCode, locationEncrypt, code)
 			continue
 		}
@@ -471,9 +474,6 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err
-	}
-	if code[2] == "" {
-		code[2] = "0"
 	}
 	var userLocation models.UserLocation
 	whereCondition := fmt.Sprintf("user='%s' and city_id='%s' and area_code='%s' and county_id='%s'",
