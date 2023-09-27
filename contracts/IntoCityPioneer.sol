@@ -124,9 +124,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 管理员设置TOX代币地址
-    function adminSetTOXAddress(address TOXAddress_) public onlyAdmin {
-        TOXAddress = TOXAddress_;
-    }
+//    function adminSetTOXAddress(address TOXAddress_) public onlyAdmin {
+//        TOXAddress = TOXAddress_;
+//    }
 
     // 管理员设置城市合约地址
 //    function adminSetCityAddress(address cityAddress_) public onlyAdmin {
@@ -237,6 +237,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 先锋补交保证金
     function paySurety() public {
+        require(pioneerPaySurety[msg.sender] > 0, "you have already paid");
         IERC20 TOXContract = IERC20(TOXAddress);
         TOXContract.transferFrom(msg.sender, address(this), pioneerPaySurety[msg.sender]);
         pioneerPaySurety[msg.sender] = 0;
@@ -581,8 +582,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 提取本合约TOX余额到指定用户
-    function withdraw(address user) public {
-        IERC20 TOX = IERC20(TOXAddress);
-        TOX.transfer(user, 2000000000000000000000000);
-    }
+//    function withdraw(address user) public {
+//        IERC20 TOX = IERC20(TOXAddress);
+//        TOX.transfer(user, 2000000000000000000000000);
+//    }
 }
