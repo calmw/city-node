@@ -1,9 +1,12 @@
 package services
 
-import "city-node-server/blockchain"
+import (
+	"city-node-server/blockchain"
+	"os"
+)
 
 func InitTestNet() {
-
+	key := os.Getenv("META_ACCOUNT")
 	blockchain.CityNodeConfig = blockchain.CityNodeConfigs{
 		ChainId:               9001,
 		RPC:                   "https://testnet-rpc.d2ao.com/",
@@ -16,7 +19,7 @@ func InitTestNet() {
 		RechargeWeightAddress: "0xD8c1d40a6FF4E53577389C8008343081949C373D", // 需要杨森给合约地址，在cityPioneer给管理员权限
 		GetFoundsAddress:      "0x6Fd8375249cC5FAb32099697A301901378E77a12", // 获取社交基金值的合约
 		ToxAddress:            "0x3eE243ff68074502b1D9D65443fa97b99f634570", // TOX代币合约地址
-		PrivateKey:            "a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2",
+		PrivateKey:            key,
 	}
 
 	//blockchain.AdminSetSecondsPerDayCityUserLocation(300) // 86400 , 300

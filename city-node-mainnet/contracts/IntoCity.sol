@@ -331,10 +331,10 @@ contract IntoCity is RoleAccess, Initializable {
                 }
             }
 //              增加区县质押量
-            incrCountyOrChengShiDelegate(userAddress_,countyId, amount_, today);// 同时增加区县质押量，和城市质押量可以各取各的
+            incrCountyOrChengShiDelegate(userAddress_, countyId, amount_, today);// 同时增加区县质押量，和城市质押量可以各取各的
         } else if (setType == 2) {// 减少
             // 减少区县质押量
-            descCountyOrChengShiDelegate(userAddress_,countyId, amount_, today);
+            descCountyOrChengShiDelegate(userAddress_, countyId, amount_, today);
         }
 //         更新区县历史某天最大质押值
         uint256 yesterdayDelegate = cityDelegateRecord[countyId][today - 1];
@@ -359,6 +359,18 @@ contract IntoCity is RoleAccess, Initializable {
             IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
             intoCityPioneer.pioneerTask(pioneerAddress, chengShiId); // 考核和保证金检测
         }
+    }
+
+    function pioneerDailyTask(address pioneerAddress) external {
+        IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
+        bytes32 chengShiId = pioneerChengShi[pioneerAddress];
+        if (chengShiId != bytes32(0)) {
+            intoCityPioneer.pioneerTask(pioneerAddress, chengShiId); // 考核和保证金定时任务
+        }
+    }
+
+    function syncCityCheck(address _addr) external {
+
     }
 
     function isPioneerChengShi(bytes32 chengShiId) public view returns (bool){

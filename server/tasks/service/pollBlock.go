@@ -52,8 +52,6 @@ func PollBlockTaskGetDailyRewardRecordEvent() {
 	if endBlock > number {
 		return
 	}
-	fmt.Println(startBlock, endBlock)
-	// 用户定位事件处理
 	err = blockchain.GetDailyRewardRecordEvent(Cli, int64(startBlock), int64(endBlock))
 	if err != nil {
 		return

@@ -54,6 +54,19 @@ func AdminSetCityAddressUserLocation() {
 	fmt.Println(res, err)
 }
 
+// AddAdmin 管理员设置城市合约地址
+func UserLocationAddAdmin() {
+	Cli := Client(CityNodeConfig)
+	_, auth := GetAuth(Cli)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := userLocation.AddAdmin(auth, common.HexToAddress("0x94b627F4F829Ac5E97fDc556B5BEeeFf9beF417e"))
+	fmt.Println(res, err, 123)
+}
+
 // AdminSetPledgeStakeAddressUserLocation 管理员设置获取用户质押量合约地址
 func AdminSetPledgeStakeAddressUserLocation() {
 	Cli := Client(CityNodeConfig)

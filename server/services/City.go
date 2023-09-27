@@ -45,7 +45,7 @@ func InitCity() {
 	////time.Sleep(time.Second * 3)
 
 	// 给城市先锋合约、用户定位合约、设置质押量合约添加管理员权限
-	//blockchain.AddCityAdmin()
+	blockchain.AddCityAdmin()
 
 	//blockchain.AdminSetChengShiLevelAndSurety("0xb6fc3268053782f854d25c8835b5b14310b43055e85822cb7a429b38e509672f", 1, 100000)
 	//blockchain.SetCityMapping("0xb73482b8711de7a9ea6d605da1662617f1f75d62597e3a5fe7b56dafc029bc2a", "0xb6fc3268053782f854d25c8835b5b14310b43055e85822cb7a429b38e509672f", "R9TjhZrWJi8=")

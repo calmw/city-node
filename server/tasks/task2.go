@@ -15,7 +15,7 @@ func Start2() {
 
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
-	_ = s.Every(50).Seconds().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
+	_ = s.Every(60).Seconds().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
 	//_ = s.Every(1).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
 	//_ = s.Every(3).Hours().From(gocron.NextTick()).Do(service.PollBlockTaskGetDailyRewardRecordEvent)
 	//_ = s.Every(1).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetRechargeRecordEvent)

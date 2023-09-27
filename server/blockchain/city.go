@@ -302,29 +302,36 @@ func AddCityAdmin() {
 		return
 	}
 
-	_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.CityPioneerAddress))
+	_, err = city.AddAdmin(auth, common.HexToAddress("0x94b627F4F829Ac5E97fDc556B5BEeeFf9beF417e"))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
+	fmt.Println(err, 33)
 
-	_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.UserLocationAddress))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-
-	_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.SetDelegateAddress))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-
-	_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.RechargeWeightAddress))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
+	//_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.CityPioneerAddress))
+	//if err != nil {
+	//	log.Logger.Sugar().Error(err)
+	//	return
+	//}
+	//
+	//_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.UserLocationAddress))
+	//if err != nil {
+	//	log.Logger.Sugar().Error(err)
+	//	return
+	//}
+	//
+	//_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.SetDelegateAddress))
+	//if err != nil {
+	//	log.Logger.Sugar().Error(err)
+	//	return
+	//}
+	//
+	//_, err = city.AddAdmin(auth, common.HexToAddress(CityNodeConfig.RechargeWeightAddress))
+	//if err != nil {
+	//	log.Logger.Sugar().Error(err)
+	//	return
+	//}
 }
 
 // AdminSetChengShiLevelAndSurety 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额

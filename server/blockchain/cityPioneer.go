@@ -145,17 +145,24 @@ func AddCityPioneerAdmin() {
 		return
 	}
 
-	res, err := cityPioneer.AddAdmin(auth, common.HexToAddress(CityNodeConfig.CityAddress))
+	res, err := cityPioneer.AddAdmin(auth, common.HexToAddress("0x94b627F4F829Ac5E97fDc556B5BEeeFf9beF417e"))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
+	fmt.Println(err, 222)
 
-	res, err = cityPioneer.AddAdmin(auth, common.HexToAddress(CityNodeConfig.MiningAddress))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
+	//res, err := cityPioneer.AddAdmin(auth, common.HexToAddress(CityNodeConfig.CityAddress))
+	//if err != nil {
+	//	log.Logger.Sugar().Error(err)
+	//	return
+	//}
+	//
+	//res, err = cityPioneer.AddAdmin(auth, common.HexToAddress(CityNodeConfig.MiningAddress))
+	//if err != nil {
+	//	log.Logger.Sugar().Error(err)
+	//	return
+	//}
 	fmt.Println(res, err)
 }
 
@@ -273,6 +280,7 @@ func GetPioneerNumber() (error, int64) {
 }
 
 func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
+	time.Sleep(time.Second * 2)
 	InsertDailyRewardLock.Lock()
 	defer InsertDailyRewardLock.Unlock()
 	query := event.BuildQuery(
