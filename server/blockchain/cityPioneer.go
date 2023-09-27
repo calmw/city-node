@@ -328,7 +328,7 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 func InsertDailyReward(pioneerAddress, tx_hash string, foundsReward, delegateReward, nodeReward decimal.Decimal, blockHeight, timestamp int64) error {
 
 	var reward models.Reward
-	whereCondition := fmt.Sprintf("pioneer='%s' and block_height='%d'", strings.ToLower(pioneerAddress), blockHeight)
+	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d", strings.ToLower(pioneerAddress), blockHeight)
 	err := db.Mysql.Table("reward").Where(whereCondition).First(&reward).Error
 	if err == gorm.ErrRecordNotFound {
 		// 获取城市信息
@@ -394,7 +394,7 @@ func InsertWithdrawalRewardRecord(pioneerAddress, tx_hash string, amount, reward
 	InsertWithdrawalRewardRecordLock.Lock()
 	defer InsertWithdrawalRewardRecordLock.Unlock()
 	var rewardWithdraw models.RewardWithdraw
-	whereCondition := fmt.Sprintf("pioneer='%s' and block_height='%d'", strings.ToLower(pioneerAddress), blockHeight)
+	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d", strings.ToLower(pioneerAddress), blockHeight)
 	err := db.Mysql.Table("reward_withdraw").Where(whereCondition).First(&rewardWithdraw).Error
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Table("reward_withdraw").Create(&models.RewardWithdraw{

@@ -28,10 +28,11 @@ func PollBlockTaskGetUserLocationRecordEvent() {
 	}
 	fmt.Println(startBlock, endBlock)
 	// 用户定位事件处理
-	err = blockchain.GetUserLocationRecordEvent(Cli, int64(startBlock), int64(endBlock))
-	if err != nil {
-		return
-	}
+	blockchain.GetUserLocationRecordEvent(Cli, int64(startBlock), int64(endBlock))
+	//err = blockchain.GetUserLocationRecordEvent(Cli, int64(startBlock), int64(endBlock))
+	//if err != nil {
+	//	return
+	//}
 	// 更新区块高度
 	blockchain.SetSTartBlock(int64(startBlock+1000), blockchain.LocationEvent)
 }
