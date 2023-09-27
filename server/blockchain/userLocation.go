@@ -9,6 +9,7 @@ import (
 	"city-node-server/utils"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
@@ -277,10 +278,21 @@ func RestoreUserLocation(user string) error {
 	locationCode := utils.ThreeDesDecrypt(locationEncrypt)
 	code := strings.Split(locationCode, ",")
 
-	if code[2] == "" {
+	if len(code) == 2 {
+		code = append(code, "0")
+	}
+	if len(code) < 3 {
+		log.Logger.Sugar().Warnln("用户位置加密信息解析错误", user, locationCode, locationEncrypt, code)
+		return errors.New("用户位置加密信息解析错误")
+	}
+	if code[0] != "0" {
+		log.Logger.Sugar().Warnln("国外用户位置信息", user, locationCode, locationEncrypt, code)
 		code[2] = "0"
 	}
-
+	err = InsertUserLocation(user, countyId, code, locationEncrypt, locationCode, countyIdBytes32)
+	if err != nil {
+		return err
+	}
 	var userLocation models.UserLocation
 	whereCondition := fmt.Sprintf("user='%s' and city_id='%s' and area_code='%s' and county_id='%s'",
 		user, strings.ToLower(cityId), locationCode, strings.ToLower(countyId))
@@ -447,6 +459,10 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 			log.Logger.Sugar().Warnln("用户位置加密信息解析错误", userAddress.String(), locationCode, locationEncrypt, code)
 			continue
 		}
+		if code[0] != "0" {
+			log.Logger.Sugar().Warnln("国外用户位置信息", userAddress.String(), locationCode, locationEncrypt, code)
+			code[2] = "0"
+		}
 		err = InsertUserLocation(userAddress.String(), countyId, code, locationEncrypt, locationCode, countyId2)
 		if err != nil {
 			return err
@@ -482,6 +498,7 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 	if err == gorm.ErrRecordNotFound {
 		// 查询明文地址
 		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
+		log.Logger.Sugar().Info(uri)
 		err, location := utils.HttpGet(uri)
 		if err != nil {
 			log.Logger.Sugar().Error(err)

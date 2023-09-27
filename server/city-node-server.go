@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	services.InitMainNet()
+	//services.InitMainNet()
 	//services.InitTestNet()
 	//services.InitCity()
 	//task()
@@ -86,7 +86,10 @@ func main() {
 	//clearTestNet()
 
 	//blockchain.TriggerAllPioneerTask()
-	//blockchain.RestoreUserLocation("") // 重新获取并存储用户位置信息，从链上查询，不是从事件获取
+
+	// 重新获取并存储用户位置信息，从链上查询，不是从事件获取
+	//err := blockchain.RestoreUserLocation("0xe1386021a30d279f625030c5cc4757cb6ca83369")
+	//fmt.Println(err)
 
 }
 
