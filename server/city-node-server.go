@@ -81,7 +81,7 @@ func main() {
 	//}()
 	//api.Start()
 	//tasks.Start() // 正式
-	tasks.Start2() // 测试
+	tasks.Start() // 测试
 
 	//clearTestNet()
 
