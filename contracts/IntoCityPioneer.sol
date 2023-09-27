@@ -222,7 +222,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 修改先锋信息
     function editPioneerInfo(address pioneerAddress_) public {
-        pioneerInfo[pioneerAddress_].cityLevel = 2;
+        pioneerInfo[pioneerAddress_].ctime = startTime;
     }
 
     // 管理员设置先锋需要补交的保证金
@@ -450,9 +450,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
     }
 
-    function descBenefitPackageRewardByAddress(address user, uint256 amount) public onlyAdmin {
-        benefitPackageReward[user] -= amount;
-    }
+//    function descBenefitPackageRewardByAddress(address user, uint256 amount) public onlyAdmin {
+//        benefitPackageReward[user] -= amount;
+//    }
 
     // 用户提取福利包奖励
     function withdrawalBenefitPackageReward() public {
