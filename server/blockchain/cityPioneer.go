@@ -305,7 +305,6 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 			return err
 		}
 		var timestamp int64
-		var txHash string
 		pioneerAddress := strings.ToLower(logData[0].(common.Address).String())
 		nodeReward := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
 		foundsReward := decimal.NewFromBigInt(logData[2].(*big.Int), 0)
@@ -314,18 +313,8 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 		if err == nil {
 			timestamp = int64(header.Time)
 		}
-		if header != nil {
-			txHash = header.TxHash.String()
-		}
-		fmt.Println(header)
-		fmt.Println(pioneerAddress)
-		fmt.Println(txHash)
-		fmt.Println(foundsReward)
-		fmt.Println(delegateReward)
-		fmt.Println(nodeReward)
-		fmt.Println(int64(logE.BlockNumber))
-		fmt.Println(timestamp)
-		err = InsertDailyReward(pioneerAddress, txHash, foundsReward, delegateReward, nodeReward, int64(logE.BlockNumber), timestamp)
+
+		err = InsertDailyReward(pioneerAddress, logE.TxHash.String(), foundsReward, delegateReward, nodeReward, int64(logE.BlockNumber), timestamp)
 		if err != nil {
 			return err
 		}
@@ -388,7 +377,7 @@ func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock 
 		if err == nil {
 			timestamp = int64(header.Time)
 		}
-		err = InsertWithdrawalRewardRecord(pioneerAddress, header.TxHash.String(), amount, wType, int64(logE.BlockNumber), timestamp)
+		err = InsertWithdrawalRewardRecord(pioneerAddress, logE.TxHash.String(), amount, wType, int64(logE.BlockNumber), timestamp)
 		if err != nil {
 			return err
 		}
@@ -401,9 +390,9 @@ func InsertWithdrawalRewardRecord(pioneerAddress, tx_hash string, amount, reward
 	defer InsertWithdrawalRewardRecordLock.Unlock()
 	var rewardWithdraw models.RewardWithdraw
 	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d", strings.ToLower(pioneerAddress), blockHeight)
-	err := db.Mysql.Table("reward_withdraw").Where(whereCondition).First(&rewardWithdraw).Error
+	err := db.Mysql.Model(&models.RewardWithdraw{}).Where(whereCondition).First(&rewardWithdraw).Error
 	if err == gorm.ErrRecordNotFound {
-		db.Mysql.Table("reward_withdraw").Create(&models.RewardWithdraw{
+		db.Mysql.Model(&models.RewardWithdraw{}).Create(&models.RewardWithdraw{
 			Pioneer:     pioneerAddress,
 			TxHash:      tx_hash,
 			Amount:      amount,

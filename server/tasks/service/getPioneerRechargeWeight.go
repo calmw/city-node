@@ -3,6 +3,7 @@ package service
 import (
 	"city-node-server/blockchain"
 	"city-node-server/db"
+	"city-node-server/log"
 	"city-node-server/models"
 	"fmt"
 	"github.com/shopspring/decimal"
@@ -116,4 +117,39 @@ func InsertRechargeWeight(pioneer, cityId, countyId, cityLocation, countyLocatio
 		})
 	}
 	return err
+}
+
+func SavePioneerInDb(pioneerAddress, cityId string) error {
+	var pioneer models.Pioneer
+	whereCondition := fmt.Sprintf("city_id='%s' and pioneer='%s'",
+		strings.ToLower(cityId), strings.ToLower(pioneerAddress))
+	err := db.Mysql.Model(&models.Pioneer{}).Where(whereCondition).First(&pioneer).Error
+	if err == gorm.ErrRecordNotFound {
+		db.Mysql.Model(&models.Pioneer{}).Create(&models.Pioneer{
+			Pioneer: strings.ToLower(pioneerAddress),
+			CityId:  strings.ToLower(cityId),
+		})
+	}
+	return err
+}
+
+func UpdatePioneer() {
+	err, number := blockchain.GetPioneerNumber()
+	if err != nil {
+		return
+	}
+	for i := 0; i < int(number); i++ {
+		err, pioneerAddress := blockchain.GetPioneer(int64(i))
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
+		// 获取先锋对应的城市ID
+		err, cityId := blockchain.PioneerChengShi(pioneerAddress)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
+		_ = SavePioneerInDb(pioneerAddress, "0x"+hexutils.BytesToHex(blockchain.Bytes32ToBytes(cityId)))
+	}
 }

@@ -516,13 +516,32 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 			log.Logger.Sugar().Error("logData len 0")
 			continue
 		}
+		var timestamp int64
+		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
+		if err == nil {
+			timestamp = int64(header.Time)
+		}
 		cityId := "0x" + common.Bytes2Hex(Bytes32ToBytes(logData[0].([32]uint8)))
 		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
 		if amount.IsZero() {
 			continue
 		}
-		CreateAdminSetDelegate(models.AdminSetDelegate{
+		InsertAdminSetDelegateRecord(cityId, logE.TxHash.String(), amount, timestamp)
+	}
+	return nil
+}
+
+func InsertAdminSetDelegateRecord(cityId, txHash string, amount decimal.Decimal, ctime int64) error {
+	InsertDelegateLock.Lock()
+	defer InsertDelegateLock.Unlock()
+	var delegate models.Delegate
+	whereCondition := fmt.Sprintf("city_id='%s' and tx_hash=%d", strings.ToLower(cityId), txHash)
+	err := db.Mysql.Model(&models.Delegate{}).Where(whereCondition).First(&delegate).Error
+	if err == gorm.ErrRecordNotFound {
+		db.Mysql.Model(&models.Delegate{}).Create(models.Delegate{
 			CityId:  cityId,
+			TxHash:  txHash,
+			Ctime:   time.Unix(ctime, 0),
 			Amount:  amount,
 			SetType: 1,
 		})
@@ -560,12 +579,6 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 //	}
 //	return nil
 //}
-
-func CreateAdminSetDelegate(adminSetDelegate models.AdminSetDelegate) {
-	InsertDelegateLock.Lock()
-	defer InsertDelegateLock.Unlock()
-	db.Mysql.Table("admin_set_delegate").Create(&adminSetDelegate)
-}
 
 func GetRechargeRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
 	query := event.BuildQuery(
@@ -619,7 +632,7 @@ func InsertRechargeRecordEvent(userAddress, countyId string, countyIdBytes32 [32
 	var rechargeRecord models.RechargeRecord
 	whereCondition := fmt.Sprintf("user='%s' and county_id='%s' and city_id='%s' and amount='%d' and ctime='%d'",
 		strings.ToLower(userAddress), strings.ToLower(countyId), strings.ToLower(cityId), amount, ctime)
-	err = db.Mysql.Table("user_location").Where(whereCondition).First(&rechargeRecord).Error
+	err = db.Mysql.Model(&models.RechargeRecord{}).Where(whereCondition).First(&rechargeRecord).Error
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Model(&models.RechargeRecord{}).Create(&models.RechargeRecord{
 			User:     strings.ToLower(userAddress),

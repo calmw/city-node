@@ -36,6 +36,29 @@ func PollBlockTaskGetUserLocationRecordEvent() {
 	blockchain.SetSTartBlock(int64(startBlock+1000), blockchain.LocationEvent)
 }
 
+func PollBlockTaskGetUserLocationRecordEvent2() {
+	Cli := blockchain.Client(blockchain.CityNodeConfig)
+	err, startBlock := blockchain.GetStartBlock(blockchain.LocationEvent2) // 2306974
+	if err != nil {
+		return
+	}
+	number, err := Cli.BlockNumber(context.Background())
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	endBlock := startBlock + PoolStep
+	if endBlock > number {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	// 用户定位事件处理
+	blockchain.GetUserLocationRecordEvent(Cli, int64(startBlock), int64(endBlock))
+
+	// 更新区块高度
+	blockchain.SetSTartBlock(int64(startBlock+1000), blockchain.LocationEvent2)
+}
+
 func PollBlockTaskGetDailyRewardRecordEvent() {
 	Cli := blockchain.Client(blockchain.CityNodeConfig)
 	err, startBlock := blockchain.GetStartBlock(blockchain.RewardEvent) // 2306974
@@ -77,7 +100,7 @@ func PollBlockTaskGetRechargeRecordEvent() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	// 用户定位事件处理
+
 	err = blockchain.GetRechargeRecordEvent(Cli, int64(startBlock), int64(endBlock))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -103,7 +126,7 @@ func PollBlockTaskGetIncreaseCityDelegateEvent() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	// 用户定位事件处理
+
 	err = blockchain.GetIncreaseCityDelegateEvent(Cli, int64(startBlock), int64(endBlock))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -129,7 +152,7 @@ func PollBlockTaskGetWithdrawalRewardRecordEvent() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	// 用户定位事件处理
+
 	err = blockchain.GetWithdrawalRewardRecordEvent(Cli, int64(startBlock), int64(endBlock))
 	if err != nil {
 		log.Logger.Sugar().Error(err)

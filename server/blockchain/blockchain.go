@@ -19,6 +19,7 @@ const (
 	RechargeEvent
 	DelegateEvent
 	WithdrawEvent
+	LocationEvent2
 )
 
 type CityNodeConfigs struct {

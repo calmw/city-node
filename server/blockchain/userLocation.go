@@ -174,6 +174,26 @@ func SetCityMapping(countyId, chengShiId, location string) {
 	fmt.Println(err)
 }
 
+func GetChengShiIdByCountyId(countyId string) (error, string) {
+	Cli := Client(CityNodeConfig)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
+	if strings.Contains(countyId, "0x") {
+		countyId = strings.ReplaceAll(countyId, "0x", "")
+	}
+	common.Hex2Bytes(countyId)
+	countyIdBytes32 := BytesToByte32(common.Hex2Bytes(countyId))
+	chengShiIdBytes32, err := userLocation.GetChengShiIdByCountyId(nil, countyIdBytes32)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
+	return nil, strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(chengShiIdBytes32)))
+}
+
 // GetCityId 获取cityId
 func GetCityId(cityIdIndex int64) {
 	Cli := Client(CityNodeConfig)
@@ -289,7 +309,7 @@ func RestoreUserLocation(user string) error {
 		log.Logger.Sugar().Warnln("国外用户位置信息", user, locationCode, locationEncrypt, code)
 		code[2] = "0"
 	}
-	err = InsertUserLocation(user, countyId, code, locationEncrypt, locationCode, countyIdBytes32)
+	err = InsertUserLocation(user, countyId, code, locationEncrypt, locationCode, countyIdBytes32, 0)
 	if err != nil {
 		return err
 	}
@@ -301,6 +321,7 @@ func RestoreUserLocation(user string) error {
 		// 查询明文地址
 		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
 		err, location := utils.HttpGet(uri)
+		fmt.Println(err, location)
 		if err != nil {
 			return err
 		}
@@ -463,7 +484,12 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 			log.Logger.Sugar().Warnln("国外用户位置信息", userAddress.String(), locationCode, locationEncrypt, code)
 			code[2] = "0"
 		}
-		err = InsertUserLocation(userAddress.String(), countyId, code, locationEncrypt, locationCode, countyId2)
+		var timestamp int64
+		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
+		if err == nil {
+			timestamp = int64(header.Time)
+		}
+		err = InsertUserLocation(userAddress.String(), countyId, code, locationEncrypt, locationCode, countyId2, timestamp)
 		if err != nil {
 			return err
 		}
@@ -483,7 +509,7 @@ type LocationInfo struct {
 	} `json:"data"`
 }
 
-func InsertUserLocation(userAddress, countyId string, code []string, locationEncrypt, locationCode string, countyIdBytes32 [32]byte) error {
+func InsertUserLocation(userAddress, countyId string, code []string, locationEncrypt, locationCode string, countyIdBytes32 [32]byte, timestamp int64) error {
 	InsertUserLocationLock.Lock()
 	defer InsertUserLocationLock.Unlock()
 	err, cityId := GetChengShiIdByCityIdByte32(countyIdBytes32)
@@ -518,6 +544,7 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 			Location:        locationInfo.Data.CountryName + " " + locationInfo.Data.CityName + " " + locationInfo.Data.AreaName,
 			AreaCode:        locationCode,
 			LocationType:    2,
+			Ctime:           time.Unix(timestamp, 0),
 		})
 	}
 	return nil

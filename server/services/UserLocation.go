@@ -1,6 +1,14 @@
 package services
 
-import "city-node-server/blockchain"
+import (
+	"city-node-server/blockchain"
+	"city-node-server/db"
+	"city-node-server/models"
+	"city-node-server/utils"
+	"fmt"
+	"gorm.io/gorm"
+	"strings"
+)
 
 func InitUserLocation() {
 
@@ -25,4 +33,60 @@ func InitUserLocation() {
 	//blockchain.SetUserLocationTest("0x4209dce01c4f06b1b93a35e021ec2efea127ef4ae29a82be536a376504bef0cc", "XxOqpfI6Eo4=", "0x06EfCb450059517f5b34a7cC4eFD80298825124E")
 	//blockchain.SetUserLocationTest("0xbb2d35b76dc3358825b55db25f3696363681ccd940f5d39cc6b1767b8e069404", "19Oc48iM8WQ=", "0x9a04896807Aa61458cB3f996F811022086C61698")
 	//blockchain.SetUserLocationTest("0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34", "Dk4xzONyA9T2EdPpiSjVqw==", "0xC31Bd725D0C15c085a0860Be0c054F60B22c937F")
+}
+
+func UserCityChange() {
+	var userLocation []models.UserLocation
+	db.Mysql.Model(&models.UserLocation{}).Find(&userLocation)
+	for _, l := range userLocation {
+		codeSlic := strings.Split(l.AreaCode, ",")
+		if len(codeSlic[2]) != 6 { // code最后一段是六位数的按国内用户
+			//fmt.Println("跳过：", l.User)
+			continue
+		}
+		codeSecondSlic := strings.Split(codeSlic[1], "")
+		if codeSecondSlic[0] == "0" { // code第二段开头是0的用户
+			err, oldCityId := blockchain.GetChengShiIdByCountyId(l.CountyId)
+			if err != nil {
+				fmt.Println(err)
+				continue
+			}
+			fmt.Println(l.User, codeSlic[2], "+++++")
+			err, cityCode := GetCityCodeByAdCode(codeSlic[2])
+			if err != nil {
+				fmt.Println(err)
+				continue
+			}
+			encrypt := fmt.Sprintf("%d,%d", 0, cityCode)
+			newCityId := strings.ToLower(utils.Keccak256(encrypt))
+			//blockchain.SetCityMapping(l.CountyId, newCityId, l.LocationEncrypt)
+			InsertUserCItyIdChangeLog(l.User, l.CountyId, oldCityId, newCityId)
+
+		}
+	}
+}
+
+func GetCityCodeByAdCode(adCode string) (error, uint) {
+	var areaCode models.AreaCode
+	err := db.Mysql.Model(&models.AreaCode{}).Where("ad_code=?", adCode).First(&areaCode).Error
+	if err != nil {
+		return err, 0
+	}
+	return nil, areaCode.CityCode
+}
+
+func InsertUserCItyIdChangeLog(userAddress, countyId, cityId, newCityId string) error {
+	var userCityIdChangeLog models.UserCityIdChangeLog
+	whereCondition := fmt.Sprintf("user='%s'", strings.ToLower(userAddress))
+	err := db.Mysql.Model(&models.UserCityIdChangeLog{}).Where(whereCondition).First(&userCityIdChangeLog).Error
+	if err == gorm.ErrRecordNotFound {
+
+		db.Mysql.Model(&models.UserCityIdChangeLog{}).Create(&models.UserCityIdChangeLog{
+			User:        strings.ToLower(userAddress),
+			CountyId:    strings.ToLower(countyId),
+			CityId:      strings.ToLower(cityId),
+			PioneerCity: strings.ToLower(newCityId),
+		})
+	}
+	return nil
 }

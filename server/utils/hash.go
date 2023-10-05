@@ -6,11 +6,11 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/forgoer/openssl"
 	"github.com/status-im/keycard-go/hexutils"
+	"strings"
 )
 
 func Keccak256(data string) string {
-	fmt.Println("0x" + hexutils.BytesToHex(crypto.Keccak256([]byte(data))))
-	return "0x" + hexutils.BytesToHex(crypto.Keccak256([]byte(data)))
+	return strings.ToLower("0x" + hexutils.BytesToHex(crypto.Keccak256([]byte(data))))
 }
 
 func ThreeDesEncrypt(data string) string {

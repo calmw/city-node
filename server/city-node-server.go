@@ -2,19 +2,19 @@ package main
 
 import (
 	"city-node-server/blockchain"
+	"city-node-server/db"
 	"city-node-server/services"
-	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
 func main() {
-	//services.InitMainNet()
+	services.InitMainNet()
 	//services.InitTestNet()
 	//services.InitCity()
 	//task()
 
-	//db.InitMysql()
+	db.InitMysql()
 	//blockchain.TriggerAllPioneerTask()
 
 	//services.InitMainNet()
@@ -63,8 +63,13 @@ func main() {
 	//blockchain.GetRechargeDailyWeightRecordByChengId("0x936557454f464570813fe0c6e164d114cfc2d49eb5478f4e9867805eb4d3667b", 19616) // 19616 000000000000000000
 
 	//fmt.Println(utils.ThreeDesEncrypt("0,126"))
-	//fmt.Println(utils.ThreeDesDecrypt("rGlTv2yBVxk="))
-	//fmt.Println(utils.Keccak256("0,136"))
+	//fmt.Println(utils.ThreeDesDecrypt("k21ePhctfFsjZZHhAw0i6w=="))
+	//fmt.Println(utils.ThreeDesDecrypt("9ab2ROmuO8MG+8NIH7eEvQ=="))
+	//fmt.Println(utils.ThreeDesDecrypt("1ywosPaKwiI1gJrw3tTrbw=="))
+	//fmt.Println(utils.ThreeDesDecrypt("yVZXqgsYyCE5mbtavIKYrQ=="))
+	//fmt.Println(utils.ThreeDesEncrypt("0,276"))
+	//fmt.Println(utils.Keccak256("0,276"))
+	//fmt.Println(strings.ToLower("0xd21081d17d30EdcE5e93A40dd62B2F541F0E1e64"))
 	//fmt.Println(utils.Keccak256("0,136,621122")) //0x5BC49BF2BB0F74F6B3321451F04FE277696611BC6A0A2D144F034B27C914F8F0
 	//0x5BC49BF2BB0F74F6B3321451F04FE277696611BC6A0A2D144F034B27C914F8F0
 	//0xF5C444D5602DE5D09258A569DF33128E716AD2AC84A5AE2B2CC90A4D06B7AD33
@@ -80,17 +85,20 @@ func main() {
 	//	api.Start()
 	//}()
 	//api.Start()
-	//tasks.Start() // 正式
-	tasks.Start() // 测试
+	//tasks.Start()
 
 	//clearTestNet()
 
 	//blockchain.TriggerAllPioneerTask()
 
 	// 重新获取并存储用户位置信息，从链上查询，不是从事件获取
-	//err := blockchain.RestoreUserLocation("0xe1386021a30d279f625030c5cc4757cb6ca83369")
+	//err := blockchain.RestoreUserLocation("0x2900b6acb141ce4cbe14c52b006a12e388e19d32")
 	//fmt.Println(err)
 
+	// 更新先锋信息
+	//service.UpdatePioneer()
+
+	services.UserCityChange()
 }
 
 func clearTestNet() {
