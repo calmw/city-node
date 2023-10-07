@@ -318,6 +318,7 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 		if err != nil {
 			return err
 		}
+		time.Sleep(time.Second * 3)
 	}
 	return nil
 }
@@ -381,6 +382,7 @@ func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock 
 		if err != nil {
 			return err
 		}
+		time.Sleep(time.Second * 3)
 	}
 	return nil
 }

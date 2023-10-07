@@ -543,6 +543,7 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 		if err != nil {
 			return err
 		}
+		time.Sleep(time.Second)
 	}
 	return nil
 }

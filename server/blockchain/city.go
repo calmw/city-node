@@ -419,7 +419,6 @@ func TriggerAllPioneerTask() {
 	log.Logger.Sugar().Debug("pioneerNumber:", pioneerNumber)
 	time.Sleep(time.Second * 3)
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
-		time.Sleep(time.Second * 3)
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
 		done := GetPioneerTaskStatus(pioneer.String())
 		if err == nil && !done {
@@ -430,6 +429,7 @@ func TriggerAllPioneerTask() {
 			SetPioneerTaskStatus(pioneer.String())
 			fmt.Println(pioneer.String(), i, err)
 		}
+		time.Sleep(time.Second * 3)
 	}
 }
 
@@ -452,6 +452,7 @@ func TriggerAllPioneerTaskTestNet() {
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
 		_, err = city.PioneerDailyTask(auth, pioneer)
 		fmt.Println(pioneer.String(), i, err)
+		time.Sleep(time.Second * 3)
 	}
 }
 
@@ -527,6 +528,7 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 			continue
 		}
 		InsertAdminSetDelegateRecord(cityId, logE.TxHash.String(), amount, timestamp)
+		time.Sleep(time.Second * 3)
 	}
 	return nil
 }
@@ -616,6 +618,7 @@ func GetRechargeRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) e
 		if err != nil {
 			return err
 		}
+		time.Sleep(time.Second * 3)
 	}
 	return nil
 }

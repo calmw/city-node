@@ -7,6 +7,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"
 	"strings"
+	"time"
 )
 
 // GetNewlyDelegateRecordByChengId   根据城市ID和天查询新增质押量
@@ -63,6 +64,7 @@ func GetRechargeDailyWeightRecordByChengId(chengShiId string, day int64) {
 		if err == nil {
 			amountTotal.Add(amountTotal, amount)
 		}
+		time.Sleep(time.Second * 3)
 	}
 	fmt.Println(amountTotal.String())
 }
