@@ -113,7 +113,7 @@ func InsertRechargeWeight(pioneer, cityId, countyId, cityLocation, countyLocatio
 			CityLocation:   strings.ToLower(cityLocation),
 			CountyLocation: strings.ToLower(countyLocation),
 			Weight:         weight,
-			Day:            t.Format("2006-01-02 15:04:05"),
+			Day:            t,
 		})
 	}
 	return err

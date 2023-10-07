@@ -9,6 +9,7 @@ import (
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 	"strings"
+	"time"
 )
 
 type Pioneer struct{}
@@ -32,7 +33,7 @@ type PioneerCountyData struct {
 }
 
 type PioneerWeightDaily struct {
-	Day    string          `json:"day"`
+	Day    time.Time       `json:"day"`
 	Weight decimal.Decimal `json:"weight"`
 }
 
@@ -114,7 +115,7 @@ func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRecharge
 func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, int64, []models2.RechargeWeight) {
 	var rechargeWeights []models2.RechargeWeight
 
-	tx := db.Mysql.Model(&models2.RechargeWeight{})
+	tx := db.Mysql.Model(&models2.RechargeWeight{}).Order("day desc")
 	if req.Pioneer != "" {
 		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
 	}

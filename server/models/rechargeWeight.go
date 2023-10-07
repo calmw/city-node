@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/shopspring/decimal"
+	"time"
 )
 
 type RechargeWeight struct {
@@ -12,5 +13,5 @@ type RechargeWeight struct {
 	CityLocation   string          `json:"city_location" gorm:"column:city_location"`
 	CountyLocation string          `json:"county_location" gorm:"column:county_location"`
 	Weight         decimal.Decimal `json:"weight" gorm:"column:weight"`
-	Day            string          `json:"day" gorm:"column:day"`
+	Day            time.Time       `json:"day" gorm:"column:day"`
 }

@@ -30,7 +30,7 @@ func (c *UserLocationService) GetLocationByUserAddress(userReq *request.GetLocat
 func (c *UserLocationService) UserLocation(req *request.Location) (int, int64, []models2.UserLocation) {
 	var userLocations []models2.UserLocation
 
-	tx := db.Mysql.Model(&models2.UserLocation{})
+	tx := db.Mysql.Model(&models2.UserLocation{}).Order("ctime desc")
 	if req.User != "" {
 		tx = tx.Where("user=?", strings.ToLower(req.User))
 		blockchain.RestoreUserLocation(strings.ToLower(req.User))
