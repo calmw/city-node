@@ -4,6 +4,7 @@ import (
 	"city-node-server/blockchain"
 	"city-node-server/db"
 	"city-node-server/services"
+	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -84,13 +85,13 @@ func main() {
 	//	}()
 	//	api.Start()
 	//}()
-	//tasks.Start()
+	tasks.Start()
 
 	//clearTestNet()
 
 	//blockchain.TriggerAllPioneerTask()
 
-	// 重新获取并存储用户位置信息，从链上查询，不是从事件获取
+	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
 	//err := blockchain.RestoreUserLocation("0xe137ff4fcdda90c3665562f52491b511155e19ff")
 	//fmt.Println(err)
 

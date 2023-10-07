@@ -17,13 +17,16 @@ func Start() {
 
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
-	//_ = s.Every(600).Seconds().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
-	_ = s.Every(10).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent2)
+	// main-net
+	_ = s.Every(10).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
+	//_ = s.Every(10).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent2)
 	_ = s.Every(3).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetDailyRewardRecordEvent)
 	_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetRechargeRecordEvent)
 	_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetIncreaseCityDelegateEvent)
 	_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetWithdrawalRewardRecordEvent)
 	_ = s.Every(30).Minutes().From(gocron.NextTick()).From(gocron.NextTick()).Do(service.GetPioneerRechargeWeight)
+
+	// test
 	//_ = s.Every(4).Hours().From(gocron.NextTick()).From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTask)
 	//_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
 	//_ = s.Every(3).Hours().From(gocron.NextTick()).Do(service.PollBlockTaskGetDailyRewardRecordEvent)

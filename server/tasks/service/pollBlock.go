@@ -61,7 +61,7 @@ func PollBlockTaskGetUserLocationRecordEvent2() {
 
 func PollBlockTaskGetDailyRewardRecordEvent() {
 	Cli := blockchain.Client(blockchain.CityNodeConfig)
-	err, startBlock := blockchain.GetStartBlock(blockchain.RewardEvent) // 2306974
+	err, startBlock := blockchain.GetStartBlock(blockchain.RewardEvent) // 2430927
 	if err != nil {
 		return
 	}

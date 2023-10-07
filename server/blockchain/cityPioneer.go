@@ -322,7 +322,7 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 	return nil
 }
 
-func InsertDailyReward(pioneerAddress, tx_hash string, foundsReward, delegateReward, nodeReward decimal.Decimal, blockHeight, timestamp int64) error {
+func InsertDailyReward(pioneerAddress, txHash string, foundsReward, delegateReward, nodeReward decimal.Decimal, blockHeight, timestamp int64) error {
 
 	var reward models.Reward
 	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d", strings.ToLower(pioneerAddress), blockHeight)
@@ -334,7 +334,7 @@ func InsertDailyReward(pioneerAddress, tx_hash string, foundsReward, delegateRew
 		// 插入数据
 		db.Mysql.Table("reward").Create(&models.Reward{
 			Pioneer:        pioneerAddress,
-			TxHash:         tx_hash,
+			TxHash:         txHash,
 			City:           userLocation.Location,
 			FoundsReward:   foundsReward,
 			DelegateReward: delegateReward,

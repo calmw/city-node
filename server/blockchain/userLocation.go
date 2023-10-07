@@ -310,7 +310,7 @@ func RestoreUserLocation(user string) error {
 	countyId := "0x" + common.Bytes2Hex(Bytes32ToBytes(countyIdBytes32))
 	locationCode := utils.ThreeDesDecrypt(locationEncrypt)
 	code := strings.Split(locationCode, ",")
-	if code[0] != "0" && code[2] == "" { // 兼容map增量更新的位置信息
+	if code[0] == "0" && code[2] == "" { // 兼容map增量更新的位置信息
 		locationEncrypt, err = userLocationContract.CityInfo(nil, cityIdBytes32)
 		if err != nil || locationEncrypt == "" {
 			log.Logger.Sugar().Error(err)
