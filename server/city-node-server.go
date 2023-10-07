@@ -1,9 +1,9 @@
 package main
 
 import (
+	"city-node-server/api"
 	"city-node-server/blockchain"
 	"city-node-server/services"
-	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -84,8 +84,8 @@ func main() {
 	//	}()
 	//	api.Start()
 	//}()
-	//api.Start()
-	tasks.Start()
+	api.Start()
+	//tasks.Start()
 
 	//clearTestNet()
 	//blockchain.TriggerAllPioneerTask()
