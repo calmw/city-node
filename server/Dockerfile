@@ -8,6 +8,7 @@ ADD city-node-server /wkspace/city-node-server
 
 RUN apt-get update
 RUN apt-get install -y ca-certificates
+RUN apt-get install -y vim
 
 RUN chmod -R 777 /wkspace/city-node-server
 

@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	time.Sleep(time.Minute * 3)
+	time.Sleep(time.Minute * 5)
 	//services.InitMainNet()
 	//services.InitTestNet()
 	//services.InitCity()
