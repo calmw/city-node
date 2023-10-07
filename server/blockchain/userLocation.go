@@ -326,9 +326,20 @@ func RestoreUserLocation(user string) error {
 		log.Logger.Sugar().Warnln("用户位置加密信息解析错误", user, locationCode, locationEncrypt, code)
 		return errors.New("用户位置加密信息解析错误")
 	}
-	if code[0] != "0" {
+	// 国外用户
+	codeSecond := code[1]
+	codeSecondSlice := strings.Split(codeSecond, "")
+	if code[0] != "0" && codeSecondSlice[0] != "0" {
 		log.Logger.Sugar().Warnln("国外用户位置信息", user, locationCode, locationEncrypt, code)
 		code[2] = "0"
+	}
+	// 容错，国内城市code首位是0的情况
+	if codeSecondSlice[0] == "0" {
+		// 获取城市code,根据区县code
+		var areaCode models.AreaCode
+		whereCondition := fmt.Sprintf("ad_code=%s", code[2])
+		err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
+		code[1] = fmt.Sprintf("%d", areaCode.CityCode)
 	}
 
 	err = InsertUserLocation(user, countyId, code, locationEncrypt, locationCode, countyIdBytes32, 0)
@@ -340,10 +351,11 @@ func RestoreUserLocation(user string) error {
 		user, strings.ToLower(cityId), locationCode, strings.ToLower(countyId))
 	err = db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
 	if err == gorm.ErrRecordNotFound {
+		fmt.Println(code, "========++++")
 		// 查询明文地址
 		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
 		err, location := utils.HttpGet(uri)
-		fmt.Println(err, location)
+		fmt.Println(err, location, "========")
 		if err != nil {
 			return err
 		}
@@ -502,10 +514,26 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 			log.Logger.Sugar().Warnln("用户位置加密信息解析错误", userAddress.String(), locationCode, locationEncrypt, code)
 			continue
 		}
-		if code[0] != "0" {
+		//if code[0] != "0" {
+		//	log.Logger.Sugar().Warnln("国外用户位置信息", userAddress.String(), locationCode, locationEncrypt, code)
+		//	code[2] = "0"
+		//}
+		// 国外用户
+		codeSecond := code[1]
+		codeSecondSlice := strings.Split(codeSecond, "")
+		if code[0] != "0" && codeSecondSlice[0] != "0" {
 			log.Logger.Sugar().Warnln("国外用户位置信息", userAddress.String(), locationCode, locationEncrypt, code)
 			code[2] = "0"
 		}
+		// 容错，国内城市code首位是0的情况
+		if codeSecondSlice[0] == "0" {
+			// 获取城市code,根据区县code
+			var areaCode models.AreaCode
+			whereCondition := fmt.Sprintf("ad_code=%s", code[2])
+			err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
+			code[1] = fmt.Sprintf("%d", areaCode.CityCode)
+		}
+
 		var timestamp int64
 		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
 		if err == nil {

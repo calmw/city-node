@@ -93,7 +93,7 @@ func main() {
 	//blockchain.TriggerAllPioneerTask()
 
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
-	//err := blockchain.RestoreUserLocation("0xce492ae90d030db5c833296f1abde6c088013e50")
+	//err := blockchain.RestoreUserLocation("0xd21081d17d30edce5e93a40dd62b2f541f0e1e64")
 	//fmt.Println(err)
 
 	// 更新先锋信息
