@@ -16,9 +16,22 @@ import (
 	"github.com/status-im/keycard-go/hexutils"
 	"gorm.io/gorm"
 	"math/big"
+	"strconv"
 	"strings"
 	"time"
 )
+
+type LocationInfo struct {
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Data struct {
+		CountryName string `json:"country_name"`
+		CityName    string `json:"city_name"`
+		CityCode    int    `json:"city_code"`
+		AdCode      int    `json:"ad_code"`
+		AreaName    string `json:"area_name"`
+	} `json:"data"`
+}
 
 // SetNoRepeatCityIds   城市ID数组重构
 func SetNoRepeatCityIds(start, end int64) {
@@ -297,7 +310,15 @@ func RestoreUserLocation(user string) error {
 	countyId := "0x" + common.Bytes2Hex(Bytes32ToBytes(countyIdBytes32))
 	locationCode := utils.ThreeDesDecrypt(locationEncrypt)
 	code := strings.Split(locationCode, ",")
-
+	if code[0] != "0" && code[2] == "" { // 兼容map增量更新的位置信息
+		locationEncrypt, err = userLocationContract.CityInfo(nil, cityIdBytes32)
+		if err != nil || locationEncrypt == "" {
+			log.Logger.Sugar().Error(err)
+			return err
+		}
+		locationCode = utils.ThreeDesDecrypt(locationEncrypt)
+		code = strings.Split(locationCode, ",")
+	}
 	if len(code) == 2 {
 		code = append(code, "0")
 	}
@@ -309,6 +330,7 @@ func RestoreUserLocation(user string) error {
 		log.Logger.Sugar().Warnln("国外用户位置信息", user, locationCode, locationEncrypt, code)
 		code[2] = "0"
 	}
+
 	err = InsertUserLocation(user, countyId, code, locationEncrypt, locationCode, countyIdBytes32, 0)
 	if err != nil {
 		return err
@@ -378,40 +400,40 @@ func GetChengShiIdByCityIdByte32(countyId [32]byte) (error, string) {
 }
 
 // CityInfo 获取区县对应的加密信息
-//func CityInfo(countyId [32]byte) (error, string) {
-//	Cli := Client(CityNodeConfig)
-//	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return err, ""
-//	}
-//	location, err := userLocation.CityInfo(nil, countyId)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return err, ""
-//	}
-//	code := strings.Split(location, ",")
-//	// 查询明文地址
-//	var areaCode models.AreaCode
-//	var whereCondition string
-//	if len(code) == 2 {
-//		code0, _ := strconv.ParseInt(code[0], 10, 64)
-//		code1, _ := strconv.ParseInt(code[1], 10, 64)
-//		whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
-//	} else if len(code) == 3 {
-//		code0, _ := strconv.ParseInt(code[0], 10, 64)
-//		code1, _ := strconv.ParseInt(code[1], 10, 64)
-//		code2, _ := strconv.ParseInt(code[2], 10, 64)
-//		if code2 == 0 {
-//			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
-//		} else {
-//			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d and ad_code=%d", code0, code1, code2)
-//		}
-//	}
-//	err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
-//
-//	return nil, areaCode.CountryName + " " + areaCode.CityName + " " + areaCode.AreaName
-//}
+func CityInfo(countyId [32]byte) (error, string) {
+	Cli := Client(CityNodeConfig)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
+	location, err := userLocation.CityInfo(nil, countyId)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
+	code := strings.Split(location, ",")
+	// 查询明文地址
+	var areaCode models.AreaCode
+	var whereCondition string
+	if len(code) == 2 {
+		code0, _ := strconv.ParseInt(code[0], 10, 64)
+		code1, _ := strconv.ParseInt(code[1], 10, 64)
+		whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
+	} else if len(code) == 3 {
+		code0, _ := strconv.ParseInt(code[0], 10, 64)
+		code1, _ := strconv.ParseInt(code[1], 10, 64)
+		code2, _ := strconv.ParseInt(code[2], 10, 64)
+		if code2 == 0 {
+			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d", code0, code1)
+		} else {
+			whereCondition = fmt.Sprintf("country_code=%d and city_code=%d and ad_code=%d", code0, code1, code2)
+		}
+	}
+	err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
+
+	return nil, areaCode.CountryName + " " + areaCode.CityName + " " + areaCode.AreaName
+}
 
 // GetCityIdBytes32ByCountyId 获取区县对应的加密信息
 func GetCityIdBytes32ByCountyId(countyId string) (error, [32]byte) {
@@ -497,18 +519,6 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 	return nil
 }
 
-type LocationInfo struct {
-	Code int    `json:"code"`
-	Msg  string `json:"msg"`
-	Data struct {
-		CountryName string `json:"country_name"`
-		CityName    string `json:"city_name"`
-		CityCode    int    `json:"city_code"`
-		AdCode      int    `json:"ad_code"`
-		AreaName    string `json:"area_name"`
-	} `json:"data"`
-}
-
 func InsertUserLocation(userAddress, countyId string, code []string, locationEncrypt, locationCode string, countyIdBytes32 [32]byte, timestamp int64) error {
 	InsertUserLocationLock.Lock()
 	defer InsertUserLocationLock.Unlock()
@@ -536,16 +546,22 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 			log.Logger.Sugar().Error(err)
 			return err
 		}
-		db.Mysql.Model(&models.UserLocation{}).Create(&models.UserLocation{
-			User:            strings.ToLower(userAddress),
-			CountyId:        strings.ToLower(countyId),
-			CityId:          strings.ToLower(cityId),
-			LocationEncrypt: locationEncrypt,
-			Location:        locationInfo.Data.CountryName + " " + locationInfo.Data.CityName + " " + locationInfo.Data.AreaName,
-			AreaCode:        locationCode,
-			LocationType:    2,
-			Ctime:           time.Unix(timestamp, 0),
-		})
+		locationStr := locationInfo.Data.CountryName + " " + locationInfo.Data.CityName + " " + locationInfo.Data.AreaName
+		if locationStr == "" {
+			RestoreUserLocation(strings.ToLower(userAddress))
+		} else {
+			db.Mysql.Model(&models.UserLocation{}).Create(&models.UserLocation{
+				User:            strings.ToLower(userAddress),
+				CountyId:        strings.ToLower(countyId),
+				CityId:          strings.ToLower(cityId),
+				LocationEncrypt: locationEncrypt,
+				Location:        locationStr,
+				AreaCode:        locationCode,
+				LocationType:    2,
+				Ctime:           time.Unix(timestamp, 0),
+			})
+		}
+
 	}
 	return nil
 }
