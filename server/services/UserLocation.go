@@ -5,6 +5,7 @@ import (
 	"city-node-server/db"
 	"city-node-server/models"
 	"city-node-server/utils"
+	"encoding/json"
 	"fmt"
 	"gorm.io/gorm"
 	"strings"
@@ -68,8 +69,22 @@ func UserCityChange() {
 
 func GetCityCodeByAdCode(adCode string) (error, uint) {
 	var areaCode models.AreaCode
-	err := db.Mysql.Model(&models.AreaCode{}).Where("ad_code=?", adCode).First(&areaCode).Error
+	whereCondition := fmt.Sprintf("ad_code=%s", adCode)
+	err := db.Mysql.Model(&models.AreaCode{}).Where(whereCondition).First(&areaCode).Error
 	if err != nil {
+		// 查询明文地址
+		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", "0", adCode)
+		err, location := utils.HttpGet(uri)
+		if err != nil {
+			return err, 0
+		}
+		var locationInfo blockchain.LocationInfo
+		err = json.Unmarshal(location, &locationInfo)
+		if err != nil {
+			return err, 0
+		}
+		fmt.Println(err, uri, locationInfo)
+
 		return err, 0
 	}
 	return nil, areaCode.CityCode

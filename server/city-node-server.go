@@ -4,6 +4,7 @@ import (
 	"city-node-server/blockchain"
 	"city-node-server/db"
 	"city-node-server/services"
+	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -85,7 +86,7 @@ func main() {
 	//	api.Start()
 	//}()
 	//api.Start()
-	//tasks.Start()
+	tasks.Start()
 
 	//clearTestNet()
 
@@ -98,7 +99,7 @@ func main() {
 	// 更新先锋信息
 	//service.UpdatePioneer()
 
-	services.UserCityChange()
+	//services.UserCityChange()
 }
 
 func clearTestNet() {
