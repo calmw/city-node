@@ -3,6 +3,7 @@ package services
 import (
 	"city-node-server/api/common/statecode"
 	"city-node-server/api/models/request"
+	"city-node-server/blockchain"
 	"city-node-server/db"
 	models2 "city-node-server/models"
 	"city-node-server/utils"
@@ -32,6 +33,7 @@ func (c *UserLocationService) UserLocation(req *request.Location) (int, int64, [
 	tx := db.Mysql.Model(&models2.UserLocation{})
 	if req.User != "" {
 		tx = tx.Where("user=?", strings.ToLower(req.User))
+		blockchain.RestoreUserLocation(strings.ToLower(req.User))
 	}
 
 	var total int64
