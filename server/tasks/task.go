@@ -24,8 +24,8 @@ func Start() {
 	_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetRechargeRecordEvent)
 	_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetIncreaseCityDelegateEvent)
 	_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetWithdrawalRewardRecordEvent)
-	_ = s.Every(30).Minutes().From(gocron.NextTick()).From(gocron.NextTick()).Do(service.GetPioneerRechargeWeight)
-	_ = s.Every(2).Hours().From(gocron.NextTick()).From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTask)
+	_ = s.Every(30).Minutes().From(gocron.NextTick()).Do(service.GetPioneerRechargeWeight)
+	_ = s.Every(2).Hours().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTask)
 
 	// 新手任务
 	//_ = s.Every(2).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
