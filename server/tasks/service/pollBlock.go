@@ -6,9 +6,9 @@ import (
 	"context"
 )
 
-const PoolStep = 999
+//const PoolStep = 999
 
-//const PoolStep = 500
+const PoolStep = 500
 
 func PollBlockTaskGetUserLocationRecordEvent() {
 	Cli := blockchain.Client(blockchain.CityNodeConfig)
