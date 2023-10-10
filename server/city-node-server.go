@@ -3,16 +3,14 @@ package main
 import (
 	"city-node-server/blockchain"
 	"city-node-server/services"
-	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
 func main() {
-	//services.InitMainNet()
+	services.InitMainNet()
 	//services.InitTestNet()
-	//services.InitCity()
-	//task()
+	services.InitCity()
 
 	//db.InitMysql()
 	//blockchain.TriggerAllPioneerTask()
@@ -66,7 +64,7 @@ func main() {
 	//fmt.Println(utils.ThreeDesDecrypt("QxRNKJin2QRoIIJEoGrMcQ=="))
 	//fmt.Println(utils.ThreeDesDecrypt("9ab2ROmuO8MG+8NIH7eEvQ=="))
 	//fmt.Println(utils.ThreeDesDecrypt("1ywosPaKwiI1gJrw3tTrbw=="))
-	//fmt.Println(utils.ThreeDesDecrypt("yVZXqgsYyCE5mbtavIKYrQ=="))
+	//fmt.Println(utils.ThreeDesDecrypt("DfFHkcrYX3k2qcKFo25wSA=="))
 	//fmt.Println(utils.ThreeDesEncrypt("0,276"))
 	//fmt.Println(utils.Keccak256("0,276"))
 	//fmt.Println(strings.ToLower("0x8407DC14bFD44FDcEE0274766C08477f4C9748d2"))
@@ -85,7 +83,7 @@ func main() {
 	//	api.Start()
 	//}()
 	//api.Start()
-	tasks.Start()
+	//tasks.Start()
 
 	//clearTestNet()
 	//blockchain.TriggerAllPioneerTask()
@@ -100,6 +98,8 @@ func main() {
 	//service.UpdatePioneer()
 
 	//services.UserCityChange()
+	//clearTestNet()
+
 }
 
 func clearTestNet() {
@@ -112,7 +112,7 @@ func taskTest() {
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
 	//_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
-	_ = s.Every(14).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
+	_ = s.Every(4).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
 	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
 	<-s.Start() // Start all the pending jobs
 

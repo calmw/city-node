@@ -169,15 +169,20 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 //        }
 //    }
 
-    // 管理员设置每天秒数，用于测试
-    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
-        secondsPerDay = secondsPerDay_;
+    // 管理员设置先锋是否退还保证金
+    function adminSetPioneerReturnSurety(address pioneer_, bool pay_) public onlyAdmin {
+        isPioneerReturnSurety[pioneer_] = pay_;
     }
 
+    // 管理员设置每天秒数，用于测试
+//    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
+//        secondsPerDay = secondsPerDay_;
+//    }
+
     // 管理员设置任期
-    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {
-        presidencyTime = presidencyTime_;
-    }
+//    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {
+//        presidencyTime = presidencyTime_;
+//    }
 
     // 考核和奖励任务
     function pioneerTask(address pioneerAddress_, bytes32 chengShiId_) public onlyAdmin {
