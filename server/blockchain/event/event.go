@@ -16,7 +16,7 @@ const (
 	UserLocationRecord     Sig = "UserLocationRecord(address,bytes32,string)"
 	DailyRewardRecord      Sig = "DailyRewardRecord(address,uint256,uint256,uint256)"
 	RechargeRecord         Sig = "RechargeRecord(address,bytes32,uint256,uint256)"
-	WithdrawalRewardRecord Sig = "RechargeRecord(address,uint256,uint256,uint256)"
+	WithdrawalRewardRecord Sig = "WithdrawalRewardRecord(address,uint256,uint256)"
 )
 
 type Event struct {

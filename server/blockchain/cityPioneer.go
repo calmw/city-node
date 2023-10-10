@@ -350,7 +350,7 @@ func InsertDailyReward(pioneerAddress, txHash string, foundsReward, delegateRewa
 func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
 	query := event.BuildQuery(
 		common.HexToAddress(CityNodeConfig.CityPioneerAddress),
-		event.DailyRewardRecord,
+		event.WithdrawalRewardRecord,
 		big.NewInt(startBlock),
 		big.NewInt(endBlock),
 	)
@@ -373,7 +373,6 @@ func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock 
 		pioneerAddress := strings.ToLower(logData[0].(common.Address).String())
 		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
 		wType := decimal.NewFromBigInt(logData[2].(*big.Int), 0)
-		//wType := decimal.NewFromBigInt(logData[3].(*big.Int), 0)
 		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
 		if err == nil {
 			timestamp = int64(header.Time)
