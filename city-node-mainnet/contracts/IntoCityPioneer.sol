@@ -24,7 +24,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 保证金退还事件
     event SuretyRecord(
         address pioneerAddress, // 先锋地址
-        uint256 amount // 退还保证金的额度
+        uint256 amount, // 退还保证金的额度
+        uint256 month // 第几个月（1，2）
     );
 
     // 城市先锋奖励事件
@@ -170,9 +171,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 //    }
 
     // 管理员设置先锋是否退还保证金
-    function adminSetPioneerReturnSurety(address pioneer_, bool pay_) public onlyAdmin {
-        isPioneerReturnSurety[pioneer_] = pay_;
-    }
+//    function adminSetPioneerReturnSurety(address pioneer_, bool pay_) public onlyAdmin {
+//        isPioneerReturnSurety[pioneer_] = pay_;
+//    }
 
     // 管理员设置每天秒数，用于测试
 //    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
@@ -228,9 +229,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 修改先锋信息
-    function editPioneerInfo(address pioneerAddress_) public onlyAdmin {
-        pioneerInfo[pioneerAddress_].ctime = startTime;
-    }
+//    function editPioneerInfo(address pioneerAddress_) public onlyAdmin {
+//        pioneerInfo[pioneerAddress_].ctime = startTime;
+//    }
 
     // 管理员设置先锋需要补交的保证金
     function adminSetPioneerPaySurety(address pioneer_, uint256 amount_) public onlyAdmin {
@@ -393,6 +394,11 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                     alreadyRewardRate[pioneer.pioneerAddress][1] = assessmentReturnRate[chengLevel][j]; // 第一个月退的比例
                     suretyMonthWeight[pioneer.pioneerAddress][1] = pioneerChengShiTotalRechargeWeight; // 第1个月结束的时候，权重值
                     suretyReward[pioneer.pioneerAddress] += suretyReturn;// 增加可退还保证金
+                    emit SuretyRecord(
+                        pioneer.pioneerAddress,
+                        suretyReturn,
+                        day / 30
+                    );
                     break;
                 }
             }
@@ -409,6 +415,11 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                     pioneer.returnSuretyTime = block.timestamp;
                     alreadyRewardRate[pioneer.pioneerAddress][2] = assessmentReturnRate[chengLevel][i] - firstMonthRate; // 第2个月退的比例
                     suretyReward[pioneer.pioneerAddress] += suretyReturn;// 增加可退还保证金
+                    emit SuretyRecord(
+                        pioneer.pioneerAddress,
+                        suretyReturn,
+                        day / 30
+                    );
                     break;
                 }
             }
@@ -473,6 +484,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(benefitPackageReward[msg.sender] > 0, "balance insufficient");
+        require(pioneerPaySurety[msg.sender] <= 0, "you need pay surety");
         uint256 balance = benefitPackageReward[msg.sender];
         benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
 
@@ -493,6 +505,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(fundsReward[msg.sender] > 0, "balance insufficient");
+        require(pioneerPaySurety[msg.sender] <= 0, "you need pay surety");
         uint256 balance = fundsReward[msg.sender];
         fundsReward[msg.sender] = 0; // 更新可领取社交基金奖励
         // 将奖励转账到用户合约余额
@@ -512,6 +525,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(delegateReward[msg.sender] > 0, "balance insufficient");
+        require(pioneerPaySurety[msg.sender] <= 0, "you need pay surety");
         uint256 balance = delegateReward[msg.sender];
         delegateReward[msg.sender] = 0; // 更新可领取新增质押奖励
         // 将奖励转账到用户合约余额
@@ -530,6 +544,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(suretyReward[msg.sender] > 0, "balance insufficient");
+        require(pioneerPaySurety[msg.sender] <= 0, "you need pay surety");
         uint256 balance = suretyReward[msg.sender];
         // 更新可退还保证金数额
         suretyReward[msg.sender] = 0;
@@ -575,20 +590,20 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 增加交完保证金先锋用户
-    function setPioneer(address pioneer) public {
-        if (!isPioneerExits(pioneer)) {
-            pioneers.push(pioneer);
-        }
-    }
-
-    function isPioneerExits(address pioneer) public view returns (bool){
-        for (uint256 i; i < pioneers.length; i++) {
-            if (pioneer == pioneers[i]) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    function setPioneer(address pioneer) public {
+//        if (!isPioneerExits(pioneer)) {
+//            pioneers.push(pioneer);
+//        }
+//    }
+//
+//    function isPioneerExits(address pioneer) public view returns (bool){
+//        for (uint256 i; i < pioneers.length; i++) {
+//            if (pioneer == pioneers[i]) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     // 初始化先锋用户
     function initPioneer(address pioneer) public {

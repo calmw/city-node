@@ -104,7 +104,7 @@ func main() {
 
 func clearTestNet() {
 	services.InitTestNet()
-	services.InitCity()
+	//services.InitCity()
 	taskTest()
 }
 func taskTest() {
