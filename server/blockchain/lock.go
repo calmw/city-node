@@ -19,3 +19,6 @@ var InsertDelegateLock = sync.RWMutex{}
 
 // InsertWithdrawalRewardRecordLock 新增质押入库，锁
 var InsertWithdrawalRewardRecordLock = sync.RWMutex{}
+
+// InsertSuretyRecordRecordLock 保证金退还入库，锁
+var InsertSuretyRecordRecordLock = sync.RWMutex{}

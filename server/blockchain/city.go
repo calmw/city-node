@@ -454,7 +454,7 @@ func TriggerAllPioneerTaskTestNet() {
 		fmt.Println(pioneer, "-----==")
 		_, err = city.PioneerDailyTask(auth, pioneer)
 		fmt.Println(pioneer.String(), i, err)
-		time.Sleep(time.Second * 3)
+		time.Sleep(time.Second)
 	}
 }
 
