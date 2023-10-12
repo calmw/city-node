@@ -18,7 +18,7 @@ func InitCity() {
 
 	//blockchain.AdminSetChengShiLevelAndSurety("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", 1, 100000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", 1, 100000)
-	blockchain.AdminSetChengShiLevelAndSurety("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", 2, 60000)
+	//blockchain.AdminSetChengShiLevelAndSurety("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", 2, 60000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xa3c9a043a733fc013604651b53591dec8cc6a09c7ebebb413fa826d0a3388cfe", 3, 40000)
 	//time.Sleep(time.Second * 5)
 	// --------
@@ -71,8 +71,9 @@ func AdminSetDelegateTask() {
 }
 
 func AdminSetRechargeAmountTask() {
-	//inc := 5000
-	inc := 500000
+	inc := 5000
+	//inc := 50000
+	//inc := 500000
 	//inc := 1000
 	//inc := 1000000000
 	accounts := []string{

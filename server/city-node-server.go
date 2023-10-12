@@ -104,7 +104,7 @@ func main() {
 
 func clearTestNet() {
 	services.InitTestNet()
-	//services.InitCity()
+	services.InitCity()
 	taskTest()
 }
 func taskTest() {
@@ -113,7 +113,7 @@ func taskTest() {
 	s.ChangeLoc(time.UTC)
 	//_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
 	_ = s.Every(6).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
-	_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
+	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
 	<-s.Start() // Start all the pending jobs
 
 }

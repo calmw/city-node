@@ -171,9 +171,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 //    }
 
     // 管理员设置先锋是否退还保证金
-    function adminSetPioneerReturnSurety(address pioneer_, bool pay_) public onlyAdmin {
-        isPioneerReturnSurety[pioneer_] = pay_;
-    }
+//    function adminSetPioneerReturnSurety(address pioneer_, bool pay_) public onlyAdmin {
+//        isPioneerReturnSurety[pioneer_] = pay_;
+//    }
 
     // 管理员设置每天秒数，用于测试
 //    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
