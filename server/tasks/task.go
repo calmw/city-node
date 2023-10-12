@@ -14,8 +14,8 @@ import (
 func Start() {
 	db.InitMysql()
 
-	//services.InitMainNet()
-	services.InitTestNet()
+	services.InitMainNet()
+	//services.InitTestNet()
 
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
