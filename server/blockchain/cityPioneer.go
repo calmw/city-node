@@ -435,7 +435,7 @@ func GetSuretyRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) err
 		if err == nil {
 			timestamp = int64(header.Time)
 		}
-		err = InsertSuretyRecordRecord(pioneerAddress, logE.TxHash.String(), amount, month, int64(logE.BlockNumber), timestamp)
+		err = InsertSuretyRecordRecord(pioneerAddress, logE.TxHash.String(), amount, int64(logE.BlockNumber), month, timestamp)
 		if err != nil {
 			return err
 		}
@@ -452,11 +452,12 @@ func InsertSuretyRecordRecord(pioneerAddress, txHash string, amount decimal.Deci
 	err := db.Mysql.Model(&models.SuretyRecord{}).Where(whereCondition).First(&suretyRecord).Error
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Model(&models.SuretyRecord{}).Create(&models.SuretyRecord{
-			Pioneer: pioneerAddress,
-			TxHash:  txHash,
-			Amount:  amount,
-			Month:   month,
-			Ctime:   time.Unix(timestamp, 0),
+			Pioneer:     pioneerAddress,
+			TxHash:      txHash,
+			Amount:      amount,
+			Month:       month,
+			BlockHeight: blockHeight,
+			Ctime:       time.Unix(timestamp, 0),
 		})
 	}
 	return nil

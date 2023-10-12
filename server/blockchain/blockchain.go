@@ -20,6 +20,7 @@ const (
 	DelegateEvent
 	WithdrawEvent
 	LocationEvent2
+	SuretyRecordEvent
 )
 
 type CityNodeConfigs struct {

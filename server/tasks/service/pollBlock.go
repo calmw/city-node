@@ -6,9 +6,9 @@ import (
 	"context"
 )
 
-//const PoolStep = 999
+const PoolStep = 999
 
-const PoolStep = 500
+//const PoolStep = 500
 
 func PollBlockTaskGetUserLocationRecordEvent() {
 	Cli := blockchain.Client(blockchain.CityNodeConfig)
@@ -197,7 +197,7 @@ func PollBlockTaskGetWithdrawalRewardRecordEvent() {
 
 func PollBlockGetSuretyRecordEvent() {
 	Cli := blockchain.Client(blockchain.CityNodeConfig)
-	err, startBlock := blockchain.GetStartBlock(blockchain.WithdrawEvent) // 2306974
+	err, startBlock := blockchain.GetStartBlock(blockchain.SuretyRecordEvent) // 2306974
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -223,5 +223,5 @@ func PollBlockGetSuretyRecordEvent() {
 		return
 	}
 	// 更新区块高度
-	blockchain.SetSTartBlock(int64(endBlock), blockchain.WithdrawEvent)
+	blockchain.SetSTartBlock(int64(endBlock), blockchain.SuretyRecordEvent)
 }
