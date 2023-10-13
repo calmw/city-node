@@ -215,6 +215,17 @@ contract IntoCity is RoleAccess, Initializable {
         );
     }
 
+    // 管理员手动增加用户充值量
+    function adminAddRechargeAmount(address user, bytes32 countyId, uint256 amount) public onlyAdmin {
+        cityRechargeTotal[countyId] += amount;// 区县ID=>累计充值权重   充值权重
+        emit RechargeRecord(
+            user,
+            countyId,
+            amount,
+            block.timestamp
+        );
+    }
+
     // 管理员设置先锋计划，城市等级以及该等级区县所需缴纳的保证金数额
     function adminSetChengShiLevelAndSurety(bytes32 chengShiId_, uint256 level_, uint256 surety_) public onlyAdmin {
         chengShiLevel[chengShiId_] = level_;

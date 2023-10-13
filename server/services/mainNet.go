@@ -6,7 +6,8 @@ import (
 )
 
 func InitMainNet() {
-	key := os.Getenv("META_ACCOUNT")
+	//key := os.Getenv("META_ACCOUNT")
+	key := os.Getenv("HUZHI")
 	blockchain.CityNodeConfig = blockchain.CityNodeConfigs{
 		ChainId:               9001,
 		RPC:                   "https://rpc.matchscan.io/",

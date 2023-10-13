@@ -417,19 +417,26 @@ func TriggerAllPioneerTask() {
 	}
 	pioneerNumber, err := cityPioneer.GetPioneerNumber(nil)
 	log.Logger.Sugar().Debug("pioneerNumber:", pioneerNumber)
-	time.Sleep(time.Second * 3)
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
+
+		time.Sleep(time.Second * 3)
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
+		fmt.Println(pioneer.String(), err, i)
+		if i != 1 {
+			continue
+		}
+		//AdminSetCheckPioneerDailyStatus(pioneer.String(), int64(19643), false) // 重置定时任务的执行状态
 		done := GetPioneerTaskStatus(pioneer.String())
 		if err == nil && !done {
 			_, err = city.PioneerDailyTask(auth, pioneer)
+			fmt.Println(err, i)
 			if err != nil {
 				continue
 			}
 			SetPioneerTaskStatus(pioneer.String())
 			fmt.Println(pioneer.String(), i, err)
 		}
-		time.Sleep(time.Second * 3)
+		time.Sleep(time.Second * 2)
 	}
 }
 

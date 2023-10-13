@@ -3,13 +3,13 @@ package main
 import (
 	"city-node-server/blockchain"
 	"city-node-server/services"
-	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
 func main() {
-	//services.InitMainNet()
+	services.InitMainNet()
+	//services.InitCityPioneer()
 	//services.InitTestNet()
 	//services.InitCity()
 
@@ -34,7 +34,7 @@ func main() {
 	//
 	//blockchain.ApproveToxCityPioneer() // 向城市先锋合约approve
 	//blockchain.ApproveTox("0x35b821D00e9733Eb0F51195b173EA0AF2ac81736")
-	//blockchain.CityPioneerBalance() // 城市先锋合约余额
+	blockchain.CityPioneerBalance() // 城市先锋合约余额
 	//blockchain.DepositSurety() // 交保证金，慎用，扣钱
 	//blockchain.DepositSuretyTest("0x08a01BE67fF47Ba2652b7dCE2005B47D81bAaC13") // DepositSuretyTest 交保证金成为先锋
 
@@ -56,40 +56,20 @@ func main() {
 
 	// 根据城市ID查询往日新增质押
 	//blockchain.GetNewlyDelegateRecordByChengId("0x1d78790980b5a4917a2dfa1a4016ad10af0de8987f7a310acbc9baf85cad17f0", 19613) // 183430 000000000000000000
-	//blockchain.GetNewlyDelegateRecordByChengId("0x64C970619EDC45A6484AAD8ACC9FEC4153DFC65ED6F061FE2458EB13755C1EE1", 19615) // 19616 000000000000000000
 
 	// 根据区县ID和天查询新增充值权重
 	//blockchain.GetRechargeDailyWeightRecordByChengId("0x936557454f464570813fe0c6e164d114cfc2d49eb5478f4e9867805eb4d3667b", 19616) // 19616 000000000000000000
 
 	//fmt.Println(utils.ThreeDesEncrypt("0,126"))
-	//fmt.Println(utils.ThreeDesDecrypt("QxRNKJin2QRoIIJEoGrMcQ=="))
-	//fmt.Println(utils.ThreeDesDecrypt("9ab2ROmuO8MG+8NIH7eEvQ=="))
-	//fmt.Println(utils.ThreeDesDecrypt("1ywosPaKwiI1gJrw3tTrbw=="))
-	//fmt.Println(utils.ThreeDesDecrypt("DfFHkcrYX3k2qcKFo25wSA=="))
-	//fmt.Println(utils.ThreeDesEncrypt("0,276"))
+	//fmt.Println(utils.ThreeDesDecrypt("7gZ4qrL761s="))
 	//fmt.Println(utils.Keccak256("0,276"))
-	//fmt.Println(strings.ToLower("0x714956178a484805EBe00f5Cef30bC7e7323C30F"))
+	//fmt.Println(strings.ToLower("0x17dC6411D638672A073f23267C4735ca877AA623"))
 	//fmt.Println(utils.Keccak256("0,136,621122")) //0x5BC49BF2BB0F74F6B3321451F04FE277696611BC6A0A2D144F034B27C914F8F0
-	//0x5BC49BF2BB0F74F6B3321451F04FE277696611BC6A0A2D144F034B27C914F8F0
-	//0xF5C444D5602DE5D09258A569DF33128E716AD2AC84A5AE2B2CC90A4D06B7AD33
-	//0xF5C444D5602DE5D09258A569DF33128E716AD2AC84A5AE2B2CC90A4D06B7AD33
 
 	//tasks.GetPioneerRechargeWeight()
-	//services.IntoBind()
 
-	//go func() {
-	//	defer func() {
-	//		recover()
-	//	}()
-	//	api.Start()
-	//}()
 	//api.Start()
-	tasks.Start()
-
-	//clearTestNet()
-	//blockchain.TriggerAllPioneerTask()
-
-	//blockchain.TriggerAllPioneerTask()
+	//tasks.Start()
 
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
 	//err := blockchain.RestoreUserLocation("0xd21081d17d30edce5e93a40dd62b2f541f0e1e64")
@@ -100,6 +80,8 @@ func main() {
 
 	//services.UserCityChange()
 	//clearTestNet()
+
+	// 苏州
 
 }
 
