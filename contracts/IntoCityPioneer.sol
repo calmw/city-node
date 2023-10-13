@@ -234,9 +234,22 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 修改先锋信息
-//    function editPioneerInfo(address pioneerAddress_) public onlyAdmin {
-//        pioneerInfo[pioneerAddress_].ctime = startTime;
-//    }
+    function editPioneerInfo(address pioneerAddress_, uint256 returnSuretyRate_,uint256 amount_) public onlyAdmin {
+
+        //  address pioneerAddress;
+        //        uint256 ctime; // 开始考核的时间戳
+        //        uint256 cityLevel; // 所在城市等级,这里是城市ID
+        //        bool assessmentMonthStatus; // 按月考核状态
+        //        bool assessmentStatus; // 最终考核状态
+        //        bool returnSuretyStatus; // 保证金退还状态
+        //        uint256 returnSuretyRate; // 保证金退还比例
+        //        uint256 returnSuretyTime; // 保证金退还时间
+        //        uint256 suretyTime; // 交保证金，成为城市节点的时间戳
+        pioneerInfo[pioneerAddress_].returnSuretyRate = returnSuretyRate_;
+        alreadyRewardRate[pioneerAddress_][1] = returnSuretyRate_;
+        alreadyRewardRateTotal[pioneerAddress_] = returnSuretyRate_;
+        suretyMonthWeight[pioneerAddress_][1] = amount_;
+    }
 
     // 管理员设置先锋需要补交的保证金
     function adminSetPioneerPaySurety(address pioneer_, uint256 amount_) public onlyAdmin {

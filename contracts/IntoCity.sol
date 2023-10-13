@@ -118,6 +118,8 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => mapping(uint256 => uint256)) public countyNewlyPioneerDelegateRecord;
     //  城市ID=>(天=>当天到之前累计充值)   充值权重
     mapping(bytes32 => mapping(uint256 => uint256)) public rechargeDailyTotalWeightRecord;
+    //  城市先锋地址=>需要补加的充值权重
+    mapping(address => uint256) public rechargeWeightAdditional;
 
 
     function initialize() public initializer {
@@ -215,15 +217,9 @@ contract IntoCity is RoleAccess, Initializable {
         );
     }
 
-    // 管理员手动增加用户充值量
-    function adminAddRechargeAmount(address user, bytes32 countyId, uint256 amount) public onlyAdmin {
-        cityRechargeTotal[countyId] += amount;// 区县ID=>累计充值权重   充值权重
-        emit RechargeRecord(
-            user,
-            countyId,
-            amount,
-            block.timestamp
-        );
+    // 管理员设置城市先锋需要额外增加的用户充值权重
+    function adminSetRechargeWeightAdditional(address pioneer_, uint256 weight_) public onlyAdmin {
+        rechargeWeightAdditional[pioneer_] = weight_;
     }
 
     // 管理员设置先锋计划，城市等级以及该等级区县所需缴纳的保证金数额
@@ -315,6 +311,8 @@ contract IntoCity is RoleAccess, Initializable {
         for (uint256 i; i < cityIds.length; i++) {
             weight += cityRechargeTotal[cityIds[i]];
         }
+        // 额外增加的权重
+        weight += rechargeWeightAdditional[chengShiPioneer[chengShiId]];
         return weight;
     }
 
