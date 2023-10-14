@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	//services.InitMainNet()
+	services.InitMainNet()
 	//services.InitCityPioneer()
 	//services.InitTestNet()
 	//services.InitCity()
@@ -85,8 +85,8 @@ func main() {
 
 func clearTestNet() {
 	services.InitTestNet()
-	//services.InitCity()
-	taskTest()
+	services.InitCity()
+	//taskTest()
 }
 func taskTest() {
 

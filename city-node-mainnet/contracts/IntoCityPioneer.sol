@@ -252,17 +252,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 修改先锋信息
-//    function editPioneerInfo(address pioneerAddress_, uint256 returnSuretyRate_, uint256 amount_) public onlyAdmin {
-//        pioneerInfo[pioneerAddress_].returnSuretyRate = returnSuretyRate_;
-//        alreadyRewardRate[pioneerAddress_][1] = returnSuretyRate_;
-//        alreadyRewardRateTotal[pioneerAddress_] = returnSuretyRate_;
-//        suretyMonthWeight[pioneerAddress_][1] = amount_;
-//    }
+    function editPioneerInfo(address pioneerAddress_, uint256 amount_) public onlyAdmin {
+        suretyReward[pioneerAddress_] = amount_;
+    }
 
     // 管理员设置先锋需要补交的保证金
-    function adminSetPioneerPaySurety(address pioneer_, uint256 amount_) public onlyAdmin {
-        pioneerPaySurety[pioneer_] = amount_;
-    }
+//    function adminSetPioneerPaySurety(address pioneer_, uint256 amount_) public onlyAdmin {
+//        pioneerPaySurety[pioneer_] = amount_;
+//    }
 
     // 检查先锋是否需要补交保证金
     function checkSurety(address pioneer_) public view returns (uint256){
@@ -319,7 +316,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 //        successTime[pioneer_] = 0;// 清楚成功时间
 //        suretyMonthWeight[pioneer_][1] = 0;// 清楚成功时间
 //        suretyMonthWeight[pioneer_][2] = 0;// 清楚成功时间
-//
+
     }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
@@ -330,12 +327,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
         // 计算退还保证金额度,并更新退还状态
         calculateRefund(chengShiId_, pioneer, city, day);
-
         // 考核
         if (pioneer.assessmentStatus == true) {
             return;
         }
-
         // 前三个月考核
         assessmentPioneer(chengShiId_, pioneer, city, day);
 
@@ -495,11 +490,11 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 每日奖励发放
-    function descBenefitPackageReward() public onlyAdmin {
-        for (uint256 i = 0; i < pioneers.length; i++) {
-            benefitPackageReward[pioneers[i]] = 0;
-        }
-    }
+//    function descBenefitPackageReward() public onlyAdmin {
+//        for (uint256 i = 0; i < pioneers.length; i++) {
+//            benefitPackageReward[pioneers[i]] = 0;
+//        }
+//    }
 
 //    function descBenefitPackageRewardByAddress(address user, uint256 amount) public onlyAdmin {
 //        benefitPackageReward[user] -= amount;
@@ -507,16 +502,16 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 用户提取福利包奖励
     function withdrawalBenefitPackageReward() public {
-        require(false, "withdraw service paused");
+//        require(false, "withdraw service paused");
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(benefitPackageReward[msg.sender] > 0, "balance insufficient");
         require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
         uint256 balance = benefitPackageReward[msg.sender];
-//        benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
 
         balance = checkBalance(msg.sender, balance);
 
+        benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
         // 将奖励转账到用户合约余额
         setUserBalance(msg.sender, balance, 19);
         // 更新领取状态(全部领完才算已领取)
@@ -531,7 +526,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 用户提取社交基金奖励
     function withdrawalFundsReward() public {
-        require(false, "withdraw service paused");
+//        require(false, "withdraw service paused");
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(fundsReward[msg.sender] > 0, "balance insufficient");
@@ -555,7 +550,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 用户提取新增质押奖励
     function withdrawalDelegateReward() public {
-        require(false, "withdraw service paused");
+//        require(false, "withdraw service paused");
         // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(delegateReward[msg.sender] > 0, "balance insufficient");
@@ -577,7 +572,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 // 用户提取退还的保证金
     function withdrawalSuretyReward() public {
-        require(false, "withdraw service paused");
+//        require(false, "withdraw service paused");
 // 判断是否是先锋
         require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(suretyReward[msg.sender] > 0, "balance insufficient");
@@ -605,12 +600,22 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     function checkBalance(address user, uint256 balance) private returns (uint256){
         uint256 subReward = cityPioneerData.subReward(user);
+        uint256 subRes;
         if (balance >= subReward) {
             balance = balance - subReward;
             cityPioneerData.adminSubReward(user, subReward);
+            subRes = subReward;
         } else {
             cityPioneerData.adminSubReward(user, balance);
+            subRes = balance;
             balance = 0;
+        }
+        if (subRes > 0) {
+            emit WithdrawalRewardRecord(
+                msg.sender,
+                balance,
+                1000
+            );
         }
         return balance;
     }

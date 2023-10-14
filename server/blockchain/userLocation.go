@@ -464,6 +464,45 @@ func GetCityIdBytes32ByCountyId(countyId string) (error, [32]byte) {
 	return nil, cityId
 }
 
+// GetCountyIdsByPioneer 获取区县对应的加密信息
+func GetCountyIdsByPioneer(pioneer_ string) (error, [][32]byte) {
+	Cli := Client(CityNodeConfig)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, [][32]byte{}
+	}
+	cityId, err := userLocation.GetChengShiIdByAddress(nil, common.HexToAddress(pioneer_))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, [][32]byte{}
+	}
+	countyIds, err := userLocation.GetCountyIdsByChengShiId(nil, cityId)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, [][32]byte{}
+	}
+
+	return nil, countyIds
+}
+
+// GetChengShiIdByAddress 获取区县对应的加密信息
+func GetChengShiIdByAddress(pioneer_ string) (error, [32]byte) {
+	Cli := Client(CityNodeConfig)
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, [32]byte{}
+	}
+	cityId, err := userLocation.GetChengShiIdByAddress(nil, common.HexToAddress(pioneer_))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, [32]byte{}
+	}
+
+	return nil, cityId
+}
+
 //func GetUserLocationRecord() error {
 //	Cli := Client(CityNodeConfig)
 //	startBlock := GetStartBlock()
