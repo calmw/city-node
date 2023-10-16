@@ -394,7 +394,7 @@ func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock 
 		if err == nil {
 			timestamp = int64(header.Time)
 		}
-		err = InsertWithdrawalRewardRecord(pioneerAddress, logE.TxHash.String(), amount, wType, int64(logE.BlockNumber), timestamp)
+		err = InsertWithdrawalRewardRecord(pioneerAddress, logE.TxHash.String(), amount, wType, int64(logE.BlockNumber), int64(logE.Index), timestamp)
 		if err != nil {
 			return err
 		}
@@ -403,19 +403,21 @@ func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock 
 	return nil
 }
 
-func InsertWithdrawalRewardRecord(pioneerAddress, tx_hash string, amount, rewardType decimal.Decimal, blockHeight, timestamp int64) error {
+func InsertWithdrawalRewardRecord(pioneerAddress, txHash string, amount, rewardType decimal.Decimal, blockHeight, logIndex, timestamp int64) error {
 	InsertWithdrawalRewardRecordLock.Lock()
 	defer InsertWithdrawalRewardRecordLock.Unlock()
 	var rewardWithdraw models.RewardWithdraw
-	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d", strings.ToLower(pioneerAddress), blockHeight)
+	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d and reward_type=%s", strings.ToLower(pioneerAddress), blockHeight, rewardType.String())
+	//whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d and log_index=%d", strings.ToLower(pioneerAddress), blockHeight, logIndex)
 	err := db.Mysql.Model(&models.RewardWithdraw{}).Where(whereCondition).First(&rewardWithdraw).Error
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Model(&models.RewardWithdraw{}).Create(&models.RewardWithdraw{
 			Pioneer:     pioneerAddress,
-			TxHash:      tx_hash,
+			TxHash:      txHash,
 			Amount:      amount,
 			RewardType:  rewardType,
 			BlockHeight: blockHeight,
+			LogIndex:    logIndex,
 			Ctime:       time.Unix(timestamp, 0),
 		})
 	}
