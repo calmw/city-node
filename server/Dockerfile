@@ -14,8 +14,6 @@ RUN chmod -R 777 /wkspace/city-node-server
 
 VOLUME ["/project"]
 
-EXPOSE 8000
-
 ENTRYPOINT ["/wkspace/city-node-server"]
 
 
