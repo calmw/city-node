@@ -133,17 +133,14 @@ contract IntoUserLocation is RoleAccess, Initializable {
         userCityId[msg.sender] = countyId_;
         userHaveSetLocation[msg.sender] = true;
         cityIdNum++;
-//        if (!cityIdExist[countyId_]) {
-//            cityIdsNoRepeat.push(countyId_);
-//            cityIdExist[countyId_] = true;
-//        }
-
+        if (!cityIdExist[countyId_]) {
+            cityIdsNoRepeat.push(countyId_);
+            cityIdExist[countyId_] = true;
+        }
         // 设置城市ID，本次上线放开
         SetCityChengShi(countyId_, chengShiId_, location_);
-
         // 给用户所在城市增加质押量
         setUserDelegate(chengShiId_, msg.sender);
-
         emit UserLocationRecord(
             msg.sender,
             countyId_,
