@@ -62,7 +62,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
     uint256 public enableToxNumber; // 用户开启定位所需TOX数量
     address public TOXAddress; // TOX代币合约地址
     address[] public disableLbsUsers;
-    // 定位的区县数量
+    // 定位的区县数量，后期添加，获取全部数量，调用getUserNumber
     uint256 public countyIdNum;
 
     function initialize() public initializer {
