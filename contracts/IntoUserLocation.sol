@@ -62,6 +62,8 @@ contract IntoUserLocation is RoleAccess, Initializable {
     uint256 public enableToxNumber; // 用户开启定位所需TOX数量
     address public TOXAddress; // TOX代币合约地址
     address[] public disableLbsUsers;
+    // 定位的区县数量
+    uint256 public countyIdNum;
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -134,7 +136,8 @@ contract IntoUserLocation is RoleAccess, Initializable {
         userHaveSetLocation[msg.sender] = true;
         cityIdNum++;
         if (!cityIdExist[countyId_]) {
-            cityIdsNoRepeat.push(countyId_);
+            countyIdNum++;
+//            cityIdsNoRepeat.push(countyId_);
             cityIdExist[countyId_] = true;
         }
 
@@ -162,7 +165,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
 
     // 定位过的用户数量
     function getUserNumber() public view returns (uint256) {
-        return cityIds.length;
+        return cityIds.length + countyIdNum;
     }
 
     // 获取城市ID对应的所有区县ID
@@ -236,14 +239,14 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 数据去重,执行到6547
-    function noRepeatCityIds(uint256 start, uint256 end) public onlyAdmin {
-        for (uint i = start; i < end; i++) {
-            if (!cityIdExist[cityIds[i]]) {
-                cityIdsNoRepeat.push(cityIds[i]);
-                cityIdExist[cityIds[i]] = true;
-            }
-        }
-    }
+//    function noRepeatCityIds(uint256 start, uint256 end) public onlyAdmin {
+//        for (uint i = start; i < end; i++) {
+//            if (!cityIdExist[cityIds[i]]) {
+//                cityIdsNoRepeat.push(cityIds[i]);
+//                cityIdExist[cityIds[i]] = true;
+//            }
+//        }
+//    }
 
     // 用户关闭定位
     function disableLbs() public {
