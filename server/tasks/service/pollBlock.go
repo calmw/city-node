@@ -4,6 +4,7 @@ import (
 	"city-node-server/blockchain"
 	"city-node-server/log"
 	"context"
+	"golang.org/x/exp/rand"
 )
 
 // const PoolStep = 999
@@ -223,4 +224,9 @@ func PollBlockGetSuretyRecordEvent() {
 	}
 	// 更新区块高度
 	blockchain.SetSTartBlock(int64(endBlock), blockchain.SuretyRecordEvent)
+}
+
+func ChangeRpc() {
+	index := rand.Int() % 3
+	blockchain.CityNodeConfig.RPC = blockchain.RpcArr[index]
 }

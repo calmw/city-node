@@ -403,6 +403,7 @@ func PioneerCity(pioneerAddress string) (error, string) {
 
 // TriggerAllPioneerTask 触发所有先锋分红和考核
 func TriggerAllPioneerTask() {
+
 	Cli := Client(CityNodeConfig)
 	_, auth := GetAuth(Cli)
 	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
