@@ -4,11 +4,17 @@ import (
 	"city-node-server/blockchain"
 	"city-node-server/services"
 	"city-node-server/tasks"
+	"fmt"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
 func main() {
+	defer func() {
+		if r := recover(); r != nil {
+			fmt.Println("recovery")
+		}
+	}()
 	//services.InitMainNet()
 	//services.InitCityPioneer()
 	//services.InitTestNet()
