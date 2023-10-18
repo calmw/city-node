@@ -43,7 +43,6 @@ var CityNodeConfig CityNodeConfigs
 var RpcArr = []string{
 	"https://rpc-7.matchscan.io/",
 	"https://rpc-8.matchscan.io/",
-	"https://rpc.matchscan.io/",
 }
 
 func Client(c CityNodeConfigs) *ethclient.Client {
