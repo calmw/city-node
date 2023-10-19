@@ -12,7 +12,11 @@ import (
 
 // GetNewlyDelegateRecordByChengId   根据城市ID和天查询新增质押量
 func GetNewlyDelegateRecordByChengId(chengShiId string, day int64) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	if strings.Contains(chengShiId, "0x") {
 		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
 	}
@@ -41,7 +45,11 @@ func GetNewlyDelegateRecordByChengId(chengShiId string, day int64) {
 
 // GetRechargeDailyWeightRecordByChengId   根据区县ID和天查询新增充值权重
 func GetRechargeDailyWeightRecordByChengId(chengShiId string, day int64) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	if strings.Contains(chengShiId, "0x") {
 		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
 	}

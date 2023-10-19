@@ -45,12 +45,13 @@ var RpcArr = []string{
 	"https://rpc-8.matchscan.io/",
 }
 
-func Client(c CityNodeConfigs) *ethclient.Client {
+func Client(c CityNodeConfigs) (error, *ethclient.Client) {
 	client, err := ethclient.Dial(c.RPC)
 	if err != nil {
-		panic("dail failed")
+		log.Logger.Sugar().Error("dail failed")
+		return err, nil
 	}
-	return client
+	return nil, client
 }
 
 func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {

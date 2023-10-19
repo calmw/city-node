@@ -7,7 +7,11 @@ import (
 )
 
 func GetUidsWithAddress(addresses []common.Address) (error, []string) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, nil
+	}
 	intoBind, err := intoCityNode.NewIntoBind(common.HexToAddress("0x15f414e10101afDeDA12Ba5608795eb4e14f2D3d"), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)

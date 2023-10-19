@@ -11,7 +11,11 @@ import (
 const PoolStep = 500
 
 func PollBlockTaskGetUserLocationRecordEvent() {
-	Cli := blockchain.Client(blockchain.CityNodeConfig)
+	err, Cli := blockchain.Client(blockchain.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	err, startBlock := blockchain.GetStartBlock(blockchain.LocationEvent) // 2306974
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -42,7 +46,11 @@ func PollBlockTaskGetUserLocationRecordEvent() {
 }
 
 func PollBlockTaskGetUserLocationRecordEvent2() {
-	Cli := blockchain.Client(blockchain.CityNodeConfig)
+	err, Cli := blockchain.Client(blockchain.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	err, startBlock := blockchain.GetStartBlock(blockchain.LocationEvent2) // 2306974
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -73,7 +81,11 @@ func PollBlockTaskGetUserLocationRecordEvent2() {
 }
 
 func PollBlockTaskGetDailyRewardRecordEvent() {
-	Cli := blockchain.Client(blockchain.CityNodeConfig)
+	err, Cli := blockchain.Client(blockchain.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	err, startBlock := blockchain.GetStartBlock(blockchain.RewardEvent) // 2430927
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -103,7 +115,11 @@ func PollBlockTaskGetDailyRewardRecordEvent() {
 }
 
 func PollBlockTaskGetRechargeRecordEvent() {
-	Cli := blockchain.Client(blockchain.CityNodeConfig)
+	err, Cli := blockchain.Client(blockchain.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	err, startBlock := blockchain.GetStartBlock(blockchain.RechargeEvent) // 2306974
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -134,7 +150,11 @@ func PollBlockTaskGetRechargeRecordEvent() {
 }
 
 func PollBlockTaskGetIncreaseCityDelegateEvent() {
-	Cli := blockchain.Client(blockchain.CityNodeConfig)
+	err, Cli := blockchain.Client(blockchain.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	err, startBlock := blockchain.GetStartBlock(blockchain.DelegateEvent) // 2306974
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -165,7 +185,11 @@ func PollBlockTaskGetIncreaseCityDelegateEvent() {
 }
 
 func PollBlockTaskGetWithdrawalRewardRecordEvent() {
-	Cli := blockchain.Client(blockchain.CityNodeConfig)
+	err, Cli := blockchain.Client(blockchain.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	err, startBlock := blockchain.GetStartBlock(blockchain.WithdrawEvent) // 2306974
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -196,7 +220,11 @@ func PollBlockTaskGetWithdrawalRewardRecordEvent() {
 }
 
 func PollBlockGetSuretyRecordEvent() {
-	Cli := blockchain.Client(blockchain.CityNodeConfig)
+	err, Cli := blockchain.Client(blockchain.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	err, startBlock := blockchain.GetStartBlock(blockchain.SuretyRecordEvent) // 2306974
 	if err != nil {
 		log.Logger.Sugar().Error(err)

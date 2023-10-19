@@ -9,8 +9,16 @@ import (
 )
 
 func ApproveToxCityPioneer() {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	tox, err := intoCityNode.NewBgtToken(common.HexToAddress(CityNodeConfig.ToxAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -27,8 +35,16 @@ func ApproveToxCityPioneer() {
 	fmt.Println(tx, err)
 }
 func ApproveTox(contractAddress string) {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	tox, err := intoCityNode.NewBgtToken(common.HexToAddress(CityNodeConfig.ToxAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -46,7 +62,11 @@ func ApproveTox(contractAddress string) {
 }
 
 func CityPioneerBalance() {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	tox, err := intoCityNode.NewBgtToken(common.HexToAddress(CityNodeConfig.ToxAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)

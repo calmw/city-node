@@ -35,8 +35,16 @@ type LocationInfo struct {
 
 // SetNoRepeatCityIds   城市ID数组重构
 func SetNoRepeatCityIds(start, end int64) {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -53,8 +61,16 @@ func SetNoRepeatCityIds(start, end int64) {
 
 // AdminSetCityAddressUserLocation 管理员设置城市合约地址
 func AdminSetCityAddressUserLocation() {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -70,8 +86,16 @@ func AdminSetCityAddressUserLocation() {
 
 // AddAdmin 管理员设置城市合约地址
 func UserLocationAddAdmin() {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -83,8 +107,16 @@ func UserLocationAddAdmin() {
 
 // AdminSetPledgeStakeAddressUserLocation 管理员设置获取用户质押量合约地址
 func AdminSetPledgeStakeAddressUserLocation() {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -100,8 +132,16 @@ func AdminSetPledgeStakeAddressUserLocation() {
 
 // SetUserLocation 设置获取用户位置
 func SetUserLocation(cityId, location string) {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -122,8 +162,16 @@ func SetUserLocation(cityId, location string) {
 
 // AdminSetSecondsPerDayCityUserLocation 管理员设置每天秒数，用于测试
 func AdminSetSecondsPerDayCityUserLocation(seconds int64) {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -139,8 +187,16 @@ func AdminSetSecondsPerDayCityUserLocation(seconds int64) {
 
 // SetUserLocationTest 设置获取用户位置
 func SetUserLocationTest(cityId, location, userAddress string) {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -161,8 +217,16 @@ func SetUserLocationTest(cityId, location, userAddress string) {
 
 // SetCityMapping 设置获取用户位置ID映射
 func SetCityMapping(countyId, chengShiId, location string) {
-	Cli := Client(CityNodeConfig)
-	_, auth := GetAuth(Cli)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -188,7 +252,11 @@ func SetCityMapping(countyId, chengShiId, location string) {
 }
 
 func GetChengShiIdByCountyId(countyId string) (error, string) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -209,7 +277,11 @@ func GetChengShiIdByCountyId(countyId string) (error, string) {
 
 // GetCityId 获取cityId
 func GetCityId(cityIdIndex int64) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -234,7 +306,11 @@ func GetCityId(cityIdIndex int64) {
 
 // GetCountyIdsByChengShiId 获取城市ID对应的所有区县ID
 func GetCountyIdsByChengShiId(cityId string) (error, [][32]byte) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, nil
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -251,7 +327,11 @@ func GetCountyIdsByChengShiId(cityId string) (error, [][32]byte) {
 
 // GetCountyIdsByChengShiIdBytes32 获取城市ID对应的所有区县ID
 func GetCountyIdsByChengShiIdBytes32(cityId [32]byte) (error, [][32]byte) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, nil
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -267,7 +347,11 @@ func GetCountyIdsByChengShiIdBytes32(cityId [32]byte) (error, [][32]byte) {
 
 // GetDay 获取天
 func GetDay() (error, int64) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, 0
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -282,7 +366,11 @@ func GetDay() (error, int64) {
 }
 
 func RestoreUserLocation(user string) error {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
 	user = strings.ToLower(user)
 	userLocationContract, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
@@ -379,7 +467,11 @@ func RestoreUserLocation(user string) error {
 
 // GetChengShiIdByCityId 获取cityId
 func GetChengShiIdByCityId(countyId string) (error, string) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -397,7 +489,11 @@ func GetChengShiIdByCityId(countyId string) (error, string) {
 
 // GetChengShiIdByCityIdByte32 获取cityId
 func GetChengShiIdByCityIdByte32(countyId [32]byte) (error, string) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -413,7 +509,11 @@ func GetChengShiIdByCityIdByte32(countyId [32]byte) (error, string) {
 
 // CityInfo 获取区县对应的加密信息
 func CityInfo(countyId [32]byte) (error, string) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, ""
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -449,7 +549,11 @@ func CityInfo(countyId [32]byte) (error, string) {
 
 // GetCityIdBytes32ByCountyId 获取区县对应的加密信息
 func GetCityIdBytes32ByCountyId(countyId string) (error, [32]byte) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, [32]byte{}
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -466,7 +570,11 @@ func GetCityIdBytes32ByCountyId(countyId string) (error, [32]byte) {
 
 // GetCountyIdsByPioneer 获取区县对应的加密信息
 func GetCountyIdsByPioneer(pioneer_ string) (error, [][32]byte) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, nil
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -488,7 +596,11 @@ func GetCountyIdsByPioneer(pioneer_ string) (error, [][32]byte) {
 
 // GetChengShiIdByAddress 获取区县对应的加密信息
 func GetChengShiIdByAddress(pioneer_ string) (error, [32]byte) {
-	Cli := Client(CityNodeConfig)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, [32]byte{}
+	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
