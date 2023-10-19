@@ -550,14 +550,13 @@ func TriggerAllPioneerTask() {
 		day, err := cityPioneer.GetDay(nil)
 		if err != nil {
 			log.Logger.Sugar().Error(err)
-			return
+			continue
 		}
 		status, err := cityPioneer.CheckPioneerDailyStatus(nil, day, pioneer)
 		if err != nil {
 			log.Logger.Sugar().Error(err)
-			return
+			continue
 		}
-		fmt.Println(pioneer.String(), day.String(), status)
 		GetPioneerTaskStatus(pioneer.String())
 		if err == nil && !status {
 			_, err = city.PioneerDailyTask(auth, pioneer)
