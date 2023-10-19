@@ -535,15 +535,34 @@ func TriggerAllPioneerTask() {
 		return
 	}
 	pioneerNumber, err := cityPioneer.GetPioneerNumber(nil)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
 		time.Sleep(time.Second * 3)
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
 		//AdminSetCheckPioneerDailyStatus(pioneer.String(), int64(19643), false) // 重置定时任务的执行状态
-		done := GetPioneerTaskStatus(pioneer.String())
-
-		if err == nil && !done {
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
+		day, err := cityPioneer.GetDay(nil)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return
+		}
+		status, err := cityPioneer.CheckPioneerDailyStatus(nil, day, pioneer)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return
+		}
+		fmt.Println(pioneer.String(), day.String(), status)
+		GetPioneerTaskStatus(pioneer.String())
+		if err == nil && !status {
 			_, err = city.PioneerDailyTask(auth, pioneer)
 			if err != nil {
+				log.Logger.Sugar().Error("定时任务执行失败：", err)
 				continue
 			}
 			SetPioneerTaskStatus(pioneer.String())

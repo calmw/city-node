@@ -10,7 +10,7 @@ func InitMainNet() {
 	key := os.Getenv("HUZHI")
 	blockchain.CityNodeConfig = blockchain.CityNodeConfigs{
 		ChainId:               9001,
-		RPC:                   "https://rpc-7.matchscan.io/",
+		RPC:                   "https://rpc-3.matchscan.io/",
 		CityAddress:           "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
 		CityPioneerAddress:    "0x60C541388077d524178521A7ceD95d0c7a016B72",
 		UserLocationAddress:   "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2",

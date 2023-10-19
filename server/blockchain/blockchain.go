@@ -41,6 +41,8 @@ type CityNodeConfigs struct {
 var CityNodeConfig CityNodeConfigs
 
 var RpcArr = []string{
+	"https://rpc-2.matchscan.io/",
+	"https://rpc-3.matchscan.io/",
 	"https://rpc-7.matchscan.io/",
 	"https://rpc-8.matchscan.io/",
 }

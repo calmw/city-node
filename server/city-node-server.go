@@ -4,17 +4,16 @@ import (
 	"city-node-server/blockchain"
 	"city-node-server/services"
 	"city-node-server/tasks"
-	"fmt"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
 
 func main() {
-	defer func() {
-		if r := recover(); r != nil {
-			fmt.Println("recovery")
-		}
-	}()
+	//defer func() {
+	//	if r := recover(); r != nil {
+	//		fmt.Println("recovery")
+	//	}
+	//}()
 	//services.InitMainNet()
 	//services.InitCityPioneer()
 	//services.InitTestNet()
@@ -77,6 +76,7 @@ func main() {
 
 	//api.Start()
 	tasks.Start()
+	//blockchain.TriggerAllPioneerTask()
 
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
 	//err := blockchain.RestoreUserLocation("0xd21081d17d30edce5e93a40dd62b2f541f0e1e64")

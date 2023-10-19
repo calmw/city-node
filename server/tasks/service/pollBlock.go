@@ -255,6 +255,6 @@ func PollBlockGetSuretyRecordEvent() {
 }
 
 func ChangeRpc() {
-	index := rand.Int() % 2
+	index := rand.Int() % 4
 	blockchain.CityNodeConfig.RPC = blockchain.RpcArr[index]
 }

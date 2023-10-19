@@ -521,7 +521,7 @@ func InsertSuretyRecordRecord(pioneerAddress, txHash string, amount decimal.Deci
 
 func GetPioneerTaskStatus(pioneerAddress string) bool {
 	var pioneerTask models.PioneerTask
-	t := time.Now()
+	t := time.Now().UTC()
 	whereCondition := fmt.Sprintf("pioneer='%s' and date='%s'", strings.ToLower(pioneerAddress), t.Format("2006-01-02"))
 	err := db.Mysql.Model(&models.PioneerTask{}).Where(whereCondition).First(&pioneerTask).Error
 	if err == gorm.ErrRecordNotFound {
