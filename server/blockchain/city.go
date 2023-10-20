@@ -392,7 +392,7 @@ func AddCityAdmin() {
 		return
 	}
 
-	_, err = city.AddAdmin(auth, common.HexToAddress("0x94b627F4F829Ac5E97fDc556B5BEeeFf9beF417e"))
+	_, err = city.AddAdmin(auth, common.HexToAddress("0x73A8f49C231ffBF9D190C623361c332bEc59F95A"))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -543,6 +543,10 @@ func TriggerAllPioneerTask() {
 		time.Sleep(time.Second * 3)
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
 		//AdminSetCheckPioneerDailyStatus(pioneer.String(), int64(19643), false) // 重置定时任务的执行状态
+		done := GetPioneerTaskStatus(pioneer.String())
+		if done {
+			continue
+		}
 		if err != nil {
 			log.Logger.Sugar().Error(err)
 			continue
@@ -557,7 +561,11 @@ func TriggerAllPioneerTask() {
 			log.Logger.Sugar().Error(err)
 			continue
 		}
-		GetPioneerTaskStatus(pioneer.String())
+		if status {
+			SetPioneerTaskStatus(pioneer.String())
+			continue
+		}
+		fmt.Println(pioneer.String(), day, status)
 		if err == nil && !status {
 			_, err = city.PioneerDailyTask(auth, pioneer)
 			if err != nil {

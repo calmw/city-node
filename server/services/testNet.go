@@ -15,7 +15,7 @@ func InitTestNet() {
 		UserLocationAddress:   "0x12CEC1A760E1e25Ce5b143cDB9D115D83603fAba", // 用户定位合约地址
 		MiningAddress:         "0xD8c1d40a6FF4E53577389C8008343081949C373D", // 需要杨森设置IntoMining合约的管理员权限，权限给到cityPioneer
 		SetDelegateAddress:    "0x73A8f49C231ffBF9D190C623361c332bEc59F95A", // 该合约为增加或减少质押量的合约，艳杰，在city给管理员权限
-		PledgeStakeAddress:    "0x73A8f49C231ffBF9D190C623361c332bEc59F95A", // 获取质押量合约。不需要权限
+		PledgeStakeAddress:    "0x744c8E9FaABB263a8c003Fc7CfbD5136dC670c1d", // 获取质押量合约。不需要权限
 		RechargeWeightAddress: "0xD8c1d40a6FF4E53577389C8008343081949C373D", // 需要杨森给合约地址，在cityPioneer给管理员权限
 		GetFoundsAddress:      "0x6Fd8375249cC5FAb32099697A301901378E77a12", // 获取社交基金值的合约
 		ToxAddress:            "0x3eE243ff68074502b1D9D65443fa97b99f634570", // TOX代币合约地址

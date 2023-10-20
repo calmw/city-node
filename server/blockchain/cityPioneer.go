@@ -527,7 +527,7 @@ func GetPioneerTaskStatus(pioneerAddress string) bool {
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Model(&models.PioneerTask{}).Create(&models.PioneerTask{
 			Pioneer: strings.ToLower(pioneerAddress),
-			Date:    time.Now(),
+			Date:    t,
 		})
 		return false
 	}
