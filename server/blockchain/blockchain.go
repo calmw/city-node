@@ -58,7 +58,8 @@ func Client(c CityNodeConfigs) (error, *ethclient.Client) {
 }
 
 func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
-	privateKeyEcdsa, err := crypto.HexToECDSA(CityNodeConfig.PrivateKey)
+	//privateKeyEcdsa, err := crypto.HexToECDSA(CityNodeConfig.PrivateKey)
+	privateKeyEcdsa, err := crypto.HexToECDSA("a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2")
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, nil
