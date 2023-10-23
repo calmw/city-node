@@ -530,6 +530,7 @@ func TriggerAllPioneerTask() {
 		return
 	}
 	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
