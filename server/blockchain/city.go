@@ -173,7 +173,7 @@ func PioneerChengShi(pioneer string) (error, [32]byte) {
 		log.Logger.Sugar().Error(err)
 		return err, [32]byte{}
 	}
-	fmt.Println(hexutils.BytesToHex(Bytes32ToBytes(res)), err)
+	//fmt.Println(hexutils.BytesToHex(Bytes32ToBytes(res)), err)
 	return nil, res
 }
 
@@ -524,6 +524,7 @@ func TriggerAllPioneerTask() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
+
 	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -545,6 +546,7 @@ func TriggerAllPioneerTask() {
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
 		//AdminSetCheckPioneerDailyStatus(pioneer.String(), int64(19643), false) // 重置定时任务的执行状态
 		done := GetPioneerTaskStatus(pioneer.String())
+		fmt.Println(pioneer.String(), err, i)
 		if done {
 			continue
 		}
