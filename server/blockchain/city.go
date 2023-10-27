@@ -8,7 +8,9 @@ import (
 	"city-node-server/models"
 	"context"
 	"fmt"
+	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/shopspring/decimal"
 	"github.com/status-im/keycard-go/hexutils"
@@ -512,14 +514,42 @@ func PioneerCity(pioneerAddress string) (error, string) {
 	return nil, string(Bytes32ToBytes(res))
 }
 
-// TriggerAllPioneerTask 触发所有先锋分红和考核
-func TriggerAllPioneerTask() {
-	err, Cli := Client(CityNodeConfig)
+func GetAuth2(cli *ethclient.Client) (error, *bind.TransactOpts) {
+	//privateKeyEcdsa, err := crypto.HexToECDSA(CityNodeConfig.PrivateKey)
+	privateKeyEcdsa, err := crypto.HexToECDSA("5c21103ec19752593b49662f539f410fa1a2efccbef21f304ea73b94a84be045")
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err, nil
 	}
-	err, auth := GetAuth(Cli)
+	auth, err := bind.NewKeyedTransactorWithChainID(privateKeyEcdsa, big.NewInt(CityNodeConfig.ChainId))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, nil
+	}
+	nonce, _ := cli.NonceAt(context.Background(), common.HexToAddress("0x94b627F4F829Ac5E97fDc556B5BEeeFf9beF417e"), nil)
+	//gasLimit := uint64(21000)
+	return nil, &bind.TransactOpts{
+		From:      auth.From,
+		Nonce:     big.NewInt(int64(nonce)),
+		Signer:    auth.Signer, // Method to use for signing the transaction (mandatory)
+		Value:     big.NewInt(0),
+		GasPrice:  nil,
+		GasFeeCap: nil,
+		GasTipCap: nil,
+		GasLimit:  0,
+		Context:   context.Background(),
+		NoSend:    false, // Do all transact steps but do not send the transaction
+	}
+}
+
+// TriggerAllPioneerTask 触发所有先锋分红和考核
+func TriggerAllPioneerTask() {
+	Cli, err := ethclient.Dial("https://rpc-sen.matchscan.io")
+	if err != nil {
+		log.Logger.Sugar().Error("dail failed")
+	}
+
+	err, auth := GetAuth2(Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
