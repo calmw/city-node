@@ -1,7 +1,5 @@
 [Unit]
-Description=the graph service
-StartLimitBurst=5
-StartLimitIntervalSec=60
+Description=the pioneer task service
 [Service]
 Type=simple
 Restart=always
