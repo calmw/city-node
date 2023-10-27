@@ -542,7 +542,7 @@ func TriggerAllPioneerTask() {
 		return
 	}
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
-		time.Sleep(time.Second * 3)
+		time.Sleep(time.Second * 5)
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
 		if err != nil {
 			log.Logger.Sugar().Error(err)
@@ -573,16 +573,16 @@ func TriggerAllPioneerTask() {
 			SetPioneerTaskStatus(pioneer.String())
 			log.Logger.Sugar().Error("已经执行成功，跳过")
 			continue
-		}
-		if !status {
+		} else {
 			_, err = city.PioneerDailyTask(auth, pioneer)
 			if err != nil {
 				log.Logger.Sugar().Error("定时任务执行失败：", err)
 				continue
+			} else {
+				log.Logger.Sugar().Info("定时任务执行成功")
+				SetPioneerTaskStatus(pioneer.String())
 			}
-			SetPioneerTaskStatus(pioneer.String())
 		}
-		time.Sleep(time.Second * 2)
 	}
 }
 
