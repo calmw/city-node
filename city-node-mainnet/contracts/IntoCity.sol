@@ -185,6 +185,11 @@ contract IntoCity is RoleAccess, Initializable {
         }
     }
 
+    function adminChangePioneerCityId(bytes32 chengShiId_, address pioneer_) public onlyAdmin {
+        chengShiPioneer[chengShiId_] = pioneer_;
+        pioneerChengShi[pioneer_] = chengShiId_;
+    }
+
     function adminPopPioneerChengShiId() public onlyAdmin {
         pioneerChengShiIds.pop();
     }
