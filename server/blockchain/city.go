@@ -544,8 +544,11 @@ func TriggerAllPioneerTask() {
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
 		time.Sleep(time.Second * 3)
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
 		//AdminSetCheckPioneerDailyStatus(pioneer.String(), int64(19643), false) // 重置定时任务的执行状态
-		//done := GetPioneerTaskStatus(pioneer.String())
 		GetPioneerTaskStatus(pioneer.String())
 		//fmt.Println(pioneer.String(), err, i)
 		//if done {
@@ -555,29 +558,29 @@ func TriggerAllPioneerTask() {
 		//	log.Logger.Sugar().Error(err)
 		//	continue
 		//}
-		day, _ := cityPioneer.GetDay(nil)
-		//if err != nil {
-		//	log.Logger.Sugar().Error(err)
-		//	continue
-		//}
+		day, err := cityPioneer.GetDay(nil)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
 		status, err := cityPioneer.CheckPioneerDailyStatus(nil, day, pioneer)
 		fmt.Println(pioneer.String(), err, day, i, status)
-		//if err != nil {
-		//	log.Logger.Sugar().Error(err)
-		//	continue
-		//}
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
 		if status {
 			SetPioneerTaskStatus(pioneer.String())
 			log.Logger.Sugar().Error("已经执行成功，跳过")
 			continue
 		}
-		if err == nil && !status {
+		if !status {
 			_, err = city.PioneerDailyTask(auth, pioneer)
 			if err != nil {
 				log.Logger.Sugar().Error("定时任务执行失败：", err)
 				continue
 			}
-			//SetPioneerTaskStatus(pioneer.String())
+			SetPioneerTaskStatus(pioneer.String())
 		}
 		time.Sleep(time.Second * 2)
 	}

@@ -43,7 +43,7 @@ type CityNodeConfigs struct {
 var CityNodeConfig CityNodeConfigs
 
 var RpcArr = []string{
-	"https://rpc-2.matchscan.io/",
+	"https://rpc-9.matchscan.io/",
 	"https://rpc-7.matchscan.io/",
 	"https://rpc-8.matchscan.io/",
 }
@@ -74,7 +74,7 @@ func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
 	//gasLimit := uint64(21000)
 	return nil, &bind.TransactOpts{
 		From:      auth.From,
-		Nonce:     big.NewInt(int64(nonce) + 1),
+		Nonce:     big.NewInt(int64(nonce)),
 		Signer:    auth.Signer, // Method to use for signing the transaction (mandatory)
 		Value:     big.NewInt(0),
 		GasPrice:  nil,
