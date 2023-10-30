@@ -19,15 +19,15 @@ func Start() {
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
 	// 城市先锋
-	_ = s.Every(10).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
+	//_ = s.Every(10).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetUserLocationRecordEvent)
 	//_ = s.Every(3).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetDailyRewardRecordEvent)
 	_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetRechargeRecordEvent)
 	//_ = s.Every(5).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetIncreaseCityDelegateEvent)
 	//_ = s.Every(90).Seconds().From(gocron.NextTick()).Do(service.PollBlockTaskGetWithdrawalRewardRecordEvent)
 	//_ = s.Every(4).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetWithdrawalRewardRecordEvent)
-	_ = s.Every(6).Minutes().From(gocron.NextTick()).Do(service.PollBlockGetSuretyRecordEvent)
+	//_ = s.Every(6).Minutes().From(gocron.NextTick()).Do(service.PollBlockGetSuretyRecordEvent)
 	_ = s.Every(30).Minutes().From(gocron.NextTick()).Do(service.GetPioneerRechargeWeight)
-	_ = s.Every(30).Minutes().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTask)
+	_ = s.Every(30).Minutes().From(gocron.NextTick()).Do(blockchain.GetAllPioneer)
 	//_ = s.Every(7).Minutes().From(gocron.NextTick()).Do(service.ChangeRpc)
 
 	// 新手任务

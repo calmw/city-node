@@ -618,6 +618,57 @@ func TriggerAllPioneerTask() {
 	}
 }
 
+func GetAllPioneer() {
+	Cli, err := ethclient.Dial("https://rpc-sen.matchscan.io")
+	if err != nil {
+		log.Logger.Sugar().Error("dail failed")
+	}
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	pioneerNumber, err := cityPioneer.GetPioneerNumber(nil)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	for i := 0; i < int(pioneerNumber.Int64()); i++ {
+		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
+		isPioneer, err := cityPioneer.IsPioneer(nil, pioneer)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
+		if isPioneer {
+			pioneerInfo := models.Pioneer{}
+			err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
+			if err == gorm.ErrRecordNotFound {
+				city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+				if err != nil {
+					log.Logger.Sugar().Error(err)
+					continue
+				}
+				res, err := city.PioneerChengShi(nil, common.HexToAddress(pioneer.String()))
+				if err != nil {
+					log.Logger.Sugar().Error(err)
+					continue
+				}
+
+				db.Mysql.Model(models.Pioneer{}).Create(&models.Pioneer{
+					CityId:  strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res))),
+					Pioneer: strings.ToLower(pioneer.String()),
+				})
+			}
+		}
+	}
+}
+
 // TriggerAllPioneerTaskTestNet 触发所有先锋分红和考核
 func TriggerAllPioneerTaskTestNet() {
 	defer func() {

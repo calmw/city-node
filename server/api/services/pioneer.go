@@ -69,48 +69,48 @@ func (c *Pioneer) Reward(req *request.Reward) (int, int64, []models2.Reward) {
 	return statecode.CommonSuccess, total, rewards
 }
 
-func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRechargeWeightByPioneerAddress) (int, PioneerWeight) {
-	var pioneer models2.RechargeWeight
-	var total FHSum
-	whereCondition := fmt.Sprintf("pioneer='%s'", strings.ToLower(userReq.Pioneer))
-	db.Mysql.Table("recharge_weight").Where(whereCondition).First(&pioneer)
-	var rechargeWeight []models2.RechargeWeight
-	whereCondition = fmt.Sprintf("pioneer='%s'", strings.ToLower(userReq.Pioneer))
-
-	db.Mysql.Table("recharge_weight").Select("`county_id`,`pioneer`").Where(whereCondition).Group("county_id").Find(&rechargeWeight)
-	db.Mysql.Table("recharge_weight").Where(whereCondition).Select("sum(weight) as total").Scan(&total)
-	pioneerWeight := PioneerWeight{
-		CityId:      pioneer.CityId,
-		Location:    pioneer.CityLocation,
-		TotalWeight: decimal.NewFromFloat(total.Total),
-	}
-	for _, rc := range rechargeWeight {
-		var rechargeWeightDaily []models2.RechargeWeight
-		var pioneerWeightDailys []PioneerWeightDaily
-		whereCondition = fmt.Sprintf("county_id='%s'", rc.CountyId)
-		db.Mysql.Table("recharge_weight").Where(whereCondition).Order("day desc").Find(&rechargeWeightDaily)
-		for _, dw := range rechargeWeightDaily {
-			pioneerWeightDailys = append(pioneerWeightDailys, PioneerWeightDaily{
-				Day:    dw.Day,
-				Weight: dw.Weight,
-			})
-		}
-
-		// 获取区县位置信息
-		_, countyLocation := GetCountyInfo(rc.CountyId)
-		total.Total = 0
-		db.Mysql.Table("recharge_weight").Where(whereCondition).Select("sum(weight) as total").Scan(&total)
-		whereCondition = fmt.Sprintf("county_id='%s'", rc.CountyId)
-		pioneerWeight.PioneerCounty = append(pioneerWeight.PioneerCounty, PioneerCountyData{
-			CountyId:           rc.CountyId,
-			Location:           countyLocation,
-			TotalWeight:        decimal.NewFromFloat(total.Total),
-			PioneerWeightDaily: pioneerWeightDailys,
-		})
-	}
-
-	return statecode.CommonSuccess, pioneerWeight
-}
+//func (c *Pioneer) GetRechargeWeightByPioneerAddress(userReq *request.GetRechargeWeightByPioneerAddress) (int, PioneerWeight) {
+//	var pioneer models2.RechargeWeight
+//	var total FHSum
+//	whereCondition := fmt.Sprintf("pioneer='%s'", strings.ToLower(userReq.Pioneer))
+//	db.Mysql.Table("recharge_weight").Where(whereCondition).First(&pioneer)
+//	var rechargeWeight []models2.RechargeWeight
+//	whereCondition = fmt.Sprintf("pioneer='%s'", strings.ToLower(userReq.Pioneer))
+//
+//	db.Mysql.Table("recharge_weight").Select("`county_id`,`pioneer`").Where(whereCondition).Group("county_id").Find(&rechargeWeight)
+//	db.Mysql.Table("recharge_weight").Where(whereCondition).Select("sum(weight) as total").Scan(&total)
+//	pioneerWeight := PioneerWeight{
+//		CityId:      pioneer.CityId,
+//		Location:    pioneer.CityLocation,
+//		TotalWeight: decimal.NewFromFloat(total.Total),
+//	}
+//	for _, rc := range rechargeWeight {
+//		var rechargeWeightDaily []models2.RechargeWeight
+//		var pioneerWeightDailys []PioneerWeightDaily
+//		whereCondition = fmt.Sprintf("county_id='%s'", rc.CountyId)
+//		db.Mysql.Table("recharge_weight").Where(whereCondition).Order("day desc").Find(&rechargeWeightDaily)
+//		for _, dw := range rechargeWeightDaily {
+//			pioneerWeightDailys = append(pioneerWeightDailys, PioneerWeightDaily{
+//				Day:    dw.Day,
+//				Weight: dw.Weight,
+//			})
+//		}
+//
+//		// 获取区县位置信息
+//		_, countyLocation := GetCountyInfo(rc.CountyId)
+//		total.Total = 0
+//		db.Mysql.Table("recharge_weight").Where(whereCondition).Select("sum(weight) as total").Scan(&total)
+//		whereCondition = fmt.Sprintf("county_id='%s'", rc.CountyId)
+//		pioneerWeight.PioneerCounty = append(pioneerWeight.PioneerCounty, PioneerCountyData{
+//			CountyId:           rc.CountyId,
+//			Location:           countyLocation,
+//			TotalWeight:        decimal.NewFromFloat(total.Total),
+//			PioneerWeightDaily: pioneerWeightDailys,
+//		})
+//	}
+//
+//	return statecode.CommonSuccess, pioneerWeight
+//}
 
 func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, int64, []models2.RechargeWeight) {
 	var rechargeWeights []models2.RechargeWeight
