@@ -119,6 +119,9 @@ func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, int64, []mod
 	if req.Pioneer != "" {
 		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
 	}
+	if req.User != "" {
+		tx = tx.Where("user=?", strings.ToLower(req.User))
+	}
 	if req.Start != "" {
 		tx = tx.Where("day>=? and day<=?", req.Start, req.End)
 	}

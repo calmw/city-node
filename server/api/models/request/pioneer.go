@@ -6,6 +6,7 @@ type GetRechargeWeightByPioneerAddress struct {
 
 type RechargeWeight struct {
 	Pioneer  string `json:"pioneer" form:"pioneer" binding:"omitempty"`
+	User     string `json:"user" form:"user" binding:"omitempty"`
 	Start    string `json:"start" form:"start" binding:"omitempty"`
 	End      string `json:"end" form:"end" binding:"omitempty"`
 	Page     int    `json:"page" form:"page" binding:"omitempty"`
