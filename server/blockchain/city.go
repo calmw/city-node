@@ -578,16 +578,18 @@ func TriggerAllPioneerTask() {
 			log.Logger.Sugar().Error(err)
 			continue
 		}
+		isPioneer, err := cityPioneer.IsPioneer(nil, pioneer)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
+		if !isPioneer {
+			log.Logger.Sugar().Error(i, pioneer, ", 未交保证金")
+			continue
+		}
 		//AdminSetCheckPioneerDailyStatus(pioneer.String(), int64(19643), false) // 重置定时任务的执行状态
 		GetPioneerTaskStatus(pioneer.String())
-		//fmt.Println(pioneer.String(), err, i)
-		//if done {
-		//	continue
-		//}
-		//if err != nil {
-		//	log.Logger.Sugar().Error(err)
-		//	continue
-		//}
+
 		day, err := cityPioneer.GetDay(nil)
 		if err != nil {
 			log.Logger.Sugar().Error(err)

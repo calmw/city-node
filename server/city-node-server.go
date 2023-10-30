@@ -76,7 +76,7 @@ func main() {
 
 	//api.Start()
 	//tasks.Start()
-
+	//blockchain.TriggerAllPioneerTask()
 	ticker := time.NewTicker(30 * time.Minute)
 	for {
 		<-ticker.C
