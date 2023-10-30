@@ -107,13 +107,13 @@ func InsertRechargeWeight(pioneer, cityId, countyId, cityLocation, countyLocatio
 	err := db.Mysql.Table("recharge_weight").Where(whereCondition).First(&rechargeWeight).Error
 	if err == gorm.ErrRecordNotFound {
 		db.Mysql.Table("recharge_weight").Create(&models.RechargeWeight{
-			Pioneer:        strings.ToLower(pioneer),
-			CountyId:       strings.ToLower(countyId),
-			CityId:         strings.ToLower(cityId),
-			CityLocation:   strings.ToLower(cityLocation),
-			CountyLocation: strings.ToLower(countyLocation),
-			Weight:         weight,
-			Day:            t,
+			Pioneer:  strings.ToLower(pioneer),
+			CountyId: strings.ToLower(countyId),
+			CityId:   strings.ToLower(cityId),
+			//CityLocation:   strings.ToLower(cityLocation),
+			//CountyLocation: strings.ToLower(countyLocation),
+			Weight: weight,
+			//Day:            t,
 		})
 	}
 	return err
