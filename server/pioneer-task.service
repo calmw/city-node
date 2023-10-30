@@ -4,7 +4,7 @@ Description=the pioneer task service
 [Service]
 Type=simple
 Restart=always
-StartLimitIntervalSec=60
+#StartLimitIntervalSec=60
 RestartSec=1
 User=root
 ExecStart=/wkspace/city-node/server/pioneerDailyTask
