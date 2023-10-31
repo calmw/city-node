@@ -365,6 +365,7 @@ func GetDay() (error, int64) {
 	return nil, res.Int64()
 }
 
+// RestoreUserLocation 更新单个用户地址
 func RestoreUserLocation(user string) error {
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
@@ -474,6 +475,86 @@ func RestoreUserLocation(user string) error {
 		})
 	}
 	return nil
+}
+
+// ReSaveUserLocation 更新CityID和location为空的所有地址
+func ReSaveUserLocation() {
+	var locations []models.UserLocation
+	db.Mysql.Model(models.UserLocation{}).Where("location=''").Find(&locations)
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	userLocationContract, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	for _, l := range locations {
+		fmt.Println(l.User, l.Id)
+		countyIdBytes32, err := userLocationContract.UserCityId(nil, common.HexToAddress(l.User))
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return
+		}
+
+		cityIdBytes32, err := userLocationContract.CityIdChengShiID(nil, countyIdBytes32)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return
+		}
+
+		code := strings.Split(l.AreaCode, ",")
+		if code[0] == "0" && code[2] == "" { // 兼容map增量更新的位置信息
+			locationEncrypt, err := userLocationContract.CityInfo(nil, cityIdBytes32)
+			if err != nil || locationEncrypt == "" {
+				log.Logger.Sugar().Error(err)
+				return
+			}
+			locationCode := utils.ThreeDesDecrypt(locationEncrypt)
+			code = strings.Split(locationCode, ",")
+		}
+		if len(code) == 2 {
+			code = append(code, "0")
+		}
+		if len(code) < 3 {
+			log.Logger.Sugar().Warnln("用户位置加密信息解析错误", code)
+			return
+		}
+		// 国外用户
+		codeSecond := code[1]
+		codeSecondSlice := strings.Split(codeSecond, "")
+		if code[0] != "0" && codeSecondSlice[0] != "0" {
+			log.Logger.Sugar().Warnln("国外用户位置信息", code)
+			code[2] = "0"
+		}
+		// 容错，国内城市code首位是0的情况
+		if codeSecondSlice[0] == "0" {
+			// 获取城市code,根据区县code
+			var areaCode models.AreaCode
+			whereCondition := fmt.Sprintf("ad_code=%s", code[2])
+			err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
+			code[1] = fmt.Sprintf("%d", areaCode.CityCode)
+		}
+
+		// 查询明文地址
+		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
+		err, location := utils.HttpGet(uri)
+		if err != nil {
+			return
+		}
+		var locationInfo LocationInfo
+		err = json.Unmarshal(location, &locationInfo)
+		if err != nil {
+			return
+		}
+		db.Mysql.Model(&models.UserLocation{}).Where("user=?", strings.ToLower(l.User)).Updates(map[string]interface{}{
+			"city_id":  strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(cityIdBytes32))),
+			"location": locationInfo.Data.CountryName + " " + locationInfo.Data.CityName + " " + locationInfo.Data.AreaName,
+		})
+	}
+
 }
 
 // GetChengShiIdByCityId 获取cityId

@@ -85,7 +85,8 @@ func main() {
 	//}
 	//services.ReadExcel("./城市节点报名表.xlsx")
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
-	//err := blockchain.RestoreUserLocation("0xce492ae90d030db5c833296f1abde6c088013e50")
+	//blockchain.ReSaveUserLocation()
+	//err := blockchain.RestoreUserLocation("0x7295f5a83337163aa06c70dcdd51903acc5e27fa")
 	//fmt.Println(err)
 
 	// 更新先锋信息
