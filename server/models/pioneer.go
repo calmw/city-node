@@ -5,5 +5,6 @@ type Pioneer struct {
 	CityId    string `json:"city_id" gorm:"column:city_id"`
 	Location  string `json:"location" gorm:"column:location"`
 	Pioneer   string `json:"pioneer" gorm:"column:pioneer"`
+	IsDeposit int    `json:"is_deposit" gorm:"column:is_deposit"`
 	CityLevel int64  `json:"city_level" gorm:"column:city_level"`
 }
