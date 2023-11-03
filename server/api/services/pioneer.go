@@ -168,6 +168,30 @@ func (c *Pioneer) RewardWithdraw(req *request.RewardWithdraw) (int, int64, []mod
 	return statecode.CommonSuccess, total, rewardWithdraw
 }
 
+func (c *Pioneer) Pioneer(req *request.Pioneer) (int, int64, []models2.Pioneer) {
+	var rewardWithdraw []models2.Pioneer
+
+	tx := db.Mysql.Model(&models2.Pioneer{}).Order("id asc")
+	if req.Pioneer != "" {
+		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
+	}
+
+	var total int64
+	tx.Count(&total)
+	page := 1 // 第5页
+	if req.Page > 0 {
+		page = req.Page
+	}
+	pageSize := 10
+	if req.PageSize > 0 {
+		pageSize = req.PageSize
+	}
+	offset := (page - 1) * pageSize // 计算偏移量
+	tx.Limit(pageSize).Offset(offset).Find(&rewardWithdraw)
+
+	return statecode.CommonSuccess, total, rewardWithdraw
+}
+
 func GetCountyInfo(countyId string) (error, string) {
 	var userLocation models2.UserLocation
 	countyId = strings.ToLower(countyId)

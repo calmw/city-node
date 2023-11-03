@@ -21,6 +21,12 @@ type RewardWithdraw struct {
 	PageSize int    `json:"page_size" form:"page_size" binding:"omitempty,numeric"`
 }
 
+type Pioneer struct {
+	Pioneer  string `json:"pioneer" form:"pioneer" binding:"omitempty"`
+	Page     int    `json:"page" form:"page" binding:"omitempty"`
+	PageSize int    `json:"page_size" form:"page_size" binding:"omitempty,numeric"`
+}
+
 type Reward struct {
 	Pioneer  string `json:"pioneer" form:"pioneer" binding:"omitempty"`
 	Start    string `json:"start" form:"start" binding:"omitempty"`

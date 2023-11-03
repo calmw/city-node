@@ -67,6 +67,24 @@ func (c *PioneerController) RewardWithdraw(ctx *gin.Context) {
 	return
 }
 
+func (c *PioneerController) Pioneer(ctx *gin.Context) {
+	res := response.Gin{Res: ctx}
+	req := request.Pioneer{}
+	ctx.ShouldBindQuery(&req)
+
+	errCode, total, data := services.NewPioneer().Pioneer(&req)
+	if errCode != statecode.CommonSuccess {
+		res.Response(ctx, errCode, nil)
+		return
+	}
+
+	res.Response(ctx, statecode.CommonSuccess, map[string]interface{}{
+		"total": total,
+		"list":  data,
+	})
+	return
+}
+
 func (c *PioneerController) Reward(ctx *gin.Context) {
 	res := response.Gin{Res: ctx}
 	var req request.Reward
