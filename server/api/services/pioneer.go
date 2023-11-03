@@ -141,6 +141,33 @@ func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, int64, []mod
 	return statecode.CommonSuccess, total, rechargeWeights
 }
 
+func (c *Pioneer) RewardWithdraw(req *request.RewardWithdraw) (int, int64, []models2.RewardWithdraw) {
+	var rewardWithdraw []models2.RewardWithdraw
+
+	tx := db.Mysql.Model(&models2.RewardWithdraw{}).Order("ctime desc")
+	if req.Pioneer != "" {
+		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
+	}
+
+	if req.Start != "" {
+		tx = tx.Where("ctime>=? and ctime<=?", req.Start, req.End)
+	}
+	var total int64
+	tx.Count(&total)
+	page := 1 // 第5页
+	if req.Page > 0 {
+		page = req.Page
+	}
+	pageSize := 10
+	if req.PageSize > 0 {
+		pageSize = req.PageSize
+	}
+	offset := (page - 1) * pageSize // 计算偏移量
+	tx.Limit(pageSize).Offset(offset).Find(&rewardWithdraw)
+
+	return statecode.CommonSuccess, total, rewardWithdraw
+}
+
 func GetCountyInfo(countyId string) (error, string) {
 	var userLocation models2.UserLocation
 	countyId = strings.ToLower(countyId)

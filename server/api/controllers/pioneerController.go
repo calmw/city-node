@@ -49,6 +49,24 @@ func (c *PioneerController) RechargeWeight(ctx *gin.Context) {
 	return
 }
 
+func (c *PioneerController) RewardWithdraw(ctx *gin.Context) {
+	res := response.Gin{Res: ctx}
+	req := request.RewardWithdraw{}
+	ctx.ShouldBindQuery(&req)
+
+	errCode, total, data := services.NewPioneer().RewardWithdraw(&req)
+	if errCode != statecode.CommonSuccess {
+		res.Response(ctx, errCode, nil)
+		return
+	}
+
+	res.Response(ctx, statecode.CommonSuccess, map[string]interface{}{
+		"total": total,
+		"list":  data,
+	})
+	return
+}
+
 func (c *PioneerController) Reward(ctx *gin.Context) {
 	res := response.Gin{Res: ctx}
 	var req request.Reward

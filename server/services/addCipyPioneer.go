@@ -21,6 +21,7 @@ type PioneerInfo struct {
 func ReadExcel(excelFile string) {
 	var pioneers []PioneerInfo
 	f, err := excelize.OpenFile(excelFile)
+	fmt.Println(err, 5)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -32,6 +33,7 @@ func ReadExcel(excelFile string) {
 			continue
 		}
 		pioneer := PioneerInfo{}
+		var cid string
 		for j, colCell := range row {
 			if j == 1 {
 				l := strings.Split(colCell, " ")
@@ -42,11 +44,15 @@ func ReadExcel(excelFile string) {
 					return
 				}
 				pioneer.CityId = location.CityId
+				cid = location.CityId
 			}
 			if j == 3 {
 				pioneer.Address = strings.ToLower(colCell)
 			}
-			if j == 8 {
+			if j == 5 {
+				fmt.Println(i, "表格中CityID和数据库中是否相等", cid == strings.ToLower(colCell))
+			}
+			if j == 4 {
 				level, _ := strconv.ParseInt(colCell, 10, 64)
 				pioneer.CityLevel = level
 				if level == 1 {
@@ -60,14 +66,28 @@ func ReadExcel(excelFile string) {
 		}
 		pioneers = append(pioneers, pioneer)
 	}
-	for _, p := range pioneers {
-		//fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money)
-		//blockchain.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
-		//time.Sleep(time.Second * 3)
+	for i, p := range pioneers {
+		//fmt.Println("")
+		//fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
+		//if i == 7 {
+		//	blockchain.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
+		//	time.Sleep(time.Second * 5)
+		//}
+		//if i == 11 || i == 14 {
+		//	blockchain.AdminSetPioneer(p.CityId, p.Address)
+		//	time.Sleep(time.Second * 8)
+		//}
 		//blockchain.AdminSetPioneer(p.CityId, p.Address)
+
+		//time.Sleep(time.Second * 8)
 		//
-		err, city := blockchain.PioneerChengShi(p.Address)
-		fmt.Println(p.Address, err, hexutils.BytesToHex(blockchain.Bytes32ToBytes(city)))
+		err, cityIdBytes32 := blockchain.PioneerChengShi(p.Address)
+		err, level := blockchain.ChengShiLevel(cityIdBytes32)
+		var ok bool
+		if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain.Bytes32ToBytes(cityIdBytes32))) {
+			ok = true
+		}
+		fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain.Bytes32ToBytes(cityIdBytes32))), ok, level)
 
 	}
 }

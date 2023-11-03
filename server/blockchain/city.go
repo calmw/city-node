@@ -69,7 +69,7 @@ func AdminSetFoundsAddress() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	_, auth := GetAuth(Cli)
+	_, auth := GetAuth2(Cli)
 	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -177,6 +177,27 @@ func PioneerChengShi(pioneer string) (error, [32]byte) {
 	}
 	//fmt.Println(hexutils.BytesToHex(Bytes32ToBytes(res)), err)
 	return nil, res
+}
+
+// ChengShiLevel 查看先锋城市等级
+func ChengShiLevel(cityId [32]byte) (error, int64) {
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, 0
+	}
+	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, 0
+	}
+	res, err := city.ChengShiLevel(nil, cityId)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, 0
+	}
+	//fmt.Println(hexutils.BytesToHex(Bytes32ToBytes(res)), err)
+	return nil, res.Int64()
 }
 
 // CountyNewlyPioneerDelegateRecord 根据区县ID和天查询新增质押量
@@ -530,7 +551,7 @@ func GetAuth2(cli *ethclient.Client) (error, *bind.TransactOpts) {
 	//gasLimit := uint64(21000)
 	return nil, &bind.TransactOpts{
 		From:      auth.From,
-		Nonce:     big.NewInt(int64(nonce)),
+		Nonce:     big.NewInt(int64(nonce) + 1),
 		Signer:    auth.Signer, // Method to use for signing the transaction (mandatory)
 		Value:     big.NewInt(0),
 		GasPrice:  nil,
@@ -586,6 +607,13 @@ func TriggerAllPioneerTask() {
 		if !isPioneer {
 			log.Logger.Sugar().Error(i, pioneer, ", 未交保证金")
 			continue
+		}
+		failed, err := cityPioneer.FailedAt(nil, pioneer)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		} else {
+			fmt.Println(i, pioneer, ", 考核：", failed.Int64() == 0)
 		}
 		//AdminSetCheckPioneerDailyStatus(pioneer.String(), int64(19643), false) // 重置定时任务的执行状态
 		GetPioneerTaskStatus(pioneer.String())
@@ -659,10 +687,22 @@ func GetAllPioneer() {
 					log.Logger.Sugar().Error(err)
 					continue
 				}
+				cityId := strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res)))
+				cityLevel, err := city.ChengShiLevel(nil, res)
+				if err != nil {
+					log.Logger.Sugar().Error(err)
+					continue
+				}
+				// 根据城市ID查询location
+				local := models.UserLocation{}
+
+				db.Mysql.Model(models.UserLocation{}).Where("city_id=?", cityId).First(&local)
 
 				db.Mysql.Model(models.Pioneer{}).Create(&models.Pioneer{
-					CityId:  strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res))),
-					Pioneer: strings.ToLower(pioneer.String()),
+					CityId:    strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res))),
+					Location:  local.Location,
+					CityLevel: cityLevel.Int64(),
+					Pioneer:   strings.ToLower(pioneer.String()),
 				})
 			}
 		}

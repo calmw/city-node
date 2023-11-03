@@ -400,65 +400,65 @@ func InsertDailyReward(pioneerAddress, txHash string, foundsReward, delegateRewa
 	return nil
 }
 
-func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
-	query := event.BuildQuery(
-		common.HexToAddress(CityNodeConfig.CityPioneerAddress),
-		event.WithdrawalRewardRecord,
-		big.NewInt(startBlock),
-		big.NewInt(endBlock),
-	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
-	logs, err := Cli.FilterLogs(ctx, query)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-	cancel()
-	abi, _ := intoCityNode2.CityPioneerMetaData.GetAbi()
+//func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
+//	query := event.BuildQuery(
+//		common.HexToAddress(CityNodeConfig.CityPioneerAddress),
+//		event.WithdrawalRewardRecord,
+//		big.NewInt(startBlock),
+//		big.NewInt(endBlock),
+//	)
+//	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
+//	logs, err := Cli.FilterLogs(ctx, query)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err
+//	}
+//	cancel()
+//	abi, _ := intoCityNode2.CityPioneerMetaData.GetAbi()
+//
+//	for _, logE := range logs {
+//		logData, err := abi.Unpack(event.WithdrawalRewardRecordEvent.EventName, logE.Data)
+//		if err != nil {
+//			log.Logger.Sugar().Error(err)
+//			return err
+//		}
+//		var timestamp int64
+//		pioneerAddress := strings.ToLower(logData[0].(common.Address).String())
+//		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
+//		wType := decimal.NewFromBigInt(logData[2].(*big.Int), 0)
+//		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
+//		if err == nil {
+//			timestamp = int64(header.Time)
+//		}
+//		err = InsertWithdrawalRewardRecord(pioneerAddress, logE.TxHash.String(), amount, wType, int64(logE.BlockNumber), int64(logE.Index), timestamp)
+//		if err != nil {
+//			return err
+//		}
+//		time.Sleep(time.Second * 3)
+//	}
+//	return nil
+//}
 
-	for _, logE := range logs {
-		logData, err := abi.Unpack(event.WithdrawalRewardRecordEvent.EventName, logE.Data)
-		if err != nil {
-			log.Logger.Sugar().Error(err)
-			return err
-		}
-		var timestamp int64
-		pioneerAddress := strings.ToLower(logData[0].(common.Address).String())
-		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
-		wType := decimal.NewFromBigInt(logData[2].(*big.Int), 0)
-		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
-		if err == nil {
-			timestamp = int64(header.Time)
-		}
-		err = InsertWithdrawalRewardRecord(pioneerAddress, logE.TxHash.String(), amount, wType, int64(logE.BlockNumber), int64(logE.Index), timestamp)
-		if err != nil {
-			return err
-		}
-		time.Sleep(time.Second * 3)
-	}
-	return nil
-}
-
-func InsertWithdrawalRewardRecord(pioneerAddress, txHash string, amount, rewardType decimal.Decimal, blockHeight, logIndex, timestamp int64) error {
-	InsertWithdrawalRewardRecordLock.Lock()
-	defer InsertWithdrawalRewardRecordLock.Unlock()
-	var rewardWithdraw models.RewardWithdraw
-	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d and reward_type=%s", strings.ToLower(pioneerAddress), blockHeight, rewardType.String())
-	//whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d and log_index=%d", strings.ToLower(pioneerAddress), blockHeight, logIndex)
-	err := db.Mysql.Model(&models.RewardWithdraw{}).Where(whereCondition).First(&rewardWithdraw).Error
-	if err == gorm.ErrRecordNotFound {
-		db.Mysql.Model(&models.RewardWithdraw{}).Create(&models.RewardWithdraw{
-			Pioneer:     pioneerAddress,
-			TxHash:      txHash,
-			Amount:      amount,
-			RewardType:  rewardType,
-			BlockHeight: blockHeight,
-			LogIndex:    logIndex,
-			Ctime:       time.Unix(timestamp, 0),
-		})
-	}
-	return nil
-}
+//func InsertWithdrawalRewardRecord(pioneerAddress, txHash string, amount, rewardType decimal.Decimal, blockHeight, logIndex, timestamp int64) error {
+//	InsertWithdrawalRewardRecordLock.Lock()
+//	defer InsertWithdrawalRewardRecordLock.Unlock()
+//	var rewardWithdraw models.RewardWithdraw
+//	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d and reward_type=%s", strings.ToLower(pioneerAddress), blockHeight, rewardType.String())
+//	//whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d and log_index=%d", strings.ToLower(pioneerAddress), blockHeight, logIndex)
+//	err := db.Mysql.Model(&models.RewardWithdraw{}).Where(whereCondition).First(&rewardWithdraw).Error
+//	if err == gorm.ErrRecordNotFound {
+//		db.Mysql.Model(&models.RewardWithdraw{}).Create(&models.RewardWithdraw{
+//			Pioneer:     pioneerAddress,
+//			TxHash:      txHash,
+//			Amount:      amount,
+//			RewardType:  rewardType,
+//			BlockHeight: blockHeight,
+//			LogIndex:    logIndex,
+//			Ctime:       time.Unix(timestamp, 0),
+//		})
+//	}
+//	return nil
+//}
 
 func GetSuretyRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
 	fmt.Println(startBlock, endBlock)

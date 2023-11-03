@@ -7,7 +7,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
-	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"math/big"
@@ -71,11 +70,13 @@ func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
 		log.Logger.Sugar().Error(err)
 		return err, nil
 	}
-	nonce, _ := cli.NonceAt(context.Background(), common.HexToAddress("0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E"), nil)
+	//nonce, _ := cli.NonceAt(context.Background(), common.HexToAddress("0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E"), nil)
 	//gasLimit := uint64(21000)
 	return nil, &bind.TransactOpts{
-		From:      auth.From,
-		Nonce:     big.NewInt(int64(nonce)),
+		From: auth.From,
+		//Nonce:     big.NewInt(int64(nonce) + 1),
+		//Nonce:     big.NewInt(int64(nonce)),
+		Nonce:     nil,
 		Signer:    auth.Signer, // Method to use for signing the transaction (mandatory)
 		Value:     big.NewInt(0),
 		GasPrice:  nil,

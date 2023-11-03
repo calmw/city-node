@@ -1,9 +1,9 @@
 package main
 
 import (
+	"city-node-server/api"
 	"city-node-server/blockchain"
 	"city-node-server/services"
-	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -74,8 +74,8 @@ func main() {
 
 	//tasks.GetPioneerRechargeWeight()
 
-	//api.Start()
-	tasks.Start()
+	api.Start()
+	//tasks.Start()
 	//blockchain.GetAllPioneer()
 	//blockchain.TriggerAllPioneerTask()
 	//ticker := time.NewTicker(30 * time.Minute)
@@ -83,7 +83,7 @@ func main() {
 	//	<-ticker.C
 	//	blockchain.TriggerAllPioneerTask()
 	//}
-	//services.ReadExcel("./城市节点报名表.xlsx")
+	//services.ReadExcel("./城市节点报名表10.31.xlsx")
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
 	//blockchain.ReSaveUserLocation()
 	//err := blockchain.RestoreUserLocation("0x7295f5a83337163aa06c70dcdd51903acc5e27fa")
