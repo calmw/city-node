@@ -1,9 +1,9 @@
 package main
 
 import (
-	"city-node-server/api"
 	"city-node-server/blockchain"
 	"city-node-server/services"
+	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -74,8 +74,8 @@ func main() {
 
 	//tasks.GetPioneerRechargeWeight()
 
-	api.Start()
-	//tasks.Start()
+	//api.Start()
+	tasks.Start()
 	//blockchain.GetAllPioneer()
 	//blockchain.TriggerAllPioneerTask()
 	//ticker := time.NewTicker(30 * time.Minute)

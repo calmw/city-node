@@ -184,40 +184,40 @@ func PollBlockTaskGetIncreaseCityDelegateEvent() {
 	blockchain.SetSTartBlock(int64(endBlock), blockchain.DelegateEvent)
 }
 
-func PollBlockTaskGetWithdrawalRewardRecordEvent() {
-	err, Cli := blockchain.Client(blockchain.CityNodeConfig)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	err, startBlock := blockchain.GetStartBlock(blockchain.WithdrawEvent) // 2306974
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	number, err := Cli.BlockNumber(context.Background())
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	endBlock := startBlock + PoolStep
-	if endBlock > number {
-		endBlock = number
-	}
-
-	err = blockchain.GetWithdrawalRewardRecordEvent(Cli, int64(startBlock), int64(endBlock))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-
-	if endBlock >= number {
-		log.Logger.Sugar().Error("扫描区块高度>=最新高度", number)
-		return
-	}
-	// 更新区块高度
-	blockchain.SetSTartBlock(int64(endBlock), blockchain.WithdrawEvent)
-}
+//func PollBlockTaskGetWithdrawalRewardRecordEvent() {
+//	err, Cli := blockchain.Client(blockchain.CityNodeConfig)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	err, startBlock := blockchain.GetStartBlock(blockchain.WithdrawEvent) // 2306974
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	number, err := Cli.BlockNumber(context.Background())
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	endBlock := startBlock + PoolStep
+//	if endBlock > number {
+//		endBlock = number
+//	}
+//
+//	err = blockchain.GetWithdrawalRewardRecordEvent(Cli, int64(startBlock), int64(endBlock))
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//
+//	if endBlock >= number {
+//		log.Logger.Sugar().Error("扫描区块高度>=最新高度", number)
+//		return
+//	}
+//	// 更新区块高度
+//	blockchain.SetSTartBlock(int64(endBlock), blockchain.WithdrawEvent)
+//}
 
 func PollBlockGetSuretyRecordEvent() {
 	err, Cli := blockchain.Client(blockchain.CityNodeConfig)
