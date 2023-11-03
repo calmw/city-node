@@ -43,22 +43,32 @@ library DateTime {
         return year / 4 - year / 100 + year / 400;
     }
 
-    function getDaysInMonth(uint8 month, uint16 year) public pure returns (uint8) {
-        if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+    function getDaysInMonth(
+        uint8 month,
+        uint16 year
+    ) public pure returns (uint8) {
+        if (
+            month == 1 ||
+            month == 3 ||
+            month == 5 ||
+            month == 7 ||
+            month == 8 ||
+            month == 10 ||
+            month == 12
+        ) {
             return 31;
-        }
-        else if (month == 4 || month == 6 || month == 9 || month == 11) {
+        } else if (month == 4 || month == 6 || month == 9 || month == 11) {
             return 30;
-        }
-        else if (isLeapYear(year)) {
+        } else if (isLeapYear(year)) {
             return 29;
-        }
-        else {
+        } else {
             return 28;
         }
     }
 
-    function parseTimestamp(uint timestamp) internal pure returns (_DateTime memory dt) {
+    function parseTimestamp(
+        uint timestamp
+    ) internal pure returns (_DateTime memory dt) {
         uint secondsAccountedFor = 0;
         uint buf;
         uint8 i;
@@ -113,13 +123,14 @@ library DateTime {
         numLeapYears = leapYearsBefore(year) - leapYearsBefore(ORIGIN_YEAR);
 
         secondsAccountedFor += LEAP_YEAR_IN_SECONDS * numLeapYears;
-        secondsAccountedFor += YEAR_IN_SECONDS * (year - ORIGIN_YEAR - numLeapYears);
+        secondsAccountedFor +=
+            YEAR_IN_SECONDS *
+            (year - ORIGIN_YEAR - numLeapYears);
 
         while (secondsAccountedFor > timestamp) {
             if (isLeapYear(uint16(year - 1))) {
                 secondsAccountedFor -= LEAP_YEAR_IN_SECONDS;
-            }
-            else {
+            } else {
                 secondsAccountedFor -= YEAR_IN_SECONDS;
             }
             year -= 1;
@@ -151,27 +162,48 @@ library DateTime {
         return uint8((timestamp / DAY_IN_SECONDS + 4) % 7);
     }
 
-    function toTimestamp(uint16 year, uint8 month, uint8 day) public pure returns (uint timestamp) {
+    function toTimestamp(
+        uint16 year,
+        uint8 month,
+        uint8 day
+    ) public pure returns (uint timestamp) {
         return toTimestamp(year, month, day, 0, 0, 0);
     }
 
-    function toTimestamp(uint16 year, uint8 month, uint8 day, uint8 hour) public pure returns (uint timestamp) {
+    function toTimestamp(
+        uint16 year,
+        uint8 month,
+        uint8 day,
+        uint8 hour
+    ) public pure returns (uint timestamp) {
         return toTimestamp(year, month, day, hour, 0, 0);
     }
 
-    function toTimestamp(uint16 year, uint8 month, uint8 day, uint8 hour, uint8 minute) public pure returns (uint timestamp) {
+    function toTimestamp(
+        uint16 year,
+        uint8 month,
+        uint8 day,
+        uint8 hour,
+        uint8 minute
+    ) public pure returns (uint timestamp) {
         return toTimestamp(year, month, day, hour, minute, 0);
     }
 
-    function toTimestamp(uint16 year, uint8 month, uint8 day, uint8 hour, uint8 minute, uint8 second) public pure returns (uint timestamp) {
+    function toTimestamp(
+        uint16 year,
+        uint8 month,
+        uint8 day,
+        uint8 hour,
+        uint8 minute,
+        uint8 second
+    ) public pure returns (uint timestamp) {
         uint16 i;
 
         // Year
         for (i = ORIGIN_YEAR; i < year; i++) {
             if (isLeapYear(i)) {
                 timestamp += LEAP_YEAR_IN_SECONDS;
-            }
-            else {
+            } else {
                 timestamp += YEAR_IN_SECONDS;
             }
         }
@@ -181,8 +213,7 @@ library DateTime {
         monthDayCounts[0] = 31;
         if (isLeapYear(year)) {
             monthDayCounts[1] = 29;
-        }
-        else {
+        } else {
             monthDayCounts[1] = 28;
         }
         monthDayCounts[2] = 31;
