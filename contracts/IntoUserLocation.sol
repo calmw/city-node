@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
-
 import "./IntoCity.sol";
 import "./RoleAccess.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
@@ -11,12 +10,7 @@ interface IPledgeStake {
 }
 
 contract IntoUserLocation is RoleAccess, Initializable {
-
-    event UserLocationRecord(
-        address user,
-        bytes32 cityId,
-        string location
-    );
+    event UserLocationRecord(address user, bytes32 cityId, string location);
     // 新增事件开始
 
     // 新增事件结束
@@ -80,7 +74,9 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 管理员设置城市合约地址
-    function adminSetPledgeStakeAddress(address pledgeStakeAddress_) public onlyAdmin {
+    function adminSetPledgeStakeAddress(
+        address pledgeStakeAddress_
+    ) public onlyAdmin {
         pledgeStakeAddress = pledgeStakeAddress_;
     }
 
@@ -89,16 +85,24 @@ contract IntoUserLocation is RoleAccess, Initializable {
         secondsPerDay = secondsPerDay_;
     }
 
-    function compareStr(string calldata _str, string memory str) private pure returns (bool) {
-        return keccak256(abi.encodePacked(_str)) == keccak256(abi.encodePacked(str));
+    function compareStr(
+        string calldata _str,
+        string memory str
+    ) private pure returns (bool) {
+        return
+            keccak256(abi.encodePacked(_str)) ==
+            keccak256(abi.encodePacked(str));
     }
 
-    function getDay() public view returns (uint256){
+    function getDay() public view returns (uint256) {
         uint day = block.timestamp / secondsPerDay;
         return uint256(day);
     }
 
-    function setUserLocation(bytes32 cityId_, string calldata location_) public {
+    function setUserLocation(
+        bytes32 cityId_,
+        string calldata location_
+    ) public {
         require(!userHaveSetLocation[msg.sender], "cant not set any more");
         require(!compareStr(location_, ""), "location is empty");
         userNumberOfCity[cityId_] += 1;
@@ -116,15 +120,15 @@ contract IntoUserLocation is RoleAccess, Initializable {
         // 给用户所在城市增加质押量
         setUserDelegate(cityId_, msg.sender);
 
-        emit UserLocationRecord(
-            msg.sender,
-            cityId_,
-            location_
-        );
+        emit UserLocationRecord(msg.sender, cityId_, location_);
     }
 
     // 本次上线放开
-    function setUserLocationV2(bytes32 countyId_, bytes32 chengShiId_, string calldata location_) public {
+    function setUserLocationV2(
+        bytes32 countyId_,
+        bytes32 chengShiId_,
+        string calldata location_
+    ) public {
         require(!userDisable[msg.sender], "LBS disable");
         require(!userHaveSetLocation[msg.sender], "cant not set any more");
         require(!compareStr(location_, ""), "location is empty");
@@ -143,11 +147,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
         SetCityChengShi(countyId_, chengShiId_, location_);
         // 给用户所在城市增加质押量
         setUserDelegate(chengShiId_, msg.sender);
-        emit UserLocationRecord(
-            msg.sender,
-            countyId_,
-            location_
-        );
+        emit UserLocationRecord(msg.sender, countyId_, location_);
     }
 
     // 获取当前用户质押量，给对应城市增加累计质押量
@@ -156,7 +156,12 @@ contract IntoUserLocation is RoleAccess, Initializable {
         IPledgeStake pledgeStake = IPledgeStake(pledgeStakeAddress);
         uint256 delegate = pledgeStake.ownerWeight(user);
         uint256 today = getDay();
-        intoCity.incrCountyOrChengShiDelegate(user, cityId_, delegate * 100, today);
+        intoCity.incrCountyOrChengShiDelegate(
+            user,
+            cityId_,
+            delegate * 100,
+            today
+        );
     }
 
     // 定位过的用户数量
@@ -165,7 +170,9 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 获取城市ID对应的所有区县ID
-    function getCountyIdsByChengShiId(bytes32 chengShiId) public view returns (bytes32[] memory) {
+    function getCountyIdsByChengShiId(
+        bytes32 chengShiId
+    ) public view returns (bytes32[] memory) {
         return chengShiIDCityIdSet[chengShiId];
     }
 
@@ -175,7 +182,11 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 设置城市与区县的映射，上线后过段时间关闭
-    function SetCityMapping(bytes32 countyId, bytes32 chengShiId, string calldata location_) public returns (bool){
+    function SetCityMapping(
+        bytes32 countyId,
+        bytes32 chengShiId,
+        string calldata location_
+    ) public returns (bool) {
         cityIdChengShiID[countyId] = chengShiId;
         cityInfo[chengShiId] = location_;
         if (!countyIdInChengShiId(countyId, chengShiId)) {
@@ -185,7 +196,10 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // To Do
-    function countyIdInChengShiId(bytes32 countyId, bytes32 chengShiId) public view returns (bool){
+    function countyIdInChengShiId(
+        bytes32 countyId,
+        bytes32 chengShiId
+    ) public view returns (bool) {
         bytes32[] memory countyIds = chengShiIDCityIdSet[chengShiId];
         for (uint256 i = 0; i < countyIds.length; i++) {
             if (countyId == countyIds[i]) {
@@ -196,53 +210,68 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 测试用
-    function SetCityMappingDel(bytes32 chengShiId, uint256 index) public onlyAdmin {
-        chengShiIDCityIdSet[chengShiId][index] = chengShiIDCityIdSet[chengShiId][chengShiIDCityIdSet[chengShiId].length - 1];
+    function SetCityMappingDel(
+        bytes32 chengShiId,
+        uint256 index
+    ) public onlyAdmin {
+        chengShiIDCityIdSet[chengShiId][index] = chengShiIDCityIdSet[
+            chengShiId
+        ][chengShiIDCityIdSet[chengShiId].length - 1];
         chengShiIDCityIdSet[chengShiId].pop();
     }
 
     // 设置城市与区县的映射，上线后过段时间关闭
-    function SetCityMappingBatch(bytes32[] calldata countyIds, bytes32[] calldata chengShiIds, string[] calldata locations_) public {
+    function SetCityMappingBatch(
+        bytes32[] calldata countyIds,
+        bytes32[] calldata chengShiIds,
+        string[] calldata locations_
+    ) public {
         for (uint i; i < countyIds.length; i++) {
             SetCityMapping(countyIds[i], chengShiIds[i], locations_[i]);
         }
-
     }
 
     // 设置城市与区县的映射，本次上线放开
-    function SetCityChengShi(bytes32 countyId, bytes32 chengShiId, string calldata location_) private {
+    function SetCityChengShi(
+        bytes32 countyId,
+        bytes32 chengShiId,
+        string calldata location_
+    ) private {
         cityIdChengShiID[countyId] = chengShiId;
         cityInfo[chengShiId] = location_;
         if (!countyIdInChengShiId(countyId, chengShiId)) {
             chengShiIDCityIdSet[chengShiId].push(countyId);
         }
-
     }
 
     // 根据用户获取区县ID
-    function getCountyId(address user) public view returns (bytes32){
+    function getCountyId(address user) public view returns (bytes32) {
         return userCityId[user];
     }
 
     // 根据用户获取城市ID
-    function getChengShiIdByAddress(address user) public view returns (bytes32){
+    function getChengShiIdByAddress(
+        address user
+    ) public view returns (bytes32) {
         return cityIdChengShiID[userCityId[user]];
     }
 
     // 根据区县ID获取城市ID
-    function getChengShiIdByCountyId(bytes32 countyId) public view returns (bytes32){
+    function getChengShiIdByCountyId(
+        bytes32 countyId
+    ) public view returns (bytes32) {
         return cityIdChengShiID[countyId];
     }
 
     // 数据去重,执行到6547
-//    function noRepeatCityIds(uint256 start, uint256 end) public onlyAdmin {
-//        for (uint i = start; i < end; i++) {
-//            if (!cityIdExist[cityIds[i]]) {
-//                cityIdsNoRepeat.push(cityIds[i]);
-//                cityIdExist[cityIds[i]] = true;
-//            }
-//        }
-//    }
+    //    function noRepeatCityIds(uint256 start, uint256 end) public onlyAdmin {
+    //        for (uint i = start; i < end; i++) {
+    //            if (!cityIdExist[cityIds[i]]) {
+    //                cityIdsNoRepeat.push(cityIds[i]);
+    //                cityIdExist[cityIds[i]] = true;
+    //            }
+    //        }
+    //    }
 
     // 用户关闭定位
     function disableLbs() public {
@@ -253,7 +282,7 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 判断用户是否开启定位
-    function isDisableLbsUsersExits(address user) public view returns (bool){
+    function isDisableLbsUsersExits(address user) public view returns (bool) {
         for (uint256 i = 0; i < disableLbsUsers.length; i++) {
             if (user == disableLbsUsers[i]) {
                 return true;
@@ -263,12 +292,14 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 获取不开启定位的数量
-    function getDisableLbsUsersNumber() public view returns (uint256){
+    function getDisableLbsUsersNumber() public view returns (uint256) {
         return disableLbsUsers.length;
     }
 
     // 获取城市的总人数
-    function getChengShiUserNumber(bytes32 chengShiId) public view returns (uint256){
+    function getChengShiUserNumber(
+        bytes32 chengShiId
+    ) public view returns (uint256) {
         bytes32[] memory cityIds_ = getCountyIdsByChengShiId(chengShiId);
         uint256 userNumber;
         for (uint256 i = 0; i < cityIds_.length; i++) {
@@ -278,24 +309,24 @@ contract IntoUserLocation is RoleAccess, Initializable {
     }
 
     // 用户开启定位,暂不开放
-//    function enableLbs() public {
-//        // 交钱
-//        IERC20 TOXContract = IERC20(TOXAddress);
-//        uint256 userBalance = TOXContract.balanceOf(msg.sender);
-//
-//        require(userBalance >= 1e25, "your balance is insufficient"); // 余额不足
-//        TOXContract.transferFrom(msg.sender, address(this), surety);
-//        // 更新状态
-//        userDisable[msg.sender] = false;
-//    }
+    //    function enableLbs() public {
+    //        // 交钱
+    //        IERC20 TOXContract = IERC20(TOXAddress);
+    //        uint256 userBalance = TOXContract.balanceOf(msg.sender);
+    //
+    //        require(userBalance >= 1e25, "your balance is insufficient"); // 余额不足
+    //        TOXContract.transferFrom(msg.sender, address(this), surety);
+    //        // 更新状态
+    //        userDisable[msg.sender] = false;
+    //    }
     // 开启用户定位,测试
     function enableLbs(address user) public onlyAdmin {
         // 更新状态
         userDisable[user] = false;
     }
+
     // 开启用户定位,测试
     function editUserCountyId(address user, bytes32 countyId) public onlyAdmin {
         userCityId[user] = countyId;
     }
-
 }

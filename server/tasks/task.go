@@ -27,7 +27,7 @@ func Start() {
 	//_ = s.Every(6).Minutes().From(gocron.NextTick()).Do(service.PollBlockGetSuretyRecordEvent)
 	//_ = s.Every(30).Minutes().From(gocron.NextTick()).Do(service.GetPioneerRechargeWeight)
 	_ = s.Every(120).Minutes().From(gocron.NextTick()).Do(blockchain.GetAllPioneer)
-	_ = s.Every(15).Minutes().From(gocron.NextTick()).Do(blockchain.ReSaveUserLocation)
+	_ = s.Every(20).Minutes().From(gocron.NextTick()).Do(blockchain.ReSaveUserLocation)
 	//_ = s.Every(7).Minutes().From(gocron.NextTick()).Do(service.ChangeRpc)
 
 	// 新手任务

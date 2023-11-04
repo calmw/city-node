@@ -4,7 +4,7 @@ import "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeab
 
 contract RoleAccess {
     using EnumerableSetUpgradeable for EnumerableSetUpgradeable.AddressSet;
- 
+
     EnumerableSetUpgradeable.AddressSet private _admins;
 
     event AdminAdded(address indexed account);
@@ -29,8 +29,8 @@ contract RoleAccess {
         }
     }
 
-    function batchAddAdmin(address[] memory amounts) public onlyAdmin{
-        for(uint256 i=0; i < amounts.length; i++){
+    function batchAddAdmin(address[] memory amounts) public onlyAdmin {
+        for (uint256 i = 0; i < amounts.length; i++) {
             addAdmin(amounts[i]);
         }
     }
@@ -51,7 +51,7 @@ contract RoleAccess {
         _admins.add(account);
         emit AdminAdded(account);
     }
-    
+
     function _removeAdmin(address account) internal {
         _admins.remove(account);
         emit AdminRemoved(account);
