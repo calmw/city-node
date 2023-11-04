@@ -69,7 +69,7 @@ func AdminSetFoundsAddress() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	_, auth := GetAuth2(Cli)
+	_, auth := GetAuth(Cli)
 	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -535,9 +535,9 @@ func PioneerCity(pioneerAddress string) (error, string) {
 	return nil, string(Bytes32ToBytes(res))
 }
 
-func GetAuth2(cli *ethclient.Client) (error, *bind.TransactOpts) {
+func GetAuth2(nonce_ int64) (error, *bind.TransactOpts) {
 	//privateKeyEcdsa, err := crypto.HexToECDSA(CityNodeConfig.PrivateKey)
-	privateKeyEcdsa, err := crypto.HexToECDSA("5c21103ec19752593b49662f539f410fa1a2efccbef21f304ea73b94a84be045")
+	privateKeyEcdsa, err := crypto.HexToECDSA("73b283875c5c44836e6e377b9285fd00778cdea8da3a1a102d5c0f56bbc40974")
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, nil
@@ -547,11 +547,13 @@ func GetAuth2(cli *ethclient.Client) (error, *bind.TransactOpts) {
 		log.Logger.Sugar().Error(err)
 		return err, nil
 	}
-	nonce, _ := cli.NonceAt(context.Background(), common.HexToAddress("0x94b627F4F829Ac5E97fDc556B5BEeeFf9beF417e"), nil)
+	//nonce, _ := cli.NonceAt(context.Background(), common.HexToAddress("0x89876D12A4cB4d19957cEBE3663EA485E05fD3f2"), nil)
 	//gasLimit := uint64(21000)
 	return nil, &bind.TransactOpts{
-		From:      auth.From,
-		Nonce:     big.NewInt(int64(nonce) + 1),
+		From: auth.From,
+		//Nonce:     big.NewInt(int64(nonce) + 1),
+		Nonce: big.NewInt(nonce_),
+		//Nonce:     nil,
 		Signer:    auth.Signer, // Method to use for signing the transaction (mandatory)
 		Value:     big.NewInt(0),
 		GasPrice:  nil,
@@ -566,14 +568,9 @@ func GetAuth2(cli *ethclient.Client) (error, *bind.TransactOpts) {
 // TriggerAllPioneerTask 触发所有先锋分红和考核
 func TriggerAllPioneerTask() {
 	Cli, err := ethclient.Dial("https://rpc-sen.matchscan.io")
+	//Cli, err := ethclient.Dial("https://rpc-7.matchscan.io/")
 	if err != nil {
 		log.Logger.Sugar().Error("dail failed")
-	}
-
-	err, auth := GetAuth2(Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
 	}
 
 	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
@@ -592,6 +589,19 @@ func TriggerAllPioneerTask() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
+	nonce_ := int64(0)
+	nonce, err := Cli.NonceAt(context.Background(), common.HexToAddress("0x89876D12A4cB4d19957cEBE3663EA485E05fD3f2"), nil)
+	if err != nil {
+		time.Sleep(time.Second * 5)
+		nonce, err = Cli.NonceAt(context.Background(), common.HexToAddress("0x89876D12A4cB4d19957cEBE3663EA485E05fD3f2"), nil)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return
+		}
+		nonce_ = int64(nonce)
+	}
+	nonce_ = int64(nonce)
+
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
 		time.Sleep(time.Second * 5)
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
@@ -634,6 +644,11 @@ func TriggerAllPioneerTask() {
 			log.Logger.Sugar().Error("已经执行成功，跳过")
 			continue
 		} else {
+			err, auth := GetAuth2(nonce_)
+			if err != nil {
+				log.Logger.Sugar().Error(err)
+				return
+			}
 			_, err = city.PioneerDailyTask(auth, pioneer)
 			if err != nil {
 				log.Logger.Sugar().Error("定时任务执行失败：", err)
@@ -641,6 +656,7 @@ func TriggerAllPioneerTask() {
 			} else {
 				log.Logger.Sugar().Info("定时任务执行成功")
 				SetPioneerTaskStatus(pioneer.String())
+				nonce_++
 			}
 		}
 	}
