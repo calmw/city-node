@@ -6,20 +6,17 @@ import "./IntoCityNodeVote.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 contract IntoCityNodeVoteApi is RoleAccess, Initializable {
-
-
     address public TOX;
     address public IntoCityVoteAddress;
-
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
     }
 
     // 管理员设置投票合约地址
-    function adminSetIntoCityVoteAddress(address IntoCityVoteAddress_) public onlyAdmin {
+    function adminSetIntoCityVoteAddress(
+        address IntoCityVoteAddress_
+    ) public onlyAdmin {
         IntoCityVoteAddress = IntoCityVoteAddress_;
     }
-
-
 }

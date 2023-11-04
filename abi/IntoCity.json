@@ -298,6 +298,24 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "pioneer_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "weight_",
+        "type": "uint256"
+      }
+    ],
+    "name": "adminSetRechargeWeightAdditional",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint56",
         "name": "secondsPerDay_",
         "type": "uint56"
@@ -1322,6 +1340,25 @@
   {
     "inputs": [],
     "name": "rechargeWeight",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "rechargeWeightAdditional",
     "outputs": [
       {
         "internalType": "uint256",
