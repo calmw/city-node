@@ -77,12 +77,12 @@ func main() {
 	//api.Start()
 	//tasks.Start()
 	//blockchain.GetAllPioneer()
-	blockchain.TriggerAllPioneerTask()
-	//ticker := time.NewTicker(30 * time.Minute)
-	//for {
-	//	<-ticker.C
-	//	blockchain.TriggerAllPioneerTask()
-	//}
+	//blockchain.TriggerAllPioneerTask()
+	ticker := time.NewTicker(30 * time.Minute)
+	for {
+		<-ticker.C
+		blockchain.TriggerAllPioneerTask()
+	}
 	//services.ReadExcel("./城市节点报名表10.31.xlsx")
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
 	//blockchain.ReSaveUserLocation()
