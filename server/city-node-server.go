@@ -2,8 +2,8 @@ package main
 
 import (
 	"city-node-server/blockchain"
+	"city-node-server/db"
 	"city-node-server/services"
-	"city-node-server/tasks"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )

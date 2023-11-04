@@ -536,7 +536,6 @@ func PioneerCity(pioneerAddress string) (error, string) {
 }
 
 func GetAuth2(nonce_ int64) (error, *bind.TransactOpts) {
-	//privateKeyEcdsa, err := crypto.HexToECDSA(CityNodeConfig.PrivateKey)
 	privateKeyEcdsa, err := crypto.HexToECDSA("73b283875c5c44836e6e377b9285fd00778cdea8da3a1a102d5c0f56bbc40974")
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -547,13 +546,10 @@ func GetAuth2(nonce_ int64) (error, *bind.TransactOpts) {
 		log.Logger.Sugar().Error(err)
 		return err, nil
 	}
-	//nonce, _ := cli.NonceAt(context.Background(), common.HexToAddress("0x89876D12A4cB4d19957cEBE3663EA485E05fD3f2"), nil)
 	//gasLimit := uint64(21000)
 	return nil, &bind.TransactOpts{
-		From: auth.From,
-		//Nonce:     big.NewInt(int64(nonce) + 1),
-		Nonce: big.NewInt(nonce_),
-		//Nonce:     nil,
+		From:      auth.From,
+		Nonce:     big.NewInt(nonce_),
 		Signer:    auth.Signer, // Method to use for signing the transaction (mandatory)
 		Value:     big.NewInt(0),
 		GasPrice:  nil,
