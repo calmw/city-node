@@ -12,6 +12,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/shopspring/decimal"
+	"strings"
 	"time"
 )
 
@@ -132,24 +133,27 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	}
 	userMap := make(map[string]bool)
 	for _, user := range sons.Data {
+		user = strings.ToLower(user)
 		userMap[user] = true
 	}
 	// 获取bsc bridge数据
 	err, txBridgeBsc := GetToxTxBridgeBsc()
 	for _, bsc := range txBridgeBsc.Data {
 		amount, _ := decimal.NewFromString(bsc.Value)
-		if userMap[bsc.From] {
+		from := strings.ToLower(bsc.From)
+		to := strings.ToLower(bsc.To)
+		if userMap[from] {
 			result = append(result, Ledger{
-				User:      bsc.From,
+				User:      from,
 				ChainName: "BSC",
 				Amount:    amount,
 				Direction: "In",
 				Ctime:     time.Unix(utils.StringToInt64(bsc.TimeStamp), 0).Format("2006-01-02 15:04:05"),
 			})
 			bscIn = bscIn.Add(amount)
-		} else if userMap[bsc.To] {
+		} else if userMap[to] {
 			result = append(result, Ledger{
-				User:      bsc.From,
+				User:      to,
 				ChainName: "BSC",
 				Amount:    amount,
 				Direction: "Out",
@@ -196,7 +200,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		})
 		matchOut = matchOut.Add(mT.Amount)
 	}
-	fmt.Println(data)
+	//fmt.Println(data)
 	return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
 }
 
@@ -205,27 +209,19 @@ func GetToxTxBridgeBsc() (error, ToxTxBridge) {
 	url := "https://intocache.intoverse.co/tox_tx_bridge_bsc.json"
 	fmt.Println(url)
 	err, data := utils2.GetWithHeader(url, map[string]string{})
-	fmt.Println(err, 789)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, ToxTxBridge{}
 	}
-	fmt.Println(123, string(data))
 	var toxTxBridge ToxTxBridge
 	err = json.Unmarshal(data, &toxTxBridge)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		fmt.Println(66, err)
 		return err, ToxTxBridge{}
 	}
-	fmt.Println(77, err)
 	if toxTxBridge.TotalIn == 0 {
 		log.Logger.Sugar().Error(err)
 		return errors.New("获取数据失败"), ToxTxBridge{}
 	}
-	// 存入缓存
-	//yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
-	//cacheKey := "LedgerDetails-" + yesterday + user
-	//utils2.EventCache.Set(cacheKey, data, 86405)
 	return nil, toxTxBridge
 }

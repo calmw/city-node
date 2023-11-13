@@ -36,8 +36,8 @@ func GetUserSons(user string) error {
 	yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
 	cacheKey := "LedgerDetails-" + yesterday + user
 	utils2.EventCache.Set(cacheKey, data, 86405)
-	ok, data := utils2.EventCache.Get(cacheKey)
-	fmt.Println(9990, ok, data)
+	//ok, data := utils2.EventCache.Get(cacheKey)
+	//fmt.Println(9990, ok, data)
 	return nil
 }
 
