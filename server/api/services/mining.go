@@ -43,7 +43,78 @@ type Ledger struct {
 
 func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decimal.Decimal, decimal.Decimal, decimal.Decimal, decimal.Decimal) {
 	var result []Ledger
+	var bscIn, bscOut, matchIn, matchOut decimal.Decimal
 	decimalZero, _ := decimal.NewFromString("0")
+	if req.User == "" {
+		// 获取bsc bridge数据
+		err, txBridgeBsc := GetToxTxBridgeBsc()
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return statecode.CommonErrServerErr, result, decimalZero, decimalZero, decimalZero, decimalZero
+		}
+		for _, bsc := range txBridgeBsc.Data {
+			amount, _ := decimal.NewFromString(bsc.Value)
+			if bsc.Type == "in" {
+				result = append(result, Ledger{
+					User:      bsc.From,
+					ChainName: "BSC",
+					Amount:    amount,
+					Direction: "In",
+					Ctime:     time.Unix(utils.StringToInt64(bsc.TimeStamp), 0).Format("2006-01-02 15:04:05"),
+				})
+				bscIn = bscIn.Add(amount)
+			} else if bsc.Type == "out" {
+				result = append(result, Ledger{
+					User:      bsc.From,
+					ChainName: "BSC",
+					Amount:    amount,
+					Direction: "Out",
+					Ctime:     time.Unix(utils.StringToInt64(bsc.TimeStamp), 0).Format("2006-01-02 15:04:05"),
+				})
+				bscOut = bscOut.Add(amount)
+			}
+		}
+		// 获取Match充值【合约余额（get_tox_types 1）+ 可质押（get_pledge_balance_transferable 3）】
+		var toxDayData []models.ToxDayData
+		db.Mysql.Model(&models.ToxDayData{}).Where("status=1").Find(&toxDayData)
+		for _, mT := range toxDayData {
+			result = append(result, Ledger{
+				User:      mT.Addr,
+				ChainName: "Match",
+				Amount:    mT.Amount,
+				Direction: "In",
+				Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
+			})
+			matchIn = matchIn.Add(mT.Amount)
+		}
+		var pledgeBalanceTransferable []models.PledgeBalanceTransferable
+		db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3").Find(&pledgeBalanceTransferable)
+		for _, pT := range pledgeBalanceTransferable {
+			result = append(result, Ledger{
+				User:      pT.Sender,
+				ChainName: "Match",
+				Amount:    pT.Amount,
+				Direction: "In",
+				Ctime:     time.Unix(pT.Timestamp, 0).Format("2006-01-02 15:04:05"),
+			})
+			matchIn = matchIn.Add(pT.Amount)
+		}
+		// 获取Match提现
+		toxDayData = make([]models.ToxDayData, 0)
+		db.Mysql.Model(&models.ToxDayData{}).Where("status=2").Find(&toxDayData)
+		for _, mT := range toxDayData {
+			result = append(result, Ledger{
+				User:      mT.Addr,
+				ChainName: "Match",
+				Amount:    mT.Amount,
+				Direction: "Out",
+				Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
+			})
+			matchOut = matchOut.Add(mT.Amount)
+		}
+		fmt.Println(result)
+		return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
+	}
 	// 查询下级用户缓存
 	yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
 	cacheKey := "LedgerDetails-" + yesterday + req.User
@@ -63,7 +134,6 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	for _, user := range sons.Data {
 		userMap[user] = true
 	}
-	var bscIn, bscOut, matchIn, matchOut decimal.Decimal
 	// 获取bsc bridge数据
 	err, txBridgeBsc := GetToxTxBridgeBsc()
 	for _, bsc := range txBridgeBsc.Data {
