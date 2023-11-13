@@ -1,8 +1,8 @@
 package main
 
 import (
+	"city-node-server/api"
 	"city-node-server/blockchain"
-	"city-node-server/db"
 	"city-node-server/services"
 	"github.com/jasonlvhit/gocron"
 	"time"
@@ -14,12 +14,12 @@ func main() {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	services.InitMainNet()
+	//services.InitMainNet()
 	//services.InitCityPioneer()
 	//services.InitTestNet()
 	//services.InitCity()
 
-	db.InitMysql()
+	//db.InitMysql()
 	//blockchain.TriggerAllPioneerTask()
 
 	//services.InitMainNet()
@@ -74,7 +74,16 @@ func main() {
 
 	//tasks.GetPioneerRechargeWeight()
 
-	// api.Start()
+	// init cache
+	//go utils.InitCache()
+	//err := services2.GetUserSons("0x74E552c1591A9Bc767057B270090Fd88b82Ea0a1")
+	//fmt.Println(123456, err)
+	//services2.GetToxTxBridgeBsc()
+	//for true {
+	//
+	//}
+	//services2.GetToxTxBridgeBsc()
+	api.Start()
 	//tasks.Start()
 	//blockchain.GetAllPioneer()
 	//blockchain.TriggerAllPioneerTask()
@@ -86,7 +95,7 @@ func main() {
 	//services.ReadExcel("./城市节点报名表10.31.xlsx")
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
 	//blockchain.ReSaveUserLocation()
-	//err := blockchain.RestoreUserLocation("0x7295f5a83337163aa06c70dcdd51903acc5e27fa")
+	//err := blockchain.RestoreUserLocation("0xd7922692c157ee415facfe700e7a3e616f7b12c8")
 	//fmt.Println(err)
 
 	// 更新先锋信息

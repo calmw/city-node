@@ -3,6 +3,7 @@ package api
 import (
 	"city-node-server/api/middlewares"
 	"city-node-server/api/routes"
+	"city-node-server/api/utils"
 	"city-node-server/api/validate"
 	"city-node-server/db"
 	"github.com/gin-gonic/gin"
@@ -12,6 +13,9 @@ func Start() {
 
 	//init mysql
 	db.InitMysql()
+
+	// init cache
+	go utils.InitCache()
 
 	//gin bind go-playground-validator
 	validate.BindingValidator()

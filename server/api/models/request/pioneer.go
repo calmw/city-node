@@ -34,3 +34,8 @@ type Reward struct {
 	Page     int    `json:"page" form:"page" binding:"omitempty"`
 	PageSize int    `json:"page_size" form:"page_size" binding:"omitempty,numeric"`
 }
+type LedgerDetails struct {
+	User  string `json:"user" form:"user" binding:"omitempty"`
+	Start string `json:"start" form:"start" binding:"omitempty"`
+	End   string `json:"end" form:"end" binding:"omitempty"`
+}
