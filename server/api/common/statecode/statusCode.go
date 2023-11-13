@@ -14,6 +14,8 @@ const (
 	UserEmpty    = 1201 //p_name empty
 	PioneerEmpty = 1202 //p_name empty
 
+	SyncingData = 1301 // sync data
+
 )
 
 var Msg = map[int]map[int]string{
@@ -57,6 +59,11 @@ var Msg = map[int]map[int]string{
 		LangZh:   "chain_id 不能为空",
 		LangZhTw: "chain_id 不能為空",
 		LangEn:   "chain_id required",
+	},
+	1301: {
+		LangZh:   "数据获取中，请稍后再试",
+		LangZhTw: "数据获取中，请稍后再试",
+		LangEn:   "syncing data, please waite a minute",
 	},
 }
 
