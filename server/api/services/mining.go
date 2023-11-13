@@ -55,13 +55,24 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		}
 		for _, bsc := range txBridgeBsc.Data {
 			amount, _ := decimal.NewFromString(bsc.Value)
+			timeStamp := utils.StringToInt64(bsc.TimeStamp)
+			if req.Start > 0 {
+				if req.Start < timeStamp {
+					continue
+				}
+			}
+			if req.End > 0 {
+				if req.End > timeStamp {
+					continue
+				}
+			}
 			if bsc.Type == "in" {
 				result = append(result, Ledger{
 					User:      bsc.From,
 					ChainName: "BSC",
 					Amount:    amount,
 					Direction: "In",
-					Ctime:     time.Unix(utils.StringToInt64(bsc.TimeStamp), 0).Format("2006-01-02 15:04:05"),
+					Ctime:     time.Unix(timeStamp, 0).Format("2006-01-02 15:04:05"),
 				})
 				bscIn = bscIn.Add(amount)
 			} else if bsc.Type == "out" {
@@ -70,14 +81,21 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 					ChainName: "BSC",
 					Amount:    amount,
 					Direction: "Out",
-					Ctime:     time.Unix(utils.StringToInt64(bsc.TimeStamp), 0).Format("2006-01-02 15:04:05"),
+					Ctime:     time.Unix(timeStamp, 0).Format("2006-01-02 15:04:05"),
 				})
 				bscOut = bscOut.Add(amount)
 			}
 		}
 		// 获取Match充值【合约余额（get_tox_types 1）+ 可质押（get_pledge_balance_transferable 3）】
 		var toxDayData []models.ToxDayData
-		db.Mysql.Model(&models.ToxDayData{}).Where("status=1").Find(&toxDayData)
+		tx := db.Mysql.Model(&models.ToxDayData{}).Where("status=1")
+		if req.Start > 0 {
+			tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+		}
+		if req.End > 0 {
+			tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+		}
+		tx.Find(&toxDayData)
 		for _, mT := range toxDayData {
 			result = append(result, Ledger{
 				User:      mT.Addr,
@@ -89,7 +107,14 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			matchIn = matchIn.Add(mT.Amount)
 		}
 		var pledgeBalanceTransferable []models.PledgeBalanceTransferable
-		db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3").Find(&pledgeBalanceTransferable)
+		tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
+		if req.Start > 0 {
+			tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+		}
+		if req.End > 0 {
+			tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+		}
+		tx.Find(&pledgeBalanceTransferable)
 		for _, pT := range pledgeBalanceTransferable {
 			result = append(result, Ledger{
 				User:      pT.Sender,
@@ -102,7 +127,14 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		}
 		// 获取Match提现
 		toxDayData = make([]models.ToxDayData, 0)
-		db.Mysql.Model(&models.ToxDayData{}).Where("status=2").Find(&toxDayData)
+		tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
+		if req.Start > 0 {
+			tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+		}
+		if req.End > 0 {
+			tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+		}
+		tx.Find(&toxDayData)
 		for _, mT := range toxDayData {
 			result = append(result, Ledger{
 				User:      mT.Addr,
@@ -139,6 +171,17 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	// 获取bsc bridge数据
 	err, txBridgeBsc := GetToxTxBridgeBsc()
 	for _, bsc := range txBridgeBsc.Data {
+		timeStamp := utils.StringToInt64(bsc.TimeStamp)
+		if req.Start > 0 {
+			if req.Start < timeStamp {
+				continue
+			}
+		}
+		if req.End > 0 {
+			if req.End > timeStamp {
+				continue
+			}
+		}
 		amount, _ := decimal.NewFromString(bsc.Value)
 		from := strings.ToLower(bsc.From)
 		to := strings.ToLower(bsc.To)
@@ -164,7 +207,14 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	}
 	// 获取Match充值【合约余额（get_tox_types 1）+ 可质押（get_pledge_balance_transferable 3）】
 	var toxDayData []models.ToxDayData
-	db.Mysql.Model(&models.ToxDayData{}).Where("status=1").Find(&toxDayData)
+	tx := db.Mysql.Model(&models.ToxDayData{}).Where("status=1")
+	if req.Start > 0 {
+		tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+	}
+	if req.End > 0 {
+		tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+	}
+	tx.Find(&toxDayData)
 	for _, mT := range toxDayData {
 		result = append(result, Ledger{
 			User:      mT.Addr,
@@ -176,7 +226,14 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		matchIn = matchIn.Add(mT.Amount)
 	}
 	var pledgeBalanceTransferable []models.PledgeBalanceTransferable
-	db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3").Find(&pledgeBalanceTransferable)
+	tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
+	if req.Start > 0 {
+		tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+	}
+	if req.End > 0 {
+		tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+	}
+	tx.Find(&pledgeBalanceTransferable)
 	for _, pT := range pledgeBalanceTransferable {
 		result = append(result, Ledger{
 			User:      pT.Sender,
@@ -189,7 +246,14 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	}
 	// 获取Match提现
 	toxDayData = make([]models.ToxDayData, 0)
-	db.Mysql.Model(&models.ToxDayData{}).Where("status=2").Find(&toxDayData)
+	tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
+	if req.Start > 0 {
+		tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+	}
+	if req.End > 0 {
+		tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+	}
+	tx.Find(&toxDayData)
 	for _, mT := range toxDayData {
 		result = append(result, Ledger{
 			User:      mT.Addr,
