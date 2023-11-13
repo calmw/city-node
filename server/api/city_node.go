@@ -3,6 +3,7 @@ package api
 import (
 	"city-node-server/api/middlewares"
 	"city-node-server/api/routes"
+	"city-node-server/api/services"
 	"city-node-server/api/utils"
 	"city-node-server/api/validate"
 	"city-node-server/db"
@@ -16,6 +17,8 @@ func Start() {
 
 	// init cache
 	go utils.InitCache()
+
+	go services.InitSyncTask()
 
 	//gin bind go-playground-validator
 	validate.BindingValidator()

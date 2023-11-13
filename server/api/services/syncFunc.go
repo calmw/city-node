@@ -61,6 +61,7 @@ func InitSyncTask() {
 		case user, ok := <-SyncChain:
 			if ok {
 				// 获取下级,并缓存一天
+				fmt.Println("----------------")
 				if GetUserSons(user) != nil {
 					SyncChain <- user
 				}
