@@ -16,7 +16,6 @@ var SyncChain = make(chan string, 1000)
 func GetUserSons(user string) error {
 	// 获取下级数据
 	url := fmt.Sprintf("https://baodao-api.baodao.app/api/v1/pledge/relation/child?address=%s", user)
-	fmt.Println(url)
 	err, data := utils.GetWithHeader(url, map[string]string{})
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -36,8 +35,6 @@ func GetUserSons(user string) error {
 	yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
 	cacheKey := "LedgerDetails-" + yesterday + user
 	utils2.EventCache.Set(cacheKey, data, 86405)
-	//ok, data := utils2.EventCache.Get(cacheKey)
-	//fmt.Println(9990, ok, data)
 	return nil
 }
 
@@ -61,7 +58,6 @@ func InitSyncTask() {
 		case user, ok := <-SyncChain:
 			if ok {
 				// 获取下级,并缓存一天
-				fmt.Println("----------------")
 				if GetUserSons(user) != nil {
 					SyncChain <- user
 				}

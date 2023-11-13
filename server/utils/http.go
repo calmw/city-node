@@ -14,17 +14,14 @@ func HttpGet(url string) (error, []byte) {
 	if err != nil {
 		return err, []byte{}
 	}
-	fmt.Println(11111)
 	req.Header.Set("x-into-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjMsInVzZXJfbmFtZSI6InRlc3QifQ.riZtv7y-kexYAb7mXp6cpf9G-Flb1rb-2POtNQXXe8E")
 	resp, err := client.Do(req)
 	if err != nil {
 		return err, []byte{}
 	}
-	fmt.Println(2222, err)
-	//defer resp.Body.Close()
+	defer resp.Body.Close()
 
 	body, err := io.ReadAll(resp.Body)
-	fmt.Println(33333, err)
 	if err != nil {
 		return err, []byte{}
 	}

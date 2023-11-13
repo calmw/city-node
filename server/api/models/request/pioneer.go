@@ -36,6 +36,6 @@ type Reward struct {
 }
 type LedgerDetails struct {
 	User  string `json:"user" form:"user" binding:"omitempty"`
-	Start string `json:"start" form:"start" binding:"omitempty"`
-	End   string `json:"end" form:"end" binding:"omitempty"`
+	Start int64  `json:"start" form:"start" binding:"omitempty"`
+	End   int64  `json:"end" form:"end" binding:"omitempty"`
 }
