@@ -12,6 +12,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/shopspring/decimal"
+	"sort"
 	"strings"
 	"time"
 )
@@ -38,8 +39,8 @@ type Ledger struct {
 	ChainName string          `json:"chain_name"`
 	Direction string          `json:"direction"`
 	Amount    decimal.Decimal `json:"amount"`
-	//Withdraw  decimal.Decimal `json:"withdraw"`
-	Ctime string `json:"ctime"`
+	Ctime     string          `json:"ctime"`
+	TimeStamp int64           `json:"time_stamp"`
 }
 
 func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decimal.Decimal, decimal.Decimal, decimal.Decimal, decimal.Decimal) {
@@ -57,12 +58,12 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			amount, _ := decimal.NewFromString(bsc.Value)
 			timeStamp := utils.StringToInt64(bsc.TimeStamp)
 			if req.Start > 0 {
-				if req.Start < timeStamp {
+				if timeStamp < req.Start {
 					continue
 				}
 			}
 			if req.End > 0 {
-				if req.End > timeStamp {
+				if timeStamp > req.End {
 					continue
 				}
 			}
@@ -72,6 +73,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 					ChainName: "BSC",
 					Amount:    amount,
 					Direction: "In",
+					TimeStamp: timeStamp,
 					Ctime:     time.Unix(timeStamp, 0).Format("2006-01-02 15:04:05"),
 				})
 				bscIn = bscIn.Add(amount)
@@ -81,6 +83,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 					ChainName: "BSC",
 					Amount:    amount,
 					Direction: "Out",
+					TimeStamp: timeStamp,
 					Ctime:     time.Unix(timeStamp, 0).Format("2006-01-02 15:04:05"),
 				})
 				bscOut = bscOut.Add(amount)
@@ -90,11 +93,12 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		var toxDayData []models.ToxDayData
 		tx := db.Mysql.Model(&models.ToxDayData{}).Where("status=1")
 		if req.Start > 0 {
-			tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+			tx = tx.Where("date>=?", req.Start)
 		}
 		if req.End > 0 {
-			tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+			tx = tx.Where("date<=?", req.End)
 		}
+		tx.Order("date desc")
 		tx.Find(&toxDayData)
 		for _, mT := range toxDayData {
 			result = append(result, Ledger{
@@ -102,6 +106,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 				ChainName: "Match",
 				Amount:    mT.Amount,
 				Direction: "In",
+				TimeStamp: time.Unix(mT.Date, 0).Unix(),
 				Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
 			})
 			matchIn = matchIn.Add(mT.Amount)
@@ -109,11 +114,12 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		var pledgeBalanceTransferable []models.PledgeBalanceTransferable
 		tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
 		if req.Start > 0 {
-			tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+			tx = tx.Where("timestamp>=?", req.Start)
 		}
 		if req.End > 0 {
-			tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+			tx = tx.Where("timestamp<=?", req.End)
 		}
+		tx.Order("timestamp desc")
 		tx.Find(&pledgeBalanceTransferable)
 		for _, pT := range pledgeBalanceTransferable {
 			result = append(result, Ledger{
@@ -121,6 +127,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 				ChainName: "Match",
 				Amount:    pT.Amount,
 				Direction: "In",
+				TimeStamp: pT.Timestamp,
 				Ctime:     time.Unix(pT.Timestamp, 0).Format("2006-01-02 15:04:05"),
 			})
 			matchIn = matchIn.Add(pT.Amount)
@@ -129,11 +136,12 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		toxDayData = make([]models.ToxDayData, 0)
 		tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
 		if req.Start > 0 {
-			tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+			tx = tx.Where("date>=?", req.Start)
 		}
 		if req.End > 0 {
-			tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+			tx = tx.Where("date<=?", req.End)
 		}
+		tx.Order("date desc")
 		tx.Find(&toxDayData)
 		for _, mT := range toxDayData {
 			result = append(result, Ledger{
@@ -141,6 +149,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 				ChainName: "Match",
 				Amount:    mT.Amount,
 				Direction: "Out",
+				TimeStamp: time.Unix(mT.Date, 0).Unix(),
 				Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
 			})
 			matchOut = matchOut.Add(mT.Amount)
@@ -173,12 +182,12 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	for _, bsc := range txBridgeBsc.Data {
 		timeStamp := utils.StringToInt64(bsc.TimeStamp)
 		if req.Start > 0 {
-			if req.Start < timeStamp {
+			if timeStamp < req.Start {
 				continue
 			}
 		}
 		if req.End > 0 {
-			if req.End > timeStamp {
+			if timeStamp > req.End {
 				continue
 			}
 		}
@@ -191,6 +200,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 				ChainName: "BSC",
 				Amount:    amount,
 				Direction: "In",
+				TimeStamp: utils.StringToInt64(bsc.TimeStamp),
 				Ctime:     time.Unix(utils.StringToInt64(bsc.TimeStamp), 0).Format("2006-01-02 15:04:05"),
 			})
 			bscIn = bscIn.Add(amount)
@@ -200,6 +210,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 				ChainName: "BSC",
 				Amount:    amount,
 				Direction: "Out",
+				TimeStamp: utils.StringToInt64(bsc.TimeStamp),
 				Ctime:     time.Unix(utils.StringToInt64(bsc.TimeStamp), 0).Format("2006-01-02 15:04:05"),
 			})
 			bscOut = bscOut.Add(amount)
@@ -209,11 +220,12 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	var toxDayData []models.ToxDayData
 	tx := db.Mysql.Model(&models.ToxDayData{}).Where("status=1")
 	if req.Start > 0 {
-		tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+		tx = tx.Where("date>=?", req.Start)
 	}
 	if req.End > 0 {
-		tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+		tx = tx.Where("date<=?", req.End)
 	}
+	tx.Order("date desc")
 	tx.Find(&toxDayData)
 	for _, mT := range toxDayData {
 		result = append(result, Ledger{
@@ -221,6 +233,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			ChainName: "Match",
 			Amount:    mT.Amount,
 			Direction: "In",
+			TimeStamp: time.Unix(mT.Date, 0).Unix(),
 			Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
 		})
 		matchIn = matchIn.Add(mT.Amount)
@@ -228,11 +241,12 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	var pledgeBalanceTransferable []models.PledgeBalanceTransferable
 	tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
 	if req.Start > 0 {
-		tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+		tx = tx.Where("timestamp>=?", req.Start)
 	}
 	if req.End > 0 {
-		tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+		tx = tx.Where("timestamp<=?", req.End)
 	}
+	tx.Order("timestamp desc")
 	tx.Find(&pledgeBalanceTransferable)
 	for _, pT := range pledgeBalanceTransferable {
 		result = append(result, Ledger{
@@ -240,6 +254,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			ChainName: "Match",
 			Amount:    pT.Amount,
 			Direction: "In",
+			TimeStamp: pT.Timestamp,
 			Ctime:     time.Unix(pT.Timestamp, 0).Format("2006-01-02 15:04:05"),
 		})
 		matchIn = matchIn.Add(pT.Amount)
@@ -248,11 +263,12 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	toxDayData = make([]models.ToxDayData, 0)
 	tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
 	if req.Start > 0 {
-		tx = tx.Where("date>=?", time.Unix(req.Start, 0).Format("20060102"))
+		tx = tx.Where("date>=?", req.Start)
 	}
 	if req.End > 0 {
-		tx = tx.Where("date<=?", time.Unix(req.End, 0).Format("20060102"))
+		tx = tx.Where("date<=?", req.End)
 	}
+	tx.Order("date desc")
 	tx.Find(&toxDayData)
 	for _, mT := range toxDayData {
 		result = append(result, Ledger{
@@ -260,11 +276,13 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			ChainName: "Match",
 			Amount:    mT.Amount,
 			Direction: "Out",
+			TimeStamp: time.Unix(mT.Date, 0).Unix(),
 			Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
 		})
 		matchOut = matchOut.Add(mT.Amount)
 	}
-	//fmt.Println(data)
+	sort.Slice(result, func(i, j int) bool { return result[i].TimeStamp > result[j].TimeStamp })
+
 	return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
 }
 
