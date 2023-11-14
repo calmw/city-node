@@ -10,7 +10,6 @@ import (
 	utils2 "city-node-server/utils"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"github.com/shopspring/decimal"
 	"sort"
 	"strings"
@@ -80,7 +79,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 				bscIn = bscIn.Add(amount)
 			} else if bsc.Type == "out" {
 				result = append(result, Ledger{
-					User:      bsc.From,
+					User:      bsc.To,
 					ChainName: "BSC",
 					Amount:    amount,
 					Direction: "Out",
@@ -155,6 +154,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			})
 			matchOut = matchOut.Add(mT.Amount)
 		}
+		sort.Slice(result, func(i, j int) bool { return result[i].TimeStamp > result[j].TimeStamp })
 		return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
 	}
 	/// 查指定网体数据
@@ -226,18 +226,22 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	if req.End > 0 {
 		tx = tx.Where("date<=?", req.End)
 	}
+	//tx.Where("addr in ?", sons.Data)
 	tx.Order("date desc")
 	tx.Find(&toxDayData)
 	for _, mT := range toxDayData {
-		result = append(result, Ledger{
-			User:      mT.Addr,
-			ChainName: "Match",
-			Amount:    mT.Amount,
-			Direction: "In",
-			TimeStamp: time.Unix(mT.Date, 0).Unix(),
-			Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
-		})
-		matchIn = matchIn.Add(mT.Amount)
+		user := strings.ToLower(mT.Addr)
+		if userMap[user] {
+			result = append(result, Ledger{
+				User:      user,
+				ChainName: "Match",
+				Amount:    mT.Amount,
+				Direction: "In",
+				TimeStamp: time.Unix(mT.Date, 0).Unix(),
+				Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
+			})
+			matchIn = matchIn.Add(mT.Amount)
+		}
 	}
 	var pledgeBalanceTransferable []models.PledgeBalanceTransferable
 	tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
@@ -247,18 +251,23 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	if req.End > 0 {
 		tx = tx.Where("timestamp<=?", req.End)
 	}
+	//tx.Where("sender in ?", sons.Data)
 	tx.Order("timestamp desc")
 	tx.Find(&pledgeBalanceTransferable)
 	for _, pT := range pledgeBalanceTransferable {
-		result = append(result, Ledger{
-			User:      pT.Sender,
-			ChainName: "Match",
-			Amount:    pT.Amount,
-			Direction: "In",
-			TimeStamp: pT.Timestamp,
-			Ctime:     time.Unix(pT.Timestamp, 0).Format("2006-01-02 15:04:05"),
-		})
-		matchIn = matchIn.Add(pT.Amount)
+		user := strings.ToLower(pT.Sender)
+		if userMap[user] {
+			result = append(result, Ledger{
+				User:      user,
+				ChainName: "Match",
+				Amount:    pT.Amount,
+				Direction: "In",
+				TimeStamp: pT.Timestamp,
+				Ctime:     time.Unix(pT.Timestamp, 0).Format("2006-01-02 15:04:05"),
+			})
+			matchIn = matchIn.Add(pT.Amount)
+		}
+
 	}
 	// 获取Match提现
 	toxDayData = make([]models.ToxDayData, 0)
@@ -269,18 +278,23 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	if req.End > 0 {
 		tx = tx.Where("date<=?", req.End)
 	}
+	//tx.Where("addr in ?", sons.Data)
 	tx.Order("date desc")
 	tx.Find(&toxDayData)
 	for _, mT := range toxDayData {
-		result = append(result, Ledger{
-			User:      mT.Addr,
-			ChainName: "Match",
-			Amount:    mT.Amount,
-			Direction: "Out",
-			TimeStamp: time.Unix(mT.Date, 0).Unix(),
-			Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
-		})
-		matchOut = matchOut.Add(mT.Amount)
+		user := strings.ToLower(mT.Addr)
+		if userMap[user] {
+			result = append(result, Ledger{
+				User:      user,
+				ChainName: "Match",
+				Amount:    mT.Amount,
+				Direction: "Out",
+				TimeStamp: time.Unix(mT.Date, 0).Unix(),
+				Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
+			})
+			matchOut = matchOut.Add(mT.Amount)
+		}
+
 	}
 	sort.Slice(result, func(i, j int) bool { return result[i].TimeStamp > result[j].TimeStamp })
 
@@ -290,7 +304,6 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 // GetToxTxBridgeBsc 获取bsc bridge数据
 func GetToxTxBridgeBsc() (error, ToxTxBridge) {
 	url := "https://intocache.intoverse.co/tox_tx_bridge_bsc.json"
-	fmt.Println(url)
 	err, data := utils2.GetWithHeader(url, map[string]string{})
 	if err != nil {
 		log.Logger.Sugar().Error(err)
