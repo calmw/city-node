@@ -47,6 +47,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	var result []Ledger
 	var bscIn, bscOut, matchIn, matchOut decimal.Decimal
 	decimalZero, _ := decimal.NewFromString("0")
+	/// 查全网数据
 	if req.User == "" {
 		// 获取bsc bridge数据
 		err, txBridgeBsc := GetToxTxBridgeBsc()
@@ -154,9 +155,9 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			})
 			matchOut = matchOut.Add(mT.Amount)
 		}
-		fmt.Println(result)
 		return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
 	}
+	/// 查指定网体数据
 	// 查询下级用户缓存
 	yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
 	cacheKey := "LedgerDetails-" + yesterday + req.User
