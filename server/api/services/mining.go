@@ -156,6 +156,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		}
 		sort.Slice(result, func(i, j int) bool { return result[i].TimeStamp > result[j].TimeStamp })
 		matchOut = matchOut.Sub(bscOut)
+		matchIn = matchIn.Sub(bscIn)
 		return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
 	}
 	/// 查指定网体数据
