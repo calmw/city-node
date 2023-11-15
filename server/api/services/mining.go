@@ -34,12 +34,12 @@ type Res struct {
 	Withdraw decimal.Decimal `json:"withdraw"`
 }
 type Ledger struct {
-	User      string          `json:"user"`
-	ChainName string          `json:"chain_name"`
-	Direction string          `json:"direction"`
-	Amount    decimal.Decimal `json:"amount"`
-	Ctime     string          `json:"ctime"`
-	TimeStamp int64           `json:"time_stamp"`
+	User      string          `json:"user" excel:"column:B;desc:钱包地址;width:30"`
+	ChainName string          `json:"chain_name" excel:"column:C;desc:链名称;width:30"`
+	Direction string          `json:"direction" excel:"column:D;desc:方向;width:30"`
+	Amount    decimal.Decimal `json:"amount" excel:"column:E;desc:数额;width:30"`
+	Ctime     string          `json:"ctime" excel:"column:F;desc:时间;width:30"`
+	TimeStamp int64           `json:"time_stamp" excel:"column:G;desc:时间戳;width:30"`
 }
 
 func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decimal.Decimal, decimal.Decimal, decimal.Decimal, decimal.Decimal) {
@@ -227,7 +227,6 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	if req.End > 0 {
 		tx = tx.Where("date<=?", req.End)
 	}
-	//tx.Where("addr in ?", sons.Data)
 	tx.Order("date desc")
 	tx.Find(&toxDayData)
 	for _, mT := range toxDayData {
@@ -268,10 +267,9 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			})
 			matchIn = matchIn.Add(pT.Amount)
 		}
-
 	}
 	// 获取Match提现
-	toxDayData = make([]models.ToxDayData, 0)
+	toxDayData = []models.ToxDayData{}
 	tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
 	if req.Start > 0 {
 		tx = tx.Where("date>=?", req.Start)
@@ -279,7 +277,6 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	if req.End > 0 {
 		tx = tx.Where("date<=?", req.End)
 	}
-	//tx.Where("addr in ?", sons.Data)
 	tx.Order("date desc")
 	tx.Find(&toxDayData)
 	for _, mT := range toxDayData {
@@ -295,10 +292,15 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			})
 			matchOut = matchOut.Add(mT.Amount)
 		}
-
 	}
 	sort.Slice(result, func(i, j int) bool { return result[i].TimeStamp > result[j].TimeStamp })
 	matchOut = matchOut.Sub(bscOut)
+	matchIn = matchIn.Sub(bscIn)
+	// 保存excel
+	// "github.com/xjieinfo/xjgo/xjcore/xjexcel"
+	//f := xjexcel.ListToExcel(result, "团队充值提现", "下级成员详情")
+	//fileName := fmt.Sprintf("./团队充值提现详情-%s.xls", req.User)
+	//f.SaveAs(fileName)
 	return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
 }
 
