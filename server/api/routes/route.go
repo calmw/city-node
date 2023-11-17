@@ -25,7 +25,8 @@ func InitRoute(e *gin.Engine) *gin.Engine {
 	v1Group.GET("/reward", pioneerController.Reward) // 奖励查询
 
 	miningController := controllers.MiningController{}
-	v1Group.GET("/mining", miningController.LedgerDetails) // 合约充值提现团队汇总
+	v1Group.GET("/mining", miningController.LedgerDetails) // 合约充值提现团队汇总详情
+	v1Group.GET("/miningSum", miningController.Ledger)     // 合约充值提现团队汇总
 
 	return e
 }

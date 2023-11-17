@@ -3,6 +3,7 @@ package services
 import (
 	"city-node-server/api/common/statecode"
 	"city-node-server/api/models/request"
+	"city-node-server/api/services/internal"
 	"city-node-server/api/utils"
 	"city-node-server/db"
 	"city-node-server/log"
@@ -10,7 +11,9 @@ import (
 	utils2 "city-node-server/utils"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/shopspring/decimal"
+	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"sort"
 	"strings"
 	"time"
@@ -33,6 +36,7 @@ type Res struct {
 	Recharge decimal.Decimal `json:"recharge"`
 	Withdraw decimal.Decimal `json:"withdraw"`
 }
+
 type Ledger struct {
 	User      string          `json:"user" excel:"column:B;desc:钱包地址;width:30"`
 	ChainName string          `json:"chain_name" excel:"column:C;desc:链名称;width:30"`
@@ -40,6 +44,16 @@ type Ledger struct {
 	Amount    decimal.Decimal `json:"amount" excel:"column:E;desc:数额;width:30"`
 	Ctime     string          `json:"ctime" excel:"column:F;desc:时间;width:30"`
 	TimeStamp int64           `json:"time_stamp" excel:"column:G;desc:时间戳;width:30"`
+}
+
+type LedgerSum struct {
+	User     string          `json:"user" excel:"column:B;desc:钱包地址;width:30"`
+	In       decimal.Decimal `json:"in" excel:"column:C;desc:总充值;width:30"`
+	Out      decimal.Decimal `json:"out" excel:"column:D;desc:总提现;width:30"`
+	MatchIn  decimal.Decimal `json:"match_in" excel:"column:E;desc:Match充值;width:30"`
+	MatchOut decimal.Decimal `json:"match_out" excel:"column:F;desc:Match提现;width:30"`
+	BscIn    decimal.Decimal `json:"bsc_in" excel:"column:G;desc:Bsc充值;width:30"`
+	BscOut   decimal.Decimal `json:"bsc_out" excel:"column:H;desc:Bsc提现;width:30"`
 }
 
 func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decimal.Decimal, decimal.Decimal, decimal.Decimal, decimal.Decimal) {
@@ -302,6 +316,329 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	//f := xjexcel.ListToExcel(result, "团队充值提现", "下级成员详情")
 	//fileName := fmt.Sprintf("./团队充值提现详情-%s.xls", req.User)
 	//f.SaveAs(fileName)
+	return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
+}
+
+func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.Decimal, decimal.Decimal, decimal.Decimal, decimal.Decimal) {
+	start := time.Now()
+	var ledger []Ledger
+	var result []LedgerSum
+	var bscIn, bscOut, matchIn, matchOut decimal.Decimal
+	decimalZero, _ := decimal.NewFromString("0")
+	decimalE18, _ := decimal.NewFromString("1000000000000000000")
+	userSet := internal.NewStringSet()
+	userDetails := map[string]map[string]decimal.Decimal{}
+	/// 查全网数据
+	if req.User == "" {
+		// 获取bsc bridge数据
+		err, txBridgeBsc := GetToxTxBridgeBsc()
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return statecode.CommonErrServerErr, result, decimalZero, decimalZero, decimalZero, decimalZero
+		}
+		for _, bsc := range txBridgeBsc.Data {
+			amount, _ := decimal.NewFromString(bsc.Value)
+			timeStamp := utils.StringToInt64(bsc.TimeStamp)
+			if req.Start > 0 {
+				if timeStamp < req.Start {
+					continue
+				}
+			}
+			if req.End > 0 {
+				if timeStamp > req.End {
+					continue
+				}
+			}
+			if bsc.Type == "in" {
+				u := strings.ToLower(bsc.From)
+				ledger = append(ledger, Ledger{
+					User:      u,
+					ChainName: "BSC",
+					Amount:    amount,
+					Direction: "In",
+				})
+				userSet.Add(u)
+				bscIn = bscIn.Add(amount)
+				if userDetails[u] == nil {
+					userDetails[u] = make(map[string]decimal.Decimal)
+				}
+				userDetails[u]["BscIn"] = userDetails[u]["BscIn"].Add(amount)
+			} else if bsc.Type == "out" {
+				u := strings.ToLower(bsc.To)
+				ledger = append(ledger, Ledger{
+					User:      u,
+					ChainName: "BSC",
+					Amount:    amount,
+					Direction: "Out",
+				})
+				userSet.Add(u)
+				bscOut = bscOut.Add(amount)
+				if userDetails[u] == nil {
+					userDetails[u] = make(map[string]decimal.Decimal)
+				}
+				userDetails[u]["BscOut"] = userDetails[u]["BscOut"].Add(amount)
+			}
+		}
+		// 获取Match充值【合约余额（get_tox_types 1）+ 可质押（get_pledge_balance_transferable 3）】
+		var toxDayData []models.ToxDayData
+		tx := db.Mysql.Model(&models.ToxDayData{}).Where("status=1")
+		if req.Start > 0 {
+			tx = tx.Where("date>=?", req.Start)
+		}
+		if req.End > 0 {
+			tx = tx.Where("date<=?", req.End)
+		}
+		tx.Order("date desc")
+		tx.Find(&toxDayData)
+		for _, mT := range toxDayData {
+			u := strings.ToLower(mT.Addr)
+			ledger = append(ledger, Ledger{
+				User:      u,
+				ChainName: "Match",
+				Amount:    mT.Amount,
+				Direction: "In",
+			})
+			userSet.Add(u)
+			matchIn = matchIn.Add(mT.Amount)
+			if userDetails[u] == nil {
+				userDetails[u] = make(map[string]decimal.Decimal)
+			}
+			userDetails[u]["In"] = userDetails[u]["In"].Add(mT.Amount)
+		}
+		var pledgeBalanceTransferable []models.PledgeBalanceTransferable
+		tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
+		if req.Start > 0 {
+			tx = tx.Where("timestamp>=?", req.Start)
+		}
+		if req.End > 0 {
+			tx = tx.Where("timestamp<=?", req.End)
+		}
+		tx.Order("timestamp desc")
+		tx.Find(&pledgeBalanceTransferable)
+		for _, pT := range pledgeBalanceTransferable {
+			u := strings.ToLower(pT.Sender)
+			ledger = append(ledger, Ledger{
+				User:      u,
+				ChainName: "Match",
+				Amount:    pT.Amount,
+				Direction: "In",
+			})
+			userSet.Add(u)
+			matchIn = matchIn.Add(pT.Amount)
+			if userDetails[u] == nil {
+				userDetails[u] = make(map[string]decimal.Decimal)
+			}
+			userDetails[u]["In"] = userDetails[u]["In"].Add(pT.Amount)
+		}
+		// 获取Match提现
+		toxDayData = make([]models.ToxDayData, 0)
+		tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
+		if req.Start > 0 {
+			tx = tx.Where("date>=?", req.Start)
+		}
+		if req.End > 0 {
+			tx = tx.Where("date<=?", req.End)
+		}
+		tx.Order("date desc")
+		tx.Find(&toxDayData)
+		for _, mT := range toxDayData {
+			u := strings.ToLower(mT.Addr)
+			ledger = append(ledger, Ledger{
+				User:      u,
+				ChainName: "Match",
+				Amount:    mT.Amount,
+				Direction: "Out",
+			})
+			userSet.Add(u)
+			matchOut = matchOut.Add(mT.Amount)
+			if userDetails[u] == nil {
+				userDetails[u] = make(map[string]decimal.Decimal)
+			}
+			userDetails[u]["Out"] = userDetails[u]["Out"].Add(mT.Amount)
+		}
+		matchOut = matchOut.Sub(bscOut)
+		matchIn = matchIn.Sub(bscIn)
+		fmt.Println(time.Since(start))
+		for _, userAddress := range userSet.Data {
+			result = append(result, LedgerSum{
+				User:     userAddress,
+				In:       userDetails[userAddress]["In"],
+				Out:      userDetails[userAddress]["Out"],
+				BscIn:    userDetails[userAddress]["BscIn"],
+				BscOut:   userDetails[userAddress]["BscOut"],
+				MatchIn:  userDetails[userAddress]["In"].Sub(userDetails[userAddress]["BscIn"]),
+				MatchOut: userDetails[userAddress]["Out"].Sub(userDetails[userAddress]["BscOut"]),
+			})
+		}
+		return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
+	}
+	/// 查指定网体数据
+	// 查询下级用户缓存
+	yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
+	cacheKey := "LedgerDetails-" + yesterday + req.User
+	ok, data := utils.EventCache.Get(cacheKey)
+	if !ok {
+		// 异步拉取数据
+		SyncChain <- req.User
+		return statecode.SyncingData, result, decimalZero, decimalZero, decimalZero, decimalZero
+	}
+	var sons Sons
+	err := json.Unmarshal(data, &sons)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return statecode.CommonErrServerErr, result, decimalZero, decimalZero, decimalZero, decimalZero
+	}
+	userMap := make(map[string]bool)
+	for _, user := range sons.Data {
+		user = strings.ToLower(user)
+		userMap[user] = true
+		userSet.Add(user)
+	}
+	// 获取bsc bridge数据
+	err, txBridgeBsc := GetToxTxBridgeBsc()
+	for _, bsc := range txBridgeBsc.Data {
+		timeStamp := utils.StringToInt64(bsc.TimeStamp)
+		if req.Start > 0 {
+			if timeStamp < req.Start {
+				continue
+			}
+		}
+		if req.End > 0 {
+			if timeStamp > req.End {
+				continue
+			}
+		}
+		amount, _ := decimal.NewFromString(bsc.Value)
+		from := strings.ToLower(bsc.From)
+		to := strings.ToLower(bsc.To)
+		if userMap[from] {
+			ledger = append(ledger, Ledger{
+				User:      from,
+				ChainName: "BSC",
+				Amount:    amount,
+				Direction: "In",
+			})
+			bscIn = bscIn.Add(amount)
+			if userDetails[from] == nil {
+				userDetails[from] = make(map[string]decimal.Decimal)
+			}
+			userDetails[from]["BscIn"] = userDetails[from]["BscIn"].Add(amount)
+		} else if userMap[to] {
+			ledger = append(ledger, Ledger{
+				User:      to,
+				ChainName: "BSC",
+				Amount:    amount,
+				Direction: "Out",
+			})
+			bscOut = bscOut.Add(amount)
+			if userDetails[to] == nil {
+				userDetails[to] = make(map[string]decimal.Decimal)
+			}
+			userDetails[to]["BscOut"] = userDetails[to]["BscOut"].Add(amount)
+		}
+	}
+	// 获取Match充值【合约余额（get_tox_types 1）+ 可质押（get_pledge_balance_transferable 3）】
+	var toxDayData []models.ToxDayData
+	tx := db.Mysql.Model(&models.ToxDayData{}).Where("status=1")
+	if req.Start > 0 {
+		tx = tx.Where("date>=?", req.Start)
+	}
+	if req.End > 0 {
+		tx = tx.Where("date<=?", req.End)
+	}
+	tx.Order("date desc")
+	tx.Find(&toxDayData)
+	for _, mT := range toxDayData {
+		u := strings.ToLower(mT.Addr)
+		if userMap[u] {
+			ledger = append(ledger, Ledger{
+				User:      u,
+				ChainName: "Match",
+				Amount:    mT.Amount,
+				Direction: "In",
+				TimeStamp: time.Unix(mT.Date, 0).Unix(),
+				Ctime:     time.Unix(mT.Date, 0).Format("2006-01-02 15:04:05"),
+			})
+			matchIn = matchIn.Add(mT.Amount)
+		}
+		if userDetails[u] == nil {
+			userDetails[u] = make(map[string]decimal.Decimal)
+		}
+		userDetails[u]["In"] = userDetails[u]["In"].Add(mT.Amount)
+	}
+	var pledgeBalanceTransferable []models.PledgeBalanceTransferable
+	tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
+	if req.Start > 0 {
+		tx = tx.Where("timestamp>=?", req.Start)
+	}
+	if req.End > 0 {
+		tx = tx.Where("timestamp<=?", req.End)
+	}
+	//tx.Where("sender in ?", sons.Data)
+	tx.Order("timestamp desc")
+	tx.Find(&pledgeBalanceTransferable)
+	for _, pT := range pledgeBalanceTransferable {
+		u := strings.ToLower(pT.Sender)
+		if userMap[u] {
+			ledger = append(ledger, Ledger{
+				User:      u,
+				ChainName: "Match",
+				Amount:    pT.Amount,
+				Direction: "In",
+			})
+			matchIn = matchIn.Add(pT.Amount)
+		}
+		if userDetails[u] == nil {
+			userDetails[u] = make(map[string]decimal.Decimal)
+		}
+		userDetails[u]["In"] = userDetails[u]["In"].Add(pT.Amount)
+	}
+	// 获取Match提现
+	toxDayData = []models.ToxDayData{}
+	tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
+	if req.Start > 0 {
+		tx = tx.Where("date>=?", req.Start)
+	}
+	if req.End > 0 {
+		tx = tx.Where("date<=?", req.End)
+	}
+	tx.Order("date desc")
+	tx.Find(&toxDayData)
+	for _, mT := range toxDayData {
+		u := strings.ToLower(mT.Addr)
+		if userMap[u] {
+			ledger = append(ledger, Ledger{
+				User:      u,
+				ChainName: "Match",
+				Amount:    mT.Amount,
+				Direction: "Out",
+			})
+			matchOut = matchOut.Add(mT.Amount)
+		}
+		if userDetails[u] == nil {
+			userDetails[u] = make(map[string]decimal.Decimal)
+		}
+		userDetails[u]["Out"] = userDetails[u]["Out"].Add(mT.Amount)
+	}
+	matchOut = matchOut.Sub(bscOut)
+	matchIn = matchIn.Sub(bscIn)
+
+	for _, userAddress := range userSet.Data {
+		result = append(result, LedgerSum{
+			User:     userAddress,
+			In:       userDetails[userAddress]["In"].Div(decimalE18),
+			Out:      userDetails[userAddress]["Out"].Div(decimalE18),
+			BscIn:    userDetails[userAddress]["BscIn"].Div(decimalE18),
+			BscOut:   userDetails[userAddress]["BscOut"].Div(decimalE18),
+			MatchIn:  userDetails[userAddress]["In"].Sub(userDetails[userAddress]["BscIn"]).Div(decimalE18),
+			MatchOut: userDetails[userAddress]["Out"].Sub(userDetails[userAddress]["BscOut"]).Div(decimalE18),
+		})
+	}
+	// 保存excel
+	// "github.com/xjieinfo/xjgo/xjcore/xjexcel"
+	f := xjexcel.ListToExcel(result, "团队充值提现", "下级成员详情")
+	fileName := fmt.Sprintf("./团队充值提现详情-%s.xls", req.User)
+	f.SaveAs(fileName)
 	return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
 }
 
