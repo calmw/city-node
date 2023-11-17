@@ -10,13 +10,35 @@ import (
 
 type MiningController struct{}
 
-// LedgerDetails 合约充值提现团队汇总
+// LedgerDetails 合约充值提现团队汇总详情
 func (c *MiningController) LedgerDetails(ctx *gin.Context) {
 	res := response.Gin{Res: ctx}
 	req := request.LedgerDetails{}
 	ctx.ShouldBindQuery(&req)
 
 	errCode, result, bscIn, bscOut, matchIn, matchOut := services.NewMining().LedgerDetails(&req)
+	if errCode != statecode.CommonSuccess {
+		res.Response(ctx, errCode, nil)
+		return
+	}
+
+	res.Response(ctx, statecode.CommonSuccess, map[string]interface{}{
+		"bscIn":    bscIn,
+		"bscOut":   bscOut,
+		"matchIn":  matchIn,
+		"matchOut": matchOut,
+		"list":     result,
+	})
+	return
+}
+
+// Ledger 合约充值提现团队汇总
+func (c *MiningController) Ledger(ctx *gin.Context) {
+	res := response.Gin{Res: ctx}
+	req := request.LedgerDetails{}
+	ctx.ShouldBindQuery(&req)
+
+	errCode, result, bscIn, bscOut, matchIn, matchOut := services.NewMining().Ledger(&req)
 	if errCode != statecode.CommonSuccess {
 		res.Response(ctx, errCode, nil)
 		return
