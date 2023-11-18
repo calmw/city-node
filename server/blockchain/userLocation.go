@@ -216,7 +216,7 @@ func SetUserLocationTest(cityId, location, userAddress string) {
 }
 
 // SetCityMapping 设置获取用户位置ID映射
-func SetCityMapping(countyId, chengShiId, location string) {
+func SetCityMapping(countyId, chengShiId, locationChengShi string) {
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -243,7 +243,7 @@ func SetCityMapping(countyId, chengShiId, location string) {
 	}
 	common.Hex2Bytes(chengShiId)
 	chengShiIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
-	_, err = userLocation.SetCityMapping(auth, cityIdBytes32, chengShiIdBytes32, location)
+	_, err = userLocation.SetCityMapping(auth, cityIdBytes32, chengShiIdBytes32, locationChengShi)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
