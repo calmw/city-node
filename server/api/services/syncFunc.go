@@ -24,6 +24,7 @@ func GetUserSons(user string) error {
 	var sons Sons
 	err = json.Unmarshal(data, &sons)
 	if err != nil {
+		log.Logger.Sugar().Infof(string(data))
 		log.Logger.Sugar().Error(err)
 		return err
 	}
