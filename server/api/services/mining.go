@@ -13,7 +13,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/shopspring/decimal"
-	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"sort"
 	"strings"
 	"time"
@@ -636,9 +635,9 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 	}
 	// 保存excel
 	// "github.com/xjieinfo/xjgo/xjcore/xjexcel"
-	f := xjexcel.ListToExcel(result, "团队充值提现", "下级成员详情")
-	fileName := fmt.Sprintf("./团队充值提现详情-%s.xls", req.User)
-	f.SaveAs(fileName)
+	//f := xjexcel.ListToExcel(result, "团队充值提现", "下级成员详情")
+	//fileName := fmt.Sprintf("./团队充值提现详情-%s.xls", req.User)
+	//f.SaveAs(fileName)
 	return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
 }
 
