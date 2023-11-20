@@ -1,7 +1,6 @@
 package main
 
 import (
-	"city-node-server/api"
 	"city-node-server/blockchain"
 	"city-node-server/services"
 	"github.com/jasonlvhit/gocron"
@@ -14,10 +13,10 @@ func main() {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	//services.InitMainNet()
+	services.InitMainNet()
 	//services.InitCityPioneer()
 	//services.InitTestNet()
-	//services.InitCity()
+	services.InitCity()
 
 	//db.InitMysql()
 	//blockchain.TriggerAllPioneerTask()
@@ -83,7 +82,7 @@ func main() {
 	//
 	//}
 	//services2.GetToxTxBridgeBsc()
-	api.Start()
+	//api.Start()
 	//tasks.Start()
 	//blockchain.GetAllPioneer()
 	//blockchain.TriggerAllPioneerTask()
