@@ -67,15 +67,24 @@ func ReadExcel(excelFile string) {
 		pioneers = append(pioneers, pioneer)
 	}
 	for i, p := range pioneers {
+		// 根据city_id判断该城市是否已经添加过先锋
+		//var pioneer models.Pioneer
+		//err := db.Mysql.Model(models.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
+		//if err == nil {
+		//	fmt.Println("该城市先锋已经存在", i)
+		//	continue
+		//} else {
+		//	fmt.Println("该城市先锋不存在", i)
+		//}
 		//fmt.Println("")
 		//fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
-		//if i == 7 {
+		//if i == 10 || i == 12 || i == 15 {
 		//	blockchain.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
 		//	time.Sleep(time.Second * 5)
 		//}
-		//if i == 11 || i == 14 {
+		//if i == 15 {
 		//	blockchain.AdminSetPioneer(p.CityId, p.Address)
-		//	time.Sleep(time.Second * 8)
+		//	time.Sleep(time.Second * 10)
 		//}
 		//blockchain.AdminSetPioneer(p.CityId, p.Address)
 

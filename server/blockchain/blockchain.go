@@ -43,13 +43,13 @@ type CityNodeConfigs struct {
 var CityNodeConfig CityNodeConfigs
 
 var RpcArr = []string{
-	"https://rpc-9.matchscan.io/",
-	"https://rpc-7.matchscan.io/",
-	"https://rpc-8.matchscan.io/",
+	"https://rpc-sen.matchscan.io ",
+	//"https://rpc-7.matchscan.io/",
+	//"https://rpc-8.matchscan.io/",
 }
 
 func Client(c CityNodeConfigs) (error, *ethclient.Client) {
-	rpcIndex := rand.Int() % 3
+	rpcIndex := rand.Int() % len(RpcArr)
 	client, err := ethclient.Dial(RpcArr[rpcIndex])
 	if err != nil {
 		log.Logger.Sugar().Error("dail failed")
