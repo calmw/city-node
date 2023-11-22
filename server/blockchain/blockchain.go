@@ -43,7 +43,7 @@ type CityNodeConfigs struct {
 var CityNodeConfig CityNodeConfigs
 
 var RpcArr = []string{
-	"https://rpc-sen.matchscan.io ",
+	"https://rpc-sen.matchscan.io",
 	//"https://rpc-7.matchscan.io/",
 	//"https://rpc-8.matchscan.io/",
 }
