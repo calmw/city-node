@@ -17,6 +17,10 @@ type PioneerInfo struct {
 	CityLevel int64
 	Money     int64
 }
+type PioneerSurety struct {
+	Address string
+	Surety  bool
+}
 
 func ReadExcel(excelFile string) {
 	var pioneers []PioneerInfo
@@ -78,7 +82,7 @@ func ReadExcel(excelFile string) {
 		//}
 		//fmt.Println("")
 		//fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
-		//if i == 10 || i == 12 || i == 15 {
+		//if i == 11 {
 		//	blockchain.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
 		//	time.Sleep(time.Second * 5)
 		//}
@@ -98,5 +102,45 @@ func ReadExcel(excelFile string) {
 		}
 		fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain.Bytes32ToBytes(cityIdBytes32))), ok, level)
 
+	}
+}
+
+func CheckPioneer(excelFile string) {
+	var pioneers []PioneerSurety
+	f, err := excelize.OpenFile(excelFile)
+	fmt.Println(err, 5)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	// 取得 Sheet1 表格中所有的行
+	rows := f.GetRows("Sheet1")
+	fmt.Println(len(rows), 6)
+	for i, row := range rows {
+		if i == 0 {
+			continue
+		}
+		pioneer := PioneerSurety{}
+		for j, colCell := range row {
+			if j == 2 {
+				pioneer.Address = strings.ToLower(colCell)
+			}
+			if j == 3 {
+				if colCell != "未交保证金" {
+					pioneer.Surety = true
+				}
+			}
+		}
+		pioneers = append(pioneers, pioneer)
+	}
+	for i, p := range pioneers {
+		// 根据city_id判断该城市是否已经添加过先锋
+		var pioneer models.Pioneer
+		err := db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", p.Address).First(&pioneer).Debug().Error
+		if err == nil {
+			fmt.Println("该城市先锋已经存在", i, p.Surety)
+		} else {
+			fmt.Println("该城市先锋不存在", i, p.Surety)
+		}
 	}
 }
