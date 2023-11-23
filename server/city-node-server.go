@@ -55,7 +55,7 @@ func main() {
 	//blockchain.GetCityId(22)
 
 	// 设置城市ID位置,设置映射关系
-	//blockchain.SetCityMapping("0xc0cbf0aab88509841c40d83825fdd91fdaf6884ab253d63aa559979ecb633e95", "0xf0d851e51c9ebb39dcecd7685ab590d6f69ff2b3c32b225e96ac51928e57d957", "ihooqau20JSZxfjB0gZCEQ==")
+	//blockchain.SetCityMapping("0xc56f998ce0b465aec56076b1e61edc5f275aa96c2f6d7190d9d2e597ece7454d", "0xca98b991031d3b83e27132a5373c2a8b7d68c8e6477cb6ab43baf2268b3e9639", "3ALUNlzFlwETLRJDC/7mqg==")
 
 	//services.AdminSetRechargeAmountTask()
 
@@ -93,6 +93,7 @@ func main() {
 	//}
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
 	//services.CheckPioneer("./城市先锋-用户信息.xlsx") // 确认用户是否交保证金
+	//services.CheckLocation("./泰国.xlsx") // 查看位置是否存在
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
 	//blockchain.ReSaveUserLocation()
 	//err := blockchain.RestoreUserLocation("0xd7922692c157ee415facfe700e7a3e616f7b12c8")

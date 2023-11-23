@@ -144,3 +144,39 @@ func CheckPioneer(excelFile string) {
 		}
 	}
 }
+
+func CheckLocation(excelFile string) {
+	f, err := excelize.OpenFile(excelFile)
+	fmt.Println(err, 5)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	// 取得 Sheet1 表格中所有的行
+	rows := f.GetRows("整理后")
+	fmt.Println(len(rows), 6)
+loop:
+	for i, row := range rows {
+		if i == 0 {
+			continue
+		}
+		for j, colCell := range row {
+			if j == 3 {
+				if colCell != "Bangkok" {
+					continue loop
+				}
+			}
+			if j == 4 {
+				//fmt.Println(colCell)
+				var userLocation models.UserLocation
+				whererCondition := "location = 'Thailand " + colCell + "'"
+				err := db.Mysql.Model(models.UserLocation{}).Where(whererCondition).First(&userLocation).Debug().Error
+				if err == nil {
+					fmt.Println("该区县已经存在", i, colCell)
+				} else {
+					//fmt.Println("该城市不存在", i, colCell)
+				}
+			}
+		}
+	}
+}
