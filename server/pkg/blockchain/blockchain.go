@@ -3,7 +3,7 @@ package blockchain
 import (
 	"city-node-server/db"
 	"city-node-server/log"
-	"city-node-server/models"
+	"city-node-server/pkg/models"
 	"context"
 	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"

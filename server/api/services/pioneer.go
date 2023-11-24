@@ -4,7 +4,7 @@ import (
 	"city-node-server/api/common/statecode"
 	"city-node-server/api/models/request"
 	"city-node-server/db"
-	models2 "city-node-server/models"
+	"city-node-server/pkg/models"
 	"fmt"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
@@ -41,10 +41,10 @@ type FHSum struct {
 	Total float64
 }
 
-func (c *Pioneer) Reward(req *request.Reward) (int, int64, []models2.Reward) {
-	var rewards []models2.Reward
+func (c *Pioneer) Reward(req *request.Reward) (int, int64, []models.Reward) {
+	var rewards []models.Reward
 
-	tx := db.Mysql.Model(&models2.Reward{}).Order("ctime desc")
+	tx := db.Mysql.Model(&models.Reward{}).Order("ctime desc")
 	if req.Pioneer != "" {
 		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
 	}
@@ -112,10 +112,10 @@ func (c *Pioneer) Reward(req *request.Reward) (int, int64, []models2.Reward) {
 //	return statecode.CommonSuccess, pioneerWeight
 //}
 
-func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, int64, []models2.RechargeWeight) {
-	var rechargeWeights []models2.RechargeWeight
+func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, int64, []models.RechargeWeight) {
+	var rechargeWeights []models.RechargeWeight
 
-	tx := db.Mysql.Model(&models2.RechargeWeight{}).Order("day desc")
+	tx := db.Mysql.Model(&models.RechargeWeight{}).Order("day desc")
 	if req.Pioneer != "" {
 		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
 	}
@@ -141,10 +141,10 @@ func (c *Pioneer) RechargeWeight(req *request.RechargeWeight) (int, int64, []mod
 	return statecode.CommonSuccess, total, rechargeWeights
 }
 
-func (c *Pioneer) RewardWithdraw(req *request.RewardWithdraw) (int, int64, []models2.RewardWithdraw) {
-	var rewardWithdraw []models2.RewardWithdraw
+func (c *Pioneer) RewardWithdraw(req *request.RewardWithdraw) (int, int64, []models.RewardWithdraw) {
+	var rewardWithdraw []models.RewardWithdraw
 
-	tx := db.Mysql.Model(&models2.RewardWithdraw{}).Order("ctime desc")
+	tx := db.Mysql.Model(&models.RewardWithdraw{}).Order("ctime desc")
 	if req.Pioneer != "" {
 		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
 	}
@@ -168,10 +168,10 @@ func (c *Pioneer) RewardWithdraw(req *request.RewardWithdraw) (int, int64, []mod
 	return statecode.CommonSuccess, total, rewardWithdraw
 }
 
-func (c *Pioneer) Pioneer(req *request.Pioneer) (int, int64, []models2.Pioneer) {
-	var rewardWithdraw []models2.Pioneer
+func (c *Pioneer) Pioneer(req *request.Pioneer) (int, int64, []models.Pioneer) {
+	var rewardWithdraw []models.Pioneer
 
-	tx := db.Mysql.Model(&models2.Pioneer{}).Order("id asc")
+	tx := db.Mysql.Model(&models.Pioneer{}).Order("id asc")
 	if req.Pioneer != "" {
 		tx = tx.Where("pioneer=?", strings.ToLower(req.Pioneer))
 	}
@@ -193,7 +193,7 @@ func (c *Pioneer) Pioneer(req *request.Pioneer) (int, int64, []models2.Pioneer) 
 }
 
 func GetCountyInfo(countyId string) (error, string) {
-	var userLocation models2.UserLocation
+	var userLocation models.UserLocation
 	countyId = strings.ToLower(countyId)
 	whereCondition := fmt.Sprintf("county_id='%s'", countyId)
 	err := db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error

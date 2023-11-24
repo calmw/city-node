@@ -1,7 +1,7 @@
 package services
 
 import (
-	"city-node-server/blockchain"
+	"city-node-server/pkg/blockchain"
 	"os"
 )
 

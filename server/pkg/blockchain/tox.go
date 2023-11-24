@@ -1,8 +1,8 @@
 package blockchain
 
 import (
-	intoCityNode "city-node-server/binding"
 	"city-node-server/log"
+	"city-node-server/pkg/binding"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"math/big"

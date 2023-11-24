@@ -2,7 +2,7 @@ package main
 
 import (
 	"city-node-server/db"
-	"city-node-server/models"
+	"city-node-server/pkg/models"
 )
 
 func main() {

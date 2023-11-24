@@ -1,11 +1,11 @@
 package blockchain
 
 import (
-	intoCityNode2 "city-node-server/binding/intoCityNode"
-	"city-node-server/blockchain/event"
 	"city-node-server/db"
 	"city-node-server/log"
-	"city-node-server/models"
+	"city-node-server/pkg/binding/intoCityNode"
+	"city-node-server/pkg/blockchain/event"
+	models2 "city-node-server/pkg/models"
 	"context"
 	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
@@ -28,7 +28,7 @@ func AdminSetCityPioneerAddress() {
 		return
 	}
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -49,7 +49,7 @@ func AdminSetUserLocationAddress() {
 		return
 	}
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -70,7 +70,7 @@ func AdminSetFoundsAddress() {
 		return
 	}
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -91,7 +91,7 @@ func AdminSetPioneer(chengShiId, pioneer string) {
 		return
 	}
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -117,7 +117,7 @@ func GetFifteenDayAverageFounds() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -139,7 +139,7 @@ func AdminRemovePioneer(chengShiId, pioneer string) {
 		return
 	}
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -165,7 +165,7 @@ func PioneerChengShi(pioneer string) (error, [32]byte) {
 		log.Logger.Sugar().Error(err)
 		return err, [32]byte{}
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, [32]byte{}
@@ -186,7 +186,7 @@ func ChengShiLevel(cityId [32]byte) (error, int64) {
 		log.Logger.Sugar().Error(err)
 		return err, 0
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, 0
@@ -208,7 +208,7 @@ func CountyNewlyPioneerDelegateRecord(countyId [32]byte, day int64) (error, *big
 		return err, nil
 	}
 	//_, auth := GetAuth(Cli)
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, big.NewInt(0)
@@ -229,7 +229,7 @@ func RechargeDailyWeightRecord(countyId [32]byte, day int64) (error, *big.Int) {
 		return err, nil
 	}
 	//_, auth := GetAuth(Cli)
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, big.NewInt(0)
@@ -249,7 +249,7 @@ func GetPioneerCityNumber() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -269,7 +269,7 @@ func PioneerChengShiId(chengShiIndex int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -294,7 +294,7 @@ func AdminPopPioneerChengShiId() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -320,7 +320,7 @@ func AdminSetDelegate(userAddress string, amount, setType int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -354,7 +354,7 @@ func AdminSetRechargeAmount(userAddress string, amount int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -383,7 +383,7 @@ func AdminSetSecondsPerDayCity(seconds int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -409,7 +409,7 @@ func AddCityAdmin() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -460,7 +460,7 @@ func AdminSetChengShiLevelAndSurety(cityId string, level, earnestMoney int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -493,7 +493,7 @@ func AdminEditSurety(cityId string, level, earnestMoney int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -521,7 +521,7 @@ func PioneerCity(pioneerAddress string) (error, string) {
 		log.Logger.Sugar().Error(err)
 		return err, ""
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, ""
@@ -573,12 +573,12 @@ func TriggerAllPioneerTask() {
 		log.Logger.Sugar().Error("dail failed")
 	}
 
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -667,7 +667,7 @@ func GetAllPioneer() {
 	if err != nil {
 		log.Logger.Sugar().Error("dail failed")
 	}
-	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -690,10 +690,10 @@ func GetAllPioneer() {
 			continue
 		}
 		if isPioneer {
-			pioneerInfo := models.Pioneer{}
-			err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
+			pioneerInfo := models2.Pioneer{}
+			err = db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
 			if err == gorm.ErrRecordNotFound {
-				city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+				city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 				if err != nil {
 					log.Logger.Sugar().Error(err)
 					continue
@@ -710,11 +710,11 @@ func GetAllPioneer() {
 					continue
 				}
 				// 根据城市ID查询location
-				local := models.UserLocation{}
+				local := models2.UserLocation{}
 
-				db.Mysql.Model(models.UserLocation{}).Where("city_id=?", cityId).First(&local)
+				db.Mysql.Model(models2.UserLocation{}).Where("city_id=?", cityId).First(&local)
 
-				db.Mysql.Model(models.Pioneer{}).Create(&models.Pioneer{
+				db.Mysql.Model(models2.Pioneer{}).Create(&models2.Pioneer{
 					CityId:    strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res))),
 					Location:  local.Location,
 					CityLevel: cityLevel.Int64(),
@@ -742,12 +742,12 @@ func TriggerAllPioneerTaskTestNet() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -770,7 +770,7 @@ func CityRechargeTotal(countyId [32]byte) (error, *big.Int) {
 		log.Logger.Sugar().Error(err)
 		return err, nil
 	}
-	city, err := intoCityNode2.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, nil
@@ -818,7 +818,7 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 		return err
 	}
 	cancel()
-	abi, _ := intoCityNode2.CityMetaData.GetAbi()
+	abi, _ := intoCityNode.CityMetaData.GetAbi()
 	for _, logE := range logs {
 		logData, err := abi.Unpack(event.IncreaseCityDelegateEvent.EventName, logE.Data)
 		if err != nil {
@@ -847,11 +847,11 @@ func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock in
 func InsertAdminSetDelegateRecord(cityId, txHash string, amount decimal.Decimal, ctime int64) error {
 	InsertDelegateLock.Lock()
 	defer InsertDelegateLock.Unlock()
-	var delegate models.Delegate
+	var delegate models2.Delegate
 	whereCondition := fmt.Sprintf("city_id='%s' and tx_hash=%d", strings.ToLower(cityId), txHash)
-	err := db.Mysql.Model(&models.Delegate{}).Where(whereCondition).First(&delegate).Error
+	err := db.Mysql.Model(&models2.Delegate{}).Where(whereCondition).First(&delegate).Error
 	if err == gorm.ErrRecordNotFound {
-		db.Mysql.Model(&models.Delegate{}).Create(models.Delegate{
+		db.Mysql.Model(&models2.Delegate{}).Create(models2.Delegate{
 			CityId:  cityId,
 			TxHash:  txHash,
 			Ctime:   time.Unix(ctime, 0),
@@ -907,7 +907,7 @@ func GetRechargeRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) e
 		return err
 	}
 	cancel()
-	abi, _ := intoCityNode2.CityMetaData.GetAbi()
+	abi, _ := intoCityNode.CityMetaData.GetAbi()
 	for _, logE := range logs {
 		logData, err := abi.Unpack(event.RechargeRecordEvent.EventName, logE.Data)
 		if err != nil {
@@ -943,12 +943,12 @@ func InsertRechargeRecordEvent(userAddress, countyId string, countyIdBytes32 [32
 		return err
 	}
 
-	var rechargeRecord models.RechargeRecord
+	var rechargeRecord models2.RechargeRecord
 	whereCondition := fmt.Sprintf("user='%s' and county_id='%s' and city_id='%s' and amount='%d' and ctime='%d'",
 		strings.ToLower(userAddress), strings.ToLower(countyId), strings.ToLower(cityId), amount, ctime)
-	err = db.Mysql.Model(&models.RechargeRecord{}).Where(whereCondition).First(&rechargeRecord).Error
+	err = db.Mysql.Model(&models2.RechargeRecord{}).Where(whereCondition).First(&rechargeRecord).Error
 	if err == gorm.ErrRecordNotFound {
-		db.Mysql.Model(&models.RechargeRecord{}).Create(&models.RechargeRecord{
+		db.Mysql.Model(&models2.RechargeRecord{}).Create(&models2.RechargeRecord{
 			User:     strings.ToLower(userAddress),
 			CountyId: strings.ToLower(countyId),
 			CityId:   strings.ToLower(cityId),
