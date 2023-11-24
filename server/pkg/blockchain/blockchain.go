@@ -1,8 +1,8 @@
 package blockchain
 
 import (
-	"city-node-server/db"
-	"city-node-server/log"
+	"city-node-server/pkg/db"
+	"city-node-server/pkg/log"
 	"city-node-server/pkg/models"
 	"context"
 	"fmt"

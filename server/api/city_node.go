@@ -6,7 +6,7 @@ import (
 	"city-node-server/api/services"
 	"city-node-server/api/utils"
 	"city-node-server/api/validate"
-	"city-node-server/db"
+	"city-node-server/pkg/db"
 	"github.com/gin-gonic/gin"
 )
 

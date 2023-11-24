@@ -1,8 +1,8 @@
 package services
 
 import (
-	"city-node-server/db"
 	blockchain2 "city-node-server/pkg/blockchain"
+	db2 "city-node-server/pkg/db"
 	"city-node-server/pkg/models"
 	"fmt"
 	"github.com/shopspring/decimal"
@@ -27,9 +27,9 @@ type ShijiFafangData struct {
 }
 
 func CheckData() {
-	db.InitMysql()
+	db2.InitMysql()
 	var pioneers []models.Pioneer
-	db.Mysql.Model(&models.Pioneer{}).Find(&pioneers)
+	db2.Mysql.Model(&models.Pioneer{}).Find(&pioneers)
 
 	for i, d := range pioneers {
 		err, cityIdBytes32Arr := blockchain2.GetCountyIdsByPioneer(d.Pioneer)
