@@ -1,7 +1,7 @@
 {
   "manifestVersion": "3.2",
   "admin": {
-    "address": "0x64A9fa6Fd332d85552E365b6877055D7C92Fa45A",
+    "address": "0xfF570C320b8C73f2feF3cBC4B7E96689802a1750",
     "txHash": "0x26d5f8251579e2ce25bc77a6b53cdb17671f4ac1bce68e6b164ecdde996eaf7f"
   },
   "proxies": [
@@ -24055,7 +24055,7 @@
             "slot": "2",
             "type": "t_address",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:74"
+            "src": "contracts/IntoCityPioneer.sol:78"
           },
           {
             "label": "miningAddress",
@@ -24063,7 +24063,7 @@
             "slot": "3",
             "type": "t_address",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:74"
+            "src": "contracts/IntoCityPioneer.sol:78"
           },
           {
             "label": "cityAddress",
@@ -24071,7 +24071,7 @@
             "slot": "4",
             "type": "t_address",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:75"
+            "src": "contracts/IntoCityPioneer.sol:79"
           },
           {
             "label": "assessmentCriteria",
@@ -24079,7 +24079,7 @@
             "slot": "5",
             "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:78"
+            "src": "contracts/IntoCityPioneer.sol:81"
           },
           {
             "label": "assessmentReturnCriteria",
@@ -24087,7 +24087,7 @@
             "slot": "6",
             "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:84"
+            "src": "contracts/IntoCityPioneer.sol:88"
           },
           {
             "label": "assessmentReturnRate",
@@ -24095,15 +24095,15 @@
             "slot": "7",
             "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:91"
+            "src": "contracts/IntoCityPioneer.sol:95"
           },
           {
             "label": "pioneerInfo",
             "offset": 0,
             "slot": "8",
-            "type": "t_mapping(t_address,t_struct(Pioneer)2567_storage)",
+            "type": "t_mapping(t_address,t_struct(Pioneer)4040_storage)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:94"
+            "src": "contracts/IntoCityPioneer.sol:98"
           },
           {
             "label": "benefitPackageReward",
@@ -24111,7 +24111,7 @@
             "slot": "9",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:96"
+            "src": "contracts/IntoCityPioneer.sol:100"
           },
           {
             "label": "benefitPackageRewardReceived",
@@ -24119,7 +24119,7 @@
             "slot": "10",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:99"
+            "src": "contracts/IntoCityPioneer.sol:103"
           },
           {
             "label": "fundsReward",
@@ -24127,7 +24127,7 @@
             "slot": "11",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:101"
+            "src": "contracts/IntoCityPioneer.sol:105"
           },
           {
             "label": "fundsRewardReceived",
@@ -24135,7 +24135,7 @@
             "slot": "12",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:102"
+            "src": "contracts/IntoCityPioneer.sol:106"
           },
           {
             "label": "delegateReward",
@@ -24143,7 +24143,7 @@
             "slot": "13",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:104"
+            "src": "contracts/IntoCityPioneer.sol:108"
           },
           {
             "label": "delegateRewardReceived",
@@ -24151,7 +24151,7 @@
             "slot": "14",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:106"
+            "src": "contracts/IntoCityPioneer.sol:110"
           },
           {
             "label": "suretyReward",
@@ -24159,7 +24159,7 @@
             "slot": "15",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:108"
+            "src": "contracts/IntoCityPioneer.sol:112"
           },
           {
             "label": "alreadyRewardRate",
@@ -24167,7 +24167,7 @@
             "slot": "16",
             "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:113"
+            "src": "contracts/IntoCityPioneer.sol:117"
           },
           {
             "label": "suretyRewardRecord",
@@ -24175,7 +24175,7 @@
             "slot": "17",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:116"
+            "src": "contracts/IntoCityPioneer.sol:120"
           },
           {
             "label": "failedDelegate",
@@ -24183,7 +24183,7 @@
             "slot": "18",
             "type": "t_mapping(t_bytes32,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:120"
+            "src": "contracts/IntoCityPioneer.sol:124"
           },
           {
             "label": "dailyTaskStatus",
@@ -24191,7 +24191,7 @@
             "slot": "19",
             "type": "t_mapping(t_uint256,t_bool)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:122"
+            "src": "contracts/IntoCityPioneer.sol:126"
           },
           {
             "label": "benefitPackageRewardStatus",
@@ -24199,7 +24199,7 @@
             "slot": "20",
             "type": "t_mapping(t_address,t_bool)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:123"
+            "src": "contracts/IntoCityPioneer.sol:127"
           },
           {
             "label": "fundsRewardStatus",
@@ -24207,7 +24207,7 @@
             "slot": "21",
             "type": "t_mapping(t_address,t_bool)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:124"
+            "src": "contracts/IntoCityPioneer.sol:128"
           },
           {
             "label": "delegateRewardStatus",
@@ -24215,7 +24215,7 @@
             "slot": "22",
             "type": "t_mapping(t_address,t_bool)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:126"
+            "src": "contracts/IntoCityPioneer.sol:130"
           },
           {
             "label": "checkPioneerStatus",
@@ -24223,7 +24223,7 @@
             "slot": "23",
             "type": "t_mapping(t_address,t_mapping(t_uint256,t_bool))",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:129"
+            "src": "contracts/IntoCityPioneer.sol:133"
           },
           {
             "label": "checkRewardStatus",
@@ -24231,7 +24231,7 @@
             "slot": "24",
             "type": "t_mapping(t_address,t_mapping(t_uint256,t_bool))",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:132"
+            "src": "contracts/IntoCityPioneer.sol:136"
           },
           {
             "label": "startTime",
@@ -24239,7 +24239,7 @@
             "slot": "25",
             "type": "t_uint256",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:134"
+            "src": "contracts/IntoCityPioneer.sol:138"
           },
           {
             "label": "pioneers",
@@ -24247,7 +24247,7 @@
             "slot": "26",
             "type": "t_array(t_address)dyn_storage",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:138"
+            "src": "contracts/IntoCityPioneer.sol:141"
           },
           {
             "label": "userLocationAddress",
@@ -24255,7 +24255,7 @@
             "slot": "27",
             "type": "t_address",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:140"
+            "src": "contracts/IntoCityPioneer.sol:143"
           },
           {
             "label": "secondsPerDay",
@@ -24263,7 +24263,7 @@
             "slot": "28",
             "type": "t_uint256",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:144"
+            "src": "contracts/IntoCityPioneer.sol:148"
           },
           {
             "label": "presidencyTime",
@@ -24271,7 +24271,7 @@
             "slot": "29",
             "type": "t_uint256",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:145"
+            "src": "contracts/IntoCityPioneer.sol:150"
           },
           {
             "label": "alreadyRewardRateTotal",
@@ -24279,7 +24279,7 @@
             "slot": "30",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:149"
+            "src": "contracts/IntoCityPioneer.sol:155"
           },
           {
             "label": "failedAt",
@@ -24287,7 +24287,7 @@
             "slot": "31",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:154"
+            "src": "contracts/IntoCityPioneer.sol:156"
           },
           {
             "label": "successAt",
@@ -24295,7 +24295,7 @@
             "slot": "32",
             "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:159"
+            "src": "contracts/IntoCityPioneer.sol:164"
           },
           {
             "label": "successTime",
@@ -24303,7 +24303,7 @@
             "slot": "33",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:164"
+            "src": "contracts/IntoCityPioneer.sol:166"
           },
           {
             "label": "suretyMonthWeight",
@@ -24311,7 +24311,7 @@
             "slot": "34",
             "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:165"
+            "src": "contracts/IntoCityPioneer.sol:170"
           },
           {
             "label": "testValue",
@@ -24319,7 +24319,7 @@
             "slot": "35",
             "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:169"
+            "src": "contracts/IntoCityPioneer.sol:171"
           },
           {
             "label": "checkPioneerDailyStatus",
@@ -24327,7 +24327,7 @@
             "slot": "36",
             "type": "t_mapping(t_uint256,t_mapping(t_address,t_bool))",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:170"
+            "src": "contracts/IntoCityPioneer.sol:175"
           },
           {
             "label": "pioneerPaySurety",
@@ -24335,7 +24335,7 @@
             "slot": "37",
             "type": "t_mapping(t_address,t_uint256)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:174"
+            "src": "contracts/IntoCityPioneer.sol:179"
           },
           {
             "label": "isPioneerReturnSurety",
@@ -24343,15 +24343,15 @@
             "slot": "38",
             "type": "t_mapping(t_address,t_bool)",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:178"
+            "src": "contracts/IntoCityPioneer.sol:181"
           },
           {
             "label": "cityPioneerData",
             "offset": 0,
             "slot": "39",
-            "type": "t_contract(CityPioneerData)2508",
+            "type": "t_contract(CityPioneerData)3981",
             "contract": "IntoCityPioneer",
-            "src": "contracts/IntoCityPioneer.sol:179"
+            "src": "contracts/IntoCityPioneer.sol:183"
           }
         ],
         "types": {
@@ -24375,7 +24375,7 @@
             "label": "bytes32",
             "numberOfBytes": "32"
           },
-          "t_contract(CityPioneerData)2508": {
+          "t_contract(CityPioneerData)3981": {
             "label": "contract CityPioneerData",
             "numberOfBytes": "20"
           },
@@ -24391,7 +24391,7 @@
             "label": "mapping(address => mapping(uint256 => uint256))",
             "numberOfBytes": "32"
           },
-          "t_mapping(t_address,t_struct(Pioneer)2567_storage)": {
+          "t_mapping(t_address,t_struct(Pioneer)4040_storage)": {
             "label": "mapping(address => struct IntoCityPioneer.Pioneer)",
             "numberOfBytes": "32"
           },
@@ -24431,7 +24431,7 @@
             ],
             "numberOfBytes": "64"
           },
-          "t_struct(Pioneer)2567_storage": {
+          "t_struct(Pioneer)4040_storage": {
             "label": "struct IntoCityPioneer.Pioneer",
             "members": [
               {
