@@ -1,10 +1,10 @@
 package services
 
 import (
-	"city-node-server/blockchain"
 	"city-node-server/db"
-	"city-node-server/models"
-	"city-node-server/utils"
+	"city-node-server/pkg/blockchain"
+	models2 "city-node-server/pkg/models"
+	utils2 "city-node-server/pkg/utils"
 	"encoding/json"
 	"fmt"
 	"gorm.io/gorm"
@@ -24,8 +24,8 @@ func InitUserLocation() {
 }
 
 func UserCityChange() {
-	var userLocation []models.UserLocation
-	db.Mysql.Model(&models.UserLocation{}).Find(&userLocation)
+	var userLocation []models2.UserLocation
+	db.Mysql.Model(&models2.UserLocation{}).Find(&userLocation)
 	for _, l := range userLocation {
 		codeSlic := strings.Split(l.AreaCode, ",")
 		if len(codeSlic[2]) != 6 { // code最后一段是六位数的按国内用户
@@ -46,7 +46,7 @@ func UserCityChange() {
 				continue
 			}
 			encrypt := fmt.Sprintf("%d,%d", 0, cityCode)
-			newCityId := strings.ToLower(utils.Keccak256(encrypt))
+			newCityId := strings.ToLower(utils2.Keccak256(encrypt))
 			//blockchain.SetCityMapping(l.CountyId, newCityId, l.LocationEncrypt)
 			InsertUserCItyIdChangeLog(l.User, l.CountyId, oldCityId, newCityId)
 
@@ -55,13 +55,13 @@ func UserCityChange() {
 }
 
 func GetCityCodeByAdCode(adCode string) (error, uint) {
-	var areaCode models.AreaCode
+	var areaCode models2.AreaCode
 	whereCondition := fmt.Sprintf("ad_code=%s", adCode)
-	err := db.Mysql.Model(&models.AreaCode{}).Where(whereCondition).First(&areaCode).Error
+	err := db.Mysql.Model(&models2.AreaCode{}).Where(whereCondition).First(&areaCode).Error
 	if err != nil {
 		// 查询明文地址
 		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", "0", adCode)
-		err, location := utils.HttpGet(uri)
+		err, location := utils2.HttpGet(uri)
 		if err != nil {
 			return err, 0
 		}
@@ -78,12 +78,12 @@ func GetCityCodeByAdCode(adCode string) (error, uint) {
 }
 
 func InsertUserCItyIdChangeLog(userAddress, countyId, cityId, newCityId string) error {
-	var userCityIdChangeLog models.UserCityIdChangeLog
+	var userCityIdChangeLog models2.UserCityIdChangeLog
 	whereCondition := fmt.Sprintf("user='%s'", strings.ToLower(userAddress))
-	err := db.Mysql.Model(&models.UserCityIdChangeLog{}).Where(whereCondition).First(&userCityIdChangeLog).Error
+	err := db.Mysql.Model(&models2.UserCityIdChangeLog{}).Where(whereCondition).First(&userCityIdChangeLog).Error
 	if err == gorm.ErrRecordNotFound {
 
-		db.Mysql.Model(&models.UserCityIdChangeLog{}).Create(&models.UserCityIdChangeLog{
+		db.Mysql.Model(&models2.UserCityIdChangeLog{}).Create(&models2.UserCityIdChangeLog{
 			User:        strings.ToLower(userAddress),
 			CountyId:    strings.ToLower(countyId),
 			CityId:      strings.ToLower(cityId),

@@ -1,11 +1,11 @@
 package services
 
 import (
-	"city-node-server/blockchain"
 	"city-node-server/db"
 	"city-node-server/log"
-	"city-node-server/models"
-	"city-node-server/utils"
+	"city-node-server/pkg/blockchain"
+	models2 "city-node-server/pkg/models"
+	"city-node-server/pkg/utils"
 	"encoding/json"
 	"fmt"
 	"github.com/shopspring/decimal"
@@ -126,14 +126,14 @@ func GetToxTx() {
 			continue
 		}
 
-		var cityPioneerToxTx models.CityPioneerToxTx
-		err = db.Mysql.Model(models.CityPioneerToxTx{}).Where("block_height=? and log_index=?", t.BlockNumber, t.LogIndex).First(&cityPioneerToxTx).Error
+		var cityPioneerToxTx models2.CityPioneerToxTx
+		err = db.Mysql.Model(models2.CityPioneerToxTx{}).Where("block_height=? and log_index=?", t.BlockNumber, t.LogIndex).First(&cityPioneerToxTx).Error
 		if err == gorm.ErrRecordNotFound {
 			value, _ := decimal.NewFromString(t.Value)
 			blockNumber, _ := strconv.ParseInt(t.BlockNumber, 10, 64)
 			logIndex, _ := strconv.ParseInt(t.LogIndex, 10, 64)
 			timeStamp, _ := strconv.ParseInt(t.TimeStamp, 10, 64)
-			err = db.Mysql.Model(&models.CityPioneerToxTx{}).Create(&models.CityPioneerToxTx{
+			err = db.Mysql.Model(&models2.CityPioneerToxTx{}).Create(&models2.CityPioneerToxTx{
 				From:        t.From,
 				To:          t.To,
 				TxHash:      t.Hash,
@@ -144,14 +144,14 @@ func GetToxTx() {
 			}).Error
 		}
 		if t.To == "0x60c541388077d524178521a7ced95d0c7a016b72" {
-			var pioneer models.Pioneer
+			var pioneer models2.Pioneer
 			//err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=? and surety=0", t.From).First(&pioneer).Error
-			err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", t.From).First(&pioneer).Error
+			err = db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", t.From).First(&pioneer).Error
 			if err == gorm.ErrRecordNotFound {
 				fmt.Println("非先锋转入", t.From)
 			}
 			value, _ := decimal.NewFromString(t.Value)
-			db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", t.From).UpdateColumns(map[string]interface{}{
+			db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", t.From).UpdateColumns(map[string]interface{}{
 				"surety": pioneer.Surety.Add(value),
 			})
 			fmt.Println(t.From, pioneer.CityLevel, t.Value)

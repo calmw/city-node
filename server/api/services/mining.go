@@ -7,8 +7,8 @@ import (
 	"city-node-server/api/utils"
 	"city-node-server/db"
 	"city-node-server/log"
-	"city-node-server/models"
-	utils2 "city-node-server/utils"
+	models2 "city-node-server/pkg/models"
+	utils2 "city-node-server/pkg/utils"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -103,8 +103,8 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			}
 		}
 		// 获取Match充值【合约余额（get_tox_types 1）+ 可质押（get_pledge_balance_transferable 3）】
-		var toxDayData []models.ToxDayData
-		tx := db.Mysql.Model(&models.ToxDayData{}).Where("status=1")
+		var toxDayData []models2.ToxDayData
+		tx := db.Mysql.Model(&models2.ToxDayData{}).Where("status=1")
 		if req.Start > 0 {
 			tx = tx.Where("date>=?", req.Start)
 		}
@@ -124,8 +124,8 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			})
 			matchIn = matchIn.Add(mT.Amount)
 		}
-		var pledgeBalanceTransferable []models.PledgeBalanceTransferable
-		tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
+		var pledgeBalanceTransferable []models2.PledgeBalanceTransferable
+		tx = db.Mysql.Model(&models2.PledgeBalanceTransferable{}).Where("types=3")
 		if req.Start > 0 {
 			tx = tx.Where("timestamp>=?", req.Start)
 		}
@@ -146,8 +146,8 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			matchIn = matchIn.Add(pT.Amount)
 		}
 		// 获取Match提现
-		toxDayData = make([]models.ToxDayData, 0)
-		tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
+		toxDayData = make([]models2.ToxDayData, 0)
+		tx = db.Mysql.Model(&models2.ToxDayData{}).Where("status=2")
 		if req.Start > 0 {
 			tx = tx.Where("date>=?", req.Start)
 		}
@@ -233,8 +233,8 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		}
 	}
 	// 获取Match充值【合约余额（get_tox_types 1）+ 可质押（get_pledge_balance_transferable 3）】
-	var toxDayData []models.ToxDayData
-	tx := db.Mysql.Model(&models.ToxDayData{}).Where("status=1")
+	var toxDayData []models2.ToxDayData
+	tx := db.Mysql.Model(&models2.ToxDayData{}).Where("status=1")
 	if req.Start > 0 {
 		tx = tx.Where("date>=?", req.Start)
 	}
@@ -257,8 +257,8 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 			matchIn = matchIn.Add(mT.Amount)
 		}
 	}
-	var pledgeBalanceTransferable []models.PledgeBalanceTransferable
-	tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
+	var pledgeBalanceTransferable []models2.PledgeBalanceTransferable
+	tx = db.Mysql.Model(&models2.PledgeBalanceTransferable{}).Where("types=3")
 	if req.Start > 0 {
 		tx = tx.Where("timestamp>=?", req.Start)
 	}
@@ -283,8 +283,8 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		}
 	}
 	// 获取Match提现
-	toxDayData = []models.ToxDayData{}
-	tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
+	toxDayData = []models2.ToxDayData{}
+	tx = db.Mysql.Model(&models2.ToxDayData{}).Where("status=2")
 	if req.Start > 0 {
 		tx = tx.Where("date>=?", req.Start)
 	}
@@ -379,8 +379,8 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 			}
 		}
 		// 获取Match充值【合约余额（get_tox_types 1）+ 可质押（get_pledge_balance_transferable 3）】
-		var toxDayData []models.ToxDayData
-		tx := db.Mysql.Model(&models.ToxDayData{}).Where("status=1")
+		var toxDayData []models2.ToxDayData
+		tx := db.Mysql.Model(&models2.ToxDayData{}).Where("status=1")
 		if req.Start > 0 {
 			tx = tx.Where("date>=?", req.Start)
 		}
@@ -404,8 +404,8 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 			}
 			userDetails[u]["In"] = userDetails[u]["In"].Add(mT.Amount)
 		}
-		var pledgeBalanceTransferable []models.PledgeBalanceTransferable
-		tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
+		var pledgeBalanceTransferable []models2.PledgeBalanceTransferable
+		tx = db.Mysql.Model(&models2.PledgeBalanceTransferable{}).Where("types=3")
 		if req.Start > 0 {
 			tx = tx.Where("timestamp>=?", req.Start)
 		}
@@ -430,8 +430,8 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 			userDetails[u]["In"] = userDetails[u]["In"].Add(pT.Amount)
 		}
 		// 获取Match提现
-		toxDayData = make([]models.ToxDayData, 0)
-		tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
+		toxDayData = make([]models2.ToxDayData, 0)
+		tx = db.Mysql.Model(&models2.ToxDayData{}).Where("status=2")
 		if req.Start > 0 {
 			tx = tx.Where("date>=?", req.Start)
 		}
@@ -537,8 +537,8 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 		}
 	}
 	// 获取Match充值【合约余额（get_tox_types 1）+ 可质押（get_pledge_balance_transferable 3）】
-	var toxDayData []models.ToxDayData
-	tx := db.Mysql.Model(&models.ToxDayData{}).Where("status=1")
+	var toxDayData []models2.ToxDayData
+	tx := db.Mysql.Model(&models2.ToxDayData{}).Where("status=1")
 	if req.Start > 0 {
 		tx = tx.Where("date>=?", req.Start)
 	}
@@ -565,8 +565,8 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 		}
 		userDetails[u]["In"] = userDetails[u]["In"].Add(mT.Amount)
 	}
-	var pledgeBalanceTransferable []models.PledgeBalanceTransferable
-	tx = db.Mysql.Model(&models.PledgeBalanceTransferable{}).Where("types=3")
+	var pledgeBalanceTransferable []models2.PledgeBalanceTransferable
+	tx = db.Mysql.Model(&models2.PledgeBalanceTransferable{}).Where("types=3")
 	if req.Start > 0 {
 		tx = tx.Where("timestamp>=?", req.Start)
 	}
@@ -593,8 +593,8 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 		userDetails[u]["In"] = userDetails[u]["In"].Add(pT.Amount)
 	}
 	// 获取Match提现
-	toxDayData = []models.ToxDayData{}
-	tx = db.Mysql.Model(&models.ToxDayData{}).Where("status=2")
+	toxDayData = []models2.ToxDayData{}
+	tx = db.Mysql.Model(&models2.ToxDayData{}).Where("status=2")
 	if req.Start > 0 {
 		tx = tx.Where("date>=?", req.Start)
 	}

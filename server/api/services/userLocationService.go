@@ -3,10 +3,10 @@ package services
 import (
 	"city-node-server/api/common/statecode"
 	"city-node-server/api/models/request"
-	"city-node-server/blockchain"
 	"city-node-server/db"
-	models2 "city-node-server/models"
-	"city-node-server/utils"
+	"city-node-server/pkg/blockchain"
+	"city-node-server/pkg/models"
+	"city-node-server/pkg/utils"
 	"fmt"
 	"gorm.io/gorm"
 	"strconv"
@@ -19,18 +19,18 @@ func NewUserLocation() *UserLocationService {
 	return &UserLocationService{}
 }
 
-func (c *UserLocationService) GetLocationByUserAddress(userReq *request.GetLocationByUserAddress) (int, []models2.UserLocation) {
-	var userLocation []models2.UserLocation
+func (c *UserLocationService) GetLocationByUserAddress(userReq *request.GetLocationByUserAddress) (int, []models.UserLocation) {
+	var userLocation []models.UserLocation
 	whereCondition := fmt.Sprintf("user='%s'", strings.ToLower(userReq.User))
 	db.Mysql.Table("user_location").Where(whereCondition).Find(&userLocation)
 
 	return statecode.CommonSuccess, userLocation
 }
 
-func (c *UserLocationService) UserLocation(req *request.Location) (int, int64, []models2.UserLocation) {
-	var userLocations []models2.UserLocation
+func (c *UserLocationService) UserLocation(req *request.Location) (int, int64, []models.UserLocation) {
+	var userLocations []models.UserLocation
 
-	tx := db.Mysql.Model(&models2.UserLocation{}).Order("ctime desc")
+	tx := db.Mysql.Model(&models.UserLocation{}).Order("ctime desc")
 	if req.User != "" {
 		tx = tx.Where("user=?", strings.ToLower(req.User))
 		blockchain.RestoreUserLocation(strings.ToLower(req.User))
@@ -60,9 +60,9 @@ func (c *UserLocationService) CityId(req *request.CityName) (int, string) {
 		return statecode.CommonErrServerErr, ""
 	}
 
-	var areaCode models2.AreaCode
+	var areaCode models.AreaCode
 
-	err := db.Mysql.Model(&models2.AreaCode{}).Where("city_name=?", req.Name).First(&areaCode).Debug().Error
+	err := db.Mysql.Model(&models.AreaCode{}).Where("city_name=?", req.Name).First(&areaCode).Debug().Error
 	var codeStr string
 	if err == nil {
 		CountryCodeStr := strconv.FormatInt(int64(areaCode.CountryCode), 10)

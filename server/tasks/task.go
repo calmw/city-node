@@ -3,8 +3,8 @@
 package tasks
 
 import (
-	"city-node-server/blockchain"
 	"city-node-server/db"
+	blockchain2 "city-node-server/pkg/blockchain"
 	"city-node-server/services"
 	"github.com/jasonlvhit/gocron"
 	"time"
@@ -26,8 +26,8 @@ func Start() {
 	//_ = s.Every(4).Minutes().From(gocron.NextTick()).Do(service.PollBlockTaskGetWithdrawalRewardRecordEvent)
 	//_ = s.Every(6).Minutes().From(gocron.NextTick()).Do(service.PollBlockGetSuretyRecordEvent)
 	//_ = s.Every(30).Minutes().From(gocron.NextTick()).Do(service.GetPioneerRechargeWeight)
-	_ = s.Every(120).Minutes().From(gocron.NextTick()).Do(blockchain.GetAllPioneer)
-	_ = s.Every(20).Minutes().From(gocron.NextTick()).Do(blockchain.ReSaveUserLocation)
+	_ = s.Every(120).Minutes().From(gocron.NextTick()).Do(blockchain2.GetAllPioneer)
+	_ = s.Every(20).Minutes().From(gocron.NextTick()).Do(blockchain2.ReSaveUserLocation)
 	//_ = s.Every(7).Minutes().From(gocron.NextTick()).Do(service.ChangeRpc)
 
 	// 新手任务

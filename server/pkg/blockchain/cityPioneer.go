@@ -1,11 +1,11 @@
 package blockchain
 
 import (
-	intoCityNode2 "city-node-server/binding/intoCityNode"
-	"city-node-server/blockchain/event"
 	"city-node-server/db"
 	"city-node-server/log"
-	"city-node-server/models"
+	intoCityNode2 "city-node-server/pkg/binding/intoCityNode"
+	"city-node-server/pkg/blockchain/event"
+	models2 "city-node-server/pkg/models"
 	"context"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
@@ -378,15 +378,15 @@ func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64
 
 func InsertDailyReward(pioneerAddress, txHash string, foundsReward, delegateReward, nodeReward decimal.Decimal, blockHeight, timestamp int64) error {
 
-	var reward models.Reward
+	var reward models2.Reward
 	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d", strings.ToLower(pioneerAddress), blockHeight)
 	err := db.Mysql.Table("reward").Where(whereCondition).First(&reward).Error
 	if err == gorm.ErrRecordNotFound {
 		// 获取城市信息
-		var userLocation models.UserLocation
-		db.Mysql.Model(&models.UserLocation{}).Where("user=?", strings.ToLower(pioneerAddress)).First(&userLocation)
+		var userLocation models2.UserLocation
+		db.Mysql.Model(&models2.UserLocation{}).Where("user=?", strings.ToLower(pioneerAddress)).First(&userLocation)
 		// 插入数据
-		db.Mysql.Table("reward").Create(&models.Reward{
+		db.Mysql.Table("reward").Create(&models2.Reward{
 			Pioneer:        pioneerAddress,
 			TxHash:         txHash,
 			City:           userLocation.Location,
@@ -503,11 +503,11 @@ func GetSuretyRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) err
 func InsertSuretyRecordRecord(pioneerAddress, txHash string, amount decimal.Decimal, blockHeight, month, timestamp int64) error {
 	InsertSuretyRecordRecordLock.Lock()
 	defer InsertSuretyRecordRecordLock.Unlock()
-	var suretyRecord models.SuretyRecord
+	var suretyRecord models2.SuretyRecord
 	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d", strings.ToLower(pioneerAddress), blockHeight)
-	err := db.Mysql.Model(&models.SuretyRecord{}).Where(whereCondition).First(&suretyRecord).Error
+	err := db.Mysql.Model(&models2.SuretyRecord{}).Where(whereCondition).First(&suretyRecord).Error
 	if err == gorm.ErrRecordNotFound {
-		db.Mysql.Model(&models.SuretyRecord{}).Create(&models.SuretyRecord{
+		db.Mysql.Model(&models2.SuretyRecord{}).Create(&models2.SuretyRecord{
 			Pioneer:     pioneerAddress,
 			TxHash:      txHash,
 			Amount:      amount,
@@ -520,12 +520,12 @@ func InsertSuretyRecordRecord(pioneerAddress, txHash string, amount decimal.Deci
 }
 
 func GetPioneerTaskStatus(pioneerAddress string) bool {
-	var pioneerTask models.PioneerTask
+	var pioneerTask models2.PioneerTask
 	t := time.Now().UTC()
 	whereCondition := fmt.Sprintf("pioneer='%s' and date='%s'", strings.ToLower(pioneerAddress), t.Format("2006-01-02"))
-	err := db.Mysql.Model(&models.PioneerTask{}).Where(whereCondition).First(&pioneerTask).Error
+	err := db.Mysql.Model(&models2.PioneerTask{}).Where(whereCondition).First(&pioneerTask).Error
 	if err == gorm.ErrRecordNotFound {
-		db.Mysql.Model(&models.PioneerTask{}).Create(&models.PioneerTask{
+		db.Mysql.Model(&models2.PioneerTask{}).Create(&models2.PioneerTask{
 			Pioneer: strings.ToLower(pioneerAddress),
 			Date:    t,
 		})
@@ -537,5 +537,5 @@ func GetPioneerTaskStatus(pioneerAddress string) bool {
 func SetPioneerTaskStatus(pioneerAddress string) error {
 	whereCondition := fmt.Sprintf("pioneer='%s'", strings.ToLower(pioneerAddress))
 	log.Logger.Sugar().Info("pioneer task success ", pioneerAddress)
-	return db.Mysql.Model(&models.PioneerTask{}).Where(whereCondition).Update("status", 1).Error
+	return db.Mysql.Model(&models2.PioneerTask{}).Where(whereCondition).Update("status", 1).Error
 }

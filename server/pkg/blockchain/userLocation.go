@@ -1,12 +1,12 @@
 package blockchain
 
 import (
-	"city-node-server/binding/intoCityNode"
-	"city-node-server/blockchain/event"
 	"city-node-server/db"
 	"city-node-server/log"
-	"city-node-server/models"
-	"city-node-server/utils"
+	"city-node-server/pkg/binding/intoCityNode"
+	"city-node-server/pkg/blockchain/event"
+	models2 "city-node-server/pkg/models"
+	utils2 "city-node-server/pkg/utils"
 	"context"
 	"encoding/json"
 	"errors"
@@ -397,7 +397,7 @@ func RestoreUserLocation(user string) error {
 	}
 	cityId := "0x" + common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32))
 	countyId := "0x" + common.Bytes2Hex(Bytes32ToBytes(countyIdBytes32))
-	locationCode := utils.ThreeDesDecrypt(locationEncrypt)
+	locationCode := utils2.ThreeDesDecrypt(locationEncrypt)
 	code := strings.Split(locationCode, ",")
 	if code[0] == "0" && code[2] == "" { // 兼容map增量更新的位置信息
 		locationEncrypt, err = userLocationContract.CityInfo(nil, cityIdBytes32)
@@ -405,7 +405,7 @@ func RestoreUserLocation(user string) error {
 			log.Logger.Sugar().Error(err)
 			return err
 		}
-		locationCode = utils.ThreeDesDecrypt(locationEncrypt)
+		locationCode = utils2.ThreeDesDecrypt(locationEncrypt)
 		code = strings.Split(locationCode, ",")
 	}
 	if len(code) == 2 {
@@ -425,7 +425,7 @@ func RestoreUserLocation(user string) error {
 	// 容错，国内城市code首位是0的情况
 	if codeSecondSlice[0] == "0" {
 		// 获取城市code,根据区县code
-		var areaCode models.AreaCode
+		var areaCode models2.AreaCode
 		whereCondition := fmt.Sprintf("ad_code=%s", code[2])
 		err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
 		code[1] = fmt.Sprintf("%d", areaCode.CityCode)
@@ -435,7 +435,7 @@ func RestoreUserLocation(user string) error {
 	if err != nil {
 		return err
 	}
-	var userLocation models.UserLocation
+	var userLocation models2.UserLocation
 	whereCondition := fmt.Sprintf("user='%s' and city_id='%s' and area_code='%s' and county_id='%s'",
 		user, strings.ToLower(cityId), locationCode, strings.ToLower(countyId))
 	err = db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
@@ -443,7 +443,7 @@ func RestoreUserLocation(user string) error {
 		fmt.Println(code, "========++++")
 		// 查询明文地址
 		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
-		err, location := utils.HttpGet(uri)
+		err, location := utils2.HttpGet(uri)
 		fmt.Println(err, location, "========")
 		if err != nil {
 			return err
@@ -453,7 +453,7 @@ func RestoreUserLocation(user string) error {
 		if err != nil {
 			return err
 		}
-		db.Mysql.Model(&models.UserLocation{}).Create(&models.UserLocation{
+		db.Mysql.Model(&models2.UserLocation{}).Create(&models2.UserLocation{
 			// 	Id              int    `gorm:"column:id;primaryKey"`
 			//	User            string `json:"user" gorm:"column:user"`
 			//	CountyId        string `json:"county_id" gorm:"column:county_id"`
@@ -479,8 +479,8 @@ func RestoreUserLocation(user string) error {
 
 // ReSaveUserLocation 更新CityID和location为空的所有地址
 func ReSaveUserLocation() {
-	var locations []models.UserLocation
-	db.Mysql.Model(models.UserLocation{}).Where("location=''").Find(&locations)
+	var locations []models2.UserLocation
+	db.Mysql.Model(models2.UserLocation{}).Where("location=''").Find(&locations)
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -512,7 +512,7 @@ func ReSaveUserLocation() {
 				log.Logger.Sugar().Error(err)
 				return
 			}
-			locationCode := utils.ThreeDesDecrypt(locationEncrypt)
+			locationCode := utils2.ThreeDesDecrypt(locationEncrypt)
 			code = strings.Split(locationCode, ",")
 		}
 		if len(code) == 2 {
@@ -532,7 +532,7 @@ func ReSaveUserLocation() {
 		// 容错，国内城市code首位是0的情况
 		if codeSecondSlice[0] == "0" {
 			// 获取城市code,根据区县code
-			var areaCode models.AreaCode
+			var areaCode models2.AreaCode
 			whereCondition := fmt.Sprintf("ad_code=%s", code[2])
 			err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
 			code[1] = fmt.Sprintf("%d", areaCode.CityCode)
@@ -540,7 +540,7 @@ func ReSaveUserLocation() {
 
 		// 查询明文地址
 		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
-		err, location := utils.HttpGet(uri)
+		err, location := utils2.HttpGet(uri)
 		if err != nil {
 			return
 		}
@@ -549,7 +549,7 @@ func ReSaveUserLocation() {
 		if err != nil {
 			return
 		}
-		db.Mysql.Model(&models.UserLocation{}).Where("user=?", strings.ToLower(l.User)).Updates(map[string]interface{}{
+		db.Mysql.Model(&models2.UserLocation{}).Where("user=?", strings.ToLower(l.User)).Updates(map[string]interface{}{
 			"city_id":  strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(cityIdBytes32))),
 			"location": locationInfo.Data.CountryName + " " + locationInfo.Data.CityName + " " + locationInfo.Data.AreaName,
 		})
@@ -618,7 +618,7 @@ func CityInfo(countyId [32]byte) (error, string) {
 	}
 	code := strings.Split(location, ",")
 	// 查询明文地址
-	var areaCode models.AreaCode
+	var areaCode models2.AreaCode
 	var whereCondition string
 	if len(code) == 2 {
 		code0, _ := strconv.ParseInt(code[0], 10, 64)
@@ -748,7 +748,7 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 		countyId := "0x" + common.Bytes2Hex(Bytes32ToBytes(logData[1].([32]uint8)))
 		countyId2 := logData[1].([32]uint8)
 		locationEncrypt := logData[2].(string)
-		locationCode := utils.ThreeDesDecrypt(locationEncrypt)
+		locationCode := utils2.ThreeDesDecrypt(locationEncrypt)
 		code := strings.Split(locationCode, ",")
 		if len(code) == 2 {
 			code = append(code, "0")
@@ -771,7 +771,7 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 		// 容错，国内城市code首位是0的情况
 		if codeSecondSlice[0] == "0" {
 			// 获取城市code,根据区县code
-			var areaCode models.AreaCode
+			var areaCode models2.AreaCode
 			whereCondition := fmt.Sprintf("ad_code=%s", code[2])
 			err = db.Mysql.Table("area_code").Where(whereCondition).First(&areaCode).Error
 			code[1] = fmt.Sprintf("%d", areaCode.CityCode)
@@ -799,7 +799,7 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 		log.Logger.Sugar().Error(err)
 		return err
 	}
-	var userLocation models.UserLocation
+	var userLocation models2.UserLocation
 	whereCondition := fmt.Sprintf("user='%s' and city_id='%s' and area_code='%s' and county_id='%s'",
 		strings.ToLower(userAddress), strings.ToLower(cityId), locationCode, strings.ToLower(countyId))
 	err = db.Mysql.Table("user_location").Where(whereCondition).First(&userLocation).Error
@@ -807,7 +807,7 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 		// 查询明文地址
 		uri := fmt.Sprintf("https://wallet-api-v2.intowallet.io/api/v1/city_node/geographic_info?city_code=%s&ad_code=%s", code[1], code[2])
 		log.Logger.Sugar().Info(uri)
-		err, location := utils.HttpGet(uri)
+		err, location := utils2.HttpGet(uri)
 		if err != nil {
 			log.Logger.Sugar().Error(err)
 			return err
@@ -822,7 +822,7 @@ func InsertUserLocation(userAddress, countyId string, code []string, locationEnc
 		if locationStr == "" {
 			RestoreUserLocation(strings.ToLower(userAddress))
 		} else {
-			db.Mysql.Model(&models.UserLocation{}).Create(&models.UserLocation{
+			db.Mysql.Model(&models2.UserLocation{}).Create(&models2.UserLocation{
 				User:            strings.ToLower(userAddress),
 				CountyId:        strings.ToLower(countyId),
 				CityId:          strings.ToLower(cityId),
