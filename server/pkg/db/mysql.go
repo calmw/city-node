@@ -1,7 +1,7 @@
 package db
 
 import (
-	"city-node-server/log"
+	"city-node-server/pkg/log"
 	"fmt"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -16,7 +16,7 @@ func InitMysql() {
 	//	`127.0.0.1`,
 	//	`3306`,
 	//	`city_node`)
-	
+
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		`root`,
 		`city_node`,

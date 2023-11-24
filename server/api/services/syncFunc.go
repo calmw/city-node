@@ -2,7 +2,7 @@ package services
 
 import (
 	utils2 "city-node-server/api/utils"
-	"city-node-server/log"
+	"city-node-server/pkg/log"
 	"city-node-server/pkg/utils"
 	"encoding/json"
 	"errors"

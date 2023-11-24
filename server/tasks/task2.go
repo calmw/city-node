@@ -1,7 +1,7 @@
 package tasks
 
 import (
-	"city-node-server/db"
+	"city-node-server/pkg/db"
 	"city-node-server/services"
 	"city-node-server/tasks/service"
 	"github.com/jasonlvhit/gocron"

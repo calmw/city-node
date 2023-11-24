@@ -3,8 +3,8 @@
 package tasks
 
 import (
-	"city-node-server/db"
 	blockchain2 "city-node-server/pkg/blockchain"
+	"city-node-server/pkg/db"
 	"city-node-server/services"
 	"github.com/jasonlvhit/gocron"
 	"time"

@@ -1,7 +1,7 @@
 package validate
 
 import (
-	"city-node-server/db"
+	"city-node-server/pkg/db"
 	"fmt"
 	"github.com/go-playground/validator/v10"
 	"regexp"
@@ -91,7 +91,7 @@ func OnlyOne(fl validator.FieldLevel) bool {
 	return true
 }
 
-//解析参数
+// 解析参数
 func parseOnlyOneParam(s string) []string {
 	oneofValsCacheRWLock.RLock()
 	vals, ok := oneofValsCache[s]
