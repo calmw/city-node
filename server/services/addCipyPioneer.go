@@ -83,11 +83,11 @@ func ReadExcel(excelFile string) {
 		//fmt.Println("")
 		//fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
 		//if i == 11 {
-		//	blockchain.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
-		//	time.Sleep(time.Second * 5)
+		//blockchain.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
+		//time.Sleep(time.Second * 5)
 		//}
 		//if i == 15 {
-		//	blockchain.AdminSetPioneer(p.CityId, p.Address)
+		//blockchain.AdminSetPioneer(p.CityId, p.Address)
 		//	time.Sleep(time.Second * 10)
 		//}
 		//blockchain.AdminSetPioneer(p.CityId, p.Address)

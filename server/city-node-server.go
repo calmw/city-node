@@ -2,6 +2,7 @@ package main
 
 import (
 	"city-node-server/blockchain"
+	"city-node-server/db"
 	"city-node-server/services"
 	"github.com/jasonlvhit/gocron"
 	"time"
@@ -13,12 +14,12 @@ func main() {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	//services.InitMainNet()
+	services.InitMainNet()
 	//services.InitCityPioneer()
 	//services.InitTestNet()
 	//services.InitCity()
 
-	//db.InitMysql()
+	db.InitMysql()
 	//blockchain.TriggerAllPioneerTask()
 
 	//services.InitMainNet()
@@ -92,6 +93,7 @@ func main() {
 	//	blockchain.TriggerAllPioneerTask()
 	//}
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
+	services.ReadExcel("./城市节点报名表合肥.xlsx")
 	//services.CheckPioneer("./城市先锋-用户信息.xlsx") // 确认用户是否交保证金
 	//services.CheckLocation("./泰国.xlsx") // 查看位置是否存在
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
