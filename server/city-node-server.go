@@ -90,7 +90,7 @@ func main() {
 	//}
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
 	//services.ReadExcel("./城市节点报名表合肥.xlsx")
-	//services.CheckPioneer("./城市先锋-用户信息.xlsx") // 确认用户是否交保证金
+	services.CheckPioneer("./assets/城市先锋-用户信息.xlsx") // 确认用户是否交保证金
 	//services.CheckLocation("./泰国.xlsx") // 查看位置是否存在
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
 	//blockchain.ReSaveUserLocation()

@@ -7,8 +7,10 @@ import (
 	"fmt"
 	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/status-im/keycard-go/hexutils"
+	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type PioneerInfo struct {
@@ -106,7 +108,13 @@ func ReadExcel(excelFile string) {
 }
 
 func CheckPioneer(excelFile string) {
-	var pioneers []PioneerSurety
+
+	type Export struct {
+		City      string `json:"city" excel:"column:B;desc:城市;width:30"`
+		CityLevel string `json:"city_level" excel:"column:C;desc:城市等级;width:30"`
+		Pioneer   string `json:"pioneer" excel:"column:D;desc:先锋地址;width:30"`
+		Deopsit   string `json:"deopsit" excel:"column:E;desc:是否交保证金;width:30"`
+	}
 	f, err := excelize.OpenFile(excelFile)
 	fmt.Println(err, 5)
 	if err != nil {
@@ -115,34 +123,51 @@ func CheckPioneer(excelFile string) {
 	}
 	// 取得 Sheet1 表格中所有的行
 	rows := f.GetRows("Sheet1")
-	fmt.Println(len(rows), 6)
+	var exports []Export
 	for i, row := range rows {
 		if i == 0 {
 			continue
 		}
-		pioneer := PioneerSurety{}
+		export := Export{}
 		for j, colCell := range row {
-			if j == 2 {
-				pioneer.Address = strings.ToLower(colCell)
-			}
-			if j == 3 {
-				if colCell != "未交保证金" {
-					pioneer.Surety = true
+			if j == 0 {
+				export.City = colCell
+			} else if j == 1 {
+				export.CityLevel = colCell
+			} else if j == 2 {
+				export.Pioneer = strings.ToLower(colCell)
+				var pioneer models2.Pioneer
+				err := db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", export.Pioneer).First(&pioneer).Debug().Error
+				if err == nil {
+					fmt.Println("该城市先锋已经存在", i)
+					export.Deopsit = "是"
+				} else {
+					fmt.Println("该城市先锋不存在", i)
+					export.Deopsit = "未交保证金"
 				}
 			}
 		}
-		pioneers = append(pioneers, pioneer)
+		exports = append(exports, export)
 	}
-	for i, p := range pioneers {
-		// 根据city_id判断该城市是否已经添加过先锋
-		var pioneer models2.Pioneer
-		err := db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", p.Address).First(&pioneer).Debug().Error
-		if err == nil {
-			fmt.Println("该城市先锋已经存在", i, p.Surety)
-		} else {
-			fmt.Println("该城市先锋不存在", i, p.Surety)
+	// 检查数据库中交过保证金的，是否在表格中
+	var pioneers []models2.Pioneer
+	err = db.Mysql.Model(models2.Pioneer{}).Find(&pioneers).Debug().Error
+	if err == nil {
+		for _, p := range pioneers {
+			exits := false
+			for _, e := range exports {
+				if p.Pioneer == e.Pioneer {
+					exits = true
+				}
+			}
+			fmt.Println(p.Pioneer, exits)
 		}
 	}
+	// 保存excel
+	//"github.com/xjieinfo/xjgo/xjcore/xjexcel"
+	excel := xjexcel.ListToExcel(exports, "城市先锋-用户信息", "先锋详情")
+	fileName := fmt.Sprintf("./城市先锋-%s.xls", time.Now().Format("2006-01-02"))
+	excel.SaveAs(fileName)
 }
 
 func CheckLocation(excelFile string) {

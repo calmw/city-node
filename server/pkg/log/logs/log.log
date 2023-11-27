@@ -3862,3 +3862,9 @@
 {"level":"info","time":"2023-11-24T17:52:10.257+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2023-11-24T17:52:28.301+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2023-11-24T17:52:40.233+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T10:35:27.955+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T10:35:45.643+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T10:55:25.136+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T11:01:18.890+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T11:10:47.301+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T11:34:10.567+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
