@@ -1,6 +1,7 @@
 package main
 
 import (
+	"city-node-server/api"
 	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
 	"city-node-server/services"
@@ -15,10 +16,10 @@ func main() {
 	//	}
 	//}()
 	db.InitMysql()
-	services.InitMainNet()
+	//services.InitMainNet()
 	//services.InitUserLocation()
 	//services.InitCityPioneer()
-	services.InitCity()
+	//services.InitCity()
 
 	//services.InitTestNet()
 
@@ -79,7 +80,7 @@ func main() {
 	//
 	//}
 	//services2.GetToxTxBridgeBsc()
-	//api.Start()
+	api.Start()
 	//tasks.Start()
 	//blockchain.GetAllPioneer()
 	//blockchain.TriggerAllPioneerTask()
