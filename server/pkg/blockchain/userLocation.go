@@ -222,11 +222,6 @@ func SetCityMapping(countyId, chengShiId, locationChengShi string) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	err, auth := GetAuth(Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
 	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -243,6 +238,11 @@ func SetCityMapping(countyId, chengShiId, locationChengShi string) {
 	}
 	common.Hex2Bytes(chengShiId)
 	chengShiIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 	_, err = userLocation.SetCityMapping(auth, cityIdBytes32, chengShiIdBytes32, locationChengShi)
 	if err != nil {
 		log.Logger.Sugar().Error(err)

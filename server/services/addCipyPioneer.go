@@ -1,6 +1,7 @@
 package services
 
 import (
+	"bufio"
 	blockchain2 "city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
 	models2 "city-node-server/pkg/models"
@@ -8,6 +9,7 @@ import (
 	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/status-im/keycard-go/hexutils"
 	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -74,8 +76,8 @@ func ReadExcel(excelFile string) {
 	}
 	for i, p := range pioneers {
 		// 根据city_id判断该城市是否已经添加过先锋
-		//var pioneer models.Pioneer
-		//err := db.Mysql.Model(models.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
+		//var pioneer models2.Pioneer
+		//err := db.Mysql.Model(models2.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
 		//if err == nil {
 		//	fmt.Println("该城市先锋已经存在", i)
 		//	continue
@@ -85,12 +87,12 @@ func ReadExcel(excelFile string) {
 		//fmt.Println("")
 		//fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
 		//if i == 11 {
-		//blockchain.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
+		//blockchain2.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
 		//time.Sleep(time.Second * 5)
 		//}
 		//if i == 15 {
-		//blockchain.AdminSetPioneer(p.CityId, p.Address)
-		//	time.Sleep(time.Second * 10)
+		//blockchain2.AdminSetPioneer(p.CityId, p.Address)
+		//time.Sleep(time.Second * 10)
 		//}
 		//blockchain.AdminSetPioneer(p.CityId, p.Address)
 
@@ -103,6 +105,42 @@ func ReadExcel(excelFile string) {
 			ok = true
 		}
 		fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
+
+	}
+}
+
+func ReadCityFIle(cityFile string) {
+	file, err := os.Open(cityFile)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer file.Close()
+
+	var lines []string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	for i, line := range lines {
+		fmt.Println(i, line)
+		var userLocation models2.UserLocation
+		//whererCondition := "location = 'Viet Nam " + line + "'"
+		whererCondition := "location = 'Thailand " + line + "'"
+		err = db.Mysql.Model(models2.UserLocation{}).Where(whererCondition).First(&userLocation).Debug().Error
+		// 0x7b43556372050ba40a01e40a2bf9b20514e71977d04f780e38c628c7f14ac40d
+		if err == nil {
+			fmt.Println("该区县已经存在", i, line, userLocation.CountyId, userLocation.CityId)
+			//if i == 12 || i == 17 || i == 23 || i == 25 {
+			//
+			//	fmt.Println("该区县已经存在", i, line, userLocation.CountyId, userLocation.CityId)
+			//	blockchain2.SetCityMapping(userLocation.CountyId, "0x7b43556372050ba40a01e40a2bf9b20514e71977d04f780e38c628c7f14ac40d", "pYnBembRMi+rRswBxe+wsg==")
+			//	time.Sleep(time.Second * 15)
+			//}
+		} else {
+			fmt.Println("该城市不存在", i, line)
+		}
 
 	}
 }
@@ -168,6 +206,86 @@ func CheckPioneer(excelFile string) {
 	excel := xjexcel.ListToExcel(exports, "城市先锋-用户信息", "先锋详情")
 	fileName := fmt.Sprintf("./城市先锋-%s.xls", time.Now().Format("2006-01-02"))
 	excel.SaveAs(fileName)
+}
+
+func CheckPioneer2(excelFile, excelFile2 string) {
+
+	f, err := excelize.OpenFile(excelFile)
+	fmt.Println(err)
+	if err != nil {
+		return
+	}
+	f2, err := excelize.OpenFile(excelFile2)
+	fmt.Println(err, 2)
+	if err != nil {
+		return
+	}
+	// 取得 Sheet1 表格中所有的行
+	rows := f.GetRows("Sheet1")
+	var pioneers []string
+	for i, row := range rows {
+		if i == 0 {
+			continue
+		}
+		for j, colCell := range row {
+			if j == 2 {
+				pioneers = append(pioneers, strings.ToLower(colCell))
+			}
+		}
+	}
+	// 取得 Sheet1 表格中所有的行
+	rows = f2.GetRows("Sheet1")
+	var pioneers2 []string
+	for i, row := range rows {
+		if i == 0 || i == 1 {
+			continue
+		}
+		for j, colCell := range row {
+			if j == 3 {
+				pioneers2 = append(pioneers2, strings.ToLower(colCell))
+			}
+		}
+	}
+	exitMap := map[string]bool{}
+	var p3 []string
+	//for _, p2 := range pioneers2 {
+	//	exitMap[p2] = true
+	//}
+	// 检查2中先锋是否在1中存在
+	for i, p2 := range pioneers2 {
+		_, ok := exitMap[p2]
+		if !ok {
+			p3 = append(p3, p2)
+			exitMap[p2] = true
+		} else {
+			fmt.Println(p2)
+
+		}
+		exits := false
+		for _, p1 := range pioneers {
+			if p2 == p1 {
+				exits = true
+			}
+		}
+		if !exits {
+			fmt.Println(i, p2, exits)
+		}
+		fmt.Println(i, p2, exits)
+	}
+	fmt.Println("---------", len(pioneers2), len(pioneers), len(p3))
+	// 检查1中先锋是否在2中存在
+	for i, p1 := range pioneers {
+		exits := false
+		for _, p2 := range pioneers2 {
+			if p2 == p1 {
+				exits = true
+			}
+		}
+		if !exits {
+			fmt.Println(i, p1, exits)
+		}
+	}
+
 }
 
 func CheckLocation(excelFile string) {
