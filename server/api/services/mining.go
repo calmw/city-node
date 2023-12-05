@@ -13,6 +13,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/shopspring/decimal"
+	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"sort"
 	"strings"
 	"time"
@@ -53,6 +54,11 @@ type LedgerSum struct {
 	MatchOut decimal.Decimal `json:"match_out" excel:"column:F;desc:Match提现;width:30"`
 	BscIn    decimal.Decimal `json:"bsc_in" excel:"column:G;desc:Bsc充值;width:30"`
 	BscOut   decimal.Decimal `json:"bsc_out" excel:"column:H;desc:Bsc提现;width:30"`
+}
+
+type Recharge struct {
+	User   string          `json:"user" excel:"column:B;desc:钱包地址;width:30"`
+	Amount decimal.Decimal `json:"in" excel:"column:C;desc:总充值;width:30"`
 }
 
 func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decimal.Decimal, decimal.Decimal, decimal.Decimal, decimal.Decimal) {
@@ -324,7 +330,7 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 	var result []LedgerSum
 	var bscIn, bscOut, matchIn, matchOut decimal.Decimal
 	decimalZero, _ := decimal.NewFromString("0")
-	decimalE18, _ := decimal.NewFromString("1000000000000000000")
+	//decimalE18, _ := decimal.NewFromString("1000000000000000000")
 	userSet := internal.NewStringSet()
 	userDetails := map[string]map[string]decimal.Decimal{}
 	/// 查全网数据
@@ -624,13 +630,14 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 
 	for _, userAddress := range userSet.Data {
 		result = append(result, LedgerSum{
-			User:     userAddress,
-			In:       userDetails[userAddress]["In"].Div(decimalE18),
-			Out:      userDetails[userAddress]["Out"].Div(decimalE18),
-			BscIn:    userDetails[userAddress]["BscIn"].Div(decimalE18),
-			BscOut:   userDetails[userAddress]["BscOut"].Div(decimalE18),
-			MatchIn:  userDetails[userAddress]["In"].Sub(userDetails[userAddress]["BscIn"]).Div(decimalE18),
-			MatchOut: userDetails[userAddress]["Out"].Sub(userDetails[userAddress]["BscOut"]).Div(decimalE18),
+			User: userAddress,
+			//In:       userDetails[userAddress]["In"].Div(decimalE18),
+			In:       userDetails[userAddress]["In"],
+			Out:      userDetails[userAddress]["Out"],
+			BscIn:    userDetails[userAddress]["BscIn"],
+			BscOut:   userDetails[userAddress]["BscOut"],
+			MatchIn:  userDetails[userAddress]["In"].Sub(userDetails[userAddress]["BscIn"]),
+			MatchOut: userDetails[userAddress]["Out"].Sub(userDetails[userAddress]["BscOut"]),
 		})
 	}
 	// 保存excel
@@ -639,6 +646,73 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 	//fileName := fmt.Sprintf("./团队充值提现详情-%s.xls", req.User)
 	//f.SaveAs(fileName)
 	return statecode.CommonSuccess, result, bscIn, bscOut, matchIn, matchOut
+}
+
+func (c *Mining) RechargeSum(req *request.RechargeSum) (int, []Recharge) {
+	var result []Recharge
+	decimalE16, _ := decimal.NewFromString("10000000000000000")
+	userSet := internal.NewStringSet()
+	// 查全网数据
+	if req.User == "" {
+		return statecode.CommonErrServerErr, result
+	}
+	/// 查指定网体数据
+	// 查询下级用户缓存
+	yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
+	cacheKey := "LedgerDetails-" + yesterday + req.User
+	ok, data := utils.EventCache.Get(cacheKey)
+	if !ok {
+		// 异步拉取数据
+		SyncChain <- req.User
+		return statecode.SyncingData, result
+	}
+	var sons Sons
+	err := json.Unmarshal(data, &sons)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return statecode.CommonErrServerErr, result
+	}
+	userMap := make(map[string]bool)
+	for _, user := range sons.Data {
+		user = strings.ToLower(user)
+		userMap[user] = true
+		userSet.Add(user)
+	}
+
+	// 获取Match充值【合约余额（get_tox_types 1）+ 可质押（get_pledge_balance_transferable 3）】
+	type WeightSum struct {
+		Total decimal.Decimal
+	}
+	rechargeWeights := []models2.RechargeWeight{}
+	db.Mysql.Model(&models2.RechargeWeight{}).Where("pioneer=?", strings.ToLower("0x77bd41fdE654FE0054b771Ec6985dC9d5247BAfe")).Find(&rechargeWeights)
+	fmt.Println(len(rechargeWeights))
+	for _, userAddress := range userSet.Data {
+		// 获取该用户数据
+		//rechargeWeight := models2.RechargeWeight{}
+
+		decimalAmount, _ := decimal.NewFromString("0")
+		for _, r := range rechargeWeights {
+			if strings.ToLower(userAddress) == r.User {
+				decimalAmount = decimalAmount.Add(r.Weight)
+			}
+		}
+		//total := WeightSum{}
+		//whereCondation := fmt.Sprintf("pioneer='%s' and user='%s' and day>='2023-11-01 00:00:00' and day<'2023-12-01 00:00:00'", strings.ToLower("0x77bd41fdE654FE0054b771Ec6985dC9d5247BAfe"), strings.ToLower(userAddress))
+		//db.Mysql.Model(&models2.RechargeWeight{}).Where(whereCondation).Select("sum(weight) as total").Scan(&total)
+		//fmt.Println(total.Total)
+		result = append(result, Recharge{
+			User:   userAddress,
+			Amount: decimalAmount.Div(decimalE16),
+		})
+		//fmt.Println(decimalAmount.Mul(decimalE10))
+	}
+
+	// 保存excel
+	//"github.com/xjieinfo/xjgo/xjcore/xjexcel"
+	f := xjexcel.ListToExcel(result, "团队充值", "成员详情")
+	fileName := fmt.Sprintf("./成都团队充值详情-团队长-%s.xls", req.User)
+	f.SaveAs(fileName)
+	return statecode.CommonSuccess, result
 }
 
 // GetToxTxBridgeBsc 获取bsc bridge数据

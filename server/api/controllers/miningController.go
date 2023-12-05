@@ -53,3 +53,21 @@ func (c *MiningController) Ledger(ctx *gin.Context) {
 	})
 	return
 }
+
+// Ledger 合约充值提现团队汇总
+func (c *MiningController) RechargeSum(ctx *gin.Context) {
+	res := response.Gin{Res: ctx}
+	req := request.RechargeSum{}
+	ctx.ShouldBindQuery(&req)
+
+	errCode, result := services.NewMining().RechargeSum(&req)
+	if errCode != statecode.CommonSuccess {
+		res.Response(ctx, errCode, nil)
+		return
+	}
+
+	res.Response(ctx, statecode.CommonSuccess, map[string]interface{}{
+		"list": result,
+	})
+	return
+}

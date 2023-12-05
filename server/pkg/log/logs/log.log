@@ -3868,3 +3868,171 @@
 {"level":"info","time":"2023-11-27T11:01:18.890+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2023-11-27T11:10:47.301+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2023-11-27T11:34:10.567+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T11:43:47.067+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T11:45:31.303+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:30:53.791+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:31:32.451+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:32:58.864+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:33:14.653+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:40:53.588+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:43:08.263+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:47:07.837+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:48:19.983+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:48:37.931+0800","line":"blockchain/city.go:478","msg":"invalid nonce; got 1581, expected 1582: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:51:34.929+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:52:34.732+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:52:48.398+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:52:50.274+0800","line":"blockchain/city.go:107","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:53:00.327+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:53:14.705+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:53:26.390+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:53:39.624+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:53:51.468+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"info","time":"2023-11-27T20:57:41.297+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:57:44.291+0800","line":"blockchain/city.go:107","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:57:54.304+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:57:56.163+0800","line":"blockchain/city.go:107","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:58:06.202+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:58:07.149+0800","line":"blockchain/city.go:107","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:58:17.162+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:58:18.224+0800","line":"blockchain/city.go:107","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:58:28.232+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:58:29.264+0800","line":"blockchain/city.go:107","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:58:39.278+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:58:40.155+0800","line":"blockchain/city.go:107","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-11-27T20:58:51.863+0800","line":"blockchain/city.go:175","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"info","time":"2023-11-27T21:04:04.370+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T17:26:09.168+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T17:31:49.561+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T17:52:40.302+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T17:53:26.812+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T17:54:42.143+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T17:57:28.035+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:03:52.325+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:06:20.666+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:06:52.415+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:07:01.643+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:13:02.267+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:15:07.694+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:25:23.405+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:28:40.169+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:32:33.567+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:32:56.421+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:33:39.995+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:33:51.878+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:35:36.574+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-11-29T18:36:19.801+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T16:43:02.547+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T16:47:08.315+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T16:47:09.441+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-02T16:51:32.810+0800","line":"services/syncFunc.go:21","msg":"Get \"https://baodao-api.baodao.app/api/v1/pledge/relation/child?address=0x77bd41fdE654FE0054b771Ec6985dC9d5247BAfe\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-12-02T16:52:33.224+0800","line":"services/syncFunc.go:21","msg":"Get \"https://baodao-api.baodao.app/api/v1/pledge/relation/child?address=0x77bd41fdE654FE0054b771Ec6985dC9d5247BAfe\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-12-02T16:53:33.636+0800","line":"services/syncFunc.go:21","msg":"Get \"https://baodao-api.baodao.app/api/v1/pledge/relation/child?address=0x77bd41fdE654FE0054b771Ec6985dC9d5247BAfe\": EOF","serviceName":"into"}
+{"level":"info","time":"2023-12-02T16:54:15.980+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T16:54:17.172+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-02T16:58:43.401+0800","line":"services/syncFunc.go:21","msg":"Get \"https://baodao-api.baodao.app/api/v1/pledge/relation/child?address=0x77bd41fdE654FE0054b771Ec6985dC9d5247BAfe\": EOF","serviceName":"into"}
+{"level":"info","time":"2023-12-02T16:58:59.373+0800","line":"services/syncFunc.go:27","msg":"{\"code\":2,\"msg\":\"内部错误\",\"data\":\"09ce4d89-91ad-4174-9155-b765324d8543\"}","serviceName":"into"}
+{"level":"error","time":"2023-12-02T16:58:59.374+0800","line":"services/syncFunc.go:28","msg":"json: cannot unmarshal string into Go struct field Sons.data of type []string","serviceName":"into"}
+{"level":"info","time":"2023-12-02T16:59:59.616+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T17:00:30.548+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T17:00:43.822+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T17:00:45.664+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-02T17:04:25.282+0800","line":"services/syncFunc.go:21","msg":"Get \"https://baodao-api.baodao.app/api/v1/pledge/relation/child?address=0xf37EF94dEcfBBa1ed29ADe28A51A3Ff5f0F182bB\": EOF","serviceName":"into"}
+{"level":"info","time":"2023-12-02T17:04:31.540+0800","line":"services/syncFunc.go:27","msg":"{\"code\":2,\"msg\":\"内部错误\",\"data\":\"86ddf946-7a1f-4e2f-a9d1-350e959c9726\"}","serviceName":"into"}
+{"level":"error","time":"2023-12-02T17:04:31.541+0800","line":"services/syncFunc.go:28","msg":"json: cannot unmarshal string into Go struct field Sons.data of type []string","serviceName":"into"}
+{"level":"error","time":"2023-12-02T17:04:56.914+0800","line":"services/syncFunc.go:21","msg":"Get \"https://baodao-api.baodao.app/api/v1/pledge/relation/child?address=0xf37EF94dEcfBBa1ed29ADe28A51A3Ff5f0F182bB\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-12-02T17:05:57.337+0800","line":"services/syncFunc.go:21","msg":"Get \"https://baodao-api.baodao.app/api/v1/pledge/relation/child?address=0xf37EF94dEcfBBa1ed29ADe28A51A3Ff5f0F182bB\": EOF","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:18:24.917+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:18:25.512+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:20:41.534+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:20:42.636+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:21:31.725+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:21:32.963+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:22:32.532+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:22:33.721+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:23:06.837+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:23:08.174+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:23:42.646+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:23:43.740+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-02T18:23:53.324+0800","line":"services/mining.go:678","msg":"<nil>","serviceName":"into"}
+{"level":"error","time":"2023-12-02T18:23:59.556+0800","line":"services/mining.go:678","msg":"<nil>","serviceName":"into"}
+{"level":"error","time":"2023-12-02T18:24:03.503+0800","line":"services/mining.go:678","msg":"<nil>","serviceName":"into"}
+{"level":"error","time":"2023-12-02T18:24:05.093+0800","line":"services/mining.go:678","msg":"<nil>","serviceName":"into"}
+{"level":"error","time":"2023-12-02T18:24:05.794+0800","line":"services/mining.go:678","msg":"<nil>","serviceName":"into"}
+{"level":"error","time":"2023-12-02T18:24:06.209+0800","line":"services/mining.go:678","msg":"<nil>","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:24:49.836+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:24:51.276+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:24:57.490+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:24:58.663+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:26:19.188+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:26:25.870+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:26:28.018+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:27:56.919+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:27:57.996+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:40:20.259+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:40:21.420+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:51:46.341+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:51:47.566+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-02T18:51:50.689+0800","line":"services/syncFunc.go:21","msg":"Get \"https://baodao-api.baodao.app/api/v1/pledge/relation/child?address=0x77bd41fdE654FE0054b771Ec6985dC9d5247BAfe\": EOF","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:54:06.354+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:54:07.512+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:55:04.273+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:55:05.687+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:55:54.377+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:55:55.550+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:57:28.645+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T18:57:29.812+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T19:00:21.529+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T19:00:22.598+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T19:08:06.098+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T19:08:07.267+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T19:08:32.779+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-02T19:08:33.898+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-03T00:33:23.330+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-03T00:33:54.759+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-04T14:27:10.087+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-04T14:29:40.746+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-04T14:30:46.296+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-04T14:31:38.256+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-04T14:32:16.843+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-04T14:40:13.814+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-04T14:47:56.205+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:01.160+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1606, expected 1607: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:01.959+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1606, expected 1607: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:02.930+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1606, expected 1607: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:03.717+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1606, expected 1607: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:04.542+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1606, expected 1607: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:18.174+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1604, expected 1607: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:23.080+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:23.883+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:25.033+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:25.837+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:26.618+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:27.404+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:28.214+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:29.014+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:29.806+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:30.594+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:31.404+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:32.314+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:33.222+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1611, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:48:40.955+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1607, expected 1612: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2023-12-04T14:50:57.627+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:51:16.753+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1612, expected 1613: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:51:42.431+0800","line":"blockchain/userLocation.go:248","msg":"Post \"https://rpc-sen.matchscan.io\": EOF","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:54:32.025+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1621, expected 1622: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:55:32.246+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1623, expected 1624: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:56:23.046+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1624, expected 1625: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:57:16.022+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1626, expected 1627: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:58:05.119+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1628, expected 1629: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:58:38.376+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1629, expected 1630: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T14:59:13.707+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1630, expected 1631: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2023-12-04T15:00:56.226+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-04T15:01:41.161+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-04T15:02:20.539+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1632, expected 1633: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T15:03:01.954+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1633, expected 1634: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T15:03:34.498+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1634, expected 1635: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-04T15:03:51.518+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 1634, expected 1635: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2023-12-04T15:04:48.835+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-04T15:09:02.073+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-04T15:10:07.591+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
