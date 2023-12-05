@@ -4036,3 +4036,5 @@
 {"level":"info","time":"2023-12-04T15:04:48.835+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2023-12-04T15:09:02.073+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2023-12-04T15:10:07.591+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-05T18:28:24.464+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-05T18:28:25.581+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
