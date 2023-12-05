@@ -4,7 +4,7 @@ ENV REFRESHED_AT = 2023-02-19
 
 WORKDIR wkspace
 
-ADD ../city-node-server /wkspace/city-node-server
+ADD city-node-server /wkspace/city-node-server
 
 RUN apt-get update
 RUN apt-get install -y ca-certificates
