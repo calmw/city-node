@@ -8,12 +8,12 @@
 
 #### 生成cityPioneer合约代码
 
-- abigen --abi ../abi/IntoCityPioneer.json --pkg intoCityNode --type CityPioneer --out ./binding/cityPioneer.go
+- abigen --abi ../abi/IntoCityPioneer.json --pkg intoCityNode --type CityPioneer --out ./pkg/binding/intoCityNode/cityPioneer.go
 
 #### 生成city合约代码
 
 - abigen --abi ../abi/IntoCity.json --pkg intoCityNode --type City --out ./binding/city.go
 
-#### 生成city合约代码
+#### 生成appraise合约代码
 
-- abigen --abi ../abi/IntoBind.json --pkg intoCityNode --type City --out ./binding/bind.go
+- abigen --abi ../abi/IntoAppraise.json --pkg intoCityNode --type Appraise --out ./pkg/binding/intoCityNode/appraise.go

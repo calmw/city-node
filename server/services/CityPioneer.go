@@ -16,8 +16,11 @@ import (
 
 func InitCityPioneer() {
 
+	cityPioneer := blockchain.NewCityPioneer()
+	cityPioneer.AdminSetAppraise()
+	cityPioneer.AdminSetSecondsPerDay(86400)
 	// 管理员设置TOX代币地址
-	//blockchain.AdminSetTOXAddress()
+	//AdminSetTOXAddress
 	// 管理员设置城市合约地址
 	//blockchain.AdminSetCityAddress()
 	// 管理员设置增加用户合约余额合约地址

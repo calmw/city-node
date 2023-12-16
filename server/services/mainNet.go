@@ -11,6 +11,8 @@ func InitMainNet() {
 	blockchain.CityNodeConfig = blockchain.CityNodeConfigs{
 		ChainId:               9001,
 		RPC:                   "https://rpc-sen.matchscan.io",
+		AppraiseAddress:       "",
+		StarAddress:           "0xBc4E6563af151d199726DF794903b0dcb4D1CAf3", //
 		CityAddress:           "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",
 		CityPioneerAddress:    "0x60C541388077d524178521A7ceD95d0c7a016B72",
 		UserLocationAddress:   "0x1B535f616B0465891Bc0bb71307A8781A8cCB8f2",
