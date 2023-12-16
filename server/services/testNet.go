@@ -10,6 +10,8 @@ func InitTestNet() {
 	blockchain.CityNodeConfig = blockchain.CityNodeConfigs{
 		ChainId:               9001,
 		RPC:                   "https://testnet-rpc.d2ao.com/",
+		AppraiseAddress:       "0x5A0770c86c751e08DE6b17c1EBacB781b12E32a2", // 考核合约地址
+		StarAddress:           "0xe8739b502df3A3dC5C0f14c0F27288c06A5ad887", // 获取用户星级合约
 		CityAddress:           "0xDfFA9bfB4D6376DB617fD2Fc56682cC7646cCb9C", // 城市合约地址
 		CityPioneerAddress:    "0x11Ef2544A6f62a2cF589390325ab0A56df1eeF15", // 成市先锋合约地址
 		UserLocationAddress:   "0x12CEC1A760E1e25Ce5b143cDB9D115D83603fAba", // 用户定位合约地址

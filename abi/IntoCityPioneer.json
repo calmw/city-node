@@ -179,45 +179,22 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "pioneerAddress_",
+        "type": "address"
+      },
+      {
         "internalType": "uint256",
-        "name": "chengShiLevel_",
+        "name": "suretyReturn_",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
         "name": "month_",
         "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "point_",
-        "type": "uint256"
       }
     ],
-    "name": "adminSetAssessmentReturnCriteria",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "chengShiLevel_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "month_",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "point_",
-        "type": "uint256"
-      }
-    ],
-    "name": "adminSetAssessmentReturnRate",
+    "name": "addSuretyReward",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -226,21 +203,21 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "pioneer_",
+        "name": "pioneerAddress_",
         "type": "address"
       },
       {
         "internalType": "uint256",
-        "name": "day_",
+        "name": "suretyReturnRate_",
         "type": "uint256"
       },
       {
-        "internalType": "bool",
-        "name": "execution_",
-        "type": "bool"
+        "internalType": "uint256",
+        "name": "month_",
+        "type": "uint256"
       }
     ],
-    "name": "adminSetCheckPioneerDailyStatus",
+    "name": "addSuretyRewardRate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -249,16 +226,24 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "pioneer_",
+        "name": "appraiseAddress_",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "amount_",
-        "type": "uint256"
       }
     ],
-    "name": "adminSetPioneerPaySurety",
+    "name": "adminSetAppraise",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint56",
+        "name": "secondsPerDay_",
+        "type": "uint56"
+      }
+    ],
+    "name": "adminSetSecondsPerDay",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -314,6 +299,19 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "appraise",
+    "outputs": [
+      {
+        "internalType": "contract IAppraise",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -566,6 +564,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "cityPioneerData",
+    "outputs": [
+      {
+        "internalType": "contract CityPioneerData",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "uint256",
@@ -649,8 +660,14 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "descBenefitPackageReward",
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pioneerAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "editPioneerInfo",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -798,13 +815,6 @@
       }
     ],
     "name": "initPioneer",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "initialize",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1043,6 +1053,88 @@
   {
     "inputs": [],
     "name": "renounceAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pioneerAddress_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "timeStamp_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "saveType_",
+        "type": "uint256"
+      }
+    ],
+    "name": "saveAppraiseTime",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pioneerAddress_",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "status_",
+        "type": "bool"
+      }
+    ],
+    "name": "saveAssessmentStatus",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId_",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "weight_",
+        "type": "uint256"
+      }
+    ],
+    "name": "saveFailedWeight",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pioneerAddress_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "month_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "weight_",
+        "type": "uint256"
+      }
+    ],
+    "name": "saveSuretyMonthWeight",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

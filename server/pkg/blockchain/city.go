@@ -597,13 +597,17 @@ func TriggerAllPioneerTask() {
 		if err != nil {
 			log.Logger.Sugar().Error(err)
 			return
+		} else {
+			nonce_ = int64(nonce)
 		}
+	} else {
 		nonce_ = int64(nonce)
+		fmt.Println(nonce, err, 8888)
 	}
-	nonce_ = int64(nonce)
+	//nonce_ = int64(nonce)
+	fmt.Println(nonce_, 99999)
 
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
-		time.Sleep(time.Second * 5)
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
 		if err != nil {
 			log.Logger.Sugar().Error(err)
@@ -655,6 +659,7 @@ func TriggerAllPioneerTask() {
 				continue
 			} else {
 				log.Logger.Sugar().Info("定时任务执行成功")
+				fmt.Println("----------------------------------------------------------------------------")
 				SetPioneerTaskStatus(pioneer.String())
 				nonce_++
 			}

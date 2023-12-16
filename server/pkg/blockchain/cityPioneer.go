@@ -17,6 +17,12 @@ import (
 	"time"
 )
 
+type CityPioneer struct{}
+
+func NewCityPioneer() *CityPioneer {
+	return &CityPioneer{}
+}
+
 //	func AdminSetAssessmentCriteria(cityLevel, month, point int64) {
 //		Cli := Client(CityNodeConfig)
 //		_, auth := GetAuth(Cli)
@@ -33,8 +39,34 @@ import (
 //		fmt.Println(criteria, err)
 //	}
 //
+
 // AdminSetAssessmentReturnRate 管理员设置保证金退还比例
-func AdminSetAssessmentReturnRate(cityLevel, month, point int64) {
+//func AdminSetAssessmentReturnRate(cityLevel, month, point int64) {
+//	err, Cli := Client(CityNodeConfig)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	err, auth := GetAuth(Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	criteria, err := cityPioneer.AdminSetAssessmentReturnRate(auth, big.NewInt(cityLevel), big.NewInt(month), big.NewInt(point))
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	fmt.Println(criteria, err)
+//}
+
+// AdminSetAssessmentReturnRate 管理员设置保证金退还比例
+func (c CityPioneer) AdminSetAppraise() {
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -50,7 +82,31 @@ func AdminSetAssessmentReturnRate(cityLevel, month, point int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	criteria, err := cityPioneer.AdminSetAssessmentReturnRate(auth, big.NewInt(cityLevel), big.NewInt(month), big.NewInt(point))
+	criteria, err := cityPioneer.AdminSetAppraise(auth, common.HexToAddress(CityNodeConfig.AppraiseAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(criteria, err)
+}
+
+func (c CityPioneer) AdminSetSecondsPerDay(secondsPerDay int64) {
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	err, auth := GetAuth(Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	criteria, err := cityPioneer.AdminSetSecondsPerDay(auth, big.NewInt(secondsPerDay))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -59,54 +115,54 @@ func AdminSetAssessmentReturnRate(cityLevel, month, point int64) {
 }
 
 // AdminSetCheckPioneerDailyStatus 管理员设置保证金退还比例
-func AdminSetCheckPioneerDailyStatus(pioneer string, day int64, status bool) {
-	err, Cli := Client(CityNodeConfig)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	err, auth := GetAuth(Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	criteria, err := cityPioneer.AdminSetCheckPioneerDailyStatus(auth, common.HexToAddress(pioneer), big.NewInt(day), status)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	fmt.Println(criteria, err)
-}
+//func AdminSetCheckPioneerDailyStatus(pioneer string, day int64, status bool) {
+//	err, Cli := Client(CityNodeConfig)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	err, auth := GetAuth(Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	criteria, err := cityPioneer.AdminSetCheckPioneerDailyStatus(auth, common.HexToAddress(pioneer), big.NewInt(day), status)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	fmt.Println(criteria, err)
+//}
 
 // AdminSetAssessmentReturnCriteria 管理员设置城市先锋保证金退还标准；点数
-func AdminSetAssessmentReturnCriteria(cityLevel, month, point int64) {
-	err, Cli := Client(CityNodeConfig)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	err, auth := GetAuth(Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	criteria, err := cityPioneer.AdminSetAssessmentReturnCriteria(auth, big.NewInt(cityLevel), big.NewInt(month), big.NewInt(point))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	fmt.Println(criteria, err)
-}
+//func AdminSetAssessmentReturnCriteria(cityLevel, month, point int64) {
+//	err, Cli := Client(CityNodeConfig)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	err, auth := GetAuth(Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	criteria, err := cityPioneer.AdminSetAssessmentReturnCriteria(auth, big.NewInt(cityLevel), big.NewInt(month), big.NewInt(point))
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	fmt.Println(criteria, err)
+//}
 
 //// AdminSetStartTime 管理员设置开始考核时间
 //func AdminSetStartTime(startTime int64) {
@@ -317,6 +373,7 @@ func GetPioneer(index int64) (error, string) {
 	}
 	return nil, pioneer.String()
 }
+
 func GetPioneerNumber() (error, int64) {
 	err, Cli := Client(CityNodeConfig)
 	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)

@@ -28,6 +28,8 @@ const LayoutTime = "2006-01-02 15:04:05"
 type CityNodeConfigs struct {
 	ChainId               int64
 	RPC                   string
+	AppraiseAddress       string
+	StarAddress           string
 	CityAddress           string
 	CityPioneerAddress    string
 	UserLocationAddress   string
@@ -59,8 +61,7 @@ func Client(c CityNodeConfigs) (error, *ethclient.Client) {
 }
 
 func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
-	//privateKeyEcdsa, err := crypto.HexToECDSA(CityNodeConfig.PrivateKey)
-	privateKeyEcdsa, err := crypto.HexToECDSA("a12dc8efdc993a8a7e67700c471f4ef85ddd7d8dceb781c9104637ec194b7ed2")
+	privateKeyEcdsa, err := crypto.HexToECDSA(CityNodeConfig.PrivateKey)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, nil
@@ -70,12 +71,9 @@ func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
 		log.Logger.Sugar().Error(err)
 		return err, nil
 	}
-	//nonce, _ := cli.NonceAt(context.Background(), common.HexToAddress("0xD5f92Fd92F8c7f9391513E3019D9441aAf5b2D9E"), nil)
-	//gasLimit := uint64(21000)
+
 	return nil, &bind.TransactOpts{
-		From: auth.From,
-		//Nonce:     big.NewInt(int64(nonce) + 1),
-		//Nonce:     big.NewInt(int64(nonce)),
+		From:      auth.From,
 		Nonce:     nil,
 		Signer:    auth.Signer, // Method to use for signing the transaction (mandatory)
 		Value:     big.NewInt(0),
@@ -87,29 +85,6 @@ func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
 		NoSend:    false, // Do all transact steps but do not send the transaction
 	}
 }
-
-//func GetCityDelegateEvent() error {
-//	Cli := Client(CityNodeConfig)
-//	err, startBlock := GetStartBlock()
-//	if err != nil {
-//		return err
-//	}
-//	number, err := Cli.BlockNumber(context.Background())
-//	endBlock := startBlock + 999
-//	if endBlock > number {
-//		return nil
-//	}
-//	err = GetIncreaseCityDelegateEvent(Cli, int64(startBlock), int64(endBlock))
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//	}
-//	//err = GetDecreaseCityDelegateEvent(Cli, int64(startBlock), int64(endBlock))
-//	//if err != nil {
-//	//	log.Logger.Sugar().Error(err)
-//	//}
-//	//SetSTartBlock(int64(startBlock + 1000))
-//	return nil
-//}
 
 func Bytes32ToBytes(bytes32 [32]byte) []byte {
 	var by []byte
