@@ -2,6 +2,7 @@ package services
 
 import (
 	"bufio"
+	"city-node-server/api/utils"
 	blockchain2 "city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
 	models2 "city-node-server/pkg/models"
@@ -206,6 +207,42 @@ func CheckPioneer(excelFile string) {
 	excel := xjexcel.ListToExcel(exports, "城市先锋-用户信息", "先锋详情")
 	fileName := fmt.Sprintf("./城市先锋-%s.xls", time.Now().Format("2006-01-02"))
 	excel.SaveAs(fileName)
+}
+
+func CheckPioneer3(excelFile string) {
+
+	f, err := excelize.OpenFile(excelFile)
+	fmt.Println(err, 5)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	// 取得 Sheet1 表格中所有的行
+	rows := f.GetRows("Sheet1")
+	appraise := blockchain2.NewAppraise()
+	for i, row := range rows {
+		if i == 0 {
+			continue
+		}
+		var pioneerAddress string
+		for j, colCell := range row {
+			if j == 2 {
+				var pioneer models2.Pioneer
+				pioneerAddress = strings.ToLower(colCell)
+				err := db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", pioneerAddress).First(&pioneer).Debug().Error
+				if err != nil {
+					fmt.Println("该城市先锋不存在", i)
+					continue
+				}
+			} else if j == 6 {
+				fmt.Println("该先锋批次", i, colCell)
+				// AdminSetPioneerBatch 管理员设置先锋批次
+				fmt.Println(pioneerAddress, utils.StringToInt64(colCell))
+				appraise.AdminSetPioneerBatch(pioneerAddress, utils.StringToInt64(colCell))
+			}
+		}
+	}
+
 }
 
 func CheckPioneer2(excelFile, excelFile2 string) {

@@ -12,5 +12,7 @@ func InitAppraise() {
 	appraise.AdminSetPioneer()
 	// AddAdmin 添加管理权限
 	appraise.AddAdmin()
+	// AdminSetPioneerBatch 管理员设置先锋批次
+	appraise.AdminSetPioneerBatch("", 3)
 
 }

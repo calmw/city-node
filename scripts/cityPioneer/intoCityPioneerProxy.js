@@ -6,6 +6,8 @@ const ProxyAddress = "0x11Ef2544A6f62a2cF589390325ab0A56df1eeF15"
 // 可升级合约
 async function main() {
 
+    console.log("ImplementationAddress is", await upgrades.erc1967.getImplementationAddress(ProxyAddress));
+    console.log("ProxyAdmin is", await upgrades.erc1967.getAdminAddress(ProxyAddress));
     const MyContractV2 = await ethers.getContractFactory("IntoCityPioneer");
     // 升级
     const contract = await upgrades.upgradeProxy(ProxyAddress, MyContractV2);

@@ -5,4 +5,3 @@ artifacts
 server/log/logs
 docs
 secretkey.json
-.openzeppelin

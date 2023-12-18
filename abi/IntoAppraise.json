@@ -81,6 +81,24 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "pioneerAddress_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "batch_",
+        "type": "uint256"
+      }
+    ],
+    "name": "adminSetPioneerBatch",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "starAddress_",
         "type": "address"
       }
@@ -116,8 +134,24 @@
         "type": "bytes32"
       }
     ],
-    "name": "appraise",
-    "outputs": [],
+    "name": "appraiseBeth3",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "stateMutability": "nonpayable",
     "type": "function"
   },
@@ -257,6 +291,25 @@
         "internalType": "contract IStar",
         "name": "",
         "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "weightByCityLevel",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
