@@ -7,9 +7,9 @@
     "prettier": "prettier --write 'contracts/**/*.sol'",
     "build": "npx hardhat compile",
     "deploy-testnet": "npx hardhat --network match_test run scripts/appraise/appraise.js",
-    "deploy-mainnet": "npx hardhat --network match run scripts/incentive/incentive.js",
+    "deploy-mainnet": "npx hardhat --network match run scripts/appraise/appraise.js",
     "upgrade-testnet": "npx hardhat --network match_test run scripts/appraise/appraise_proxy.js",
-    "upgrade-mainnet": "npx hardhat --network match run scripts/incentive/incentive_proxy.js",
+    "upgrade-mainnet": "npx hardhat --network match run scripts/incentive/appraise_proxy.js",
     "test": "npx hardhat test"
   },
   "keywords": [],
