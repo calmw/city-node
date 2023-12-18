@@ -10,7 +10,6 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"math/big"
-	"math/rand"
 )
 
 // 1 用户定位事件处理，2 城市先锋奖励事件，3增加充值事件，4获取新增质押事件，5获取奖励领取事件
@@ -44,15 +43,8 @@ type CityNodeConfigs struct {
 
 var CityNodeConfig CityNodeConfigs
 
-var RpcArr = []string{
-	"https://rpc-sen.matchscan.io",
-	//"https://rpc-7.matchscan.io/",
-	//"https://rpc-8.matchscan.io/",
-}
-
 func Client(c CityNodeConfigs) (error, *ethclient.Client) {
-	rpcIndex := rand.Int() % len(RpcArr)
-	client, err := ethclient.Dial(RpcArr[rpcIndex])
+	client, err := ethclient.Dial(c.RPC)
 	if err != nil {
 		log.Logger.Sugar().Error("dail failed")
 		return err, nil
