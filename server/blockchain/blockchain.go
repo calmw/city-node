@@ -25,9 +25,26 @@ const (
 )
 const LayoutTime = "2006-01-02 15:04:05"
 
+//type CityNodeConfigs struct {
+//	ChainId               int64
+//	RPC                   string
+//	CityAddress           string
+//	CityPioneerAddress    string
+//	UserLocationAddress   string
+//	MiningAddress         string
+//	SetDelegateAddress    string
+//	PledgeStakeAddress    string // 获取用户质押量的合约地址
+//	RechargeWeightAddress string // 获取用户质押量的合约地址
+//	GetFoundsAddress      string // 获取社交基金值的合约
+//	ToxAddress            string
+//	PrivateKey            string
+//}
+
 type CityNodeConfigs struct {
 	ChainId               int64
 	RPC                   string
+	AppraiseAddress       string
+	StarAddress           string
 	CityAddress           string
 	CityPioneerAddress    string
 	UserLocationAddress   string
