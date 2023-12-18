@@ -24,19 +24,20 @@ func (a Appraise) AdminSetStar() {
 	fmt.Println(CityNodeConfig.AppraiseAddress, 999)
 	fmt.Println(CityNodeConfig.RPC, 999)
 	fmt.Println(CityNodeConfig.ChainId, 999)
-	appraiseContract, err := intoCityNode.NewAppraise(common.HexToAddress(CityNodeConfig.AppraiseAddress), Cli)
+	appraiseContract, err := intoCityNode.NewAppraise(common.HexToAddress("0x5A0770c86c751e08DE6b17c1EBacB781b12E32a2"), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	admins, err := appraiseContract.AllAdmins(nil)
-	fmt.Println(admins, err)
-	if err != nil {
-		return
-	}
+	//admins, err := appraiseContract.AllAdmins(nil)
+	//fmt.Println(admins, err)
+	//if err != nil {
+	//	return
+	//}
 
 	fmt.Println(CityNodeConfig.StarAddress)
 	res, err := appraiseContract.AdminSetStar(auth, common.HexToAddress("0xe8739b502df3A3dC5C0f14c0F27288c06A5ad887"))
+	fmt.Println(err, 2)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
