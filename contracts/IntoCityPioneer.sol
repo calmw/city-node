@@ -75,7 +75,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentCriteria; // 城市先锋考核标准
     // 城市等级 => (索引 => 退还标准)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（点数）
     mapping(uint256 => mapping(uint256 => uint256))
-    public assessmentReturnCriteria; // 城市先锋保证金退还标准
+        public assessmentReturnCriteria; // 城市先锋保证金退还标准
     // 城市等级 => (索引 => 退还比例)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（比例）
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentReturnRate; // 城市先锋保证金退还比例
     // 先锋地址 => 先锋信息， 先锋信息
@@ -268,15 +268,15 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 修改先锋信息
-//    function editPioneerInfo(address pioneerAddress_) public onlyAdmin {
-//        pioneerInfo[pioneerAddress_].assessmentMonthStatus = true;
-//        pioneerInfo[pioneerAddress_].returnSuretyRate = 0;
-//        pioneerInfo[pioneerAddress_].returnSuretyTime = 0;
-//        pioneerInfo[pioneerAddress_].returnSuretyStatus = false;
-//        //        suretyReward[pioneerAddress_] += 25000 * 1e18;
-//        successTime[pioneerAddress_] = 0;
-//        failedAt[pioneerAddress_] = 0;
-//    }
+    //    function editPioneerInfo(address pioneerAddress_) public onlyAdmin {
+    //        pioneerInfo[pioneerAddress_].assessmentMonthStatus = true;
+    //        pioneerInfo[pioneerAddress_].returnSuretyRate = 0;
+    //        pioneerInfo[pioneerAddress_].returnSuretyTime = 0;
+    //        pioneerInfo[pioneerAddress_].returnSuretyStatus = false;
+    //        //        suretyReward[pioneerAddress_] += 25000 * 1e18;
+    //        successTime[pioneerAddress_] = 0;
+    //        failedAt[pioneerAddress_] = 0;
+    //    }
 
     // 管理员设置先锋需要补交的保证金
     //    function adminSetPioneerPaySurety(address pioneer_, uint256 amount_) public onlyAdmin {
@@ -359,9 +359,13 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             bool dataChange;
             bool appraiseStatus;
             uint256 month;
-            (dataChange, appraiseStatus, month) = appraise.appraiseBeth3(pioneer.pioneerAddress, chengShiId_);
+            (dataChange, appraiseStatus, month) = appraise.appraiseBeth3(
+                pioneer.pioneerAddress,
+                chengShiId_
+            );
             if (dataChange) {
-                if (!appraiseStatus) { // 考核失败
+                if (!appraiseStatus) {
+                    // 考核失败
                     // 更新考核失败状态
                     pioneer.assessmentMonthStatus = false;
                     // 更新考核失败时间
@@ -387,7 +391,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             if (pioneer.assessmentStatus == true) {
                 return;
             }
-//            前三个月考核
+            //            前三个月考核
             assessmentPioneer(chengShiId_, pioneer, city, day);
         }
     }
@@ -415,8 +419,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (day == 90) {
             execStatus = true;
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                        3
-                ];
+                3
+            ];
         } else if (day == 60) {
             // 检测是否满足直接考核通过
             if (
@@ -431,8 +435,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M2
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                        2
-                ];
+                2
+            ];
         } else if (day == 30) {
             // 检测是否满足直接考核通过
             if (
@@ -447,8 +451,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M1
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                        1
-                ];
+                1
+            ];
         }
         if (!execStatus) {
             return;
@@ -503,16 +507,16 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                     assessmentReturnCriteria[chengLevel][j]
                 ) {
                     pioneer.returnSuretyRate += assessmentReturnRate[
-                                chengLevel
-                        ][j];
+                        chengLevel
+                    ][j];
                     suretyReturn = (surety * pioneer.returnSuretyRate) / 100;
                     pioneer.returnSuretyStatus = true;
                     pioneer.returnSuretyTime = block.timestamp;
                     alreadyRewardRate[pioneer.pioneerAddress][
-                    1
+                        1
                     ] = assessmentReturnRate[chengLevel][j]; // 第一个月退的比例
                     suretyMonthWeight[pioneer.pioneerAddress][
-                    1
+                        1
                     ] = pioneerChengShiTotalRechargeWeight; // 第1个月结束的时候，权重值
                     suretyReward[pioneer.pioneerAddress] += suretyReturn; // 增加可退还保证金
                     emit SuretyRecord(
@@ -525,8 +529,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             }
         } else if (day == 60) {
             uint256 firstMonthRate = alreadyRewardRate[pioneer.pioneerAddress][
-                        1
-                ];
+                1
+            ];
             for (uint i = 6; i > 3; i--) {
                 if (
                     pioneerChengShiTotalRechargeWeight >=
@@ -559,7 +563,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 }
             }
             suretyMonthWeight[pioneer.pioneerAddress][
-            2
+                2
             ] = pioneerChengShiTotalRechargeWeight; // 第2个月结束的时候，权重值
         }
     }
@@ -615,88 +619,88 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 用户提取福利包奖励
-    function withdrawalBenefitPackageReward() public {
-        //        require(false, "withdraw service paused");
-        // 判断是否是先锋
-        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-        require(benefitPackageReward[msg.sender] > 0, "balance insufficient");
-        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
-        uint256 balance = benefitPackageReward[msg.sender];
-
-        balance = checkBalance(msg.sender, balance);
-
-        benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
-        // 将奖励转账到用户合约余额
-        setUserBalance(msg.sender, balance, 19);
-        // 更新领取状态(全部领完才算已领取)
-        benefitPackageRewardStatus[msg.sender] = true;
-        benefitPackageRewardReceived[msg.sender] += balance; // 更新已领取福利包奖励
-        emit WithdrawalRewardRecord(msg.sender, balance, 1);
-    }
-
-    // 用户提取社交基金奖励
-    function withdrawalFundsReward() public {
-        //        require(false, "withdraw service paused");
-        // 判断是否是先锋
-        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-        require(fundsReward[msg.sender] > 0, "balance insufficient");
-        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
-        uint256 balance = fundsReward[msg.sender];
-
-        balance = checkBalance(msg.sender, balance);
-
-        fundsReward[msg.sender] = 0; // 更新可领取社交基金奖励
-        // 将奖励转账到用户合约余额
-        setUserBalance(msg.sender, balance, 18);
-        // 更新领取状态(全部领完才算已领取)
-        fundsRewardStatus[msg.sender] = true;
-        fundsRewardReceived[msg.sender] += balance; // 更新已领取社交基金奖励
-        emit WithdrawalRewardRecord(msg.sender, balance, 2);
-    }
-
-    // 用户提取新增质押奖励
-    function withdrawalDelegateReward() public {
-        //        require(false, "withdraw service paused");
-        // 判断是否是先锋
-        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-        require(delegateReward[msg.sender] > 0, "balance insufficient");
-        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
-        uint256 balance = delegateReward[msg.sender];
-
-        balance = checkBalance(msg.sender, balance);
-
-        delegateReward[msg.sender] = 0; // 更新可领取新增质押奖励
-        // 将奖励转账到用户合约余额
-        setUserBalance(msg.sender, balance, 17);
-        delegateRewardStatus[msg.sender] = true;
-        delegateRewardReceived[msg.sender] += balance; // 更新已领取新增质押奖励
-        emit WithdrawalRewardRecord(msg.sender, balance, 3);
-    }
-
-    // 用户提取退还的保证金
-    function withdrawalSuretyReward() public {
-        //        require(false, "withdraw service paused");
-        // 判断是否是先锋
-        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-        require(suretyReward[msg.sender] > 0, "balance insufficient");
-        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
-        uint256 balance = suretyReward[msg.sender];
-
-        balance = checkBalance(msg.sender, balance);
-        // 更新可退还保证金数额
-        suretyReward[msg.sender] = 0;
-        // 退还保证金到钱包账户
-        IERC20 TOX = IERC20(TOXAddress);
-        TOX.transfer(msg.sender, balance);
-        // 更新已领取的数量
-        suretyRewardRecord[msg.sender] += balance;
-        // 更新已领取的比例
-        alreadyRewardRateTotal[msg.sender] = pioneerInfo[msg.sender]
-            .returnSuretyRate;
-        // alreadyRewardRate
-
-        emit WithdrawalRewardRecord(msg.sender, balance, 4);
-    }
+//    function withdrawalBenefitPackageReward() public {
+//        //        require(false, "withdraw service paused");
+//        // 判断是否是先锋
+//        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+//        require(benefitPackageReward[msg.sender] > 0, "balance insufficient");
+//        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
+//        uint256 balance = benefitPackageReward[msg.sender];
+//
+//        balance = checkBalance(msg.sender, balance);
+//
+//        benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
+//        // 将奖励转账到用户合约余额
+//        setUserBalance(msg.sender, balance, 19);
+//        // 更新领取状态(全部领完才算已领取)
+//        benefitPackageRewardStatus[msg.sender] = true;
+//        benefitPackageRewardReceived[msg.sender] += balance; // 更新已领取福利包奖励
+//        emit WithdrawalRewardRecord(msg.sender, balance, 1);
+//    }
+//
+//    // 用户提取社交基金奖励
+//    function withdrawalFundsReward() public {
+//        //        require(false, "withdraw service paused");
+//        // 判断是否是先锋
+//        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+//        require(fundsReward[msg.sender] > 0, "balance insufficient");
+//        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
+//        uint256 balance = fundsReward[msg.sender];
+//
+//        balance = checkBalance(msg.sender, balance);
+//
+//        fundsReward[msg.sender] = 0; // 更新可领取社交基金奖励
+//        // 将奖励转账到用户合约余额
+//        setUserBalance(msg.sender, balance, 18);
+//        // 更新领取状态(全部领完才算已领取)
+//        fundsRewardStatus[msg.sender] = true;
+//        fundsRewardReceived[msg.sender] += balance; // 更新已领取社交基金奖励
+//        emit WithdrawalRewardRecord(msg.sender, balance, 2);
+//    }
+//
+//    // 用户提取新增质押奖励
+//    function withdrawalDelegateReward() public {
+//        //        require(false, "withdraw service paused");
+//        // 判断是否是先锋
+//        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+//        require(delegateReward[msg.sender] > 0, "balance insufficient");
+//        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
+//        uint256 balance = delegateReward[msg.sender];
+//
+//        balance = checkBalance(msg.sender, balance);
+//
+//        delegateReward[msg.sender] = 0; // 更新可领取新增质押奖励
+//        // 将奖励转账到用户合约余额
+//        setUserBalance(msg.sender, balance, 17);
+//        delegateRewardStatus[msg.sender] = true;
+//        delegateRewardReceived[msg.sender] += balance; // 更新已领取新增质押奖励
+//        emit WithdrawalRewardRecord(msg.sender, balance, 3);
+//    }
+//
+//    // 用户提取退还的保证金
+//    function withdrawalSuretyReward() public {
+//        //        require(false, "withdraw service paused");
+//        // 判断是否是先锋
+//        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+//        require(suretyReward[msg.sender] > 0, "balance insufficient");
+//        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
+//        uint256 balance = suretyReward[msg.sender];
+//
+//        balance = checkBalance(msg.sender, balance);
+//        // 更新可退还保证金数额
+//        suretyReward[msg.sender] = 0;
+//        // 退还保证金到钱包账户
+//        IERC20 TOX = IERC20(TOXAddress);
+//        TOX.transfer(msg.sender, balance);
+//        // 更新已领取的数量
+//        suretyRewardRecord[msg.sender] += balance;
+//        // 更新已领取的比例
+//        alreadyRewardRateTotal[msg.sender] = pioneerInfo[msg.sender]
+//            .returnSuretyRate;
+//        // alreadyRewardRate
+//
+//        emit WithdrawalRewardRecord(msg.sender, balance, 4);
+//    }
 
     function checkBalance(
         address user,

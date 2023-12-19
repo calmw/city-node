@@ -13,6 +13,8 @@ func InitAppraise() {
 	// AddAdmin 添加管理权限
 	appraise.AddAdmin()
 	// AdminSetPioneerBatch 管理员设置先锋批次
-	appraise.AdminSetPioneerBatch("", 3)
+	//appraise.AdminSetPioneerBatch("", 3)
+	// AdminSetWeightByCityLevel 管理员设置第三批考核标准
+	appraise.AdminSetWeightByCityLevel()
 
 }
