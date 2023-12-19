@@ -83,6 +83,27 @@ func AdminSetFoundsAddress() {
 	fmt.Println(res, err)
 }
 
+// AdminSetFoundsAddress 管理员设置获取过去15天社交基金平均值的合约地址
+func AdminSetSecondsPerDay(secondsPerDay int64) {
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	res, err := city.AdminSetSecondsPerDay(auth, big.NewInt(secondsPerDay))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res, err)
+}
+
 // AdminSetPioneer 管理员设置城市先锋
 func AdminSetPioneer(chengShiId, pioneer string) {
 	err, Cli := Client(CityNodeConfig)

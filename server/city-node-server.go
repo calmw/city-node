@@ -1,8 +1,6 @@
 package main
 
 import (
-	"city-node-server/pkg/blockchain"
-	"city-node-server/pkg/db"
 	"city-node-server/services"
 	"github.com/jasonlvhit/gocron"
 	"time"
@@ -14,14 +12,14 @@ func main() {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	db.InitMysql()
+	//db.InitMysql()
 	//services.InitMainNet()
 	services.InitTestNet()
 
 	//services.InitUserLocation()
 	//services.InitCityPioneer()
 	//services.InitCity()
-	//services.InitAppraise()
+	services.InitAppraise()
 
 	//blockchain.TriggerAllPioneerTask()
 
@@ -96,7 +94,7 @@ func main() {
 	//services.ReadCityFIle("./assets/HaNoi.txt")
 	//services.ReadCityFIle("./assets/Bangkok.txt")
 	//services.CheckPioneer("./assets/城市先锋-用户信息.xlsx")                           // 确认用户是否交保证金
-	services.CheckPioneer3("./assets/城市先锋-用户信息.xlsx") // 设置先锋批次
+	//services.CheckPioneer3("./assets/城市先锋-用户信息.xlsx") // 设置先锋批次
 	//services.CheckPioneer2("./assets/城市先锋-用户信息.xlsx", "./assets/副本城市节点汇总11.26.2.xlsx") // 确认用户是否交保证金
 	//services.CheckLocation("./泰国.xlsx") // 查看位置是否存在
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
@@ -116,16 +114,16 @@ func main() {
 
 func clearTestNet() {
 	services.InitTestNet()
-	services.InitCity()
-	//taskTest()
+	//services.InitCity()
+	taskTest()
 }
 func taskTest() {
 
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
 	//_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
-	_ = s.Every(6).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
-	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
+	//_ = s.Every(6).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
+	_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
 	<-s.Start() // Start all the pending jobs
 
 }

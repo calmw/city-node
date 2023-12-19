@@ -9,16 +9,13 @@ import (
 )
 
 func main() {
-	//defer func() {
-	//	if r := recover(); r != nil {
-	//		fmt.Println("recovery")
-	//	}
-	//}()
+
 	db.InitMysql()
 	services.InitMainNet()
 	//services.InitUserLocation()
-	//services.InitCityPioneer()
-	//services.InitCity()
+	services.InitCityPioneer(86400)
+	services.InitCity(86400)
+	services.InitAppraise()
 
 	//services.InitTestNet()
 
@@ -109,7 +106,7 @@ func main() {
 
 func clearTestNet() {
 	services.InitTestNet()
-	services.InitCity()
+	services.InitCity(86400)
 	//taskTest()
 }
 func taskTest() {

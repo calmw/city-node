@@ -17,4 +17,9 @@ interface ICity {
     function chengShiLevelSurety(
         uint256 chengShiLevel_
     ) external view returns (uint256);
+
+    // 获取先锋所在城市,先锋地址 => 城市ID
+    function pioneerChengShi(
+        address pioneerAddress_
+    ) external view returns (bytes32);
 }

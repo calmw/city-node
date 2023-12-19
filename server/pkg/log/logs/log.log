@@ -5900,3 +5900,6 @@
 {"level":"info","time":"2023-12-18T16:20:33.822+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
 {"level":"error","time":"2023-12-18T16:20:57.426+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 131165, expected 131170: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"info","time":"2023-12-18T16:24:36.676+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-19T14:19:24.180+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-19T14:21:25.799+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"panic","time":"2023-12-19T14:21:55.036+0800","line":"db/mysql.go:40","msg":"mysql connention error ==>  bad connection","serviceName":"into"}

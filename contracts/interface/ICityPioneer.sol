@@ -77,7 +77,10 @@ interface ICityPioneer {
     function alreadyRewardRate(
         address pioneerAddress_,
         uint256 month_
-    ) external returns (uint256);
+    ) external view returns (uint256);
+
+    // 获取每天秒数
+    function secondsPerDay() external view returns (uint256);
 
     // 更改先锋直接通过终极考核状态
     function saveAssessmentStatus(

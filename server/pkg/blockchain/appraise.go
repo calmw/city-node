@@ -121,3 +121,36 @@ func (a Appraise) AdminSetPioneerBatch(pioneerAddress string, batch int64) {
 	}
 	fmt.Println(res, err)
 }
+
+func (a Appraise) AdminSetWeightByCityLevel() {
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	_, auth := GetAuth(Cli)
+	appraiseContract, err := intoCityNode.NewAppraise(common.HexToAddress(CityNodeConfig.AppraiseAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	bigE18 := big.NewInt(1e18)
+	res, err := appraiseContract.AdminSetWeightByCityLevel(auth, big.NewInt(1), bigE18.Mul(bigE18, big.NewInt(10000)))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	bigE18 = big.NewInt(1e18)
+	res, err = appraiseContract.AdminSetWeightByCityLevel(auth, big.NewInt(2), bigE18.Mul(bigE18, big.NewInt(5000)))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	bigE18 = big.NewInt(1e18)
+	res, err = appraiseContract.AdminSetWeightByCityLevel(auth, big.NewInt(3), bigE18.Mul(bigE18, big.NewInt(2500)))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(res, err)
+}
