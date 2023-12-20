@@ -114,6 +114,37 @@ func (c CityPioneer) AdminSetSecondsPerDay(secondsPerDay int64) {
 	fmt.Println(criteria, err)
 }
 
+type Pioneer struct {
+	PioneerAddress        common.Address
+	Ctime                 *big.Int
+	CityLevel             *big.Int
+	AssessmentMonthStatus bool
+	AssessmentStatus      bool
+	ReturnSuretyStatus    bool
+	ReturnSuretyRate      *big.Int
+	ReturnSuretyTime      *big.Int
+	SuretyTime            *big.Int
+}
+
+func (c CityPioneer) PioneerInfo(pioneerAddress string) (error, Pioneer) {
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, Pioneer{}
+	}
+	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, Pioneer{}
+	}
+	criteria, err := cityPioneer.PioneerInfo(nil, common.HexToAddress(pioneerAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, Pioneer{}
+	}
+	return nil, criteria
+}
+
 // AdminSetCheckPioneerDailyStatus 管理员设置保证金退还比例
 //func AdminSetCheckPioneerDailyStatus(pioneer string, day int64, status bool) {
 //	err, Cli := Client(CityNodeConfig)

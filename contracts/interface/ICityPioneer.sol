@@ -82,6 +82,11 @@ interface ICityPioneer {
     // 获取每天秒数
     function secondsPerDay() external view returns (uint256);
 
+    // 先锋城市ID => 先锋考核失败时候的累计充值权重（绑定城市的累计充值权重）
+    function failedDelegate(
+        bytes32 chengShiId_
+    ) external view returns (uint256);
+
     // 更改先锋直接通过终极考核状态
     function saveAssessmentStatus(
         address pioneerAddress_,

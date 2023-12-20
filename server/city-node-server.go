@@ -1,7 +1,10 @@
 package main
 
 import (
+	"city-node-server/pkg/db"
+	"city-node-server/pkg/utils"
 	"city-node-server/services"
+	"fmt"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -12,14 +15,14 @@ func main() {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	//db.InitMysql()
-	//services.InitMainNet()
-	services.InitTestNet()
+	db.InitMysql()
+	services.InitMainNet()
+	//services.InitTestNet()
 
 	//services.InitUserLocation()
 	//services.InitCityPioneer()
 	//services.InitCity()
-	services.InitAppraise()
+	//services.InitAppraise()
 
 	//blockchain.TriggerAllPioneerTask()
 
@@ -62,7 +65,7 @@ func main() {
 	//blockchain.GetRechargeDailyWeightRecordByChengId("0x936557454f464570813fe0c6e164d114cfc2d49eb5478f4e9867805eb4d3667b", 19616) // 19616 000000000000000000
 
 	//fmt.Println(utils.ThreeDesEncrypt("0,126"))
-	//fmt.Println(utils.ThreeDesDecrypt("7gZ4qrL761s="))
+	fmt.Println(utils.ThreeDesDecrypt("Dk4xzONyA9T2EdPpiSjVqw=="))
 	//fmt.Println(utils.Keccak256("0,276"))
 	//fmt.Println(strings.ToLower("0x17dC6411D638672A073f23267C4735ca877AA623"))
 	//fmt.Println(utils.Keccak256("0,136,621122")) //0x5BC49BF2BB0F74F6B3321451F04FE277696611BC6A0A2D144F034B27C914F8F0
@@ -94,7 +97,7 @@ func main() {
 	//services.ReadCityFIle("./assets/HaNoi.txt")
 	//services.ReadCityFIle("./assets/Bangkok.txt")
 	//services.CheckPioneer("./assets/城市先锋-用户信息.xlsx")                           // 确认用户是否交保证金
-	//services.CheckPioneer3("./assets/城市先锋-用户信息.xlsx") // 设置先锋批次
+	services.CheckPioneer3("./assets/城市先锋-用户信息.xlsx") // 设置先锋批次
 	//services.CheckPioneer2("./assets/城市先锋-用户信息.xlsx", "./assets/副本城市节点汇总11.26.2.xlsx") // 确认用户是否交保证金
 	//services.CheckLocation("./泰国.xlsx") // 查看位置是否存在
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取

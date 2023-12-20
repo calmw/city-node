@@ -22,20 +22,22 @@ func InitCity(secondsPerDay int64) {
 	//blockchain.AdminSetChengShiLevelAndSurety("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", 2, 60000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xa3c9a043a733fc013604651b53591dec8cc6a09c7ebebb413fa826d0a3388cfe", 3, 40000)
 
-	//blockchain.AdminSetChengShiLevelAndSurety("0x71672b46f47097e2f0ebbd289c1c88e4e8558f02b70e3efa669142c1c9e9b6a1", 1, 100000)
+	//blockchain.AdminSetChengShiLevelAndSurety("0x45773751d6f8d5ecd20c3b2d3b0bc72abd5e605a1c239fc1c18bd302103dbc68", 2, 60000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0x395bd804ecf082fce7050f6b3264d4a2f4f802dfb6067cef2d051353163a9eb2", 2, 60000)
+
+	//blockchain.AdminSetChengShiLevelAndSurety("0xc50db5c60dc66068637ffc825954152fbce8b73a290285f252697c31b005a382", 3, 40000)
 
 	//time.Sleep(time.Second * 5)
 	// --------
 	//time.Sleep(time.Second * 3)
 	// 管理员设置城市先锋
-	blockchain.AdminSetPioneer("0x3a92a49f884dba5f56758df8f440b9be669b3ea2501c6094ed4f1fabe3914014", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
+	blockchain.AdminRemovePioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0x360C815e8C5F130913113801D0c57611Ee95723A")
+	blockchain.AdminSetPioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0x360C815e8C5F130913113801D0c57611Ee95723A")
 
 	//appraise := blockchain.NewAppraise()
-	//appraise.AdminSetPioneerBatch("0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d", 3)
+	//appraise.AdminSetPioneerBatch("0xe4c5E5cEDd9b509E1Baf3f35b28FfA99Be37f4F3", 3)
 
 	//blockchain.AdminSetPioneer("0xca98b991031d3b83e27132a5373c2a8b7d68c8e6477cb6ab43baf2268b3e9639", "0xd7922692C157Ee415FaCfe700e7A3e616f7B12C8")
-	//blockchain.AdminSetPioneer("0x31a3bec1b8b480b83b011ad214d417397953990dc395d94f379a7dd54e699c70", "0x5b1003eA0f799BD05b6E9750d0E79c570Ab52463")
 	//blockchain.AdminRemovePioneer("0x3a92a49f884dba5f56758df8f440b9be669b3ea2501c6094ed4f1fabe3914014", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
 	//blockchain.AdminSetPioneer("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", "0xD6439Dcb4CFacb56d0bc8DADFEAaf2bd7C8dEEd8")
 	//time.Sleep(time.Second * 5)
@@ -96,6 +98,7 @@ func AdminSetRechargeAmountTask() {
 		//"0xa75a076c5529b3813f53c9bd24ab1f7da37994fc",
 		"0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d",
 		"0x0151D7707B3D20d8Fcaa9A6448bc42663cF46736",
+		"0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d",
 	}
 
 	for _, account := range accounts {
