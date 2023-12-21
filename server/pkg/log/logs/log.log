@@ -5967,3 +5967,49 @@
 {"level":"error","time":"2023-12-21T11:46:28.811+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-12-21T11:46:45.424+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-12-21T12:20:13.463+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T12:23:20.696+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T12:25:00.184+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T12:25:00.811+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T12:25:01.443+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T12:25:36.159+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T12:25:36.756+0800","line":"blockchain/city.go:128","msg":"invalid nonce; got 219577, expected 219578: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T12:25:43.713+0800","line":"blockchain/city.go:176","msg":"invalid nonce; got 219581, expected 219584: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T12:25:43.927+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T12:25:48.640+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T12:25:49.738+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:18:24.796+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:18:57.964+0800","line":"blockchain/city.go:176","msg":"invalid nonce; got 220574, expected 220575: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:18:58.164+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:19:00.552+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:19:05.721+0800","line":"blockchain/city.go:128","msg":"invalid nonce; got 220587, expected 220588: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:20:29.224+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:20:57.511+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:21:02.568+0800","line":"blockchain/city.go:176","msg":"invalid nonce; got 220772, expected 220773: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:21:02.962+0800","line":"blockchain/city.go:128","msg":"invalid nonce; got 220773, expected 220774: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:21:41.090+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2023-12-21T14:24:10.521+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-21T14:28:58.308+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-21T14:30:14.950+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-21T14:30:41.924+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:45:03.632+0800","line":"blockchain/city.go:176","msg":"invalid nonce; got 222650, expected 222651: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:45:03.870+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:45:09.176+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:48:23.512+0800","line":"blockchain/city.go:176","msg":"invalid nonce; got 222913, expected 222914: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:48:23.716+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:48:31.570+0800","line":"blockchain/city.go:176","msg":"invalid nonce; got 222924, expected 222925: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T14:48:31.777+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T15:04:39.161+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T15:04:44.887+0800","line":"blockchain/city.go:176","msg":"invalid nonce; got 224406, expected 224407: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T15:09:14.102+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 224849, expected 224850: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T15:26:45.094+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 226644, expected 226645: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T15:47:25.244+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T15:47:25.617+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 228806, expected 228807: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T15:48:31.611+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T15:48:47.046+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T16:27:47.553+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 232628, expected 232629: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T16:47:52.840+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T16:50:06.710+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:23:52.685+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:31:13.581+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:31:30.965+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:36:00.067+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
