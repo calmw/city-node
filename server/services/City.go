@@ -31,8 +31,8 @@ func InitCity(secondsPerDay int64) {
 	// --------
 	//time.Sleep(time.Second * 3)
 	// 管理员设置城市先锋
-	blockchain.AdminRemovePioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0x360C815e8C5F130913113801D0c57611Ee95723A")
-	blockchain.AdminSetPioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0x360C815e8C5F130913113801D0c57611Ee95723A")
+	blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
+	blockchain.AdminSetPioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
 
 	//appraise := blockchain.NewAppraise()
 	//appraise.AdminSetPioneerBatch("0xe4c5E5cEDd9b509E1Baf3f35b28FfA99Be37f4F3", 3)

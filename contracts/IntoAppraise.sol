@@ -17,7 +17,7 @@ contract IntoAppraise is RoleAccess, Initializable {
     // 城市等级=>充值权重
     mapping(uint256 => uint256) public weightByCityLevel; // 先锋考核标准
     mapping(address => mapping(uint256 => uint256))
-        public pioneerMonthWeightProcess; // 先锋按月的每月实时新增权重, 废弃
+    public pioneerMonthWeightProcess; // 先锋按月的每月实时新增权重, 废弃
     mapping(address => uint256) public pioneerPreMonthWeight; // 先锋累积到上个月的权重
     mapping(address => uint256) public filedMonth; // 先锋考核失败的月份
 
@@ -84,115 +84,35 @@ contract IntoAppraise is RoleAccess, Initializable {
 
         // 获取用户星级
         uint256 userStar = star.ownerVip(pioneerAddress_);
-        if (daysSinceCreate == 31) {
+        if (
+            daysSinceCreate == 31 ||
+            daysSinceCreate == 61 ||
+            daysSinceCreate == 91 ||
+            daysSinceCreate == 121 ||
+            daysSinceCreate == 151 ||
+            daysSinceCreate == 181
+        ) {
             // 按月更新充值权重
             savePioneerMonthWeight(
                 pioneerAddress_,
                 chengShiRechargeWeight,
                 daysSinceCreate / 30
             );
-            if (userStar >= 3) {
-                return (false, false, 0, 0);
-            }
-            // 考核
-            return (
-                true,
-                appraiseByStar(
-                    pioneerAddress_,
-                    cityLevel,
-                    daysSinceCreate / 30
-                ),
-                daysSinceCreate / 30,
-                chengShiRechargeWeight
-            );
-        } else if (daysSinceCreate == 61) {
-            // 按月更新充值权重
-            savePioneerMonthWeight(
-                pioneerAddress_,
-                chengShiRechargeWeight,
-                daysSinceCreate / 30
-            );
-            if (userStar >= 4) {
-                return (false, false, 0, 0);
-            }
-            // 考核
-            return (
-                true,
-                appraiseByStar(
-                    pioneerAddress_,
-                    cityLevel,
-                    daysSinceCreate / 30
-                ),
-                daysSinceCreate / 30,
-                chengShiRechargeWeight
-            );
-        } else if (daysSinceCreate == 91) {
-            // 按月更新充值权重
-            savePioneerMonthWeight(
-                pioneerAddress_,
-                chengShiRechargeWeight,
-                daysSinceCreate / 30
-            );
-            if (userStar >= 5) {
-                return (false, false, 0, 0);
-            }
-            // 考核
-            return (
-                true,
-                appraiseByStar(
-                    pioneerAddress_,
-                    cityLevel,
-                    daysSinceCreate / 30
-                ),
-                daysSinceCreate / 30,
-                chengShiRechargeWeight
-            );
-        } else if (daysSinceCreate == 121) {
-            // 按月更新充值权重
-            savePioneerMonthWeight(
-                pioneerAddress_,
-                chengShiRechargeWeight,
-                daysSinceCreate / 30
-            );
-            // 考核
-            return (
-                true,
-                appraiseByStar(
-                    pioneerAddress_,
-                    cityLevel,
-                    daysSinceCreate / 30
-                ),
-                daysSinceCreate / 30,
-                chengShiRechargeWeight
-            );
-        } else if (daysSinceCreate == 151) {
-            // 按月更新充值权重
-            savePioneerMonthWeight(
-                pioneerAddress_,
-                chengShiRechargeWeight,
-                daysSinceCreate / 30
-            );
-            // 考核
-            return (
-                true,
-                appraiseByStar(
-                    pioneerAddress_,
-                    cityLevel,
-                    daysSinceCreate / 30
-                ),
-                daysSinceCreate / 30,
-                chengShiRechargeWeight
-            );
-        } else if (daysSinceCreate == 181) {
-            // 按月更新充值权重
-            savePioneerMonthWeight(
-                pioneerAddress_,
-                chengShiRechargeWeight,
-                daysSinceCreate / 30
-            );
-            // 第六个月无需考核
+        } else {
+            // 不在考核时间点
+            return (false, false, 0, 0);
         }
-        return (false, false, 0, 0);
+        if ((daysSinceCreate == 31 && userStar >= 3) || (daysSinceCreate == 61 && userStar >= 4) || (daysSinceCreate == 91 && userStar >= 5) || (daysSinceCreate == 181)) {
+            // 无需考核
+            return (false, false, 0, 0);
+        }
+
+        return (
+            true,
+            appraiseByStar(pioneerAddress_, cityLevel, daysSinceCreate / 30), //考核
+            daysSinceCreate / 30,
+            chengShiRechargeWeight
+        );
     }
 
     // 按星级考核
@@ -218,38 +138,10 @@ contract IntoAppraise is RoleAccess, Initializable {
         uint256 chengShiRechargeWeight_,
         uint256 month_
     ) private {
-        if (month_ == 1) {
-            pioneerPreMonthWeight[pioneerAddress_] = 0;
-        } else if (month_ == 2) {
-            pioneerPreMonthWeight[pioneerAddress_] = pioneerMonthWeight[
-                pioneerAddress_
-            ][1];
-        } else if (month_ == 3) {
-            pioneerPreMonthWeight[pioneerAddress_] =
-                pioneerMonthWeight[pioneerAddress_][1] +
-                pioneerMonthWeight[pioneerAddress_][2];
-        } else if (month_ == 4) {
-            pioneerPreMonthWeight[pioneerAddress_] =
-                pioneerMonthWeight[pioneerAddress_][1] +
-                pioneerMonthWeight[pioneerAddress_][2] +
-                pioneerMonthWeight[pioneerAddress_][3];
-        } else if (month_ == 5) {
-            pioneerPreMonthWeight[pioneerAddress_] =
-                pioneerMonthWeight[pioneerAddress_][1] +
-                pioneerMonthWeight[pioneerAddress_][2] +
-                pioneerMonthWeight[pioneerAddress_][3] +
-                pioneerMonthWeight[pioneerAddress_][4];
-        } else if (month_ == 6) {
-            pioneerPreMonthWeight[pioneerAddress_] =
-                pioneerMonthWeight[pioneerAddress_][1] +
-                pioneerMonthWeight[pioneerAddress_][2] +
-                pioneerMonthWeight[pioneerAddress_][3] +
-                pioneerMonthWeight[pioneerAddress_][4] +
-                pioneerMonthWeight[pioneerAddress_][5];
-        }
         pioneerMonthWeight[pioneerAddress_][month_] =
             chengShiRechargeWeight_ -
             pioneerPreMonthWeight[pioneerAddress_];
+        pioneerPreMonthWeight[pioneerAddress_] = chengShiRechargeWeight_;
     }
 
     // 获取先锋当前的进度
@@ -282,16 +174,23 @@ contract IntoAppraise is RoleAccess, Initializable {
         }
     }
 
-    // 获取先锋当前的进度
+    // 获取先锋当前的进度，测试用
     function pioneerProcess2(
         address pioneerAddress_
-    ) public view returns (uint256, uint256) {
+    ) public view returns (uint256, uint256, uint256) {
         bytes32 chengShiId = city.pioneerChengShi(pioneerAddress_);
         //        uint256 cityLevel = city.chengShiLevel(chengShiId);
         uint256 weightTotal = city.getChengShiRechargeWeight(chengShiId);
         uint256 failedWeight = pioneer.failedDelegate(chengShiId);
 
-        return (failedWeight, weightTotal);
+        // 根据先锋交保证金时间获取现在第几个月
+        Pioneer memory pioneerInfo = pioneer.pioneerInfo(pioneerAddress_);
+
+        // 当前距离交完保证金的天数
+        uint256 daysSinceCreate = pioneer.getDay() -
+            (pioneerInfo.ctime / pioneer.secondsPerDay());
+
+        return (failedWeight, weightTotal, daysSinceCreate / 30);
     }
 
     // 删除先锋当前的进度
@@ -308,7 +207,7 @@ contract IntoAppraise is RoleAccess, Initializable {
         delete filedMonth[pioneerAddress_];
     }
 
-    // 删除先锋当前的进度
+    // 获取先锋当前的星级
     function getStar(address pioneerAddress_) public view returns (uint256) {
         return star.ownerVip(pioneerAddress_);
     }
