@@ -219,7 +219,7 @@ func CheckPioneer3(excelFile string) {
 	}
 	// 取得 Sheet1 表格中所有的行
 	rows := f.GetRows("Sheet1")
-	//appraise := blockchain2.NewAppraise()
+	appraise := blockchain2.NewAppraise()
 	for i, row := range rows {
 		if i == 0 {
 			continue
@@ -235,22 +235,38 @@ func CheckPioneer3(excelFile string) {
 					continue
 				}
 			} else if j == 6 {
-				if colCell != "1" {
-					continue
-				}
-				fmt.Println("该先锋批次", i, colCell)
-				// AdminSetPioneerBatch 管理员设置先锋批次
-				fmt.Println(pioneerAddress, utils.StringToInt64(colCell))
-				//appraise.AdminSetPioneerBatch(pioneerAddress, utils.StringToInt64(colCell))
-				cityPioneer := blockchain2.NewCityPioneer()
-				err, pioneerInfo := cityPioneer.PioneerInfo(pioneerAddress)
-				if err != nil {
-					fmt.Println("获取先锋信息错误", i, colCell)
-					continue
+				//if colCell != "1" {
+				//	continue
+				//}
+				//fmt.Println("该先锋批次", i, colCell)
+				//// AdminSetPioneerBatch 管理员设置先锋批次
+				//fmt.Println(pioneerAddress, utils.StringToInt64(colCell))
+				//for i := 0; i < 20; i++ {
+				//	err = appraise.AdminSetPioneerBatch(pioneerAddress, utils.StringToInt64(colCell))
+				//	if err == nil {
+				//		fmt.Println("该先锋批次", i, colCell, pioneerAddress, "成功------------------------------")
+				//		break
+				//	}
+				//}
+
+				err, beath := appraise.PioneerBatch(pioneerAddress)
+
+				if beath != utils.StringToInt64(colCell) {
+					fmt.Println("++++++++++++++++++++++ 错误", err)
 				} else {
-					fmt.Println("先锋交保证金时间-----------------------------------", time.Unix(pioneerInfo.Ctime.Int64(), 0).Format(time.Layout))
+					fmt.Println("正确", err, beath, "--", i, colCell)
 
 				}
+
+				//cityPioneer := blockchain2.NewCityPioneer()
+				//err, pioneerInfo := cityPioneer.PioneerInfo(pioneerAddress)
+				//if err != nil {
+				//	fmt.Println("获取先锋信息错误", i, colCell)
+				//	continue
+				//} else {
+				//	fmt.Println("先锋交保证金时间-----------------------------------", time.Unix(pioneerInfo.Ctime.Int64(), 0).Format(time.Layout))
+				//
+				//}
 			}
 		}
 	}

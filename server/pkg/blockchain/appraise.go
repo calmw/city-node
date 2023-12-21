@@ -102,24 +102,43 @@ func (a Appraise) AddAdmin() {
 	fmt.Println(res, err)
 }
 
-func (a Appraise) AdminSetPioneerBatch(pioneerAddress string, batch int64) {
+func (a Appraise) AdminSetPioneerBatch(pioneerAddress string, batch int64) error {
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
 	_, auth := GetAuth(Cli)
 	appraiseContract, err := intoCityNode.NewAppraise(common.HexToAddress(CityNodeConfig.AppraiseAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
-	res, err := appraiseContract.AdminSetPioneerBatch(auth, common.HexToAddress(pioneerAddress), big.NewInt(batch))
+	_, err = appraiseContract.AdminSetPioneerBatch(auth, common.HexToAddress(pioneerAddress), big.NewInt(batch))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
-	fmt.Println(res, err)
+	return nil
+}
+
+func (a Appraise) PioneerBatch(pioneerAddress string) (error, int64) {
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, 0
+	}
+	appraiseContract, err := intoCityNode.NewAppraise(common.HexToAddress(CityNodeConfig.AppraiseAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, 0
+	}
+	beath, err := appraiseContract.PioneerBatch(nil, common.HexToAddress(pioneerAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, 0
+	}
+	return nil, beath.Int64()
 }
 
 func (a Appraise) AdminSetWeightByCityLevel() {
