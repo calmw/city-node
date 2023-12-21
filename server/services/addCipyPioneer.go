@@ -235,6 +235,9 @@ func CheckPioneer3(excelFile string) {
 					continue
 				}
 			} else if j == 6 {
+				if colCell != "1" {
+					continue
+				}
 				fmt.Println("该先锋批次", i, colCell)
 				// AdminSetPioneerBatch 管理员设置先锋批次
 				fmt.Println(pioneerAddress, utils.StringToInt64(colCell))
@@ -243,8 +246,9 @@ func CheckPioneer3(excelFile string) {
 				err, pioneerInfo := cityPioneer.PioneerInfo(pioneerAddress)
 				if err != nil {
 					fmt.Println("获取先锋信息错误", i, colCell)
+					continue
 				} else {
-					fmt.Println("先锋交保证金时间", time.Unix(pioneerInfo.Ctime.Int64(), 0).Format(time.Layout))
+					fmt.Println("先锋交保证金时间-----------------------------------", time.Unix(pioneerInfo.Ctime.Int64(), 0).Format(time.Layout))
 
 				}
 			}

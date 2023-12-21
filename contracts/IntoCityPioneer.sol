@@ -214,12 +214,13 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 管理员设置每天秒数，用于测试
     function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
         secondsPerDay = secondsPerDay_;
+        presidencyTime = secondsPerDay_ * 180;
     }
 
     // 管理员设置任期
-    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {
-        presidencyTime = presidencyTime_;
-    }
+    //    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {
+    //        presidencyTime = presidencyTime_;
+    //    }
 
     // 考核和奖励任务
     function pioneerTask(
@@ -270,13 +271,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
     // 修改先锋信息
     //    function editPioneerInfo(address pioneerAddress_) public onlyAdmin {
-    //        pioneerInfo[pioneerAddress_].assessmentMonthStatus = true;
-    //        pioneerInfo[pioneerAddress_].returnSuretyRate = 0;
-    //        pioneerInfo[pioneerAddress_].returnSuretyTime = 0;
-    //        pioneerInfo[pioneerAddress_].returnSuretyStatus = false;
-    //        //        suretyReward[pioneerAddress_] += 25000 * 1e18;
-    //        successTime[pioneerAddress_] = 0;
-    //        failedAt[pioneerAddress_] = 0;
+    //        isPioneerReturnSurety[pioneerAddress_] = false;
     //    }
 
     // 管理员设置先锋需要补交的保证金
@@ -308,46 +303,46 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     function removePioneer(address pioneer_) public onlyAdmin {
-        for (uint256 i = 0; i < pioneers.length; i++) {
-            if (pioneer_ == pioneers[i]) {
-                pioneers[i] = pioneers[pioneers.length - 1];
-                pioneers.pop();
-            }
-        }
-        pioneerInfo[pioneer_].assessmentStatus = false;
-        alreadyRewardRate[pioneer_][1] = 0;
-        alreadyRewardRate[pioneer_][2] = 0;
-        alreadyRewardRateTotal[pioneer_] = 0;
-
-        // 先锋地址 => 先锋福利包收益
-        benefitPackageReward[pioneer_] = 0;
-        // 先锋地址 => 已领取的先锋福利包收益
-        benefitPackageRewardReceived[pioneer_] = 0;
-        // 先锋地址 => 先锋社交基金收益
-        fundsReward[pioneer_] = 0;
-        // 先锋地址 => 已领取的先锋社交基金收益
-        fundsRewardReceived[pioneer_] = 0;
-        // 先锋地址 => 先锋新增质押收益
-        delegateReward[pioneer_] = 0;
-        // 先锋地址 => 已领取的先锋新增质押收益
-        delegateRewardReceived[pioneer_] = 0;
-        // 先锋地址 => 先锋可以退的保证金
-        suretyReward[pioneer_] = 0;
-        // 先锋地址 => (月份=>退的比例)，月份为1和2，比例为整数
-        alreadyRewardRate[pioneer_][1] = 0;
-        alreadyRewardRate[pioneer_][2] = 0;
-        // 先锋地址 => 先锋已经退还的保证金
-        suretyRewardRecord[pioneer_] = 0;
-        benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
-        fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
-        delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
-        failedAt[pioneer_] = 0; // 清楚失败时间
-        IntoCity city = IntoCity(cityAddress);
-        failedDelegate[city.pioneerChengShi(pioneer_)] = 0; // 先锋考核失败时候的累计充值权重
-        successTime[pioneer_] = 0; // 清楚成功时间
-        suretyMonthWeight[pioneer_][1] = 0; // 清楚成功时间
-        suretyMonthWeight[pioneer_][2] = 0; // 清楚成功时间
-        appraise.delPioneerPreMonthWeight(pioneer_);
+        //        for (uint256 i = 0; i < pioneers.length; i++) {
+        //            if (pioneer_ == pioneers[i]) {
+        //                pioneers[i] = pioneers[pioneers.length - 1];
+        //                pioneers.pop();
+        //            }
+        //        }
+        //        pioneerInfo[pioneer_].assessmentStatus = false;
+        //        alreadyRewardRate[pioneer_][1] = 0;
+        //        alreadyRewardRate[pioneer_][2] = 0;
+        //        alreadyRewardRateTotal[pioneer_] = 0;
+        //
+        //        // 先锋地址 => 先锋福利包收益
+        //        benefitPackageReward[pioneer_] = 0;
+        //        // 先锋地址 => 已领取的先锋福利包收益
+        //        benefitPackageRewardReceived[pioneer_] = 0;
+        //        // 先锋地址 => 先锋社交基金收益
+        //        fundsReward[pioneer_] = 0;
+        //        // 先锋地址 => 已领取的先锋社交基金收益
+        //        fundsRewardReceived[pioneer_] = 0;
+        //        // 先锋地址 => 先锋新增质押收益
+        //        delegateReward[pioneer_] = 0;
+        //        // 先锋地址 => 已领取的先锋新增质押收益
+        //        delegateRewardReceived[pioneer_] = 0;
+        //        // 先锋地址 => 先锋可以退的保证金
+        //        suretyReward[pioneer_] = 0;
+        //        // 先锋地址 => (月份=>退的比例)，月份为1和2，比例为整数
+        //        alreadyRewardRate[pioneer_][1] = 0;
+        //        alreadyRewardRate[pioneer_][2] = 0;
+        //        // 先锋地址 => 先锋已经退还的保证金
+        //        suretyRewardRecord[pioneer_] = 0;
+        //        benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
+        //        fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
+        //        delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
+        //        failedAt[pioneer_] = 0; // 清楚失败时间
+        //        IntoCity city = IntoCity(cityAddress);
+        //        failedDelegate[city.pioneerChengShi(pioneer_)] = 0; // 先锋考核失败时候的累计充值权重
+        //        successTime[pioneer_] = 0; // 清楚成功时间
+        //        suretyMonthWeight[pioneer_][1] = 0; // 清楚成功时间
+        //        suretyMonthWeight[pioneer_][2] = 0; // 清楚成功时间
+        //        appraise.delPioneerPreMonthWeight(pioneer_);
     }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
@@ -360,7 +355,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 day = getDay() - pioneer.ctime / secondsPerDay;
 
         // 考核
-        if (appraise.pioneerBatch(pioneer.pioneerAddress) == 3) {
+        if (appraise.pioneerBatch(pioneerAddress_) == 3) {
             // 第三批次考核
             bool dataChange;
             bool appraiseStatus;
@@ -624,88 +619,88 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 用户提取福利包奖励
-    //    function withdrawalBenefitPackageReward() public {
-    //        //        require(false, "withdraw service paused");
-    //        // 判断是否是先锋
-    //        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-    //        require(benefitPackageReward[msg.sender] > 0, "balance insufficient");
-    //        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
-    //        uint256 balance = benefitPackageReward[msg.sender];
-    //
-    //        balance = checkBalance(msg.sender, balance);
-    //
-    //        benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
-    //        // 将奖励转账到用户合约余额
-    //        setUserBalance(msg.sender, balance, 19);
-    //        // 更新领取状态(全部领完才算已领取)
-    //        benefitPackageRewardStatus[msg.sender] = true;
-    //        benefitPackageRewardReceived[msg.sender] += balance; // 更新已领取福利包奖励
-    //        emit WithdrawalRewardRecord(msg.sender, balance, 1);
-    //    }
-    //
-    //    // 用户提取社交基金奖励
-    //    function withdrawalFundsReward() public {
-    //        //        require(false, "withdraw service paused");
-    //        // 判断是否是先锋
-    //        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-    //        require(fundsReward[msg.sender] > 0, "balance insufficient");
-    //        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
-    //        uint256 balance = fundsReward[msg.sender];
-    //
-    //        balance = checkBalance(msg.sender, balance);
-    //
-    //        fundsReward[msg.sender] = 0; // 更新可领取社交基金奖励
-    //        // 将奖励转账到用户合约余额
-    //        setUserBalance(msg.sender, balance, 18);
-    //        // 更新领取状态(全部领完才算已领取)
-    //        fundsRewardStatus[msg.sender] = true;
-    //        fundsRewardReceived[msg.sender] += balance; // 更新已领取社交基金奖励
-    //        emit WithdrawalRewardRecord(msg.sender, balance, 2);
-    //    }
-    //
-    //    // 用户提取新增质押奖励
-    //    function withdrawalDelegateReward() public {
-    //        //        require(false, "withdraw service paused");
-    //        // 判断是否是先锋
-    //        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-    //        require(delegateReward[msg.sender] > 0, "balance insufficient");
-    //        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
-    //        uint256 balance = delegateReward[msg.sender];
-    //
-    //        balance = checkBalance(msg.sender, balance);
-    //
-    //        delegateReward[msg.sender] = 0; // 更新可领取新增质押奖励
-    //        // 将奖励转账到用户合约余额
-    //        setUserBalance(msg.sender, balance, 17);
-    //        delegateRewardStatus[msg.sender] = true;
-    //        delegateRewardReceived[msg.sender] += balance; // 更新已领取新增质押奖励
-    //        emit WithdrawalRewardRecord(msg.sender, balance, 3);
-    //    }
-    //
-    //    // 用户提取退还的保证金
-    //    function withdrawalSuretyReward() public {
-    //        //        require(false, "withdraw service paused");
-    //        // 判断是否是先锋
-    //        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
-    //        require(suretyReward[msg.sender] > 0, "balance insufficient");
-    //        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
-    //        uint256 balance = suretyReward[msg.sender];
-    //
-    //        balance = checkBalance(msg.sender, balance);
-    //        // 更新可退还保证金数额
-    //        suretyReward[msg.sender] = 0;
-    //        // 退还保证金到钱包账户
-    //        IERC20 TOX = IERC20(TOXAddress);
-    //        TOX.transfer(msg.sender, balance);
-    //        // 更新已领取的数量
-    //        suretyRewardRecord[msg.sender] += balance;
-    //        // 更新已领取的比例
-    //        alreadyRewardRateTotal[msg.sender] = pioneerInfo[msg.sender]
-    //            .returnSuretyRate;
-    //        // alreadyRewardRate
-    //
-    //        emit WithdrawalRewardRecord(msg.sender, balance, 4);
-    //    }
+    function withdrawalBenefitPackageReward() public {
+        //        require(false, "withdraw service paused");
+        // 判断是否是先锋
+        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+        require(benefitPackageReward[msg.sender] > 0, "balance insufficient");
+        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
+        uint256 balance = benefitPackageReward[msg.sender];
+
+        balance = checkBalance(msg.sender, balance);
+
+        benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
+        // 将奖励转账到用户合约余额
+        setUserBalance(msg.sender, balance, 19);
+        // 更新领取状态(全部领完才算已领取)
+        benefitPackageRewardStatus[msg.sender] = true;
+        benefitPackageRewardReceived[msg.sender] += balance; // 更新已领取福利包奖励
+        emit WithdrawalRewardRecord(msg.sender, balance, 1);
+    }
+
+    // 用户提取社交基金奖励
+    function withdrawalFundsReward() public {
+        //        require(false, "withdraw service paused");
+        // 判断是否是先锋
+        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+        require(fundsReward[msg.sender] > 0, "balance insufficient");
+        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
+        uint256 balance = fundsReward[msg.sender];
+
+        balance = checkBalance(msg.sender, balance);
+
+        fundsReward[msg.sender] = 0; // 更新可领取社交基金奖励
+        // 将奖励转账到用户合约余额
+        setUserBalance(msg.sender, balance, 18);
+        // 更新领取状态(全部领完才算已领取)
+        fundsRewardStatus[msg.sender] = true;
+        fundsRewardReceived[msg.sender] += balance; // 更新已领取社交基金奖励
+        emit WithdrawalRewardRecord(msg.sender, balance, 2);
+    }
+
+    // 用户提取新增质押奖励
+    function withdrawalDelegateReward() public {
+        //        require(false, "withdraw service paused");
+        // 判断是否是先锋
+        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+        require(delegateReward[msg.sender] > 0, "balance insufficient");
+        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
+        uint256 balance = delegateReward[msg.sender];
+
+        balance = checkBalance(msg.sender, balance);
+
+        delegateReward[msg.sender] = 0; // 更新可领取新增质押奖励
+        // 将奖励转账到用户合约余额
+        setUserBalance(msg.sender, balance, 17);
+        delegateRewardStatus[msg.sender] = true;
+        delegateRewardReceived[msg.sender] += balance; // 更新已领取新增质押奖励
+        emit WithdrawalRewardRecord(msg.sender, balance, 3);
+    }
+
+    // 用户提取退还的保证金
+    function withdrawalSuretyReward() public {
+        //        require(false, "withdraw service paused");
+        // 判断是否是先锋
+        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+        require(suretyReward[msg.sender] > 0, "balance insufficient");
+        require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
+        uint256 balance = suretyReward[msg.sender];
+
+        balance = checkBalance(msg.sender, balance);
+        // 更新可退还保证金数额
+        suretyReward[msg.sender] = 0;
+        // 退还保证金到钱包账户
+        IERC20 TOX = IERC20(TOXAddress);
+        TOX.transfer(msg.sender, balance);
+        // 更新已领取的数量
+        suretyRewardRecord[msg.sender] += balance;
+        // 更新已领取的比例
+        alreadyRewardRateTotal[msg.sender] = pioneerInfo[msg.sender]
+            .returnSuretyRate;
+        // alreadyRewardRate
+
+        emit WithdrawalRewardRecord(msg.sender, balance, 4);
+    }
 
     function checkBalance(
         address user,

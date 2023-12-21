@@ -31,8 +31,38 @@ func InitCity(secondsPerDay int64) {
 	// --------
 	//time.Sleep(time.Second * 3)
 	// 管理员设置城市先锋
-	blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
-	blockchain.AdminSetPioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
+
+	// 焦作市
+	//blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
+	//blockchain.AdminSetPioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
+
+	// 新乡
+	//blockchain.AdminRemovePioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0x360C815e8C5F130913113801D0c57611Ee95723A")
+	//blockchain.AdminSetPioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0x360C815e8C5F130913113801D0c57611Ee95723A")
+
+	//
+	//blockchain.AdminRemovePioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8")
+	//blockchain.AdminSetPioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8")
+
+	//blockchain.AdminRemovePioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8")
+	//blockchain.AdminSetPioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8")
+
+	// 海口
+	//blockchain.AdminRemovePioneer("0xb9cd82388e3ee54bbff9b4a2ed627865b7aa43466fccea379fef8264450a2a31", "0xeE25f9793dBAB14FA2b7143CDfc04f9F9eFb0c62")
+	//blockchain.AdminSetPioneer("0xb9cd82388e3ee54bbff9b4a2ed627865b7aa43466fccea379fef8264450a2a31", "0xeE25f9793dBAB14FA2b7143CDfc04f9F9eFb0c62")
+
+	// 佛山
+	//blockchain.AdminRemovePioneer("0xc50db5c60dc66068637ffc825954152fbce8b73a290285f252697c31b005a382", "0xe4c5E5cEDd9b509E1Baf3f35b28FfA99Be37f4F3")
+	//blockchain.AdminSetPioneer("0xc50db5c60dc66068637ffc825954152fbce8b73a290285f252697c31b005a382", "0xe4c5E5cEDd9b509E1Baf3f35b28FfA99Be37f4F3")
+
+	// 成都
+	//blockchain.AdminRemovePioneer("0xee72b2ea43e56148d63a0adf23653790ab0e0ab31bc0f8a4326ab9f377ee931a", "0xA3655DB8DA1466388c8C70D1200c22bb83823f28")
+	//blockchain.AdminSetPioneer("0xee72b2ea43e56148d63a0adf23653790ab0e0ab31bc0f8a4326ab9f377ee931a", "0xA3655DB8DA1466388c8C70D1200c22bb83823f28")
+	//appraise := blockchain.NewAppraise()
+	//appraise.AdminSetPioneerBatch("0xA3655DB8DA1466388c8C70D1200c22bb83823f28", 1)
+	//
+	//blockchain.AdminRemovePioneer("0xee72b2ea43e56148d63a0adf23653790ab0e0ab31bc0f8a4326ab9f377ee931a", "0xD01BB85d6eB4fbd0EdF9A9a4885B3defC7e77ae8")
+	//blockchain.AdminSetPioneer("0x969b96ab33464703a9fafb3d1bd8235389b83d2f16b107faa389f6a497fb0699", "0xD01BB85d6eB4fbd0EdF9A9a4885B3defC7e77ae8")
 
 	//appraise := blockchain.NewAppraise()
 	//appraise.AdminSetPioneerBatch("0xe4c5E5cEDd9b509E1Baf3f35b28FfA99Be37f4F3", 3)

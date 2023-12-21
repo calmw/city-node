@@ -160,7 +160,7 @@ contract IntoCity is RoleAccess, Initializable {
         pioneerChengShi[pioneer_] = chengShiId_;
         hasSetPioneer[pioneer_] = true;
         IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-        intoCityPioneer.setIsPioneerReturnSurety(pioneer_); // 新添加的先锋不再退还保证金
+        intoCityPioneer.setIsPioneerReturnSurety(pioneer_); // 新添加的先锋不再退还保证金，并设置先锋批次
         if (!pioneerChengShiIdExits(chengShiId_)) {
             pioneerChengShiIds.push(chengShiId_);
         }
