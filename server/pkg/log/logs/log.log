@@ -6013,3 +6013,116 @@
 {"level":"error","time":"2023-12-21T17:31:13.581+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-12-21T17:31:30.965+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
 {"level":"error","time":"2023-12-21T17:36:00.067+0800","line":"blockchain/city.go:128","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2023-12-21T17:50:15.677+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:50:20.084+0800","line":"blockchain/appraise.go:119","msg":"no contract code at given address","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:50:20.728+0800","line":"blockchain/appraise.go:119","msg":"no contract code at given address","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:50:22.742+0800","line":"blockchain/appraise.go:119","msg":"no contract code at given address","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:50:23.514+0800","line":"blockchain/appraise.go:119","msg":"no contract code at given address","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:50:24.168+0800","line":"blockchain/appraise.go:119","msg":"no contract code at given address","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:50:24.827+0800","line":"blockchain/appraise.go:119","msg":"no contract code at given address","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:50:25.483+0800","line":"blockchain/appraise.go:119","msg":"no contract code at given address","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:50:26.128+0800","line":"blockchain/appraise.go:119","msg":"no contract code at given address","serviceName":"into"}
+{"level":"info","time":"2023-12-21T17:51:06.117+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:51:08.194+0800","line":"blockchain/appraise.go:119","msg":"rpc error: code = Unknown desc = execution reverted: AdminRole: caller does not have the Admin role","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:51:09.320+0800","line":"blockchain/appraise.go:119","msg":"rpc error: code = Unknown desc = execution reverted: AdminRole: caller does not have the Admin role","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:51:10.339+0800","line":"blockchain/appraise.go:119","msg":"rpc error: code = Unknown desc = execution reverted: AdminRole: caller does not have the Admin role","serviceName":"into"}
+{"level":"info","time":"2023-12-21T17:51:56.506+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:52:07.008+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1649, expected 1652: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2023-12-21T17:53:16.336+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:53:32.967+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1658, expected 1659: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:53:33.985+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1658, expected 1659: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:53:36.460+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1656, expected 1659: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:53:38.943+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1659, expected 1660: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:53:41.156+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1659, expected 1660: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:53:46.105+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1661, expected 1662: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2023-12-21T17:55:51.992+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:56:05.082+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1668, expected 1671: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:56:10.669+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1670, expected 1672: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:56:14.524+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1672, expected 1673: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:56:33.081+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1676, expected 1680: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2023-12-21T17:57:06.550+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:57:14.046+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1682, expected 1683: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:57:18.508+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1683, expected 1685: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:57:34.210+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1692, expected 1695: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:57:39.153+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1696, expected 1697: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:57:48.239+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1700, expected 1701: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:57:52.511+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1698, expected 1701: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:58:07.408+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1703, expected 1706: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:58:23.245+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1707, expected 1710: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:58:34.115+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1711, expected 1715: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:58:38.487+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1715, expected 1716: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:58:49.936+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1718, expected 1721: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:58:54.151+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1720, expected 1723: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:59:00.575+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1723, expected 1725: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:59:05.324+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1725, expected 1727: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:59:15.209+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1729, expected 1733: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:59:26.228+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1734, expected 1737: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:59:42.377+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1741, expected 1744: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T17:59:48.603+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1744, expected 1746: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:00:03.485+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1750, expected 1753: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:00:09.013+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1753, expected 1756: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:00:12.269+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1756, expected 1757: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:00:16.675+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1756, expected 1757: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:00:30.463+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1761, expected 1765: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:00:35.533+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1765, expected 1767: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:00:40.965+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1767, expected 1770: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2023-12-21T18:01:43.425+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:01:50.516+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1772, expected 1773: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:01:54.209+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1774, expected 1775: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:01:55.679+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1773, expected 1775: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:00.385+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1775, expected 1776: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:04.833+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1776, expected 1777: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:07.478+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1776, expected 1777: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:12.520+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1777, expected 1778: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:20.539+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1779, expected 1780: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:22.780+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1778, expected 1780: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:33.093+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1783, expected 1787: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:41.331+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1790, expected 1791: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:42.538+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1790, expected 1791: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:43.974+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1789, expected 1791: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:54.712+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1793, expected 1794: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:02:59.534+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1795, expected 1796: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:05.613+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1798, expected 1799: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:07.459+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1799, expected 1800: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:08.246+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1799, expected 1800: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:09.063+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1799, expected 1800: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:11.950+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1798, expected 1800: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:20.802+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1802, expected 1805: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:27.114+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1805, expected 1807: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:38.019+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1808, expected 1809: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:47.252+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1811, expected 1812: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:49.738+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1812, expected 1813: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:51.942+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1812, expected 1813: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:03:55.264+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1810, expected 1813: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:04:30.767+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1822, expected 1824: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:04:36.207+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1823, expected 1824: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:04:41.442+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1824, expected 1825: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:04:49.645+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1828, expected 1829: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:04:51.286+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1826, expected 1829: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:04:56.858+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1830, expected 1831: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:05:02.780+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1831, expected 1832: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:05:12.773+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1834, expected 1835: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:05:23.352+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1837, expected 1839: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:05:28.114+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1839, expected 1840: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:05:29.310+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1838, expected 1840: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:05:49.887+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1847, expected 1849: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:06:01.811+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1851, expected 1854: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:06:04.595+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1854, expected 1855: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:06:08.150+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1853, expected 1855: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:06:13.358+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1857, expected 1858: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:06:17.229+0800","line":"blockchain/appraise.go:119","msg":"invalid nonce; got 1857, expected 1858: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2023-12-21T18:07:03.082+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-21T18:08:01.342+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-21T18:08:26.841+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2023-12-21T18:10:05.034+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:10:08.412+0800","line":"blockchain/cityPioneer.go:87","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:10:16.268+0800","line":"blockchain/appraise.go:165","msg":"invalid nonce; got 1864, expected 1868: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2023-12-21T18:10:21.973+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:10:25.531+0800","line":"blockchain/cityPioneer.go:87","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"info","time":"2023-12-21T18:12:04.578+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:12:06.559+0800","line":"blockchain/cityPioneer.go:87","msg":"rpc error: code = Unknown desc = execution reverted: AdminRole: caller does not have the Admin role","serviceName":"into"}
+{"level":"info","time":"2023-12-21T18:12:58.226+0800","line":"db/mysql.go:12","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:13:02.341+0800","line":"blockchain/appraise.go:32","msg":"rpc error: code = Unknown desc = execution reverted: AdminRole: caller does not have the Admin role","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:13:03.058+0800","line":"blockchain/appraise.go:53","msg":"rpc error: code = Unknown desc = execution reverted: AdminRole: caller does not have the Admin role","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:13:03.769+0800","line":"blockchain/appraise.go:74","msg":"rpc error: code = Unknown desc = execution reverted: AdminRole: caller does not have the Admin role","serviceName":"into"}
+{"level":"error","time":"2023-12-21T18:13:04.684+0800","line":"blockchain/appraise.go:99","msg":"rpc error: code = Unknown desc = execution reverted: AdminRole: caller does not have the Admin role","serviceName":"into"}
