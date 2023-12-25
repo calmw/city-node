@@ -86,12 +86,12 @@ contract IntoAppraise is RoleAccess, Initializable {
         // 获取用户星级
         uint256 userStar = star.ownerVip(pioneerAddress_);
         if (
-            daysSinceCreate == 31 ||
-            daysSinceCreate == 61 ||
-            daysSinceCreate == 91 ||
-            daysSinceCreate == 121 ||
-            daysSinceCreate == 151 ||
-            daysSinceCreate == 181
+            daysSinceCreate == 30 ||
+            daysSinceCreate == 60 ||
+            daysSinceCreate == 90 ||
+            daysSinceCreate == 120 ||
+            daysSinceCreate == 150 ||
+            daysSinceCreate == 180
         ) {
             // 按月更新充值权重
             savePioneerMonthWeight(
@@ -104,10 +104,10 @@ contract IntoAppraise is RoleAccess, Initializable {
             return (false, false, 0, 0);
         }
         if (
-            (daysSinceCreate == 31 && userStar >= 3) ||
-            (daysSinceCreate == 61 && userStar >= 4) ||
-            (daysSinceCreate == 91 && userStar >= 5) ||
-            (daysSinceCreate == 181)
+            (daysSinceCreate == 30 && userStar >= 3) ||
+            (daysSinceCreate == 60 && userStar >= 4) ||
+            (daysSinceCreate == 90 && userStar >= 5) ||
+            (daysSinceCreate == 180)
         ) {
             // 无需考核
             return (false, false, 0, 0);
