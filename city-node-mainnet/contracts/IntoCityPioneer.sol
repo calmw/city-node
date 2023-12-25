@@ -212,10 +212,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    }
 
     // 管理员设置每天秒数，用于测试
-//    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
-//        secondsPerDay = secondsPerDay_;
-//        presidencyTime = secondsPerDay_ * 180;
-//    }
+    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
+        secondsPerDay = secondsPerDay_;
+        presidencyTime = secondsPerDay_ * 180;
+    }
 
     // 管理员设置任期
     //    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {
@@ -499,7 +499,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 pioneerChengShiTotalRechargeWeight = city
             .getChengShiRechargeWeight(chengShiId) / 1e18; // 先锋绑定的城市总的新充值权重
         uint256 suretyReturn; // 退还保证金的金额
-        if (day == 31) {
+        if (day == 30) {
             // 直接考核通过，退还100%，满足M3退还标准，直接退100%
             for (uint j = 3; j > 0; j--) {
                 if (

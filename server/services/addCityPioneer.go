@@ -8,7 +8,6 @@ import (
 	models2 "city-node-server/pkg/models"
 	"fmt"
 	"github.com/360EntSecGroup-Skylar/excelize"
-	"github.com/status-im/keycard-go/hexutils"
 	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"os"
 	"strconv"
@@ -77,16 +76,16 @@ func ReadExcel(excelFile string) {
 	}
 	for i, p := range pioneers {
 		// 根据city_id判断该城市是否已经添加过先锋
-		//var pioneer models2.Pioneer
-		//err := db.Mysql.Model(models2.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
-		//if err == nil {
-		//	fmt.Println("该城市先锋已经存在", i)
-		//	continue
-		//} else {
-		//	fmt.Println("该城市先锋不存在", i)
-		//}
+		var pioneer models2.Pioneer
+		err = db.Mysql.Model(models2.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
+		if err == nil {
+			fmt.Println("该城市先锋已经存在", i)
+			continue
+		} else {
+			fmt.Println("该城市先锋不存在", i)
+		}
 		//fmt.Println("")
-		//fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
+		fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
 		//if i == 11 {
 		//blockchain2.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
 		//time.Sleep(time.Second * 5)
@@ -99,13 +98,13 @@ func ReadExcel(excelFile string) {
 
 		//time.Sleep(time.Second * 8)
 		//
-		err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
-		err, level := blockchain2.ChengShiLevel(cityIdBytes32)
-		var ok bool
-		if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
-			ok = true
-		}
-		fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
+		//err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
+		//err, level := blockchain2.ChengShiLevel(cityIdBytes32)
+		//var ok bool
+		//if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
+		//	ok = true
+		//}
+		//fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
 
 	}
 }
@@ -149,13 +148,14 @@ func ReadCityFIle(cityFile string) {
 func CheckPioneer(excelFile string) {
 
 	type Export struct {
-		City      string `json:"city" excel:"column:B;desc:城市;width:30"`
-		CityLevel string `json:"city_level" excel:"column:C;desc:城市等级;width:30"`
-		Pioneer   string `json:"pioneer" excel:"column:D;desc:先锋地址;width:30"`
-		Deopsit   string `json:"deopsit" excel:"column:E;desc:是否交保证金;width:30"`
+		City           string `json:"city" excel:"column:B;desc:城市;width:30"`
+		CityLevel      string `json:"city_level" excel:"column:C;desc:城市等级;width:30"`
+		Pioneer        string `json:"pioneer" excel:"column:D;desc:先锋地址;width:60"`
+		Deposit        string `json:"deposit" excel:"column:E;desc:是否交保证金;width:30"`
+		Batch          string `json:"batch" excel:"column:F;desc:批次;width:30"`
+		IsReturnMargin string `json:"is_return_margin" excel:"column:G;desc:是否退保证金;width:30"`
 	}
 	f, err := excelize.OpenFile(excelFile)
-	fmt.Println(err, 5)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -176,13 +176,20 @@ func CheckPioneer(excelFile string) {
 			} else if j == 2 {
 				export.Pioneer = strings.ToLower(colCell)
 				var pioneer models2.Pioneer
-				err := db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", export.Pioneer).First(&pioneer).Debug().Error
+				err = db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", export.Pioneer).First(&pioneer).Debug().Error
 				if err == nil {
 					fmt.Println("该城市先锋已经存在", i)
-					export.Deopsit = "是"
+					export.Deposit = "是"
 				} else {
 					fmt.Println("该城市先锋不存在", i)
-					export.Deopsit = "未交保证金"
+					export.Deposit = "未交"
+				}
+			} else if j == 6 {
+				export.Batch = colCell
+				if colCell == "1" {
+					export.IsReturnMargin = "是"
+				} else {
+					export.IsReturnMargin = "否"
 				}
 			}
 		}

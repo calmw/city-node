@@ -94,8 +94,8 @@ func main() {
 	//services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
 	//services.ReadCityFIle("./assets/HaNoi.txt")
 	//services.ReadCityFIle("./assets/Bangkok.txt")
-	//services.CheckPioneer("./assets/城市先锋-用户信息.xlsx")                           // 确认用户是否交保证金
-	services.CheckPioneer3("./assets/城市先锋-用户信息.xlsx") // 设置先锋批次
+	services.CheckPioneer("./assets/城市先锋-用户信息.xlsx") // 确认用户是否交保证金
+	//services.CheckPioneer3("./assets/城市先锋-用户信息.xlsx") // 设置先锋批次
 	//services.CheckPioneer2("./assets/城市先锋-用户信息.xlsx", "./assets/副本城市节点汇总11.26.2.xlsx") // 确认用户是否交保证金
 	//services.CheckLocation("./泰国.xlsx") // 查看位置是否存在
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
