@@ -159,9 +159,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    }
 
     // 管理员设置考核合约
-    function adminSetAppraise(address appraiseAddress_) public onlyAdmin {
-        appraise = IAppraise(appraiseAddress_);
-    }
+//    function adminSetAppraise(address appraiseAddress_) public onlyAdmin {
+//        appraise = IAppraise(appraiseAddress_);
+//    }
 
     //    // 管理员设置用户定位合约地址
     //    function adminSetUserLocationAddress(address userLocationAddress_) public onlyAdmin {
@@ -212,10 +212,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    }
 
     // 管理员设置每天秒数，用于测试
-    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
-        secondsPerDay = secondsPerDay_;
-        presidencyTime = secondsPerDay_ * 180;
-    }
+//    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
+//        secondsPerDay = secondsPerDay_;
+//        presidencyTime = secondsPerDay_ * 180;
+//    }
 
     // 管理员设置任期
     //    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {
