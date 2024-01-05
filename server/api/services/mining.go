@@ -762,6 +762,7 @@ func (c *Mining) RechargeSum(req *request.RechargeSum) (int, []Recharge) {
 func (c *Mining) RechargeSumInCity() int {
 
 	ReadExcel("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
+	//ReadExcel("./assets/单个INTO工作室申请统计表.xlsx")
 
 	return statecode.CommonSuccess
 }
@@ -769,6 +770,7 @@ func (c *Mining) RechargeSumInCity() int {
 // SyncUserData 查询此用户所在城市的网体业绩，网体不在这个城市的不做計算
 func (c *Mining) SyncUserData() int {
 
+	//ReadExcel("./assets/单个INTO工作室申请统计表.xlsx")
 	SyncStatus("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
 
 	return statecode.CommonSuccess
@@ -858,7 +860,6 @@ func ReadExcel(excelFile string) int {
 			chData <- n
 			wg.Add(1)
 			go func(u string, index int, studio StudioInfo, studioUserInfos *[]StudioUserInfo, lock *sync.Mutex) {
-				//log.Logger.Sugar().Info("获取权重：", studioInfo.UserName, len(userSet.Data), index)
 				_, d, inCity := GetWeight(u, location.CityId, studio.CountTime, studio.UserName)
 				lock.Lock()
 				defer lock.Unlock()
@@ -866,6 +867,7 @@ func ReadExcel(excelFile string) int {
 				<-chData
 				wg.Done()
 				userCityBytes, _ := db.LevelDb.Get([]byte(fmt.Sprintf("%s_city", u)), nil)
+
 				*studioUserInfos = append(*studioUserInfos, StudioUserInfo{
 					UserName:       studio.UserName,
 					User:           u,
@@ -876,12 +878,22 @@ func ReadExcel(excelFile string) int {
 				})
 			}(user, n, studioInfo, &studioUserInfos, &addLock)
 		}
-		log.Logger.Sugar().Infof("studio:%s,error:%v,user:%s,weight:%s,%s", studioInfo.UserName, err, userAddress, weight.String(), "------------------------------------------------------------")
+		wg.Wait()
+		log.Logger.Sugar().Infof("工作室:%s,错误:%v,网体用户:%s,用户数量:%d,weight:%s,%s", studioInfo.UserName, err, userAddress, len(userSet.Data), weight.String(), "------------------------------------------------------------")
 		studioInfo.RechargeWeight = weight.Div(d18).String()
 		result = append(result, studioInfo)
 
+		countTimeSlice := strings.Split(studioInfo.CountTime, "--")
+		countTimeSlice = strings.Split(countTimeSlice[0], "/")
 		f = xjexcel.ListToExcel(studioUserInfos, "团队充值", "详情")
-		fileName := fmt.Sprintf("./工作室-%s-充值权重详情.xlsx", studioInfo.UserName)
+		fileName := fmt.Sprintf("./工作室(%s)-%s[%s_%s]%s[%v].xlsx",
+			studioInfo.UserName,
+			studioInfo.City,
+			fmt.Sprintf("%s-%s-%s", countTimeSlice[0], countTimeSlice[1], countTimeSlice[2]),
+			"2024-01-01",
+			studioInfo.User,
+			studioInfo.RechargeWeight,
+		)
 		f.SaveAs(fileName)
 	}
 
