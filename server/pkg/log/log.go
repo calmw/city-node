@@ -41,7 +41,18 @@ func init() {
 
 	// 设置日志级别
 	atomicLevel := zap.NewAtomicLevel()
-	atomicLevel.SetLevel(zap.InfoLevel)
+	//atomicLevel := zap.NewAtomicLevelAt(zap.DebugLevel)
+	//atomicLevel.SetLevel(zap.InfoLevel)
+	//atomicLevel.SetLevel(zap.DebugLevel)
+
+	//logF, _ := os.Create("./test.log")
+	//c1 := zapcore.NewCore(encoder, zapcore.AddSync(logF), zapcore.DebugLevel)
+	//// test.err.log记录ERROR级别的日志
+	//errF, _ := os.Create("./test.err.log")
+	//c2 := zapcore.NewCore(encoder, zapcore.AddSync(errF), zap.ErrorLevel)
+	//// 使用NewTee将c1和c2合并到core
+	//core := zapcore.NewTee(c1, c2)
+	//logger = zap.New(core, zap.AddCaller())
 
 	core := zapcore.NewCore(
 		zapcore.NewJSONEncoder(encoderConfig),                                           // 编码器配置

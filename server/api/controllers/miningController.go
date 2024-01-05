@@ -71,3 +71,30 @@ func (c *MiningController) RechargeSum(ctx *gin.Context) {
 	})
 	return
 }
+
+// Ledger 合约充值提现团队汇总
+
+func (c *MiningController) RechargeSumInCity(ctx *gin.Context) {
+	res := response.Gin{Res: ctx}
+
+	errCode := services.NewMining().RechargeSumInCity()
+	if errCode != statecode.CommonSuccess {
+		res.Response(ctx, errCode, nil)
+		return
+	}
+
+	res.Response(ctx, statecode.CommonSuccess, nil)
+	return
+}
+func (c *MiningController) SyncUserData(ctx *gin.Context) {
+	res := response.Gin{Res: ctx}
+
+	errCode := services.NewMining().SyncUserData()
+	if errCode != statecode.CommonSuccess {
+		res.Response(ctx, errCode, nil)
+		return
+	}
+
+	res.Response(ctx, statecode.CommonSuccess, nil)
+	return
+}

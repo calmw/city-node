@@ -753,11 +753,11 @@ func GetAllPioneer() {
 
 // TriggerAllPioneerTaskTestNet 触发所有先锋分红和考核
 func TriggerAllPioneerTaskTestNet() {
-	defer func() {
-		if r := recover(); r != nil {
-			log.Logger.Sugar().Error("recovery")
-		}
-	}()
+	//defer func() {
+	//	if r := recover(); r != nil {
+	//		log.Logger.Sugar().Error("recovery", r)
+	//	}
+	//}()
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -779,7 +779,7 @@ func TriggerAllPioneerTaskTestNet() {
 		return
 	}
 	pioneerNumber, err := cityPioneer.GetPioneerNumber(nil)
-	fmt.Println(pioneerNumber, "-----")
+	fmt.Println(pioneerNumber, "-----", err, pioneerNumber)
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
 		_, err = city.PioneerDailyTask(auth, pioneer)

@@ -15,6 +15,9 @@ func Start() {
 	//init mysql
 	db.InitMysql()
 
+	// init level db
+	db.InitLevelDb()
+
 	// init cache
 	go utils.InitCache()
 

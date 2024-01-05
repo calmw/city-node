@@ -6,6 +6,7 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
+	"time"
 )
 
 func InitMysql() {
@@ -15,7 +16,7 @@ func InitMysql() {
 	//	`root`,
 	//	`127.0.0.1`,
 	//	`3306`,
-	//	`city_node`)
+	//	`city-node`)
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		`root`,
@@ -50,15 +51,15 @@ func InitMysql() {
 	//自动迁移为给定模型运行自动迁移，只会添加缺失的字段，不会删除/更改当前数据
 	//db.AutoMigrate(&TestTable{})
 
-	//sqlDB, err := db.DB()
-	//if err != nil {
-	//	log.Logger.Error("db.DB() err:" + err.Error())
-	//}
+	sqlDB, err := db.DB()
+	if err != nil {
+		log.Logger.Error("db.DB() err:" + err.Error())
+	}
 	//下列三项设置可参考技术文档或查看源代码
 	//https://colobu.com/2019/05/27/configuring-sql-DB-for-better-performance/
 	//sqlDB.SetMaxIdleConns(mysqlConf.MaxIdleConns) // 空闲连接数   默认最大2个空闲连接数  使用默认值即可
 	//sqlDB.SetMaxOpenConns(mysqlConf.MaxOpenConns) // 最大连接数   默认0是无限制的  使用默认值即可
-	//sqlDB.SetConnMaxLifetime(time.Duration(mysqlConf.MaxLifeTime) * time.Second)
+	sqlDB.SetConnMaxLifetime(time.Second * 20)
 	Mysql = db
 }
 

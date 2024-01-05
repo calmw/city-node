@@ -41,8 +41,13 @@ func InitCity(secondsPerDay int64) {
 	//blockchain.AdminSetPioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0x360C815e8C5F130913113801D0c57611Ee95723A")
 
 	// 杭州
-	blockchain.AdminRemovePioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8")
-	blockchain.AdminSetPioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8")
+	//blockchain.AdminRemovePioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8")
+	//blockchain.AdminSetPioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8")
+
+	//appraise := blockchain.NewAppraise()
+	//appraise.AdminSetPioneerBatch("0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d", 1) // 焦作市
+	//appraise.AdminSetPioneerBatch("0x360C815e8C5F130913113801D0c57611Ee95723A", 2) // 新乡
+	//appraise.AdminSetPioneerBatch("0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8", 2) // 杭州
 
 	// 郑州
 	//blockchain.AdminRemovePioneer("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", "0x54129df2ed332ef039dc70a3fffe5ee8700b574c")

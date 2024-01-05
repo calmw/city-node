@@ -54,6 +54,37 @@ func UserCityChange() {
 	}
 }
 
+func UserCountByChengShiId() {
+	var userLocation []models2.UserLocation
+	db.Mysql.Model(&models2.UserLocation{}).Find(&userLocation)
+	for _, l := range userLocation {
+		codeSlic := strings.Split(l.AreaCode, ",")
+		if len(codeSlic[2]) != 6 { // code最后一段是六位数的按国内用户
+			//fmt.Println("跳过：", l.User)
+			continue
+		}
+		codeSecondSlic := strings.Split(codeSlic[1], "")
+		if codeSecondSlic[0] == "0" { // code第二段开头是0的用户
+			err, oldCityId := blockchain.GetChengShiIdByCountyId(l.CountyId)
+			if err != nil {
+				fmt.Println(err)
+				continue
+			}
+			fmt.Println(l.User, codeSlic[2], "+++++")
+			err, cityCode := GetCityCodeByAdCode(codeSlic[2])
+			if err != nil {
+				fmt.Println(err)
+				continue
+			}
+			encrypt := fmt.Sprintf("%d,%d", 0, cityCode)
+			newCityId := strings.ToLower(utils2.Keccak256(encrypt))
+			//blockchain.SetCityMapping(l.CountyId, newCityId, l.LocationEncrypt)
+			InsertUserCItyIdChangeLog(l.User, l.CountyId, oldCityId, newCityId)
+
+		}
+	}
+}
+
 func GetCityCodeByAdCode(adCode string) (error, uint) {
 	var areaCode models2.AreaCode
 	whereCondition := fmt.Sprintf("ad_code=%s", adCode)
