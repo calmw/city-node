@@ -275,6 +275,33 @@ func GetChengShiIdByCountyId(countyId string) (error, string) {
 	return nil, strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(chengShiIdBytes32)))
 }
 
+func GetCountyIdsByChengShiId(chengShiId string) (error, []string) {
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, []string{}
+	}
+	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err, []string{}
+	}
+	if strings.Contains(chengShiId, "0x") {
+		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
+	}
+	chengShiIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
+	countyIds, err := userLocation.GetCountyIdsByChengShiId(nil, chengShiIdBytes32)
+	if err != nil {
+		return err, []string{}
+	}
+	var cIds []string
+	for _, id := range countyIds {
+		cIds = append(cIds, strings.ToLower("0x"+hexutils.BytesToHex(Bytes32ToBytes(id))))
+	}
+
+	return nil, cIds
+}
+
 // GetCityId 获取cityId
 func GetCityId(cityIdIndex int64) {
 	err, Cli := Client(CityNodeConfig)
@@ -304,26 +331,26 @@ func GetCityId(cityIdIndex int64) {
 	fmt.Println("0x"+common.Bytes2Hex(Bytes32ToBytes(res)), info, err)
 }
 
-// GetCountyIdsByChengShiId 获取城市ID对应的所有区县ID
-func GetCountyIdsByChengShiId(cityId string) (error, [][32]byte) {
-	err, Cli := Client(CityNodeConfig)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, nil
-	}
-	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, [][32]byte{}
-	}
-	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(cityId))
-	res, err := userLocation.GetCountyIdsByChengShiId(nil, cityIdBytes32)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, [][32]byte{}
-	}
-	return nil, res
-}
+//// GetCountyIdsByChengShiId 获取城市ID对应的所有区县ID
+//func GetCountyIdsByChengShiId(cityId string) (error, [][32]byte) {
+//	err, Cli := Client(CityNodeConfig)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err, nil
+//	}
+//	userLocation, err := intoCityNode.NewUserLocation(common.HexToAddress(CityNodeConfig.UserLocationAddress), Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err, [][32]byte{}
+//	}
+//	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(cityId))
+//	res, err := userLocation.GetCountyIdsByChengShiId(nil, cityIdBytes32)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err, [][32]byte{}
+//	}
+//	return nil, res
+//}
 
 // GetCountyIdsByChengShiIdBytes32 获取城市ID对应的所有区县ID
 func GetCountyIdsByChengShiIdBytes32(cityId [32]byte) (error, [][32]byte) {

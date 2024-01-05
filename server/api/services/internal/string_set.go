@@ -27,6 +27,15 @@ func (s *StringSet) Exits(str string) bool {
 	return ok
 }
 
+func (s *StringSet) Clear() {
+	s = &StringSet{
+		Lock:    sync.RWMutex{},
+		Key:     map[string]bool{},
+		Data:    []string{},
+		Details: map[string]map[string]decimal.Decimal{},
+	}
+}
+
 func (s *StringSet) Add(str string) {
 	s.Lock.Lock()
 	defer s.Lock.Unlock()

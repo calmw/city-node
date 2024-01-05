@@ -1,0 +1,14 @@
+package models
+
+import "github.com/shopspring/decimal"
+
+type RechargeWeightAll struct {
+	Id          int             `gorm:"column:id;primaryKey"`
+	User        string          `json:"user" gorm:"column:user"`
+	Weight      decimal.Decimal `json:"weight" gorm:"column:weight"`
+	Day         string          `json:"day" gorm:"column:day"`
+	Timestamp   int64           `json:"timestamp" gorm:"column:timestamp"`
+	TxHash      string          `json:"tx_hash" gorm:"column:tx_hash"`
+	BlockHeight int64           `json:"block_height" gorm:"column:block_height"`
+	LogIndex    int64           `json:"log_index" gorm:"column:log_index"`
+}
