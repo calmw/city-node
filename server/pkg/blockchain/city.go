@@ -170,7 +170,7 @@ func AdminRemovePioneer(chengShiId, pioneer string) {
 	}
 	common.Hex2Bytes(chengShiId)
 	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
-	fmt.Println("remove chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer)
+	fmt.Println("remove chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer, city)
 	res, err := city.AdminRemovePioneer(auth, cityIdBytes32, common.HexToAddress(pioneer))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -588,7 +588,8 @@ func GetAuth2(nonce_ int64) (error, *bind.TransactOpts) {
 
 // TriggerAllPioneerTask 触发所有先锋分红和考核
 func TriggerAllPioneerTask() {
-	Cli, err := ethclient.Dial("https://rpc-sen.matchscan.io")
+	//Cli, err := ethclient.Dial("https://rpc-sen.matchscan.io")
+	Cli, err := ethclient.Dial(CityNodeConfig.RPC)
 	//Cli, err := ethclient.Dial("https://rpc-7.matchscan.io/")
 	if err != nil {
 		log.Logger.Sugar().Error("dail failed")
@@ -669,27 +670,32 @@ func TriggerAllPioneerTask() {
 			log.Logger.Sugar().Error("已经执行成功，跳过")
 			continue
 		} else {
-			err, auth := GetAuth2(nonce_)
-			if err != nil {
-				log.Logger.Sugar().Error(err)
-				return
+			for k := 0; k < 15; k++ {
+				err, auth := GetAuth2(nonce_)
+				if err != nil {
+					log.Logger.Sugar().Error(err)
+					continue
+				}
+				_, err = city.PioneerDailyTask(auth, pioneer)
+				if err != nil {
+					log.Logger.Sugar().Error("定时任务执行失败：", err)
+					continue
+				} else {
+					log.Logger.Sugar().Info("定时任务执行成功")
+					fmt.Println("----------------------------------------------------------------------------")
+					SetPioneerTaskStatus(pioneer.String())
+					nonce_++
+					break
+				}
 			}
-			_, err = city.PioneerDailyTask(auth, pioneer)
-			if err != nil {
-				log.Logger.Sugar().Error("定时任务执行失败：", err)
-				continue
-			} else {
-				log.Logger.Sugar().Info("定时任务执行成功")
-				fmt.Println("----------------------------------------------------------------------------")
-				SetPioneerTaskStatus(pioneer.String())
-				nonce_++
-			}
+
 		}
 	}
 }
 
 func GetAllPioneer() {
-	Cli, err := ethclient.Dial("https://rpc-sen.matchscan.io")
+	//Cli, err := ethclient.Dial("https://rpc-sen.matchscan.io")
+	Cli, err := ethclient.Dial(CityNodeConfig.RPC)
 	if err != nil {
 		log.Logger.Sugar().Error("dail failed")
 	}

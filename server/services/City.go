@@ -33,7 +33,7 @@ func InitCity(secondsPerDay int64) {
 	// 管理员设置城市先锋
 
 	// 焦作市
-	//blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
+	blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
 	//blockchain.AdminSetPioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
 
 	// 新乡
