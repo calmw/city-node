@@ -17186,7 +17186,7 @@
             "label": "pioneerInfo",
             "offset": 0,
             "slot": "8",
-            "type": "t_mapping(t_address,t_struct(Pioneer)3105_storage)",
+            "type": "t_mapping(t_address,t_struct(Pioneer)2498_storage)",
             "contract": "IntoCityPioneer",
             "src": "contracts/IntoCityPioneer.sol:99"
           },
@@ -17434,7 +17434,7 @@
             "label": "cityPioneerData",
             "offset": 0,
             "slot": "39",
-            "type": "t_contract(CityPioneerData)3046",
+            "type": "t_contract(CityPioneerData)2439",
             "contract": "IntoCityPioneer",
             "src": "contracts/IntoCityPioneer.sol:187"
           },
@@ -17442,7 +17442,7 @@
             "label": "appraise",
             "offset": 0,
             "slot": "40",
-            "type": "t_contract(IAppraise)5972",
+            "type": "t_contract(IAppraise)5365",
             "contract": "IntoCityPioneer",
             "src": "contracts/IntoCityPioneer.sol:187"
           }
@@ -17468,11 +17468,11 @@
             "label": "bytes32",
             "numberOfBytes": "32"
           },
-          "t_contract(CityPioneerData)3046": {
+          "t_contract(CityPioneerData)2439": {
             "label": "contract CityPioneerData",
             "numberOfBytes": "20"
           },
-          "t_contract(IAppraise)5972": {
+          "t_contract(IAppraise)5365": {
             "label": "contract IAppraise",
             "numberOfBytes": "20"
           },
@@ -17488,7 +17488,7 @@
             "label": "mapping(address => mapping(uint256 => uint256))",
             "numberOfBytes": "32"
           },
-          "t_mapping(t_address,t_struct(Pioneer)3105_storage)": {
+          "t_mapping(t_address,t_struct(Pioneer)2498_storage)": {
             "label": "mapping(address => struct IntoCityPioneer.Pioneer)",
             "numberOfBytes": "32"
           },
@@ -17528,7 +17528,7 @@
             ],
             "numberOfBytes": "64"
           },
-          "t_struct(Pioneer)3105_storage": {
+          "t_struct(Pioneer)2498_storage": {
             "label": "struct IntoCityPioneer.Pioneer",
             "members": [
               {

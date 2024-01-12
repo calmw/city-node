@@ -2,15 +2,24 @@ package services
 
 import (
 	"city-node-server/pkg/blockchain"
+	"city-node-server/pkg/db"
+	"city-node-server/pkg/log"
+	"city-node-server/pkg/models"
 	"os"
 )
 
 func InitMainNet() {
 	//key := os.Getenv("META_ACCOUNT")
 	key := os.Getenv("HUZHI")
+	var config models.Config
+	err := db.Mysql.Model(models.Config{}).Where("id=1").First(&config).Error
+	if err != nil {
+		log.Logger.Sugar().Fatal(err)
+	}
 	blockchain.CityNodeConfig = blockchain.CityNodeConfigs{
-		ChainId:               9001,
-		RPC:                   "https://rpc-sen.matchscan.io",
+		ChainId: 9001,
+		//RPC:                   "https://rpc-sen.matchscan.io",
+		RPC:                   config.RpcMainnet,
 		AppraiseAddress:       "0x164ffB92521BfbBE2732465788b5208AE2817E97",
 		StarAddress:           "0xBc4E6563af151d199726DF794903b0dcb4D1CAf3", //
 		CityAddress:           "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",

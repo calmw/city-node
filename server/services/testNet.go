@@ -2,14 +2,23 @@ package services
 
 import (
 	"city-node-server/pkg/blockchain"
+	"city-node-server/pkg/db"
+	"city-node-server/pkg/log"
+	"city-node-server/pkg/models"
 	"os"
 )
 
 func InitTestNet() {
 	key := os.Getenv("META_ACCOUNT")
+	var config models.Config
+	err := db.Mysql.Model(models.Config{}).Where("id=1").First(&config).Error
+	if err != nil {
+		log.Logger.Sugar().Fatal(err)
+	}
 	blockchain.CityNodeConfig = blockchain.CityNodeConfigs{
-		ChainId:               9001,
-		RPC:                   "https://testnet-rpc.d2ao.com/",
+		ChainId: 9001,
+		//RPC:                   "https://lisbon-testnet-rpc.matchtest.co",
+		RPC:                   config.RpcTestnet,
 		AppraiseAddress:       "0x96A45d1966B0bd08B5F3f6460f1C240527E69F72", // 考核合约地址
 		StarAddress:           "0xe8739b502df3A3dC5C0f14c0F27288c06A5ad887", // 获取用户星级合约
 		CityAddress:           "0xDfFA9bfB4D6376DB617fD2Fc56682cC7646cCb9C", // 城市合约地址

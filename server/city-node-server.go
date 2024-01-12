@@ -1,7 +1,8 @@
 package main
 
 import (
-	"city-node-server/api"
+	"city-node-server/pkg/blockchain"
+	"city-node-server/pkg/db"
 	"city-node-server/services"
 	"github.com/jasonlvhit/gocron"
 	"time"
@@ -13,13 +14,13 @@ func main() {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	//db.InitMysql()
-	//services.InitMainNet()
+	db.InitMysql()
+	services.InitMainNet()
 	//services.InitTestNet()
 
 	//services.InitUserLocation()
 	//services.InitCityPioneer()
-	//services.InitCity()
+	//services.InitCity(0)
 	//services.InitAppraise()
 
 	//blockchain.TriggerAllPioneerTask()
@@ -79,16 +80,17 @@ func main() {
 	//
 	//}
 	//services2.GetToxTxBridgeBsc()
-	api.Start()
+	//api.Start()
 	//tasks.Start()
 	//blockchain.GetAllPioneer()
 
 	//blockchain.TriggerAllPioneerTask()
-	//ticker := time.NewTicker(20 * time.Minute)
-	//for {
-	//	<-ticker.C
-	//	blockchain.TriggerAllPioneerTask()
-	//}
+	ticker := time.NewTicker(time.Minute * 3)
+	for {
+		<-ticker.C
+		go blockchain.TriggerAllPioneerTask()
+		go blockchain.GetAllPioneer()
+	}
 
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
 	//services.ReadExcel("./assets/城市节点报名表合肥.xlsx")

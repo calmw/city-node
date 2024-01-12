@@ -17,7 +17,7 @@ module.exports = {
             accounts: [account.key]
         },
         match_test: {
-            url: "https://testnet-rpc.d2ao.com/",
+            url: "https://lisbon-testnet-rpc.matchtest.co",
             accounts: [account.key]
         }
     }
