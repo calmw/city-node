@@ -670,7 +670,7 @@ func TriggerAllPioneerTask() {
 			log.Logger.Sugar().Error("已经执行成功，跳过")
 			continue
 		} else {
-			for k := 0; k < 15; k++ {
+			for {
 				err, auth := GetAuth2(nonce_)
 				if err != nil {
 					log.Logger.Sugar().Error(err)
@@ -679,6 +679,7 @@ func TriggerAllPioneerTask() {
 				_, err = city.PioneerDailyTask(auth, pioneer)
 				if err != nil {
 					log.Logger.Sugar().Error("定时任务执行失败：", err)
+					time.Sleep(time.Second * 5)
 					continue
 				} else {
 					log.Logger.Sugar().Info("定时任务执行成功")
