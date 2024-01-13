@@ -14,8 +14,8 @@ func main() {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	db.InitMysql()
-	services.InitMainNet()
+	//db.InitMysql()
+	//services.InitMainNet()
 	//services.InitTestNet()
 
 	//services.InitUserLocation()
@@ -86,8 +86,11 @@ func main() {
 
 	//blockchain.TriggerAllPioneerTask()
 	ticker := time.NewTicker(time.Hour)
+	//ticker := time.NewTicker(time.Second * 30)
 	for {
 		<-ticker.C
+		db.InitMysql()
+		services.InitMainNet()
 		go blockchain.TriggerAllPioneerTask()
 		go blockchain.GetAllPioneer()
 	}

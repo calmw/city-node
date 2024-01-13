@@ -660,7 +660,7 @@ func TriggerAllPioneerTask() {
 			continue
 		}
 		status, err := cityPioneer.CheckPioneerDailyStatus(nil, day, pioneer)
-		fmt.Println(pioneer.String(), err, day, i, status)
+		//fmt.Println(pioneer.String(), err, day, i, status)
 		if err != nil {
 			log.Logger.Sugar().Error(err)
 			continue
@@ -670,7 +670,7 @@ func TriggerAllPioneerTask() {
 			log.Logger.Sugar().Error("已经执行成功，跳过")
 			continue
 		} else {
-			for {
+			for k := 0; k < 10; k++ {
 				err, auth := GetAuth2(nonce_)
 				if err != nil {
 					log.Logger.Sugar().Error(err)
@@ -683,7 +683,6 @@ func TriggerAllPioneerTask() {
 					continue
 				} else {
 					log.Logger.Sugar().Info("定时任务执行成功")
-					fmt.Println("----------------------------------------------------------------------------")
 					SetPioneerTaskStatus(pioneer.String())
 					nonce_++
 					break
