@@ -21,6 +21,7 @@ func InitCity(secondsPerDay int64) {
 	//blockchain.AdminSetChengShiLevelAndSurety("0xc8164ecc2f74f797d66c6b5ca5ffbd5a415de35c2a5a3a45e8e0b008ad758625", 1, 100000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", 2, 60000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xa3c9a043a733fc013604651b53591dec8cc6a09c7ebebb413fa826d0a3388cfe", 3, 40000)
+	blockchain.AdminSetChengShiLevelAndSurety("0x9159fc828b5ea826b73279d2bee6e5a18cbcabad7f90b12264505d4d61f5b064", 2, 60000)
 
 	//blockchain.AdminSetChengShiLevelAndSurety("0x45773751d6f8d5ecd20c3b2d3b0bc72abd5e605a1c239fc1c18bd302103dbc68", 2, 60000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0x395bd804ecf082fce7050f6b3264d4a2f4f802dfb6067cef2d051353163a9eb2", 2, 60000)

@@ -85,7 +85,7 @@ func main() {
 	//blockchain.GetAllPioneer()
 
 	//blockchain.TriggerAllPioneerTask()
-	ticker := time.NewTicker(time.Minute * 3)
+	ticker := time.NewTicker(time.Hour)
 	for {
 		<-ticker.C
 		go blockchain.TriggerAllPioneerTask()
