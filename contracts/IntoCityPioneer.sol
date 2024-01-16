@@ -159,9 +159,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    }
 
     // 管理员设置考核合约
-    function adminSetAppraise(address appraiseAddress_) public onlyAdmin {
-        appraise = IAppraise(appraiseAddress_);
-    }
+//    function adminSetAppraise(address appraiseAddress_) public onlyAdmin {
+//        appraise = IAppraise(appraiseAddress_);
+//    }
 
     //    // 管理员设置用户定位合约地址
     //    function adminSetUserLocationAddress(address userLocationAddress_) public onlyAdmin {
@@ -212,10 +212,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    }
 
     // 管理员设置每天秒数，用于测试
-    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
-        secondsPerDay = secondsPerDay_;
-        presidencyTime = secondsPerDay_ * 180;
-    }
+//    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
+//        secondsPerDay = secondsPerDay_;
+//        presidencyTime = secondsPerDay_ * 180;
+//    }
 
     // 管理员设置任期
     //    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {
@@ -303,46 +303,46 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     function removePioneer(address pioneer_) public onlyAdmin {
-//                for (uint256 i = 0; i < pioneers.length; i++) {
-//                    if (pioneer_ == pioneers[i]) {
-//                        pioneers[i] = pioneers[pioneers.length - 1];
-//                        pioneers.pop();
-//                    }
-//                }
-//                pioneerInfo[pioneer_].assessmentStatus = false;
-//                alreadyRewardRate[pioneer_][1] = 0;
-//                alreadyRewardRate[pioneer_][2] = 0;
-//                alreadyRewardRateTotal[pioneer_] = 0;
-//
-//                // 先锋地址 => 先锋福利包收益
-//                benefitPackageReward[pioneer_] = 0;
-//                // 先锋地址 => 已领取的先锋福利包收益
-//                benefitPackageRewardReceived[pioneer_] = 0;
-//                // 先锋地址 => 先锋社交基金收益
-//                fundsReward[pioneer_] = 0;
-//                // 先锋地址 => 已领取的先锋社交基金收益
-//                fundsRewardReceived[pioneer_] = 0;
-//                // 先锋地址 => 先锋新增质押收益
-//                delegateReward[pioneer_] = 0;
-//                // 先锋地址 => 已领取的先锋新增质押收益
-//                delegateRewardReceived[pioneer_] = 0;
-//                // 先锋地址 => 先锋可以退的保证金
-//                suretyReward[pioneer_] = 0;
-//                // 先锋地址 => (月份=>退的比例)，月份为1和2，比例为整数
-//                alreadyRewardRate[pioneer_][1] = 0;
-//                alreadyRewardRate[pioneer_][2] = 0;
-//                // 先锋地址 => 先锋已经退还的保证金
-//                suretyRewardRecord[pioneer_] = 0;
-//                benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
-//                fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
-//                delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
-//                failedAt[pioneer_] = 0; // 清楚失败时间
-//                IntoCity city = IntoCity(cityAddress);
-//                failedDelegate[city.pioneerChengShi(pioneer_)] = 0; // 先锋考核失败时候的累计充值权重
-//                successTime[pioneer_] = 0; // 清楚成功时间
-//                suretyMonthWeight[pioneer_][1] = 0; // 清楚成功时间
-//                suretyMonthWeight[pioneer_][2] = 0; // 清楚成功时间
-//                appraise.delPioneerPreMonthWeight(pioneer_);
+        //        for (uint256 i = 0; i < pioneers.length; i++) {
+        //            if (pioneer_ == pioneers[i]) {
+        //                pioneers[i] = pioneers[pioneers.length - 1];
+        //                pioneers.pop();
+        //            }
+        //        }
+        //        pioneerInfo[pioneer_].assessmentStatus = false;
+        //        alreadyRewardRate[pioneer_][1] = 0;
+        //        alreadyRewardRate[pioneer_][2] = 0;
+        //        alreadyRewardRateTotal[pioneer_] = 0;
+        //
+        //        // 先锋地址 => 先锋福利包收益
+        //        benefitPackageReward[pioneer_] = 0;
+        //        // 先锋地址 => 已领取的先锋福利包收益
+        //        benefitPackageRewardReceived[pioneer_] = 0;
+        //        // 先锋地址 => 先锋社交基金收益
+        //        fundsReward[pioneer_] = 0;
+        //        // 先锋地址 => 已领取的先锋社交基金收益
+        //        fundsRewardReceived[pioneer_] = 0;
+        //        // 先锋地址 => 先锋新增质押收益
+        //        delegateReward[pioneer_] = 0;
+        //        // 先锋地址 => 已领取的先锋新增质押收益
+        //        delegateRewardReceived[pioneer_] = 0;
+        //        // 先锋地址 => 先锋可以退的保证金
+        //        suretyReward[pioneer_] = 0;
+        //        // 先锋地址 => (月份=>退的比例)，月份为1和2，比例为整数
+        //        alreadyRewardRate[pioneer_][1] = 0;
+        //        alreadyRewardRate[pioneer_][2] = 0;
+        //        // 先锋地址 => 先锋已经退还的保证金
+        //        suretyRewardRecord[pioneer_] = 0;
+        //        benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
+        //        fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
+        //        delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
+        //        failedAt[pioneer_] = 0; // 清楚失败时间
+        //        IntoCity city = IntoCity(cityAddress);
+        //        failedDelegate[city.pioneerChengShi(pioneer_)] = 0; // 先锋考核失败时候的累计充值权重
+        //        successTime[pioneer_] = 0; // 清楚成功时间
+        //        suretyMonthWeight[pioneer_][1] = 0; // 清楚成功时间
+        //        suretyMonthWeight[pioneer_][2] = 0; // 清楚成功时间
+        //        appraise.delPioneerPreMonthWeight(pioneer_);
     }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
