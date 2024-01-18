@@ -5,11 +5,14 @@ import (
 	"city-node-server/pkg/db"
 	"city-node-server/pkg/log"
 	"city-node-server/pkg/models"
+	"fmt"
 	"os"
 )
 
 func InitTestNet() {
 	key := os.Getenv("META_ACCOUNT")
+	//key := os.Getenv("HUZHI")
+	fmt.Println(key)
 	var config models.Config
 	err := db.Mysql.Model(models.Config{}).Where("id=1").First(&config).Error
 	if err != nil {
@@ -19,6 +22,8 @@ func InitTestNet() {
 		ChainId: 9001,
 		//RPC:                   "https://lisbon-testnet-rpc.matchtest.co",
 		RPC:                   config.RpcTestnet,
+		AuthAddress:           "0xD712221FE8b655C981Ac47385aEd078E4E497d3A", // SBT认证合约
+		WithdrawLimitAddress:  "0x0a359A2C1214435a433C9686B4B3064345211671", // 是否在小黑屋合约
 		AppraiseAddress:       "0x96A45d1966B0bd08B5F3f6460f1C240527E69F72", // 考核合约地址
 		StarAddress:           "0xe8739b502df3A3dC5C0f14c0F27288c06A5ad887", // 获取用户星级合约
 		CityAddress:           "0xDfFA9bfB4D6376DB617fD2Fc56682cC7646cCb9C", // 城市合约地址

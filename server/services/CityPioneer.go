@@ -17,8 +17,8 @@ import (
 func InitCityPioneer(secondsPerDay int64) {
 
 	cityPioneer := blockchain.NewCityPioneer()
-	cityPioneer.AdminSetAppraise()
-	//cityPioneer.AdminSetSecondsPerDay(secondsPerDay)
+	//cityPioneer.AdminSetAppraise()
+	cityPioneer.AdminSetSecondsPerDay(secondsPerDay)
 	// 管理员设置TOX代币地址
 	//AdminSetTOXAddress
 	// 管理员设置城市合约地址

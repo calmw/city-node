@@ -2,7 +2,6 @@ package blockchain
 
 import (
 	"city-node-server/pkg/binding/intoCityNode"
-	"city-node-server/pkg/blockchain/event"
 	"city-node-server/pkg/db"
 	"city-node-server/pkg/log"
 	models2 "city-node-server/pkg/models"
@@ -28,7 +27,7 @@ func AdminSetCityPioneerAddress() {
 		return
 	}
 	_, auth := GetAuth(Cli)
-	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	city, err := intoCityNode.NewCity(common.Address(common.Address(common.HexToAddress(CityNodeConfig.CityAddress))), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -128,7 +127,51 @@ func AdminSetPioneer(chengShiId, pioneer string) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(res.Hash(), err)
+	fmt.Println(res, err)
+}
+
+func AdminSetAuthAddress() {
+	err, Cli := Client(CityNodeConfig)
+	number, err := Cli.BlockNumber(context.Background())
+
+	fmt.Println(number, err, 12233445)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	_, auth := GetAuth(Cli)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	_, err = city.AdminSetAuthAddress(auth, common.HexToAddress(CityNodeConfig.AuthAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(err)
+}
+
+func AdminSetWithdrawLimitAddress() {
+	err, Cli := Client(CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	_, auth := GetAuth(Cli)
+	fmt.Println(CityNodeConfig.CityAddress, CityNodeConfig.WithdrawLimitAddress)
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	_, err = city.AdminSetWithdrawLimitAddress(auth, common.HexToAddress(CityNodeConfig.WithdrawLimitAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(err)
 }
 
 // GetFifteenDayAverageFounds 获取前15天社交基金平均值
@@ -176,7 +219,7 @@ func AdminRemovePioneer(chengShiId, pioneer string) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(res.Hash(), err)
+	fmt.Println(res, err, 123)
 }
 
 // PioneerChengShi 查看先锋城市
@@ -196,7 +239,7 @@ func PioneerChengShi(pioneer string) (error, [32]byte) {
 		log.Logger.Sugar().Error(err)
 		return err, [32]byte{}
 	}
-	//fmt.Println(hexutils.BytesToHex(Bytes32ToBytes(res)), err)
+	fmt.Println(hexutils.BytesToHex(Bytes32ToBytes(res)), err)
 	return nil, res
 }
 
@@ -414,7 +457,7 @@ func AdminSetSecondsPerDayCity(seconds int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(res.Hash(), err)
+	fmt.Println(res, err)
 }
 
 // AddCityAdmin 给城市先锋合约、用户定位合约、设置质押量合约添加管理员权限
@@ -499,7 +542,7 @@ func AdminSetChengShiLevelAndSurety(cityId string, level, earnestMoney int64) {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	fmt.Println(res.Hash(), err)
+	fmt.Println(res, err)
 }
 
 // AdminEditSurety 管理员修改先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
@@ -831,49 +874,6 @@ func CityRechargeTotal(countyId [32]byte) (error, *big.Int) {
 //	return nil, res
 //}
 
-func GetIncreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
-	defer func() {
-		recover()
-	}()
-	query := event.BuildQuery(
-		common.HexToAddress(CityNodeConfig.CityAddress),
-		event.IncreaseCityDelegate,
-		big.NewInt(startBlock),
-		big.NewInt(endBlock),
-	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
-	logs, err := Cli.FilterLogs(ctx, query)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-	cancel()
-	abi, _ := intoCityNode.CityMetaData.GetAbi()
-	for _, logE := range logs {
-		logData, err := abi.Unpack(event.IncreaseCityDelegateEvent.EventName, logE.Data)
-		if err != nil {
-			log.Logger.Sugar().Error(err)
-		}
-		if len(logData) <= 0 {
-			log.Logger.Sugar().Error("logData len 0")
-			continue
-		}
-		var timestamp int64
-		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
-		if err == nil {
-			timestamp = int64(header.Time)
-		}
-		cityId := "0x" + common.Bytes2Hex(Bytes32ToBytes(logData[0].([32]uint8)))
-		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
-		if amount.IsZero() {
-			continue
-		}
-		InsertAdminSetDelegateRecord(cityId, logE.TxHash.String(), amount, timestamp)
-		time.Sleep(time.Second * 3)
-	}
-	return nil
-}
-
 func InsertAdminSetDelegateRecord(cityId, txHash string, amount decimal.Decimal, ctime int64) error {
 	InsertDelegateLock.Lock()
 	defer InsertDelegateLock.Unlock()
@@ -922,47 +922,6 @@ func InsertAdminSetDelegateRecord(cityId, txHash string, amount decimal.Decimal,
 //	}
 //	return nil
 //}
-
-func GetRechargeRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
-	query := event.BuildQuery(
-		common.HexToAddress(CityNodeConfig.CityAddress),
-		event.UserLocationRecord,
-		big.NewInt(startBlock),
-		big.NewInt(endBlock),
-	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
-	logs, err := Cli.FilterLogs(ctx, query)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-	cancel()
-	abi, _ := intoCityNode.CityMetaData.GetAbi()
-	for _, logE := range logs {
-		logData, err := abi.Unpack(event.RechargeRecordEvent.EventName, logE.Data)
-		if err != nil {
-			log.Logger.Sugar().Error(err)
-			return err
-		}
-		userAddress := logData[0].(common.Address)
-		countyId := "0x" + common.Bytes2Hex(Bytes32ToBytes(logData[1].([32]uint8)))
-		amount := logData[2].(big.Int)
-		ctime := logData[3].(int64)
-		err, cityId := GetCityIdBytes32ByCountyId(countyId)
-		InsertRechargeRecordEvent(
-			userAddress.String(),
-			countyId,
-			cityId,
-			decimal.NewFromBigInt(&amount, 0),
-			ctime,
-		)
-		if err != nil {
-			return err
-		}
-		time.Sleep(time.Second * 3)
-	}
-	return nil
-}
 
 func InsertRechargeRecordEvent(userAddress, countyId string, countyIdBytes32 [32]byte, amount decimal.Decimal, ctime int64) error {
 	InsertRechargeRecordEventLock.Lock()

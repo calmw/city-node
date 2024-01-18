@@ -47,6 +47,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 foundsReward, // 社交基金奖励的额度
         uint256 delegateReward // 新增质押奖励的额度
     );
+    event DailyRewardRecordV2(
+        address pioneerAddress, // 先锋地址
+        uint256 toxReward, // 赠送质押包奖励的额度
+        uint256 foundsReward, // 社交基金奖励的额度
+        uint256 delegateReward // 新增质押奖励的额度
+    );
 
     // 城市先锋提取奖励事件
     event WithdrawalRewardRecord(
@@ -137,9 +143,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     CityPioneerData public cityPioneerData; // 先锋数据合约
     IAppraise public appraise; // 先锋考核合约
 
-    //        function initialize() public initializer {
-    //            _addAdmin(msg.sender);
-    //        }
+    //            function initialize() public initializer {
+    //                _addAdmin(msg.sender);
+    //            }
 
     // 管理员设置TOX代币地址
     //    function adminSetTOXAddress(address TOXAddress_) public onlyAdmin {
@@ -159,9 +165,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    }
 
     // 管理员设置考核合约
-//    function adminSetAppraise(address appraiseAddress_) public onlyAdmin {
-//        appraise = IAppraise(appraiseAddress_);
-//    }
+    //    function adminSetAppraise(address appraiseAddress_) public onlyAdmin {
+    //        appraise = IAppraise(appraiseAddress_);
+    //    }
 
     //    // 管理员设置用户定位合约地址
     //    function adminSetUserLocationAddress(address userLocationAddress_) public onlyAdmin {
@@ -212,10 +218,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    }
 
     // 管理员设置每天秒数，用于测试
-//    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
-//        secondsPerDay = secondsPerDay_;
-//        presidencyTime = secondsPerDay_ * 180;
-//    }
+    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
+        secondsPerDay = secondsPerDay_;
+        //        presidencyTime = secondsPerDay_ * 180;
+    }
 
     // 管理员设置任期
     //    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {
@@ -594,6 +600,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         IntoCity city = IntoCity(cityAddress);
         uint pioneerAndCityNodeNumber = city.getPioneerAndCityNodeNumber(); // 城市节点上线后，需要加上城市节点的数量
         uint256 allDailyFoundsTotal = city.getFifteenDayAverageFounds(); // 全网昨日所有城市新增社交基金
+        uint256 f;
         if (pioneerAndCityNodeNumber == 0) {
             fundsReward[pioneerAddress_] += 0;
         } else {
@@ -601,6 +608,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 (allDailyFoundsTotal * 5) /
                 100 /
                 pioneerAndCityNodeNumber;
+            f = (allDailyFoundsTotal * 5) / 100 / pioneerAndCityNodeNumber;
         }
 
         // 该城市新增质押量1%奖励，不累加
@@ -616,9 +624,15 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             fundsReward[pioneerAddress_],
             delegateReward[pioneerAddress_]
         );
+        emit DailyRewardRecordV2(
+            pioneerAddress_,
+            bonus,
+            f,
+            yesterdayDelegate / 100
+        );
     }
 
-    // 用户提取福利包奖励
+    //     用户提取福利包奖励
     function withdrawalBenefitPackageReward() public {
         //        require(false, "withdraw service paused");
         // 判断是否是先锋

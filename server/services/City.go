@@ -15,13 +15,15 @@ func InitCity(secondsPerDay int64) {
 	//blockchain.AdminSetFoundsAddress()
 	// 设置每天秒数
 	//blockchain.AdminSetSecondsPerDay(secondsPerDay)
+	//blockchain.AdminSetAuthAddress()
+	//blockchain.AdminSetWithdrawLimitAddress()
 
 	// 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
 
 	//blockchain.AdminSetChengShiLevelAndSurety("0xc8164ecc2f74f797d66c6b5ca5ffbd5a415de35c2a5a3a45e8e0b008ad758625", 1, 100000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", 2, 60000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0xa3c9a043a733fc013604651b53591dec8cc6a09c7ebebb413fa826d0a3388cfe", 3, 40000)
-	blockchain.AdminSetChengShiLevelAndSurety("0x9159fc828b5ea826b73279d2bee6e5a18cbcabad7f90b12264505d4d61f5b064", 2, 60000)
+	//blockchain.AdminSetChengShiLevelAndSurety("0x9159fc828b5ea826b73279d2bee6e5a18cbcabad7f90b12264505d4d61f5b064", 2, 60000)
 
 	//blockchain.AdminSetChengShiLevelAndSurety("0x45773751d6f8d5ecd20c3b2d3b0bc72abd5e605a1c239fc1c18bd302103dbc68", 2, 60000)
 	//blockchain.AdminSetChengShiLevelAndSurety("0x395bd804ecf082fce7050f6b3264d4a2f4f802dfb6067cef2d051353163a9eb2", 2, 60000)
@@ -33,8 +35,12 @@ func InitCity(secondsPerDay int64) {
 	//time.Sleep(time.Second * 3)
 	// 管理员设置城市先锋
 
+	//blockchain.PioneerChengShi("0xa10edEb8b3486C7433925081dC09Ec8A8B941677")
+	//blockchain.AdminRemovePioneer("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", "0xa10edEb8b3486C7433925081dC09Ec8A8B941677")
+	//blockchain.AdminSetPioneer("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", "0xa10edEb8b3486C7433925081dC09Ec8A8B941677")
+
 	// 焦作市
-	blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
+	//blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
 	//blockchain.AdminSetPioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
 
 	// 新乡
