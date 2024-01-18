@@ -218,10 +218,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    }
 
     // 管理员设置每天秒数，用于测试
-    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
-        secondsPerDay = secondsPerDay_;
-        //        presidencyTime = secondsPerDay_ * 180;
-    }
+//    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
+//        secondsPerDay = secondsPerDay_;
+//        presidencyTime = secondsPerDay_ * 180;
+//    }
 
     // 管理员设置任期
     //    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {

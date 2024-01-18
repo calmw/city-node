@@ -153,9 +153,6 @@ contract IntoCity is RoleAccess, Initializable {
     function adminSetAuthAddress(address authAddress_) public onlyAdmin {
         authAddress = authAddress_;
     }
-    //    function adminSetAuthAddress(address authAddress_) public onlyAdmin {
-    //        auth = IAuth(authAddress_);
-    //    }
 
     // 设置检测小黑屋合约
     function adminSetWithdrawLimitAddress(
@@ -266,7 +263,7 @@ contract IntoCity is RoleAccess, Initializable {
         rechargeWeight += amount; // 全部累计充值权重
         rechargeDailyWeight[today] += amount; // 天=>累计充值)   充值权重
         rechargeDailyWeightRecord[countyId][today] += amount; // 区县ID=>(天=>当天累计充值)   充值权重
-        //        rechargeDailyTotalWeightRecord[countyId][today] += amount;// 区县ID=>(天=>当天累计充值)   充值权重
+        // rechargeDailyTotalWeightRecord[countyId][today] += amount;// 区县ID=>(天=>当天累计充值)   充值权重
 
         cityRechargeTotal[countyId] += amount; // 区县ID=>累计充值权重   充值权重
 
