@@ -20,6 +20,8 @@ func InitMainNet() {
 		ChainId: 9001,
 		//RPC:                   "https://rpc-sen.matchscan.io",
 		RPC:                   config.RpcMainnet,
+		AuthAddress:           "0x424CaA5beA9bDfeF9F49796D7C7005632fAbE2E8", // SBT认证合约
+		WithdrawLimitAddress:  "0xa3FF6A43b990A6AF220d1B376E9e97E2621bcaD3", // 是否在小黑屋合约
 		AppraiseAddress:       "0x164ffB92521BfbBE2732465788b5208AE2817E97",
 		StarAddress:           "0xBc4E6563af151d199726DF794903b0dcb4D1CAf3", //
 		CityAddress:           "0xebD06631510A66968f0379A4deB896d3eE7DD6ED",

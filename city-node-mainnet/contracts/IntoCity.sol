@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.13;
+pragma solidity ^0.8.18;
 
 import "./RoleAccess.sol";
 import "./IntoCityPioneer.sol";
 import "./IntoUserLocation.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
+import "./interface/IWithdrawLimit.sol";
+import "./interface/IAuth.sol";
 
 interface Founds {
     function getFifteenDayAverage() external view returns (uint256);
@@ -119,10 +121,14 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(address => uint256) public rechargeWeightAdditional;
     //  城市先锋地址=>状态(true 停止定时任务)
     mapping(address => bool) public pioneerStatus;
+    IAuth public auth; // SBT认证合约
+    IWithdrawLimit public withdrawLimit; // 是否在小黑屋合约
+    address public authAddress; // SBT认证合约
+    address public withdrawLimitAddress; // 是否在小黑屋合约
 
-    function initialize() public initializer {
-        _addAdmin(msg.sender);
-    }
+    //    function initialize() public initializer {
+    //        _addAdmin(msg.sender);
+    //    }
 
     // 管理员设置先锋计划合约地址
     function adminSetCityPioneerAddress(
@@ -141,6 +147,21 @@ contract IntoCity is RoleAccess, Initializable {
     // 管理员设置获取过去15天社交基金平均值的合约地址
     function adminSetFoundsAddress(address foundsAddress_) public onlyAdmin {
         foundsAddress = foundsAddress_;
+    }
+
+    //设置Auth合约
+    function adminSetAuthAddress(address authAddress_) public onlyAdmin {
+        authAddress = authAddress_;
+    }
+    //    function adminSetAuthAddress(address authAddress_) public onlyAdmin {
+    //        auth = IAuth(authAddress_);
+    //    }
+
+    // 设置检测小黑屋合约
+    function adminSetWithdrawLimitAddress(
+        address withdrawLimitAddress_
+    ) public onlyAdmin {
+        withdrawLimitAddress = withdrawLimitAddress_;
     }
 
     // 管理员设置先锋是否可以正常分红、考核和退还保证金
@@ -232,6 +253,14 @@ contract IntoCity is RoleAccess, Initializable {
         if (countyId == bytes32(0)) {
             return;
         }
+        // 判断用户是否在黑名单
+        if (IWithdrawLimit(withdrawLimitAddress).isBlack(user)) {
+            return;
+        }
+        // 判断用户是SBT
+        if (!IAuth(authAddress).getAuthStatus(user)) {
+            return;
+        }
         uint256 today = getDay();
         amount = amount / 100;
         rechargeWeight += amount; // 全部累计充值权重
@@ -298,6 +327,15 @@ contract IntoCity is RoleAccess, Initializable {
         uint256 amount_,
         uint256 today
     ) public onlyAdmin {
+        // 判断用户是否在黑名单
+        if (IWithdrawLimit(withdrawLimitAddress).isBlack(user_)) {
+            return;
+        }
+        // 判断用户是SBT
+        if (!IAuth(authAddress).getAuthStatus(user_)) {
+            return;
+        }
+
         cityDelegate[countyId_] += amount_;
         // 增加区县按天的质押记录
         cityNewlyDelegateRecord[countyId_][today] += amount_;
@@ -423,7 +461,7 @@ contract IntoCity is RoleAccess, Initializable {
                 today
             );
         }
-        //         更新区县历史某天最大质押值
+        // 更新区县历史某天最大质押值
         uint256 yesterdayDelegate = cityDelegateRecord[countyId][today - 1];
         uint256 maxDelegate = cityMaxDelegate[countyId][2];
         if (yesterdayDelegate > maxDelegate) {

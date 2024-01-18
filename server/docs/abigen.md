@@ -12,7 +12,7 @@
 
 #### 生成city合约代码
 
-- abigen --abi ../abi/IntoCity.json --pkg intoCityNode --type City --out ./binding/city.go
+- abigen --abi ../abi/IntoCity.json --pkg intoCityNode --type City --out ./pkg/binding/intoCityNode/city.go
 
 #### 生成appraise合约代码
 

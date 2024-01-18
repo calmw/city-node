@@ -94,6 +94,19 @@
       {
         "indexed": false,
         "internalType": "address",
+        "name": "pioneer",
+        "type": "address"
+      }
+    ],
+    "name": "PioneerBlack",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
         "name": "user",
         "type": "address"
       },
@@ -140,6 +153,24 @@
         "type": "bytes32"
       },
       {
+        "internalType": "address",
+        "name": "pioneer_",
+        "type": "address"
+      }
+    ],
+    "name": "adminChangePioneerCityId",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId_",
+        "type": "bytes32"
+      },
+      {
         "internalType": "uint256",
         "name": "level_",
         "type": "uint256"
@@ -163,13 +194,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "adminRemoveAllPioneer",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "bytes32",
@@ -183,6 +207,19 @@
       }
     ],
     "name": "adminRemovePioneer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "authAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "adminSetAuthAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -281,6 +318,24 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "pioneer_",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "status_",
+        "type": "bool"
+      }
+    ],
+    "name": "adminSetPioneerStatus",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "user",
         "type": "address"
       },
@@ -335,6 +390,19 @@
       }
     ],
     "name": "adminSetUserLocationAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "withdrawLimitAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "adminSetWithdrawLimitAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -443,6 +511,19 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "auth",
+    "outputs": [
+      {
+        "internalType": "contract IAuth",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -1273,6 +1354,25 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "pioneerStatus",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes32",
         "name": "",
         "type": "bytes32"
@@ -1489,6 +1589,19 @@
     "outputs": [
       {
         "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawLimit",
+    "outputs": [
+      {
+        "internalType": "contract IWithdrawLimit",
         "name": "",
         "type": "address"
       }

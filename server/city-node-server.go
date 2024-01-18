@@ -14,13 +14,13 @@ func main() {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	//db.InitMysql()
+	db.InitMysql()
 	//services.InitMainNet()
-	//services.InitTestNet()
+	services.InitTestNet()
 
 	//services.InitUserLocation()
-	//services.InitCityPioneer()
-	//services.InitCity(0)
+	//services.InitCityPioneer(300)
+	services.InitCity(300)
 	//services.InitAppraise()
 
 	//blockchain.TriggerAllPioneerTask()
@@ -85,15 +85,15 @@ func main() {
 	//blockchain.GetAllPioneer()
 
 	//blockchain.TriggerAllPioneerTask()
-	ticker := time.NewTicker(time.Hour)
+	//ticker := time.NewTicker(time.Hour)
 	//ticker := time.NewTicker(time.Second * 30)
-	for {
-		<-ticker.C
-		db.InitMysql()
-		services.InitMainNet()
-		go blockchain.TriggerAllPioneerTask()
-		go blockchain.GetAllPioneer()
-	}
+	//for {
+	//	<-ticker.C
+	//	db.InitMysql()
+	//	services.InitMainNet()
+	//	go blockchain.TriggerAllPioneerTask()
+	//	go blockchain.GetAllPioneer()
+	//}
 
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
 	//services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
@@ -114,7 +114,7 @@ func main() {
 	//service.UpdatePioneer()
 
 	//services.UserCityChange()
-	//clearTestNet()
+	clearTestNet()
 	//services.CheckData()
 	// 获取先锋合约TOX的交易
 	//services.GetToxTx()
@@ -130,8 +130,8 @@ func taskTest() {
 	s := gocron.NewScheduler()
 	s.ChangeLoc(time.UTC)
 	//_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
-	//_ = s.Every(6).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
-	_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
+	_ = s.Every(25).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
+	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
 	<-s.Start() // Start all the pending jobs
 
 }
