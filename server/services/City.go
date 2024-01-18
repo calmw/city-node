@@ -15,8 +15,8 @@ func InitCity(secondsPerDay int64) {
 	//blockchain.AdminSetFoundsAddress()
 	// 设置每天秒数
 	//blockchain.AdminSetSecondsPerDay(secondsPerDay)
-	//blockchain.AdminSetAuthAddress()
-	//blockchain.AdminSetWithdrawLimitAddress()
+	blockchain.AdminSetAuthAddress()
+	blockchain.AdminSetWithdrawLimitAddress()
 
 	// 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
 

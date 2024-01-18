@@ -15,8 +15,8 @@ func main() {
 	//	}
 	//}()
 	db.InitMysql()
-	//services.InitMainNet()
-	services.InitTestNet()
+	services.InitMainNet()
+	//services.InitTestNet()
 
 	//services.InitUserLocation()
 	//services.InitCityPioneer(300)
@@ -114,7 +114,7 @@ func main() {
 	//service.UpdatePioneer()
 
 	//services.UserCityChange()
-	clearTestNet()
+	//clearTestNet()
 	//services.CheckData()
 	// 获取先锋合约TOX的交易
 	//services.GetToxTx()

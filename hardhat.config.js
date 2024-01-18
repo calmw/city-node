@@ -13,7 +13,7 @@ module.exports = {
     },
     networks: {
         match: {
-            url: "https://rpc-sen.matchscan.io",
+            url: "http://18.179.50.41:8545",
             accounts: [account.key]
         },
         match_test: {

@@ -1670,3 +1670,4 @@
 {"level":"error","time":"2024-01-17T17:17:24.935+0800","line":"blockchain/city.go:127","msg":"invalid nonce; got 460119, expected 460120: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"info","time":"2024-01-17T17:26:51.937+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-01-17T17:27:08.385+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T10:35:47.540+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
