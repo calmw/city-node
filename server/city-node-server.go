@@ -20,7 +20,7 @@ func main() {
 
 	//services.InitUserLocation()
 	//services.InitCityPioneer(300)
-	services.InitCity(300)
+	//services.InitCity(300)
 	//services.InitAppraise()
 
 	//blockchain.TriggerAllPioneerTask()
@@ -101,10 +101,10 @@ func main() {
 	//services.ReadCityFIle("./assets/HaNoi.txt")
 	//services.ReadCityFIle("./assets/Bangkok.txt")
 	//services.CheckPioneer("./assets/城市先锋-用户信息.xlsx") // 确认用户是否交保证金
-	//services.CheckPioneer4("./assets/城市先锋-用户信息.xlsx") // 确认用户是否交保证金
+	services.CheckPioneer4("./assets/城市先锋-用户信息.xlsx") // 确认用户是否交保证金，批次，绑定城市用户数量
 	//services.CheckPioneer3("./assets/城市先锋-用户信息.xlsx") // 设置先锋批次
 	//services.CheckPioneer2("./assets/城市先锋-用户信息.xlsx", "./assets/副本城市节点汇总11.26.2.xlsx") // 确认用户是否交保证金
-	//services.CheckLocation("./泰国.xlsx") // 查看位置是否存在
+	//services.CheckLocation("./assets/越南.xlsx") // 查看位置是否存在,把县城映射到省（越南等国家）
 	//重新获取并存储用户位置信息，从链上查询，不是从事件获取
 	//blockchain.ReSaveUserLocation()
 	//err := blockchain.RestoreUserLocation("0xd7922692c157ee415facfe700e7a3e616f7b12c8")

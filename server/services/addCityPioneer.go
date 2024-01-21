@@ -46,8 +46,13 @@ func ReadExcel(excelFile string) {
 		for j, colCell := range row {
 			if j == 1 {
 				l := strings.Split(colCell, " ")
+				lot := ""
+				for _, s := range l[1:] {
+					lot += " " + s
+				}
+				lot = strings.TrimSpace(lot)
 				var location models2.UserLocation
-				where := "location like '%" + l[1] + "%'"
+				where := "location like '%" + lot + "%'"
 				err = db.Mysql.Model(models2.UserLocation{}).Where(where).First(&location).Error
 				if err != nil {
 					return
@@ -338,7 +343,7 @@ func CheckPioneer4(excelFile string) {
 				for _, cId := range cIds {
 					var userCount int64
 					err = db.Mysql.Model(models2.UserLocation{}).Where("county_id=?", cId).Count(&userCount).Error
-					fmt.Println(userCount, 989)
+					fmt.Printf("county_id:%s,count:%d /n", cId, userCount)
 					userTotal += userCount
 				}
 				export.UserCount = strconv.FormatInt(userTotal, 10)
@@ -526,7 +531,7 @@ func CheckLocation(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("整理后")
+	rows := f.GetRows("Sheet1")
 	fmt.Println(len(rows), 6)
 loop:
 	for i, row := range rows {
@@ -534,20 +539,23 @@ loop:
 			continue
 		}
 		for j, colCell := range row {
-			if j == 3 {
-				if colCell != "Bangkok" {
+			if j == 2 {
+				if colCell != "Thanh Hoa" {
 					continue loop
 				}
 			}
 			if j == 4 {
 				//fmt.Println(colCell)
 				var userLocation models2.UserLocation
-				whererCondition := "location = 'Thailand " + colCell + "'"
-				err := db.Mysql.Model(models2.UserLocation{}).Where(whererCondition).First(&userLocation).Debug().Error
+				whereCondition := "location = 'Viet Nam " + colCell + "'"
+				err := db.Mysql.Model(models2.UserLocation{}).Where(whereCondition).First(&userLocation).Debug().Error
 				if err == nil {
-					fmt.Println("该区县已经存在", i, colCell)
+					fmt.Println("该区县已经存在", i, colCell, userLocation.CountyId)
+					// 做映射
+					blockchain2.SetCityMapping(userLocation.CountyId, "0x221d28429d84ed61c69d8c3a340eb4379ca6940c6dabcfd186afbc80038a1e44", "pYnBembRMi+8NX9ZimEpkg==")
+
 				} else {
-					//fmt.Println("该城市不存在", i, colCell)
+					fmt.Println("该城市不存在", i, colCell)
 				}
 			}
 		}

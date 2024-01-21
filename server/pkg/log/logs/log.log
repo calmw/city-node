@@ -1671,3 +1671,109 @@
 {"level":"info","time":"2024-01-17T17:26:51.937+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-01-17T17:27:08.385+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-01-18T10:35:47.540+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:03:04.899+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:03:44.480+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:04:13.854+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:04:14.228+0800","line":"db/mysql.go:69","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:04:14.336+0800","line":"db/mysql.go:69","msg":"SELECT * FROM `user_location` WHERE location like '% Thanh Hoa City%' ORDER BY `user_location`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:04:14.442+0800","line":"db/mysql.go:69","msg":"SELECT * FROM `pioneer` WHERE city_id='0x221d28429d84ed61c69d8c3a340eb4379ca6940c6dabcfd186afbc80038a1e44' ORDER BY `pioneer`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:05:09.108+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:05:09.580+0800","line":"db/mysql.go:69","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:05:09.699+0800","line":"db/mysql.go:69","msg":"SELECT * FROM `user_location` WHERE location like '%Thanh Hoa City%' ORDER BY `user_location`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:05:09.832+0800","line":"db/mysql.go:69","msg":"SELECT * FROM `pioneer` WHERE city_id='0x221d28429d84ed61c69d8c3a340eb4379ca6940c6dabcfd186afbc80038a1e44' ORDER BY `pioneer`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:05:43.649+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:06:26.808+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:06:44.059+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:24:11.600+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:24:39.300+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:25:14.047+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:25:23.617+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:26:08.821+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:27:18.553+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:27:40.972+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:31:00.229+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:48:53.586+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:49:08.083+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 387, expected 395: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:49:12.630+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 394, expected 403: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:51:29.060+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:51:39.486+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 413, expected 414: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:51:39.973+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 413, expected 414: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:51:40.460+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 413, expected 414: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:51:41.112+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 409, expected 414: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:52:02.830+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:52:13.194+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 433, expected 436: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:52:18.432+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 436, expected 444: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:52:24.105+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 445, expected 452: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:52:39.713+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:52:50.749+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 457, expected 460: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:52:55.854+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 460, expected 466: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:53:08.503+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 473, expected 480: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:53:11.895+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:53:20.714+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 480, expected 481: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:53:21.365+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 480, expected 481: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:53:22.586+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 480, expected 481: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:53:27.670+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 483, expected 487: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:53:37.467+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 499, expected 500: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:53:38.540+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 493, expected 500: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:53:49.389+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:54:03.946+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 514, expected 515: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:54:05.866+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 505, expected 515: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:54:10.626+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 516, expected 523: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:54:42.034+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:54:53.113+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 527, expected 530: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:54:56.991+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 535, expected 536: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:54:57.867+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 535, expected 536: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:01.607+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 541, expected 542: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:02.157+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 541, expected 542: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:02.737+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 541, expected 542: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:04.179+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 536, expected 542: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:55:09.916+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:19.363+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 546, expected 547: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:27.276+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 557, expected 558: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:27.932+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 557, expected 558: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:28.590+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 557, expected 558: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:29.191+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 557, expected 558: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:31.231+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 552, expected 558: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:55:41.383+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:51.194+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 568, expected 569: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:54.377+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 572, expected 573: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:54.943+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 572, expected 573: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:55.534+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 572, expected 573: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:55:57.349+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 567, expected 573: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:01.853+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 574, expected 579: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:07.707+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 579, expected 586: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:56:29.453+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:41.329+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 591, expected 592: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:41.832+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 591, expected 592: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:42.312+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 591, expected 592: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:42.730+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 591, expected 592: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:43.154+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 591, expected 592: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:43.617+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 591, expected 592: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:44.956+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 586, expected 592: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:47.409+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 595, expected 596: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:47.822+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 595, expected 596: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:48.228+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 595, expected 596: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:48.626+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 595, expected 596: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:49.061+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 595, expected 596: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:56:51.094+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 592, expected 596: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:56:56.797+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:09.160+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 604, expected 605: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:09.761+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 604, expected 605: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:10.401+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 604, expected 605: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:12.454+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 600, expected 605: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:16.295+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 606, expected 610: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:21.041+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 616, expected 617: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:21.696+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 610, expected 617: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:57:33.652+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:43.224+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 621, expected 622: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:53.541+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 628, expected 637: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:57.316+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 641, expected 642: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:57.932+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 641, expected 642: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:57:59.369+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 636, expected 642: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-18T16:59:39.344+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:59:49.997+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 645, expected 646: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:59:50.900+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 643, expected 646: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T16:59:55.953+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 646, expected 653: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T17:00:00.566+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 659, expected 660: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-18T17:00:01.648+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 653, expected 660: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-21T12:43:47.914+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
