@@ -6,6 +6,7 @@ import (
 	"city-node-server/pkg/log"
 	models2 "city-node-server/pkg/models"
 	"context"
+	"errors"
 	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
 	"github.com/ethereum/go-ethereum/common"
@@ -13,6 +14,7 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 	"github.com/shopspring/decimal"
 	"github.com/status-im/keycard-go/hexutils"
+	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"gorm.io/gorm"
 	"math/big"
 	"strings"
@@ -767,7 +769,7 @@ func GetAllPioneer() {
 		if isPioneer {
 			pioneerInfo := models2.Pioneer{}
 			err = db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
-			if err == gorm.ErrRecordNotFound {
+			if errors.Is(err, gorm.ErrRecordNotFound) {
 				city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 				if err != nil {
 					log.Logger.Sugar().Error(err)
@@ -778,6 +780,28 @@ func GetAllPioneer() {
 					log.Logger.Sugar().Error(err)
 					continue
 				}
+
+				/// 获取考核状态
+				CityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+				if err != nil {
+					log.Logger.Sugar().Error(err)
+					continue
+				}
+				info, err := CityPioneer.PioneerInfo(nil, common.HexToAddress(pioneer.String()))
+				if err != nil {
+					log.Logger.Sugar().Error(err)
+					return
+				}
+				failedDelegate := ""
+				failedAt := ""
+				if !info.AssessmentMonthStatus {
+					failedDelegateRes, _ := CityPioneer.FailedDelegate(nil, res)
+					failedDelegate = failedDelegateRes.String()
+					failedAtRes, _ := CityPioneer.FailedAt(nil, common.HexToAddress(pioneer.String()))
+					failedAt = failedAtRes.String()
+				}
+
+				/// 获取先锋绑定城市信息
 				cityId := strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res)))
 				cityLevel, err := city.ChengShiLevel(nil, res)
 				if err != nil {
@@ -790,10 +814,12 @@ func GetAllPioneer() {
 				db.Mysql.Model(models2.UserLocation{}).Where("city_id=?", cityId).First(&local)
 
 				db.Mysql.Model(models2.Pioneer{}).Create(&models2.Pioneer{
-					CityId:    strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res))),
-					Location:  local.Location,
-					CityLevel: cityLevel.Int64(),
-					Pioneer:   strings.ToLower(pioneer.String()),
+					CityId:         strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res))),
+					Location:       local.Location,
+					CityLevel:      cityLevel.Int64(),
+					Pioneer:        strings.ToLower(pioneer.String()),
+					FailedDelegate: failedDelegate,
+					FailedAt:       failedAt,
 				})
 			}
 		}
@@ -946,4 +972,59 @@ func InsertRechargeRecordEvent(userAddress, countyId string, countyIdBytes32 [32
 		})
 	}
 	return nil
+}
+
+type UserWeight struct {
+	Parent     string `json:"parent" excel:"column:B;desc:上级钱包地址;width:30"`
+	User       string `json:"user" excel:"column:C;desc:钱包地址;width:30"`
+	Sbt        bool   `json:"sbt" excel:"column:D;desc:是否SBT;width:30"`
+	Blacklist  bool   `json:"blacklist" excel:"column:E;desc:是否在黑名单;width:30"`
+	Weight     string `json:"weight" excel:"column:F;desc:权重;width:30"`
+	RealWeight string `json:"real_weight" excel:"column:G;desc:累加权重;width:30"`
+}
+
+type UserLocationExcel struct {
+	Id      int    `gorm:"column:id;primaryKey" excel:"column:B;desc:ID;width:30"`
+	User    string `json:"user" gorm:"column:user" excel:"column:C;desc:用户地址;width:30"`
+	Country string `json:"country" gorm:"column:country" excel:"column:D;desc:国家;width:30"`
+	City    string `json:"city" gorm:"column:city" excel:"column:E;desc:城市;width:30"`
+	County  string `json:"county" gorm:"column:county" excel:"column:F;desc:区县;width:30"`
+	TxHash  string `json:"tx_hash" gorm:"column:tx_hash" excel:"column:G;desc:交易hash;width:30"`
+	Ctime   string `json:"ctime" gorm:"column:ctime" excel:"column:H;desc:d定位时间;width:30"`
+}
+
+func GetUserLocation() {
+	var userLocationExcels []UserLocationExcel
+
+	for i := 0; i < 240; i++ {
+		for {
+			var locations []models2.UserLocation
+			err := db.Mysql.Model(models2.UserLocation{}).Where("id>? and id<=?", i*1000, (i+1)*1000).Find(&locations).Error
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				fmt.Println(i, "无数据")
+				break
+			}
+			if (err != nil) && (!errors.Is(err, gorm.ErrRecordNotFound)) {
+				fmt.Println(i, "重试")
+				continue
+			}
+			for _, l := range locations {
+				userLocationExcels = append(userLocationExcels, UserLocationExcel{
+					Id:      l.Id,
+					User:    l.User,
+					Country: l.Country,
+					City:    l.City,
+					County:  l.County,
+					TxHash:  l.TxHash,
+					Ctime:   l.Ctime,
+				})
+			}
+			fmt.Println(i)
+			break
+		}
+	}
+
+	f := xjexcel.ListToExcel(userLocationExcels, "用户定位信息", "详情")
+	fileName := fmt.Sprintf("./用户定位信息.xlsx")
+	f.SaveAs(fileName)
 }

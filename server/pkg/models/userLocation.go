@@ -6,6 +6,9 @@ type UserLocation struct {
 	CountyId        string `json:"county_id" gorm:"column:county_id"`
 	CityId          string `json:"city_id" gorm:"column:city_id"`
 	Location        string `json:"location" gorm:"column:location"`
+	Country         string `json:"country" gorm:"column:country"`
+	City            string `json:"city" gorm:"column:city"`
+	County          string `json:"county" gorm:"column:county"`
 	AreaCode        string `json:"area_code" gorm:"column:area_code"`
 	LocationEncrypt string `json:"location_encrypt" gorm:"column:location_encrypt"`
 	BlockHeight     int64  `json:"block_height" gorm:"column:block_height"`

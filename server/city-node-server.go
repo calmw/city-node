@@ -15,7 +15,7 @@ func main() {
 	//	}
 	//}()
 	db.InitMysql()
-	services.InitMainNet()
+	//services.InitMainNet()
 	//services.InitTestNet()
 
 	//services.InitUserLocation()
@@ -83,6 +83,7 @@ func main() {
 	//api.Start()
 	//tasks.Start()
 	//blockchain.GetAllPioneer()
+	blockchain.GetUserLocation()
 
 	//blockchain.TriggerAllPioneerTask()
 	//ticker := time.NewTicker(time.Hour)
@@ -101,7 +102,7 @@ func main() {
 	//services.ReadCityFIle("./assets/HaNoi.txt")
 	//services.ReadCityFIle("./assets/Bangkok.txt")
 	//services.CheckPioneer("./assets/城市先锋-用户信息.xlsx") // 确认用户是否交保证金
-	services.CheckPioneer4("./assets/城市先锋-用户信息.xlsx") // 确认用户是否交保证金，批次，绑定城市用户数量
+	//services.CheckPioneer4("./assets/城市先锋-用户信息.xlsx") // 确认用户是否交保证金，批次，绑定城市用户数量
 	//services.CheckPioneer3("./assets/城市先锋-用户信息.xlsx") // 设置先锋批次
 	//services.CheckPioneer2("./assets/城市先锋-用户信息.xlsx", "./assets/副本城市节点汇总11.26.2.xlsx") // 确认用户是否交保证金
 	//services.CheckLocation("./assets/越南.xlsx") // 查看位置是否存在,把县城映射到省（越南等国家）

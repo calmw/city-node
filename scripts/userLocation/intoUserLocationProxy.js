@@ -6,6 +6,8 @@ const ProxyAddress = "0x12CEC1A760E1e25Ce5b143cDB9D115D83603fAba"
 // 可升级合约
 async function main() {
 
+    console.log("ImplementationAddress is", await upgrades.erc1967.getImplementationAddress(ProxyAddress));
+    console.log("ProxyAdmin is", await upgrades.erc1967.getAdminAddress(ProxyAddress));
     const MyContractV2 = await ethers.getContractFactory("IntoUserLocation");
     // 升级
     const contract = await upgrades.upgradeProxy(ProxyAddress, MyContractV2);
