@@ -7,10 +7,12 @@ import (
 	models2 "city-node-server/pkg/models"
 	"city-node-server/pkg/utils"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -128,11 +130,20 @@ func GetToxTx() {
 			fmt.Println(`from和to都不为0x60c541388077d524178521a7ced95d0c7a016b72`)
 			continue
 		}
+		if t.To == "0x60c541388077d524178521a7ced95d0c7a016b72" {
+			var poneer models2.Pioneer
+			err = db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", strings.ToLower(t.From)).First(&poneer).Error
+			if errors.Is(err, gorm.ErrRecordNotFound) {
+				fmt.Println(t.From, `非先锋交保证金`)
+				continue
+			}
+		}
 
 		var cityPioneerToxTx models2.CityPioneerToxTx
 		err = db.Mysql.Model(models2.CityPioneerToxTx{}).Where("block_height=? and log_index=?", t.BlockNumber, t.LogIndex).First(&cityPioneerToxTx).Error
-		if err == gorm.ErrRecordNotFound {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
 			value, _ := decimal.NewFromString(t.Value)
+			value = value.Div(decimal.NewFromInt(1e18))
 			blockNumber, _ := strconv.ParseInt(t.BlockNumber, 10, 64)
 			logIndex, _ := strconv.ParseInt(t.LogIndex, 10, 64)
 			timeStamp, _ := strconv.ParseInt(t.TimeStamp, 10, 64)

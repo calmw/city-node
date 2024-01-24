@@ -104,13 +104,13 @@ func ReadExcel(excelFile string) {
 
 		//time.Sleep(time.Second * 8)
 		//
-		err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
-		err, level := blockchain2.ChengShiLevel(cityIdBytes32)
-		var ok bool
-		if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
-			ok = true
-		}
-		fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
+		//err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
+		//err, level := blockchain2.ChengShiLevel(cityIdBytes32)
+		//var ok bool
+		//if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
+		//	ok = true
+		//}
+		//fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
 
 	}
 }

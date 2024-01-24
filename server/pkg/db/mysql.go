@@ -60,6 +60,8 @@ func InitMysql() {
 	//sqlDB.SetMaxIdleConns(mysqlConf.MaxIdleConns) // 空闲连接数   默认最大2个空闲连接数  使用默认值即可
 	//sqlDB.SetMaxOpenConns(mysqlConf.MaxOpenConns) // 最大连接数   默认0是无限制的  使用默认值即可
 	sqlDB.SetConnMaxLifetime(time.Second * 20)
+
+	//err = db.AutoMigrate(models.Pioneer{})
 	Mysql = db
 }
 
