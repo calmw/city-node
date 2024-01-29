@@ -974,15 +974,6 @@ func InsertRechargeRecordEvent(userAddress, countyId string, countyIdBytes32 [32
 	return nil
 }
 
-type UserWeight struct {
-	Parent     string `json:"parent" excel:"column:B;desc:上级钱包地址;width:30"`
-	User       string `json:"user" excel:"column:C;desc:钱包地址;width:30"`
-	Sbt        bool   `json:"sbt" excel:"column:D;desc:是否SBT;width:30"`
-	Blacklist  bool   `json:"blacklist" excel:"column:E;desc:是否在黑名单;width:30"`
-	Weight     string `json:"weight" excel:"column:F;desc:权重;width:30"`
-	RealWeight string `json:"real_weight" excel:"column:G;desc:累加权重;width:30"`
-}
-
 type UserLocationExcel struct {
 	Id      int    `gorm:"column:id;primaryKey" excel:"column:B;desc:ID;width:30"`
 	User    string `json:"user" gorm:"column:user" excel:"column:C;desc:用户地址;width:30"`

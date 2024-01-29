@@ -15,8 +15,8 @@ func InitCity(secondsPerDay int64) {
 	//blockchain.AdminSetFoundsAddress()
 	// 设置每天秒数
 	//blockchain.AdminSetSecondsPerDay(secondsPerDay)
-	blockchain.AdminSetAuthAddress()
-	blockchain.AdminSetWithdrawLimitAddress()
+	//blockchain.AdminSetAuthAddress()
+	//blockchain.AdminSetWithdrawLimitAddress()
 
 	// 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
 
@@ -29,6 +29,7 @@ func InitCity(secondsPerDay int64) {
 	//blockchain.AdminSetChengShiLevelAndSurety("0x395bd804ecf082fce7050f6b3264d4a2f4f802dfb6067cef2d051353163a9eb2", 2, 60000)
 
 	//blockchain.AdminSetChengShiLevelAndSurety("0xc50db5c60dc66068637ffc825954152fbce8b73a290285f252697c31b005a382", 3, 40000)
+	//blockchain.AdminSetChengShiLevelAndSurety("0x223132fd87c1a316c5481cb862236f68a1f046598487b8348118d69d8d10ea22", 3, 40000)
 
 	//time.Sleep(time.Second * 5)
 	// --------
@@ -36,8 +37,8 @@ func InitCity(secondsPerDay int64) {
 	// 管理员设置城市先锋
 
 	//blockchain.PioneerChengShi("0xa10edEb8b3486C7433925081dC09Ec8A8B941677")
-	//blockchain.AdminRemovePioneer("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", "0xa10edEb8b3486C7433925081dC09Ec8A8B941677")
-	//blockchain.AdminSetPioneer("0xe5987567e81c5727f23926455949c1e7ef563497a7bb14e3cefe56ebbc79c6f6", "0xa10edEb8b3486C7433925081dC09Ec8A8B941677")
+	//blockchain.AdminRemovePioneer("0x223132fd87c1a316c5481cb862236f68a1f046598487b8348118d69d8d10ea22", "0xc250bfc206ba2d9b761eb51537ef8d665e0a54d7")
+	//blockchain.AdminSetPioneer("0x223132fd87c1a316c5481cb862236f68a1f046598487b8348118d69d8d10ea22", "0xc250bfc206ba2d9b761eb51537ef8d665e0a54d7")
 
 	// 焦作市
 	//blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")

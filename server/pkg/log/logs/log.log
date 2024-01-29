@@ -1804,3 +1804,30 @@
 {"level":"info","time":"2024-01-24T23:55:33.043+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-01-24T23:59:35.286+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-01-25T00:00:20.553+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T10:34:01.599+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:17:00.778+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-26T16:17:02.011+0800","line":"blockchain/city.go:544","msg":"couldn't retrieve sender address from the ethereum transaction: invalid chain id for signer: tx intended signer does not match the given signer: tx intended signer does not match the given signer","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:17:24.342+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-26T16:17:25.585+0800","line":"blockchain/city.go:544","msg":"couldn't retrieve sender address from the ethereum transaction: invalid chain id for signer: tx intended signer does not match the given signer: tx intended signer does not match the given signer","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:18:07.666+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:18:37.150+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:20:12.246+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:21:07.651+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:26:55.938+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:28:19.004+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:29:20.093+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:31:05.166+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:32:39.772+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:34:59.226+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:35:19.032+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:48:31.011+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:50:42.975+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:56:59.171+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-26T16:57:10.117+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 669, expected 671: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-26T16:57:15.525+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 671, expected 672: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:57:21.484+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-01-26T16:57:30.343+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 673, expected 674: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-01-26T16:57:36.471+0800","line":"blockchain/userLocation.go:248","msg":"invalid nonce; got 674, expected 675: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:57:42.007+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T16:59:31.035+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-01-26T17:01:42.068+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}

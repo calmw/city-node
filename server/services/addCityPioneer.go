@@ -30,7 +30,6 @@ type PioneerSurety struct {
 func ReadExcel(excelFile string) {
 	var pioneers []PioneerInfo
 	f, err := excelize.OpenFile(excelFile)
-	fmt.Println(err, 5)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -90,7 +89,6 @@ func ReadExcel(excelFile string) {
 		} else {
 			fmt.Println("该城市先锋不存在", i)
 		}
-		//fmt.Println("")
 		fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
 		//if i == 11 {
 		//blockchain2.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
@@ -104,13 +102,13 @@ func ReadExcel(excelFile string) {
 
 		//time.Sleep(time.Second * 8)
 		//
-		//err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
-		//err, level := blockchain2.ChengShiLevel(cityIdBytes32)
-		//var ok bool
-		//if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
-		//	ok = true
-		//}
-		//fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
+		err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
+		err, level := blockchain2.ChengShiLevel(cityIdBytes32)
+		var ok bool
+		if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
+			ok = true
+		}
+		fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
 
 	}
 }
@@ -540,7 +538,7 @@ loop:
 		}
 		for j, colCell := range row {
 			if j == 2 {
-				if colCell != "Thanh Hoa" {
+				if colCell != "Da Nang" {
 					continue loop
 				}
 			}
@@ -552,7 +550,7 @@ loop:
 				if err == nil {
 					fmt.Println("该区县已经存在", i, colCell, userLocation.CountyId)
 					// 做映射
-					blockchain2.SetCityMapping(userLocation.CountyId, "0x221d28429d84ed61c69d8c3a340eb4379ca6940c6dabcfd186afbc80038a1e44", "pYnBembRMi+8NX9ZimEpkg==")
+					blockchain2.SetCityMapping(userLocation.CountyId, "0xe07e8a8a22b4a0f18a804512e305a2de9ec91d71a54cdc8a050ab376641401e8", "pYnBembRMi8D2I+GR3bQkg==")
 
 				} else {
 					fmt.Println("该城市不存在", i, colCell)

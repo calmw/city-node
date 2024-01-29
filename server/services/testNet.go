@@ -5,21 +5,19 @@ import (
 	"city-node-server/pkg/db"
 	"city-node-server/pkg/log"
 	"city-node-server/pkg/models"
-	"fmt"
 	"os"
 )
 
 func InitTestNet() {
 	key := os.Getenv("META_ACCOUNT")
 	//key := os.Getenv("HUZHI")
-	fmt.Println(key)
 	var config models.Config
 	err := db.Mysql.Model(models.Config{}).Where("id=1").First(&config).Error
 	if err != nil {
 		log.Logger.Sugar().Fatal(err)
 	}
 	blockchain.CityNodeConfig = blockchain.CityNodeConfigs{
-		ChainId: 9001,
+		ChainId: 698,
 		//RPC:                   "https://lisbon-testnet-rpc.matchtest.co",
 		RPC:                   config.RpcTestnet,
 		AuthAddress:           "0xD712221FE8b655C981Ac47385aEd078E4E497d3A", // SBT认证合约

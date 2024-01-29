@@ -218,10 +218,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    }
 
     // 管理员设置每天秒数，用于测试
-//    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
-//        secondsPerDay = secondsPerDay_;
-//        presidencyTime = secondsPerDay_ * 180;
-//    }
+    //    function adminSetSecondsPerDay(uint56 secondsPerDay_) public onlyAdmin {
+    //        secondsPerDay = secondsPerDay_;
+    //        presidencyTime = secondsPerDay_ * 180;
+    //    }
 
     // 管理员设置任期
     //    function adminSetPresidencyTime(uint56 presidencyTime_) public onlyAdmin {
@@ -591,10 +591,16 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
         // 昨日，天
         uint256 yesterday = getDay() - 1;
+        /// 浙江丽水的先锋发放收益地址由 0x12Cc2278b37c2751D11B5A64712Ff439b57F6E6a更改为0x5db860601869Dad7Eb2961341056b389C3149e5f
+        address rewardAddress = pioneerAddress_;
+        if (pioneerAddress_ == 0x12Cc2278b37c2751D11B5A64712Ff439b57F6E6a) {
+            rewardAddress = 0x5db860601869Dad7Eb2961341056b389C3149e5f;
+        }
+        ///
 
         // 福利包奖励
         uint bonus = 93333333333333333333;
-        benefitPackageReward[pioneerAddress_] += bonus;
+        benefitPackageReward[rewardAddress] += bonus;
 
         // 社交基金5%奖励
         IntoCity city = IntoCity(cityAddress);
@@ -602,9 +608,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 allDailyFoundsTotal = city.getFifteenDayAverageFounds(); // 全网昨日所有城市新增社交基金
         uint256 f;
         if (pioneerAndCityNodeNumber == 0) {
-            fundsReward[pioneerAddress_] += 0;
+            fundsReward[rewardAddress] += 0;
         } else {
-            fundsReward[pioneerAddress_] +=
+            fundsReward[rewardAddress] +=
                 (allDailyFoundsTotal * 5) /
                 100 /
                 pioneerAndCityNodeNumber;
@@ -616,16 +622,17 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             ChengShiId_,
             yesterday
         ); // 昨日该城市新增质押权重
-        delegateReward[pioneerAddress_] += yesterdayDelegate / 100;
+        delegateReward[rewardAddress] += yesterdayDelegate / 100;
 
+        address pioneerAddress = pioneerAddress_;
         emit DailyRewardRecord(
-            pioneerAddress_,
+            pioneerAddress,
             bonus,
-            fundsReward[pioneerAddress_],
-            delegateReward[pioneerAddress_]
+            fundsReward[pioneerAddress],
+            delegateReward[pioneerAddress]
         );
         emit DailyRewardRecordV2(
-            pioneerAddress_,
+            pioneerAddress,
             bonus,
             f,
             yesterdayDelegate / 100
