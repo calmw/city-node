@@ -643,7 +643,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     function withdrawalBenefitPackageReward() public {
         //        require(false, "withdraw service paused");
         // 判断是否是先锋
-        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+        //        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(benefitPackageReward[msg.sender] > 0, "balance insufficient");
         require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
         uint256 balance = benefitPackageReward[msg.sender];
@@ -663,7 +663,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     function withdrawalFundsReward() public {
         //        require(false, "withdraw service paused");
         // 判断是否是先锋
-        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+        //        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(fundsReward[msg.sender] > 0, "balance insufficient");
         require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
         uint256 balance = fundsReward[msg.sender];
@@ -683,7 +683,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     function withdrawalDelegateReward() public {
         //        require(false, "withdraw service paused");
         // 判断是否是先锋
-        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+        //        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(delegateReward[msg.sender] > 0, "balance insufficient");
         require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
         uint256 balance = delegateReward[msg.sender];
@@ -702,7 +702,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     function withdrawalSuretyReward() public {
         //        require(false, "withdraw service paused");
         // 判断是否是先锋
-        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
+        //        require(pioneerInfo[msg.sender].ctime > 0, "you are not pioneer");
         require(suretyReward[msg.sender] > 0, "balance insufficient");
         require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
         uint256 balance = suretyReward[msg.sender];
