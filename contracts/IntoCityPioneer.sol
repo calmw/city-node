@@ -625,6 +625,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         delegateReward[rewardAddress] += yesterdayDelegate / 100;
 
         address pioneerAddress = pioneerAddress_;
+
         emit DailyRewardRecord(
             pioneerAddress,
             bonus,
