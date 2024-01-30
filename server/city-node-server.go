@@ -15,8 +15,8 @@ func main() {
 	//	}
 	//}()
 	db.InitMysql()
-	//services.InitMainNet()
-	services.InitTestNet()
+	services.InitMainNet()
+	//services.InitTestNet()
 
 	//services.InitUserLocation()
 	services.InitCityPioneer(300)

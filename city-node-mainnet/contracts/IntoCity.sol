@@ -187,7 +187,7 @@ contract IntoCity is RoleAccess, Initializable {
     function changePioneerAddress(
         address newPioneerAddress_,
         address oldPioneerAddress_
-    ) public onlyAdmin {
+    ) public {
         pioneerChengShi[newPioneerAddress_] = pioneerChengShi[
             oldPioneerAddress_
         ];
