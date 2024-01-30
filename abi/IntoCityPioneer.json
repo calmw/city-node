@@ -92,6 +92,37 @@
     "inputs": [
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "pioneerAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "toxReward",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "foundsReward",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "delegateReward",
+        "type": "uint256"
+      }
+    ],
+    "name": "DailyRewardRecordV2",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
         "internalType": "uint8",
         "name": "version",
         "type": "uint8"
@@ -180,24 +211,16 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "appraiseAddress_",
+        "name": "newPioneerAddress_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "oldPioneerAddress_",
         "type": "address"
       }
     ],
-    "name": "adminSetAppraise",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint56",
-        "name": "secondsPerDay_",
-        "type": "uint56"
-      }
-    ],
-    "name": "adminSetSecondsPerDay",
+    "name": "adminChangePioneerAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -609,19 +632,6 @@
   {
     "inputs": [],
     "name": "depositSurety",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "pioneerAddress_",
-        "type": "address"
-      }
-    ],
-    "name": "editPioneerInfo",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

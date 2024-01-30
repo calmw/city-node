@@ -61,7 +61,7 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => mapping(uint256 => uint256)) public cityFoundsRecord;
     // 区县ID/城市ID => (天=>质押量）,新增质押量
     mapping(bytes32 => mapping(uint256 => uint256))
-        public cityNewlyDelegateRecord;
+    public cityNewlyDelegateRecord;
     // 区县ID/城市ID => 质押 ,区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
     mapping(bytes32 => uint256) public cityDelegateTotal; // 上线删除
     // 所有区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
@@ -104,7 +104,7 @@ contract IntoCity is RoleAccess, Initializable {
     address public foundsAddress;
     //  城市ID=>(天=>当天累计充值)   充值权重
     mapping(bytes32 => mapping(uint256 => uint256))
-        public rechargeDailyWeightRecord;
+    public rechargeDailyWeightRecord;
     //  天=>累计充值)   充值权重
     mapping(uint256 => uint256) public rechargeDailyWeight;
     //  全部累计充值权重
@@ -113,10 +113,10 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => uint256) public cityOrChengShiWeightTotal; // 废弃
     // 区县ID => (天=>质押量）,新增质押量，不算减去的
     mapping(bytes32 => mapping(uint256 => uint256))
-        public countyNewlyPioneerDelegateRecord;
+    public countyNewlyPioneerDelegateRecord;
     //  城市ID=>(天=>当天到之前累计充值)   充值权重
     mapping(bytes32 => mapping(uint256 => uint256))
-        public rechargeDailyTotalWeightRecord;
+    public rechargeDailyTotalWeightRecord;
     //  城市先锋地址=>需要补加的充值权重
     mapping(address => uint256) public rechargeWeightAdditional;
     //  城市先锋地址=>状态(true 停止定时任务)
@@ -187,10 +187,10 @@ contract IntoCity is RoleAccess, Initializable {
     function changePioneerAddress(
         address newPioneerAddress_,
         address oldPioneerAddress_
-    ) public onlyAdmin {
+    ) public {
         pioneerChengShi[newPioneerAddress_] = pioneerChengShi[
-            oldPioneerAddress_
-        ];
+                    oldPioneerAddress_
+            ];
     }
 
     //    function adminRemoveAllPioneer() public onlyAdmin {
@@ -225,7 +225,7 @@ contract IntoCity is RoleAccess, Initializable {
             if (pioneerChengShiIds[i] == chengShiId_) {
                 pioneerChengShiIds[i] = pioneerChengShiIds[
                     pioneerChengShiIds.length - 1
-                ];
+                    ];
                 pioneerChengShiIds.pop();
             }
         }
