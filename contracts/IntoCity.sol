@@ -126,9 +126,9 @@ contract IntoCity is RoleAccess, Initializable {
     address public authAddress; // SBT认证合约
     address public withdrawLimitAddress; // 是否在小黑屋合约
 
-    //    function initialize() public initializer {
-    //        _addAdmin(msg.sender);
-    //    }
+    //        function initialize() public initializer {
+    //            _addAdmin(msg.sender);
+    //        }
 
     // 管理员设置先锋计划合约地址
     function adminSetCityPioneerAddress(
@@ -182,6 +182,15 @@ contract IntoCity is RoleAccess, Initializable {
         if (!pioneerChengShiIdExits(chengShiId_)) {
             pioneerChengShiIds.push(chengShiId_);
         }
+    }
+
+    function changePioneerAddress(
+        address newPioneerAddress_,
+        address oldPioneerAddress_
+    ) public onlyAdmin {
+        pioneerChengShi[newPioneerAddress_] = pioneerChengShi[
+            oldPioneerAddress_
+        ];
     }
 
     //    function adminRemoveAllPioneer() public onlyAdmin {

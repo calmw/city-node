@@ -143,14 +143,23 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     CityPioneerData public cityPioneerData; // 先锋数据合约
     IAppraise public appraise; // 先锋考核合约
 
-    //            function initialize() public initializer {
-    //                _addAdmin(msg.sender);
-    //            }
+    //                function initialize() public initializer {
+    //                    _addAdmin(msg.sender);
+    //                }
 
     // 管理员设置TOX代币地址
     //    function adminSetTOXAddress(address TOXAddress_) public onlyAdmin {
     //        TOXAddress = TOXAddress_;
     //    }
+    // 管理员更换先锋地址,针对丽水这种不需要再考核的
+    function adminChangePioneerAddress(
+        address newPioneerAddress_,
+        address oldPioneerAddress_
+    ) public onlyAdmin {
+        pioneerInfo[newPioneerAddress_] = pioneerInfo[oldPioneerAddress_];
+        IntoCity city = IntoCity(cityAddress);
+        city.changePioneerAddress(newPioneerAddress_, oldPioneerAddress_); // 让新地址可以进入先锋界面
+    }
 
     // 管理员设置数据合约地址
     //    function adminSetCityPioneerDataAddress(
@@ -309,46 +318,46 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     function removePioneer(address pioneer_) public onlyAdmin {
-        //        for (uint256 i = 0; i < pioneers.length; i++) {
-        //            if (pioneer_ == pioneers[i]) {
-        //                pioneers[i] = pioneers[pioneers.length - 1];
-        //                pioneers.pop();
-        //            }
-        //        }
-        //        pioneerInfo[pioneer_].assessmentStatus = false;
-        //        alreadyRewardRate[pioneer_][1] = 0;
-        //        alreadyRewardRate[pioneer_][2] = 0;
-        //        alreadyRewardRateTotal[pioneer_] = 0;
-        //
-        //        // 先锋地址 => 先锋福利包收益
-        //        benefitPackageReward[pioneer_] = 0;
-        //        // 先锋地址 => 已领取的先锋福利包收益
-        //        benefitPackageRewardReceived[pioneer_] = 0;
-        //        // 先锋地址 => 先锋社交基金收益
-        //        fundsReward[pioneer_] = 0;
-        //        // 先锋地址 => 已领取的先锋社交基金收益
-        //        fundsRewardReceived[pioneer_] = 0;
-        //        // 先锋地址 => 先锋新增质押收益
-        //        delegateReward[pioneer_] = 0;
-        //        // 先锋地址 => 已领取的先锋新增质押收益
-        //        delegateRewardReceived[pioneer_] = 0;
-        //        // 先锋地址 => 先锋可以退的保证金
-        //        suretyReward[pioneer_] = 0;
-        //        // 先锋地址 => (月份=>退的比例)，月份为1和2，比例为整数
-        //        alreadyRewardRate[pioneer_][1] = 0;
-        //        alreadyRewardRate[pioneer_][2] = 0;
-        //        // 先锋地址 => 先锋已经退还的保证金
-        //        suretyRewardRecord[pioneer_] = 0;
-        //        benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
-        //        fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
-        //        delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
-        //        failedAt[pioneer_] = 0; // 清楚失败时间
-        //        IntoCity city = IntoCity(cityAddress);
-        //        failedDelegate[city.pioneerChengShi(pioneer_)] = 0; // 先锋考核失败时候的累计充值权重
-        //        successTime[pioneer_] = 0; // 清楚成功时间
-        //        suretyMonthWeight[pioneer_][1] = 0; // 清楚成功时间
-        //        suretyMonthWeight[pioneer_][2] = 0; // 清楚成功时间
-        //        appraise.delPioneerPreMonthWeight(pioneer_);
+//        for (uint256 i = 0; i < pioneers.length; i++) {
+//            if (pioneer_ == pioneers[i]) {
+//                pioneers[i] = pioneers[pioneers.length - 1];
+//                pioneers.pop();
+//            }
+//        }
+//        pioneerInfo[pioneer_].assessmentStatus = false;
+//        alreadyRewardRate[pioneer_][1] = 0;
+//        alreadyRewardRate[pioneer_][2] = 0;
+//        alreadyRewardRateTotal[pioneer_] = 0;
+//
+//        // 先锋地址 => 先锋福利包收益
+//        benefitPackageReward[pioneer_] = 0;
+//        // 先锋地址 => 已领取的先锋福利包收益
+//        benefitPackageRewardReceived[pioneer_] = 0;
+//        // 先锋地址 => 先锋社交基金收益
+//        fundsReward[pioneer_] = 0;
+//        // 先锋地址 => 已领取的先锋社交基金收益
+//        fundsRewardReceived[pioneer_] = 0;
+//        // 先锋地址 => 先锋新增质押收益
+//        delegateReward[pioneer_] = 0;
+//        // 先锋地址 => 已领取的先锋新增质押收益
+//        delegateRewardReceived[pioneer_] = 0;
+//        // 先锋地址 => 先锋可以退的保证金
+//        suretyReward[pioneer_] = 0;
+//        // 先锋地址 => (月份=>退的比例)，月份为1和2，比例为整数
+//        alreadyRewardRate[pioneer_][1] = 0;
+//        alreadyRewardRate[pioneer_][2] = 0;
+//        // 先锋地址 => 先锋已经退还的保证金
+//        suretyRewardRecord[pioneer_] = 0;
+//        benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
+//        fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
+//        delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
+//        failedAt[pioneer_] = 0; // 清楚失败时间
+//        IntoCity city = IntoCity(cityAddress);
+//        failedDelegate[city.pioneerChengShi(pioneer_)] = 0; // 先锋考核失败时候的累计充值权重
+//        successTime[pioneer_] = 0; // 清楚成功时间
+//        suretyMonthWeight[pioneer_][1] = 0; // 清楚成功时间
+//        suretyMonthWeight[pioneer_][2] = 0; // 清楚成功时间
+//        appraise.delPioneerPreMonthWeight(pioneer_);
     }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
@@ -409,84 +418,84 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         IntoCity city,
         uint256 day
     ) private {
-        if (pioneer.assessmentStatus) {
-            // 已经通过终极考核
-            return;
-        }
-        uint256 pioneerChengShiTotalRechargeWeight = city
-            .getChengShiRechargeWeight(chengShiId_) / 1e18; // 先锋绑定的城市总的新增充值权重,这里的值是充值量除以100的权重
-        uint256 assessmentCriteriaThreshold; // 考核标准金额
-        bool execStatus;
-        if (!pioneer.assessmentMonthStatus) {
-            // 如果按月考核失败，将不再考核
-            return;
-        }
+                if (pioneer.assessmentStatus) {
+                    // 已经通过终极考核
+                    return;
+                }
+                uint256 pioneerChengShiTotalRechargeWeight = city
+                    .getChengShiRechargeWeight(chengShiId_) / 1e18; // 先锋绑定的城市总的新增充值权重,这里的值是充值量除以100的权重
+                uint256 assessmentCriteriaThreshold; // 考核标准金额
+                bool execStatus;
+                if (!pioneer.assessmentMonthStatus) {
+                    // 如果按月考核失败，将不再考核
+                    return;
+                }
 
-        if (day == 90) {
-            execStatus = true;
-            assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                3
-            ];
-        } else if (day == 60) {
-            // 检测是否满足直接考核通过
-            if (
-                pioneerChengShiTotalRechargeWeight >=
-                assessmentCriteria[pioneer.cityLevel][3]
-            ) {
-                //直接达到m3考核标准，也就是直接通过终极考核
-                pioneer.assessmentStatus = true;
-                successTime[pioneer.pioneerAddress] = block.timestamp;
-                return;
-            }
-            execStatus = true;
-            // 没达到M3，考核M2
-            assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                2
-            ];
-        } else if (day == 30) {
-            // 检测是否满足直接考核通过
-            if (
-                pioneerChengShiTotalRechargeWeight >=
-                assessmentCriteria[pioneer.cityLevel][3]
-            ) {
-                //直接达到m3考核标准，也就是直接通过终极考核
-                pioneer.assessmentStatus = true;
-                successTime[pioneer.pioneerAddress] = block.timestamp;
-                return;
-            }
-            execStatus = true;
-            // 没达到M3，考核M1
-            assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                1
-            ];
-        }
-        if (!execStatus) {
-            return;
-        }
-        // 检测是否满足直接考核通过
-        if (
-            pioneerChengShiTotalRechargeWeight >=
-            assessmentCriteria[pioneer.cityLevel][3]
-        ) {
-            //直接达到m3考核标准，也就是直接通过终极考核
-            pioneer.assessmentStatus = true;
-            successTime[pioneer.pioneerAddress] = block.timestamp;
-            return;
-        }
-        // 检测其他标准考核
-        if (pioneerChengShiTotalRechargeWeight < assessmentCriteriaThreshold) {
-            pioneer.assessmentMonthStatus = false;
-            if (failedAt[pioneer.pioneerAddress] <= 0) {
-                failedAt[pioneer.pioneerAddress] = block.timestamp;
-            }
-            failedDelegate[chengShiId_] =
-                pioneerChengShiTotalRechargeWeight *
-                1e18;
-            city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
-        } else {
-            successTime[pioneer.pioneerAddress] = block.timestamp;
-        }
-        execStatus = false;
+                if (day == 90) {
+                    execStatus = true;
+                    assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
+                        3
+                    ];
+                } else if (day == 60) {
+                    // 检测是否满足直接考核通过
+                    if (
+                        pioneerChengShiTotalRechargeWeight >=
+                        assessmentCriteria[pioneer.cityLevel][3]
+                    ) {
+                        //直接达到m3考核标准，也就是直接通过终极考核
+                        pioneer.assessmentStatus = true;
+                        successTime[pioneer.pioneerAddress] = block.timestamp;
+                        return;
+                    }
+                    execStatus = true;
+                    // 没达到M3，考核M2
+                    assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
+                        2
+                    ];
+                } else if (day == 30) {
+                    // 检测是否满足直接考核通过
+                    if (
+                        pioneerChengShiTotalRechargeWeight >=
+                        assessmentCriteria[pioneer.cityLevel][3]
+                    ) {
+                        //直接达到m3考核标准，也就是直接通过终极考核
+                        pioneer.assessmentStatus = true;
+                        successTime[pioneer.pioneerAddress] = block.timestamp;
+                        return;
+                    }
+                    execStatus = true;
+                    // 没达到M3，考核M1
+                    assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
+                        1
+                    ];
+                }
+                if (!execStatus) {
+                    return;
+                }
+                // 检测是否满足直接考核通过
+                if (
+                    pioneerChengShiTotalRechargeWeight >=
+                    assessmentCriteria[pioneer.cityLevel][3]
+                ) {
+                    //直接达到m3考核标准，也就是直接通过终极考核
+                    pioneer.assessmentStatus = true;
+                    successTime[pioneer.pioneerAddress] = block.timestamp;
+                    return;
+                }
+                // 检测其他标准考核
+                if (pioneerChengShiTotalRechargeWeight < assessmentCriteriaThreshold) {
+                    pioneer.assessmentMonthStatus = false;
+                    if (failedAt[pioneer.pioneerAddress] <= 0) {
+                        failedAt[pioneer.pioneerAddress] = block.timestamp;
+                    }
+                    failedDelegate[chengShiId_] =
+                        pioneerChengShiTotalRechargeWeight *
+                        1e18;
+                    city.setChengShiPioneerAssessment(chengShiId_); // 将该城市设置为先锋计划洛选城市
+                } else {
+                    successTime[pioneer.pioneerAddress] = block.timestamp;
+                }
+                execStatus = false;
     }
 
     // 计算退还保证金额度,并更可退还金额
@@ -496,82 +505,82 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         IntoCity city,
         uint256 day
     ) private {
-        if (isPioneerReturnSurety[pioneer.pioneerAddress]) {
-            // 不退还保证金的用户，不再计算
-            return;
-        }
-        uint256 chengLevel = city.chengShiLevel(chengShiId); // 城市等级
-        uint256 surety = city.chengShiLevelSurety(chengLevel); // 城市保证金
-        uint256 pioneerChengShiTotalRechargeWeight = city
-            .getChengShiRechargeWeight(chengShiId) / 1e18; // 先锋绑定的城市总的新充值权重
-        uint256 suretyReturn; // 退还保证金的金额
-        if (day == 30) {
-            // 直接考核通过，退还100%，满足M3退还标准，直接退100%
-            for (uint j = 3; j > 0; j--) {
-                if (
-                    pioneerChengShiTotalRechargeWeight >=
-                    assessmentReturnCriteria[chengLevel][j]
-                ) {
-                    pioneer.returnSuretyRate += assessmentReturnRate[
-                        chengLevel
-                    ][j];
-                    suretyReturn = (surety * pioneer.returnSuretyRate) / 100;
-                    pioneer.returnSuretyStatus = true;
-                    pioneer.returnSuretyTime = block.timestamp;
-                    alreadyRewardRate[pioneer.pioneerAddress][
-                        1
-                    ] = assessmentReturnRate[chengLevel][j]; // 第一个月退的比例
-                    suretyMonthWeight[pioneer.pioneerAddress][
-                        1
-                    ] = pioneerChengShiTotalRechargeWeight; // 第1个月结束的时候，权重值
-                    suretyReward[pioneer.pioneerAddress] += suretyReturn; // 增加可退还保证金
-                    emit SuretyRecord(
-                        pioneer.pioneerAddress,
-                        suretyReturn,
-                        day / 30
-                    );
-                    break;
+                if (isPioneerReturnSurety[pioneer.pioneerAddress]) {
+                    // 不退还保证金的用户，不再计算
+                    return;
                 }
-            }
-        } else if (day == 60) {
-            uint256 firstMonthRate = alreadyRewardRate[pioneer.pioneerAddress][
-                1
-            ];
-            for (uint i = 6; i > 3; i--) {
-                if (
-                    pioneerChengShiTotalRechargeWeight >=
-                    assessmentReturnCriteria[chengLevel][i]
-                ) {
-                    if (assessmentReturnRate[chengLevel][i] <= firstMonthRate) {
-                        // 满足退还额度标准的情况下，需要第二个月的退还比例大于第一个月的
-                        break;
+                uint256 chengLevel = city.chengShiLevel(chengShiId); // 城市等级
+                uint256 surety = city.chengShiLevelSurety(chengLevel); // 城市保证金
+                uint256 pioneerChengShiTotalRechargeWeight = city
+                    .getChengShiRechargeWeight(chengShiId) / 1e18; // 先锋绑定的城市总的新充值权重
+                uint256 suretyReturn; // 退还保证金的金额
+                if (day == 30) {
+                    // 直接考核通过，退还100%，满足M3退还标准，直接退100%
+                    for (uint j = 3; j > 0; j--) {
+                        if (
+                            pioneerChengShiTotalRechargeWeight >=
+                            assessmentReturnCriteria[chengLevel][j]
+                        ) {
+                            pioneer.returnSuretyRate += assessmentReturnRate[
+                                chengLevel
+                            ][j];
+                            suretyReturn = (surety * pioneer.returnSuretyRate) / 100;
+                            pioneer.returnSuretyStatus = true;
+                            pioneer.returnSuretyTime = block.timestamp;
+                            alreadyRewardRate[pioneer.pioneerAddress][
+                                1
+                            ] = assessmentReturnRate[chengLevel][j]; // 第一个月退的比例
+                            suretyMonthWeight[pioneer.pioneerAddress][
+                                1
+                            ] = pioneerChengShiTotalRechargeWeight; // 第1个月结束的时候，权重值
+                            suretyReward[pioneer.pioneerAddress] += suretyReturn; // 增加可退还保证金
+                            emit SuretyRecord(
+                                pioneer.pioneerAddress,
+                                suretyReturn,
+                                day / 30
+                            );
+                            break;
+                        }
                     }
-                    pioneer.returnSuretyRate +=
-                        assessmentReturnRate[chengLevel][i] -
-                        firstMonthRate;
-                    suretyReturn =
-                        (surety *
-                            (assessmentReturnRate[chengLevel][i] -
-                                firstMonthRate)) /
-                        100;
-                    pioneer.returnSuretyStatus = true;
-                    pioneer.returnSuretyTime = block.timestamp;
-                    alreadyRewardRate[pioneer.pioneerAddress][2] =
-                        assessmentReturnRate[chengLevel][i] -
-                        firstMonthRate; // 第2个月退的比例
-                    suretyReward[pioneer.pioneerAddress] += suretyReturn; // 增加可退还保证金
-                    emit SuretyRecord(
-                        pioneer.pioneerAddress,
-                        suretyReturn,
-                        day / 30
-                    );
-                    break;
+                } else if (day == 60) {
+                    uint256 firstMonthRate = alreadyRewardRate[pioneer.pioneerAddress][
+                        1
+                    ];
+                    for (uint i = 6; i > 3; i--) {
+                        if (
+                            pioneerChengShiTotalRechargeWeight >=
+                            assessmentReturnCriteria[chengLevel][i]
+                        ) {
+                            if (assessmentReturnRate[chengLevel][i] <= firstMonthRate) {
+                                // 满足退还额度标准的情况下，需要第二个月的退还比例大于第一个月的
+                                break;
+                            }
+                            pioneer.returnSuretyRate +=
+                                assessmentReturnRate[chengLevel][i] -
+                                firstMonthRate;
+                            suretyReturn =
+                                (surety *
+                                    (assessmentReturnRate[chengLevel][i] -
+                                        firstMonthRate)) /
+                                100;
+                            pioneer.returnSuretyStatus = true;
+                            pioneer.returnSuretyTime = block.timestamp;
+                            alreadyRewardRate[pioneer.pioneerAddress][2] =
+                                assessmentReturnRate[chengLevel][i] -
+                                firstMonthRate; // 第2个月退的比例
+                            suretyReward[pioneer.pioneerAddress] += suretyReturn; // 增加可退还保证金
+                            emit SuretyRecord(
+                                pioneer.pioneerAddress,
+                                suretyReturn,
+                                day / 30
+                            );
+                            break;
+                        }
+                    }
+                    suretyMonthWeight[pioneer.pioneerAddress][
+                        2
+                    ] = pioneerChengShiTotalRechargeWeight; // 第2个月结束的时候，权重值
                 }
-            }
-            suretyMonthWeight[pioneer.pioneerAddress][
-                2
-            ] = pioneerChengShiTotalRechargeWeight; // 第2个月结束的时候，权重值
-        }
     }
 
     // 每日奖励发放
