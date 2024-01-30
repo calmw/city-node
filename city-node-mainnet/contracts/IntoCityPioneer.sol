@@ -143,14 +143,23 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     CityPioneerData public cityPioneerData; // 先锋数据合约
     IAppraise public appraise; // 先锋考核合约
 
-    //            function initialize() public initializer {
-    //                _addAdmin(msg.sender);
-    //            }
+    //                function initialize() public initializer {
+    //                    _addAdmin(msg.sender);
+    //                }
 
     // 管理员设置TOX代币地址
     //    function adminSetTOXAddress(address TOXAddress_) public onlyAdmin {
     //        TOXAddress = TOXAddress_;
     //    }
+    // 管理员更换先锋地址,针对丽水这种不需要再考核的
+    function adminChangePioneerAddress(
+        address newPioneerAddress_,
+        address oldPioneerAddress_
+    ) public onlyAdmin {
+        pioneerInfo[newPioneerAddress_] = pioneerInfo[oldPioneerAddress_];
+        IntoCity city = IntoCity(cityAddress);
+        city.changePioneerAddress(newPioneerAddress_, oldPioneerAddress_); // 让新地址可以进入先锋界面
+    }
 
     // 管理员设置数据合约地址
     //    function adminSetCityPioneerDataAddress(
