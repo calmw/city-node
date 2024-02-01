@@ -633,9 +633,7 @@ func GetAuth2(nonce_ int64) (error, *bind.TransactOpts) {
 
 // TriggerAllPioneerTask 触发所有先锋分红和考核
 func TriggerAllPioneerTask() {
-	//Cli, err := ethclient.Dial("https://rpc-sen.matchscan.io")
 	Cli, err := ethclient.Dial(CityNodeConfig.RPC)
-	//Cli, err := ethclient.Dial("https://rpc-7.matchscan.io/")
 	if err != nil {
 		log.Logger.Sugar().Error("dail failed")
 	}
@@ -739,7 +737,6 @@ func TriggerAllPioneerTask() {
 }
 
 func GetAllPioneer() {
-	//Cli, err := ethclient.Dial("https://rpc-sen.matchscan.io")
 	Cli, err := ethclient.Dial(CityNodeConfig.RPC)
 	if err != nil {
 		log.Logger.Sugar().Error("dail failed")

@@ -1,4 +1,4 @@
-package api
+package main
 
 import (
 	"city-node-server/api/middlewares"
@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Start() {
+func main() {
 
 	//init mysql
 	db.InitMysql()

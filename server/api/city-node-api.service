@@ -1,10 +1,10 @@
 [Unit]
-Description=the pioneer task service
+Description=city node backend service
 [Service]
 Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=/data/apps/city-node/server/pioneerDailyTask
+ExecStart=/data/apps/city-node/server/api/city_node_api
 [Install]
 WantedBy=multi-user.target
