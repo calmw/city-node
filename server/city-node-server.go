@@ -1,8 +1,8 @@
 package main
 
 import (
+	"city-node-server/api"
 	"city-node-server/pkg/blockchain"
-	"city-node-server/pkg/db"
 	"city-node-server/services"
 	"github.com/jasonlvhit/gocron"
 	"time"
@@ -14,12 +14,12 @@ func main() {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	db.InitMysql()
-	services.InitMainNet()
+	//db.InitMysql()
+	//services.InitMainNet()
 	//services.InitTestNet()
 
 	//services.InitUserLocation()
-	services.InitCityPioneer(300)
+	//services.InitCityPioneer(300)
 	//services.InitCity(300)
 	//services.InitAppraise()
 
@@ -80,7 +80,7 @@ func main() {
 	//
 	//}
 	//services2.GetToxTxBridgeBsc()
-	//api.Start()
+	api.Start()
 	//tasks.Start()
 	//blockchain.GetAllPioneer()
 	//blockchain.GetUserLocation()
@@ -99,6 +99,7 @@ func main() {
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
 	//services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
 	//services.ReadExcel5("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx") // 查询用户所在城市的网体业绩
+	//services.ReadExcel5("./assets/INTO工作室补贴业绩查询1.31.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadCityFIle("./assets/HaNoi.txt")
 	//services.ReadCityFIle("./assets/Bangkok.txt")
 	//services.CheckPioneer("./assets/城市先锋-用户信息.xlsx") // 确认用户是否交保证金

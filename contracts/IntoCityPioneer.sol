@@ -81,7 +81,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentCriteria; // 城市先锋考核标准
     // 城市等级 => (索引 => 退还标准)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（点数）
     mapping(uint256 => mapping(uint256 => uint256))
-        public assessmentReturnCriteria; // 城市先锋保证金退还标准
+    public assessmentReturnCriteria; // 城市先锋保证金退还标准
     // 城市等级 => (索引 => 退还比例)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（比例）
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentReturnRate; // 城市先锋保证金退还比例
     // 先锋地址 => 先锋信息， 先锋信息
@@ -434,8 +434,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (day == 90) {
             execStatus = true;
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                3
-            ];
+                        3
+                ];
         } else if (day == 60) {
             // 检测是否满足直接考核通过
             if (
@@ -450,8 +450,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M2
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                2
-            ];
+                        2
+                ];
         } else if (day == 30) {
             // 检测是否满足直接考核通过
             if (
@@ -466,8 +466,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M1
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                1
-            ];
+                        1
+                ];
         }
         if (!execStatus) {
             return;
@@ -522,16 +522,16 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                     assessmentReturnCriteria[chengLevel][j]
                 ) {
                     pioneer.returnSuretyRate += assessmentReturnRate[
-                        chengLevel
-                    ][j];
+                                chengLevel
+                        ][j];
                     suretyReturn = (surety * pioneer.returnSuretyRate) / 100;
                     pioneer.returnSuretyStatus = true;
                     pioneer.returnSuretyTime = block.timestamp;
                     alreadyRewardRate[pioneer.pioneerAddress][
-                        1
+                    1
                     ] = assessmentReturnRate[chengLevel][j]; // 第一个月退的比例
                     suretyMonthWeight[pioneer.pioneerAddress][
-                        1
+                    1
                     ] = pioneerChengShiTotalRechargeWeight; // 第1个月结束的时候，权重值
                     suretyReward[pioneer.pioneerAddress] += suretyReturn; // 增加可退还保证金
                     emit SuretyRecord(
@@ -544,8 +544,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             }
         } else if (day == 60) {
             uint256 firstMonthRate = alreadyRewardRate[pioneer.pioneerAddress][
-                1
-            ];
+                        1
+                ];
             for (uint i = 6; i > 3; i--) {
                 if (
                     pioneerChengShiTotalRechargeWeight >=
@@ -578,7 +578,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 }
             }
             suretyMonthWeight[pioneer.pioneerAddress][
-                2
+            2
             ] = pioneerChengShiTotalRechargeWeight; // 第2个月结束的时候，权重值
         }
     }
