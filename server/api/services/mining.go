@@ -12,12 +12,14 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"github.com/shopspring/decimal"
 	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"gorm.io/gorm"
 	"io"
 	"net/http"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -30,10 +32,19 @@ func NewMining() *Mining {
 }
 
 type Sons struct {
-	Code int      `json:"code"`
-	Msg  string   `json:"msg"`
-	Data []string `json:"data"`
+	Code int    `json:"code"`
+	Msg  string `json:"msg"`
+	Data struct {
+		Data  []string `json:"data"`
+		Total int      `json:"total"`
+	} `json:"data"`
 }
+
+//type Sons struct {
+//	Code int      `json:"code"`
+//	Msg  string   `json:"msg"`
+//	Data []string `json:"data"`
+//}
 
 type Res struct {
 	Date     int             `json:"date"`
@@ -237,7 +248,7 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 		return statecode.CommonErrServerErr, result, decimalZero, decimalZero, decimalZero, decimalZero
 	}
 	userMap := make(map[string]bool)
-	for _, user := range sons.Data {
+	for _, user := range sons.Data.Data {
 		user = strings.ToLower(user)
 		userMap[user] = true
 	}
@@ -536,7 +547,7 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 		return statecode.CommonErrServerErr, result, decimalZero, decimalZero, decimalZero, decimalZero
 	}
 	userMap := make(map[string]bool)
-	for _, user := range sons.Data {
+	for _, user := range sons.Data.Data {
 		user = strings.ToLower(user)
 		userMap[user] = true
 		userSet.Add(user)
@@ -715,7 +726,7 @@ func (c *Mining) RechargeSum(req *request.RechargeSum) (int, []Recharge) {
 		return statecode.CommonErrServerErr, result
 	}
 	userMap := make(map[string]bool)
-	for _, user := range sons.Data {
+	for _, user := range sons.Data.Data {
 		user = strings.ToLower(user)
 		userMap[user] = true
 		userSet.Add(user)
@@ -760,8 +771,8 @@ func (c *Mining) RechargeSum(req *request.RechargeSum) (int, []Recharge) {
 // RechargeSumInCity 查询此用户所在城市的网体业绩，网体不在这个城市的不做計算
 func (c *Mining) RechargeSumInCity() int {
 
-	ReadExcel("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
-	//ReadExcel("./assets/单个INTO工作室申请统计表.xlsx")
+	//ReadExcel("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
+	ReadExcel("./assets/INTO工作室补贴业绩查询1.31.xlsx")
 
 	return statecode.CommonSuccess
 }
@@ -769,8 +780,9 @@ func (c *Mining) RechargeSumInCity() int {
 // SyncUserData 查询此用户所在城市的网体业绩，网体不在这个城市的不做計算
 func (c *Mining) SyncUserData() int {
 
-	//ReadExcel("./assets/单个INTO工作室申请统计表.xlsx")
-	SyncStatus("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
+	//ReadExcel("./assets/INTO工作室补贴业绩查询1.31.xlsx")
+	//SyncStatus("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
+	SyncStatus("./assets/INTO工作室补贴业绩查询1.31.xlsx")
 
 	return statecode.CommonSuccess
 }
@@ -801,12 +813,10 @@ func ReadExcel(excelFile string) int {
 			} else if j == 4 {
 				studioInfo.Super = colCell
 			} else if j == 5 {
-				studioInfo.Community = colCell
-			} else if j == 6 {
+				//	studioInfo.Community = colCell
+				//} else if j == 6 {
 				studioInfo.City = colCell
-			} else if j == 7 {
-				studioInfo.Address = colCell
-			} else if j == 12 {
+			} else if j == 8 {
 				studioInfo.CountTime = colCell
 			}
 		}
@@ -840,7 +850,7 @@ func ReadExcel(excelFile string) int {
 			return statecode.CommonErrServerErr
 		}
 		userMap := make(map[string]bool)
-		for _, user := range sons.Data {
+		for _, user := range sons.Data.Data {
 			user = strings.ToLower(user)
 			userMap[user] = true
 			userSet.Add(user)
@@ -954,9 +964,15 @@ func GetWeight(user, cityId, countTime, userName string) (error, decimal.Decimal
 	}
 
 	// 获取该用户网体充值权重，审核通过后到12月31日的充值权重
-	countTimeSlice := strings.Split(countTime, "--")
+	countTimeSlice := strings.Split(countTime, "-")
+	date := strings.Replace(countTimeSlice[0], "月", "-", -1)
+	date = strings.Replace(date, "日", "", -1)
+	dateSlice := strings.Split(date, "-")
+	month, _ := strconv.Atoi(dateSlice[0])
+	day, _ := strconv.Atoi(dateSlice[1])
 	countTimeSlice = strings.Split(countTimeSlice[0], "/")
-	err, d := GetRechargeWeight(user, fmt.Sprintf("%s-%s-%s 00:00:00", countTimeSlice[0], countTimeSlice[1], countTimeSlice[2]), "2024-01-01 00:00:00")
+	fmt.Println(fmt.Sprintf("%d-%02d-%02d 00:00:00", 2024, month, day), 78998789)
+	err, d := GetRechargeWeight(user, fmt.Sprintf("%d-%02d-%02d 00:00:00", 2024, month, day), "2024-01-31 00:00:00")
 	//err, d := GetRechargeWeightFromDb(user, fmt.Sprintf("%s-%s-%s 00:00:00", countTimeSlice[0], countTimeSlice[1], countTimeSlice[2]), "2024-01-01 00:00:00")
 	if err != nil {
 		log.Logger.Sugar().Debugf("工作室：%s，是否在绑定城市：%v,下级：%s,获取权重错误：%v", userName, inCity, user, err)
@@ -985,7 +1001,7 @@ func GetRechargeWeight(user, start, end string) (error, decimal.Decimal) {
 		}
 		req.Header.Add("Content-Type", "application/json")
 		var res *http.Response
-		for k := 0; k < 20; k++ {
+		for k := 0; k < 30; k++ {
 			res, err = client.Do(req)
 			if err == nil {
 				break
@@ -1089,7 +1105,7 @@ func SyncStatus(excelFile string) {
 			continue
 		}
 		for j, colCell := range row {
-			if j == 6 {
+			if j == 5 {
 				fmt.Println(colCell)
 				var location models2.UserLocation
 				where := "location like '%" + colCell + "%'"

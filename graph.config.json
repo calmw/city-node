@@ -1,7 +1,0 @@
-{
-  "output": "generated/test.",
-  "chain": "mumbai",
-  "datasources": [
-    { "address": "0xa7cb2a0d32e620663733e45376c4cc4a3035a407", "startBlock": 41003507, "module": [ "timelock", "accesscontrol" ] }
-  ]
-}

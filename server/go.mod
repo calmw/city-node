@@ -4,7 +4,6 @@ go 1.21.6
 
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
-	github.com/calmw/ethereum v0.1.1
 	github.com/ethereum/go-ethereum v1.13.11
 	github.com/forgoer/openssl v1.6.0
 	github.com/gin-gonic/gin v1.9.1
@@ -42,7 +41,6 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-sql-driver/mysql v1.7.0 // indirect
-	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang/snappy v0.0.5-0.20220116011046-fa5810519dcb // indirect
 	github.com/google/uuid v1.3.0 // indirect
@@ -78,7 +76,6 @@ require (
 	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.17.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
-	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	rsc.io/tmplfunc v0.0.3 // indirect
 )

@@ -15,7 +15,7 @@ var SyncChain = make(chan string, 1000)
 // GetUserSons 获取并缓存用户下级
 func GetUserSons(user string) error {
 	// 获取下级数据
-	url := fmt.Sprintf("https://baodao-api.baodao.app/api/v1/pledge/relation/child?address=%s", user)
+	url := fmt.Sprintf("https://subg-api.intoverse.co/api/v1/wallet/relations?wallet_address=%s", user)
 	err, data := utils.GetWithHeader(url, map[string]string{})
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -28,7 +28,7 @@ func GetUserSons(user string) error {
 		log.Logger.Sugar().Error(err)
 		return err
 	}
-	if sons.Code != 200 {
+	if sons.Code != 0 {
 		log.Logger.Sugar().Error(err)
 		return errors.New("获取数据失败")
 	}
@@ -54,7 +54,7 @@ type ToxTxBridge struct {
 }
 
 func InitSyncTask() {
-	for true {
+	for {
 		select {
 		case user, ok := <-SyncChain:
 			if ok {

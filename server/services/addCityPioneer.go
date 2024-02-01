@@ -127,7 +127,7 @@ func ReadExcel5(excelFile string) {
 			continue
 		}
 		for j, colCell := range row {
-			if j == 6 {
+			if j == 5 {
 				fmt.Println(colCell)
 				var location models2.UserLocation
 				where := "location like '%" + colCell + "%'"
