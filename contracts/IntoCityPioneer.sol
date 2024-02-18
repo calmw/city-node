@@ -400,8 +400,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                 }
             }
         } else {
-            // 计算退还保证金额度,并更新退还状态
-            calculateRefund(chengShiId_, pioneer, city, day);
             /// 前三个月考核，第一二批次
             if (pioneer.assessmentStatus == true) {
                 return;
@@ -496,91 +494,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             successTime[pioneer.pioneerAddress] = block.timestamp;
         }
         execStatus = false;
-    }
-
-    // 计算退还保证金额度,并更可退还金额
-    function calculateRefund(
-        bytes32 chengShiId,
-        Pioneer storage pioneer,
-        IntoCity city,
-        uint256 day
-    ) private {
-        if (isPioneerReturnSurety[pioneer.pioneerAddress]) {
-            // 不退还保证金的用户，不再计算
-            return;
-        }
-        uint256 chengLevel = city.chengShiLevel(chengShiId); // 城市等级
-        uint256 surety = city.chengShiLevelSurety(chengLevel); // 城市保证金
-        uint256 pioneerChengShiTotalRechargeWeight = city
-            .getChengShiRechargeWeight(chengShiId) / 1e18; // 先锋绑定的城市总的新充值权重
-        uint256 suretyReturn; // 退还保证金的金额
-        if (day == 30) {
-            // 直接考核通过，退还100%，满足M3退还标准，直接退100%
-            for (uint j = 3; j > 0; j--) {
-                if (
-                    pioneerChengShiTotalRechargeWeight >=
-                    assessmentReturnCriteria[chengLevel][j]
-                ) {
-                    pioneer.returnSuretyRate += assessmentReturnRate[
-                                chengLevel
-                        ][j];
-                    suretyReturn = (surety * pioneer.returnSuretyRate) / 100;
-                    pioneer.returnSuretyStatus = true;
-                    pioneer.returnSuretyTime = block.timestamp;
-                    alreadyRewardRate[pioneer.pioneerAddress][
-                    1
-                    ] = assessmentReturnRate[chengLevel][j]; // 第一个月退的比例
-                    suretyMonthWeight[pioneer.pioneerAddress][
-                    1
-                    ] = pioneerChengShiTotalRechargeWeight; // 第1个月结束的时候，权重值
-                    suretyReward[pioneer.pioneerAddress] += suretyReturn; // 增加可退还保证金
-                    emit SuretyRecord(
-                        pioneer.pioneerAddress,
-                        suretyReturn,
-                        day / 30
-                    );
-                    break;
-                }
-            }
-        } else if (day == 60) {
-            uint256 firstMonthRate = alreadyRewardRate[pioneer.pioneerAddress][
-                        1
-                ];
-            for (uint i = 6; i > 3; i--) {
-                if (
-                    pioneerChengShiTotalRechargeWeight >=
-                    assessmentReturnCriteria[chengLevel][i]
-                ) {
-                    if (assessmentReturnRate[chengLevel][i] <= firstMonthRate) {
-                        // 满足退还额度标准的情况下，需要第二个月的退还比例大于第一个月的
-                        break;
-                    }
-                    pioneer.returnSuretyRate +=
-                        assessmentReturnRate[chengLevel][i] -
-                        firstMonthRate;
-                    suretyReturn =
-                        (surety *
-                            (assessmentReturnRate[chengLevel][i] -
-                                firstMonthRate)) /
-                        100;
-                    pioneer.returnSuretyStatus = true;
-                    pioneer.returnSuretyTime = block.timestamp;
-                    alreadyRewardRate[pioneer.pioneerAddress][2] =
-                        assessmentReturnRate[chengLevel][i] -
-                        firstMonthRate; // 第2个月退的比例
-                    suretyReward[pioneer.pioneerAddress] += suretyReturn; // 增加可退还保证金
-                    emit SuretyRecord(
-                        pioneer.pioneerAddress,
-                        suretyReturn,
-                        day / 30
-                    );
-                    break;
-                }
-            }
-            suretyMonthWeight[pioneer.pioneerAddress][
-            2
-            ] = pioneerChengShiTotalRechargeWeight; // 第2个月结束的时候，权重值
-        }
     }
 
     // 每日奖励发放

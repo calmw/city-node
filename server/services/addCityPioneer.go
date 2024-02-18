@@ -91,7 +91,7 @@ func ReadExcel(excelFile string) {
 		}
 		fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
 		//if i == 11 {
-		//blockchain2.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
+		blockchain2.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
 		//time.Sleep(time.Second * 5)
 		//}
 		//if i == 15 {
@@ -104,6 +104,7 @@ func ReadExcel(excelFile string) {
 		//
 		err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
 		err, level := blockchain2.ChengShiLevel(cityIdBytes32)
+		fmt.Println(err, level)
 		var ok bool
 		if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
 			ok = true

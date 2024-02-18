@@ -12,7 +12,7 @@ interface City {
 
 contract IntoCityPioneerData is RoleAccess, Initializable {
     // 用户地址=>用户需要扣除的奖励
-    mapping(address => uint256) public subReward;
+    mapping(address => uint256) public subReward; // 废弃
     // 用户地址=>第几期用户
     mapping(address => uint256) public userPeriod;
 
@@ -23,18 +23,18 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
         _addAdmin(msg.sender);
     }
 
-    // 管理员设置用户需要扣除的奖励
-    function adminSetSubReward(
-        address user_,
-        uint256 reward_
-    ) public onlyAdmin {
-        subReward[user_] = reward_;
-    }
-
-    // 减去用户需要扣除的奖励
-    function adminSubReward(address user_, uint256 reward_) public onlyAdmin {
-        subReward[user_] -= reward_;
-    }
+//    // 管理员设置用户需要扣除的奖励
+//    function adminSetSubReward(
+//        address user_,
+//        uint256 reward_
+//    ) public onlyAdmin {
+//        subReward[user_] = reward_;
+//    }
+//
+//    // 减去用户需要扣除的奖励
+//    function adminSubReward(address user_, uint256 reward_) public onlyAdmin {
+//        subReward[user_] -= reward_;
+//    }
 
     // 设置先锋合约
     function adminSetCityPioneerAddress(
