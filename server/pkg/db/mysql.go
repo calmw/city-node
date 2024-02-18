@@ -16,7 +16,8 @@ func InitMysql() {
 	//	`root`,
 	//	`127.0.0.1`,
 	//	`3306`,
-	//	`city-node`)
+	//	`city_node`,
+	//)
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 		`root`,
@@ -25,7 +26,7 @@ func InitMysql() {
 		`3307`,
 		`city_node`,
 	)
-	fmt.Println(dsn)
+	//fmt.Println(dsn)
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN:                       dsn,   // DSN data source name
 		DefaultStringSize:         256,   // string 类型字段的默认长度

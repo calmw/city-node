@@ -54,7 +54,7 @@ func (c *MiningController) Ledger(ctx *gin.Context) {
 	return
 }
 
-// Ledger 合约充值提现团队汇总
+// RechargeSum Ledger 合约充值提现团队汇总
 func (c *MiningController) RechargeSum(ctx *gin.Context) {
 	res := response.Gin{Res: ctx}
 	req := request.RechargeSum{}
@@ -86,6 +86,7 @@ func (c *MiningController) RechargeSumInCity(ctx *gin.Context) {
 	res.Response(ctx, statecode.CommonSuccess, nil)
 	return
 }
+
 func (c *MiningController) SyncUserData(ctx *gin.Context) {
 	res := response.Gin{Res: ctx}
 

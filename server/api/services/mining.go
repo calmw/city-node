@@ -101,7 +101,7 @@ type StudioInfo struct {
 	//AuditeTime     string `json:"audite_time" excel:"column:J;desc:审核日期;width:30"`
 	//AuditeContent  string `json:"audite_content" excel:"column:K;desc:审核内容;width:30"`
 	//ApprovedTime   string `json:"approved_time" excel:"column:L;desc:审核通过日期;width:30"`
-	CountTime      string `json:"count_time" excel:"column:I;desc:业绩计算起止时间;width:30"`
+	CountTime      []int  `json:"count_time" excel:"column:I;desc:业绩计算起止时间;width:30"`
 	RechargeWeight string `json:"recharge_weight" excel:"column:J;desc:充值权重;width:30"`
 }
 
@@ -772,7 +772,7 @@ func (c *Mining) RechargeSum(req *request.RechargeSum) (int, []Recharge) {
 func (c *Mining) RechargeSumInCity() int {
 
 	//ReadExcel("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
-	ReadExcel("./assets/INTO工作室补贴业绩查询1.31.xlsx")
+	ReadExcel("../assets/INTO工作室补贴业绩查询1.31.xlsx")
 
 	return statecode.CommonSuccess
 }
@@ -782,7 +782,7 @@ func (c *Mining) SyncUserData() int {
 
 	//ReadExcel("./assets/INTO工作室补贴业绩查询1.31.xlsx")
 	//SyncStatus("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
-	SyncStatus("./assets/INTO工作室补贴业绩查询1.31.xlsx")
+	SyncStatus("../assets/INTO工作室补贴业绩查询1.31.xlsx")
 
 	return statecode.CommonSuccess
 }
@@ -817,7 +817,13 @@ func ReadExcel(excelFile string) int {
 				//} else if j == 6 {
 				studioInfo.City = colCell
 			} else if j == 8 {
-				studioInfo.CountTime = colCell
+				countTimeSlice := strings.Split(strings.TrimSpace(colCell), "-")
+				date := strings.Replace(countTimeSlice[0], "月", "-", -1)
+				date = strings.Replace(date, "日", "", -1)
+				dateSlice := strings.Split(date, "-")
+				month, _ := strconv.Atoi(dateSlice[0])
+				day, _ := strconv.Atoi(dateSlice[1])
+				studioInfo.CountTime = []int{month, day}
 			}
 		}
 		studioInfos = append(studioInfos, studioInfo)
@@ -864,12 +870,12 @@ func ReadExcel(excelFile string) int {
 		var limitMaxNum = 100
 		addLock := sync.Mutex{}
 		var chData = make(chan int, limitMaxNum)
-		studioUserInfos := []StudioUserInfo{}
+		var studioUserInfos []StudioUserInfo
 		for n, user := range userSet.Data {
 			chData <- n
 			wg.Add(1)
 			go func(u string, index int, studio StudioInfo, studioUserInfos *[]StudioUserInfo, lock *sync.Mutex) {
-				_, d, inCity := GetWeight(u, location.CityId, studio.CountTime, studio.UserName)
+				_, d, inCity := GetWeight(u, location.CityId, studio.UserName, studio.CountTime)
 				lock.Lock()
 				defer lock.Unlock()
 				weight = weight.Add(d)
@@ -883,7 +889,7 @@ func ReadExcel(excelFile string) int {
 					InCity:         inCity,
 					BindCity:       studio.City,
 					UserCity:       string(userCityBytes),
-					RechargeWeight: d.String(),
+					RechargeWeight: d.Div(d18).String(),
 				})
 			}(user, n, studioInfo, &studioUserInfos, &addLock)
 		}
@@ -892,14 +898,12 @@ func ReadExcel(excelFile string) int {
 		studioInfo.RechargeWeight = weight.Div(d18).String()
 		result = append(result, studioInfo)
 
-		countTimeSlice := strings.Split(studioInfo.CountTime, "--")
-		countTimeSlice = strings.Split(countTimeSlice[0], "/")
 		f = xjexcel.ListToExcel(studioUserInfos, "团队充值", "详情")
 		fileName := fmt.Sprintf("./工作室(%s)-%s[%s_%s]%s[%v].xlsx",
 			studioInfo.UserName,
 			studioInfo.City,
-			fmt.Sprintf("%s-%s-%s", countTimeSlice[0], countTimeSlice[1], countTimeSlice[2]),
-			"2024-01-01",
+			fmt.Sprintf("%d-%02d-%02d", 2024, studioInfo.CountTime[0], studioInfo.CountTime[1]),
+			"2024-02-01",
 			studioInfo.User,
 			studioInfo.RechargeWeight,
 		)
@@ -907,13 +911,13 @@ func ReadExcel(excelFile string) int {
 	}
 
 	f = xjexcel.ListToExcel(result, "团队充值", "详情")
-	fileName := fmt.Sprintf("./工作室充值权重.xlsx")
+	fileName := fmt.Sprintf("./工作室充值权重2.xlsx")
 	f.SaveAs(fileName)
 
 	return statecode.CommonSuccess
 }
 
-func GetWeight(user, cityId, countTime, userName string) (error, decimal.Decimal, bool) {
+func GetWeight(user, cityId, userName string, countTime []int) (error, decimal.Decimal, bool) {
 	inCity := false
 	key := fmt.Sprintf("%s-%s", user, cityId)
 	var val string
@@ -964,15 +968,13 @@ func GetWeight(user, cityId, countTime, userName string) (error, decimal.Decimal
 	}
 
 	// 获取该用户网体充值权重，审核通过后到12月31日的充值权重
-	countTimeSlice := strings.Split(countTime, "-")
-	date := strings.Replace(countTimeSlice[0], "月", "-", -1)
-	date = strings.Replace(date, "日", "", -1)
-	dateSlice := strings.Split(date, "-")
-	month, _ := strconv.Atoi(dateSlice[0])
-	day, _ := strconv.Atoi(dateSlice[1])
-	countTimeSlice = strings.Split(countTimeSlice[0], "/")
-	fmt.Println(fmt.Sprintf("%d-%02d-%02d 00:00:00", 2024, month, day), 78998789)
-	err, d := GetRechargeWeight(user, fmt.Sprintf("%d-%02d-%02d 00:00:00", 2024, month, day), "2024-01-31 00:00:00")
+	//countTimeSlice := strings.Split(countTime, "-")
+	//date := strings.Replace(countTimeSlice[0], "月", "-", -1)
+	//date = strings.Replace(date, "日", "", -1)
+	//dateSlice := strings.Split(date, "-")
+	//month, _ := strconv.Atoi(dateSlice[0])
+	//day, _ := strconv.Atoi(dateSlice[1])
+	err, d := GetRechargeWeight(user, fmt.Sprintf("%d-%02d-%02d 00:00:00", 2024, countTime[0], countTime[1]), "2024-01-31 00:00:00")
 	//err, d := GetRechargeWeightFromDb(user, fmt.Sprintf("%s-%s-%s 00:00:00", countTimeSlice[0], countTimeSlice[1], countTimeSlice[2]), "2024-01-01 00:00:00")
 	if err != nil {
 		log.Logger.Sugar().Debugf("工作室：%s，是否在绑定城市：%v,下级：%s,获取权重错误：%v", userName, inCity, user, err)

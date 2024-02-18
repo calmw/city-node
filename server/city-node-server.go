@@ -14,8 +14,8 @@ func main() {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	//db.InitMysql()
-	//services.InitMainNet()
+	db.InitMysql()
+	services.InitMainNet()
 	//services.InitTestNet()
 
 	//services.InitUserLocation()
@@ -86,19 +86,19 @@ func main() {
 	//blockchain.GetUserLocation()
 
 	/// 先锋计划定时任务
-	db.InitMysql()
-	services.InitMainNet()
-	blockchain.TriggerAllPioneerTask()
-	ticker := time.NewTicker(time.Hour)
-	for {
-		<-ticker.C
-		go blockchain.TriggerAllPioneerTask()
-		go blockchain.GetAllPioneer()
-	}
+	//db.InitMysql()
+	//services.InitMainNet()
+	//blockchain.TriggerAllPioneerTask()
+	//ticker := time.NewTicker(time.Hour)
+	//for {
+	//	<-ticker.C
+	//	go blockchain.TriggerAllPioneerTask()
+	//	go blockchain.GetAllPioneer()
+	//}
 	/// 先锋计划定时任务
 
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
-	//services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
+	services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
 	//services.ReadExcel5("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadExcel5("./assets/INTO工作室补贴业绩查询1.31.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadCityFIle("./assets/HaNoi.txt")
