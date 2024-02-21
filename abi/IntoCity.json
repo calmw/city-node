@@ -307,6 +307,11 @@
         "internalType": "address",
         "name": "pioneer_",
         "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "pioneerBatch_",
+        "type": "uint256"
       }
     ],
     "name": "adminSetPioneer",
@@ -530,6 +535,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "authAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address[]",
@@ -538,6 +556,24 @@
       }
     ],
     "name": "batchAddAdmin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newPioneerAddress_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "oldPioneerAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "changePioneerAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1012,6 +1048,11 @@
         "internalType": "uint256",
         "name": "day",
         "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isCityPioneer",
+        "type": "bool"
       }
     ],
     "name": "getDailyDelegateByChengShiID",
@@ -1089,19 +1130,6 @@
       }
     ],
     "name": "getFounds",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "getPioneerAndCityNodeNumber",
     "outputs": [
       {
         "internalType": "uint256",
@@ -1199,13 +1227,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "initialize",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -1214,25 +1235,6 @@
       }
     ],
     "name": "isAdmin",
-    "outputs": [
-      {
-        "internalType": "bool",
-        "name": "",
-        "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "bytes32",
-        "name": "chengShiId",
-        "type": "bytes32"
-      }
-    ],
-    "name": "isPioneerChengShi",
     "outputs": [
       {
         "internalType": "bool",
@@ -1558,32 +1560,6 @@
     "type": "function"
   },
   {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "_addr",
-        "type": "address"
-      }
-    ],
-    "name": "syncCityCheck",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "user",
-        "type": "address"
-      }
-    ],
-    "name": "triggerPioneerTask",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "userLocationAddress",
     "outputs": [
@@ -1602,6 +1578,19 @@
     "outputs": [
       {
         "internalType": "contract IWithdrawLimit",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "withdrawLimitAddress",
+    "outputs": [
+      {
+        "internalType": "address",
         "name": "",
         "type": "address"
       }

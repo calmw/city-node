@@ -102,7 +102,7 @@ func (a Appraise) AddAdmin() {
 	fmt.Println(res, err)
 }
 
-func (a Appraise) AdminSetPioneerBatch(pioneerAddress string, batch int64) error {
+func (a Appraise) AdminSetPioneerBatch(pioneerAddress string, batch int64, pioneerType int64) error {
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -114,7 +114,7 @@ func (a Appraise) AdminSetPioneerBatch(pioneerAddress string, batch int64) error
 		log.Logger.Sugar().Error(err)
 		return err
 	}
-	_, err = appraiseContract.AdminSetPioneerBatch(auth, common.HexToAddress(pioneerAddress), big.NewInt(batch))
+	_, err = appraiseContract.AdminSetPioneerBatch(auth, common.HexToAddress(pioneerAddress), big.NewInt(batch), big.NewInt(pioneerType))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err

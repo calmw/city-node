@@ -5,7 +5,9 @@ import (
 	"city-node-server/api/utils"
 	blockchain2 "city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
-	models2 "city-node-server/pkg/models"
+	"city-node-server/pkg/log"
+	"city-node-server/pkg/models"
+	"encoding/json"
 	"fmt"
 	"github.com/360EntSecGroup-Skylar/excelize"
 	"github.com/status-im/keycard-go/hexutils"
@@ -25,6 +27,188 @@ type PioneerInfo struct {
 type PioneerSurety struct {
 	Address string
 	Surety  bool
+}
+
+type Pioneer struct {
+	AreaName       string `json:"area_name"`
+	AreaLevel      string `json:"area_level"`
+	PioneerBatch   string `json:"pioneer_batch"`
+	CityId         string `json:"city_id"`
+	IsCityNode     string `json:"is_city_node"`
+	PioneerAddress string `json:"pioneer_address"`
+}
+
+// AddPioneerBeth3 添加三期先锋
+func AddPioneerBeth3() {
+	pioneerBytes, err := os.ReadFile("./assets/新节点添加.json")
+	if err != nil {
+		log.Logger.Error(err.Error())
+		return
+	}
+
+	var pioneer Pioneer
+	err = json.Unmarshal(pioneerBytes, &pioneer)
+	if err != nil {
+		log.Logger.Error(err.Error())
+		return
+	}
+
+	var location models.UserLocation
+	where := "location like '%" + pioneer.AreaName + "%'"
+	err = db.Mysql.Model(models.UserLocation{}).Where(where).First(&location).Error
+	if err != nil {
+		return
+	}
+	cid := location.CityId
+
+	pioneer.PioneerAddress = strings.ToLower(pioneer.PioneerAddress)
+	pioneer.CityId = strings.ToLower(pioneer.CityId)
+
+	fmt.Println("表格中CityID和数据库中是否相等", cid == strings.ToLower(pioneer.CityId))
+	if pioneer.IsCityNode != "true" {
+		panic("IsCityNode error")
+	}
+	var suretyTOX int64
+	level, _ := strconv.ParseInt(pioneer.AreaLevel, 10, 64)
+	if level == 1 {
+		suretyTOX = 100000
+	} else if level == 2 {
+		suretyTOX = 60000
+	} else if level == 3 {
+		suretyTOX = 40000
+	} else {
+		panic("level error")
+	}
+
+	// 根据city_id判断该城市是否已经添加过先锋
+	var pioneerModel models.Pioneer
+	err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", pioneer.CityId).First(&pioneerModel).Debug().Error
+	if err == nil {
+		panic("该城市先锋已经存在")
+	} else {
+		fmt.Println("该城市先锋不存在")
+	}
+	fmt.Println(fmt.Sprintf("address:%s,cityId:%s,cityLevel:%s,suretyTOX:%d", pioneer.PioneerAddress, pioneer.CityId, pioneer.AreaLevel, suretyTOX))
+
+	for true {
+		err = blockchain2.AdminSetChengShiLevelAndSurety(pioneer.CityId, level, suretyTOX)
+		if err == nil {
+			break
+		}
+	}
+	for true {
+		err = blockchain2.AdminSetPioneer(pioneer.CityId, pioneer.PioneerAddress, 3)
+		if err == nil {
+			break
+		}
+	}
+
+	err, cityIdBytes32 := blockchain2.PioneerChengShi(pioneer.PioneerAddress)
+	err, levelChain := blockchain2.ChengShiLevel(cityIdBytes32)
+	fmt.Println(err, level, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), 555)
+	var ok bool
+	if pioneer.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
+		ok = true
+	}
+	fmt.Println(pioneer.PioneerAddress, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
+
+}
+
+// AddPioneerBeth4 添加四期先锋，保证金USDT+TOX
+func AddPioneerBeth4() {
+	pioneerBytes, err := os.ReadFile("./assets/新节点添加.json")
+	if err != nil {
+		log.Logger.Error(err.Error())
+		return
+	}
+
+	var pioneer Pioneer
+	err = json.Unmarshal(pioneerBytes, &pioneer)
+	if err != nil {
+		log.Logger.Error(err.Error())
+		return
+	}
+
+	if pioneer.PioneerBatch != "4" {
+		panic("pioneer batch error")
+	}
+
+	var location models.UserLocation
+	where := "location like '%" + pioneer.AreaName + "%'"
+	err = db.Mysql.Model(models.UserLocation{}).Where(where).First(&location).Error
+	if err != nil {
+		return
+	}
+	cid := location.CityId
+
+	pioneer.PioneerAddress = strings.ToLower(pioneer.PioneerAddress)
+	pioneer.CityId = strings.ToLower(pioneer.CityId)
+
+	fmt.Println("表格中CityID和数据库中是否相等", cid == strings.ToLower(pioneer.CityId))
+	if pioneer.IsCityNode != "true" {
+		panic("IsCityNode error")
+	}
+
+	var isCityNode bool
+	if pioneer.IsCityNode == "true" {
+		isCityNode = true
+	} else if pioneer.IsCityNode == "false" {
+		isCityNode = false
+	} else {
+		panic("IsCityNode error")
+	}
+
+	var suretyTOX int64
+	var suretyUSDT int64
+	level, _ := strconv.ParseInt(pioneer.AreaLevel, 10, 64)
+	if level == 1 {
+		suretyTOX = 100000
+		suretyUSDT = 10000
+	} else if level == 2 {
+		suretyTOX = 60000
+		suretyUSDT = 8000
+	} else if level == 3 {
+		if !isCityNode {
+			panic("level error")
+		}
+		suretyTOX = 40000
+		suretyUSDT = 6000
+	}
+
+	// 根据city_id判断该城市是否已经添加过先锋
+	var pioneerModel models.Pioneer
+	err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", pioneer.CityId).First(&pioneerModel).Debug().Error
+	if err == nil {
+		panic("该城市先锋已经存在")
+	} else {
+		fmt.Println("该城市先锋不存在")
+	}
+	fmt.Println(fmt.Sprintf("address:%s,cityId:%s,cityLevel:%s,suretyTOX:%d", pioneer.PioneerAddress, pioneer.CityId, pioneer.AreaLevel, suretyTOX))
+
+	for true {
+		err = AddPioneer(
+			pioneer.CityId,
+			pioneer.PioneerAddress,
+			level,
+			suretyTOX,
+			suretyUSDT,
+			4,
+			isCityNode)
+		fmt.Println(err, 123456)
+		if err == nil {
+			break
+		}
+	}
+
+	err, cityIdBytes32 := blockchain2.PioneerChengShi(pioneer.PioneerAddress)
+	err, levelChain := blockchain2.ChengShiLevel(cityIdBytes32)
+	fmt.Println(err, level, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), 555)
+	var ok bool
+	if pioneer.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
+		ok = true
+	}
+	fmt.Println(pioneer.PioneerAddress, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
+
 }
 
 func ReadExcel(excelFile string) {
@@ -50,9 +234,9 @@ func ReadExcel(excelFile string) {
 					lot += " " + s
 				}
 				lot = strings.TrimSpace(lot)
-				var location models2.UserLocation
+				var location models.UserLocation
 				where := "location like '%" + lot + "%'"
-				err = db.Mysql.Model(models2.UserLocation{}).Where(where).First(&location).Error
+				err = db.Mysql.Model(models.UserLocation{}).Where(where).First(&location).Error
 				if err != nil {
 					return
 				}
@@ -81,8 +265,8 @@ func ReadExcel(excelFile string) {
 	}
 	for i, p := range pioneers {
 		// 根据city_id判断该城市是否已经添加过先锋
-		var pioneer models2.Pioneer
-		err = db.Mysql.Model(models2.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
+		var pioneer models.Pioneer
+		err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
 		if err == nil {
 			fmt.Println("该城市先锋已经存在", i)
 			continue
@@ -90,26 +274,19 @@ func ReadExcel(excelFile string) {
 			fmt.Println("该城市先锋不存在", i)
 		}
 		fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
-		//if i == 11 {
-		blockchain2.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
-		//time.Sleep(time.Second * 5)
-		//}
-		//if i == 15 {
-		//blockchain2.AdminSetPioneer(p.CityId, p.Address)
-		//time.Sleep(time.Second * 10)
-		//}
-		//blockchain.AdminSetPioneer(p.CityId, p.Address)
 
-		//time.Sleep(time.Second * 8)
-		//
-		err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
-		err, level := blockchain2.ChengShiLevel(cityIdBytes32)
-		fmt.Println(err, level)
-		var ok bool
-		if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
-			ok = true
-		}
-		fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
+		blockchain2.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
+
+		//blockchain2.AdminSetPioneer(p.CityId, p.Address)
+
+		//err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
+		//err, level := blockchain2.ChengShiLevel(cityIdBytes32)
+		//fmt.Println(err, level, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), 555)
+		//var ok bool
+		//if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
+		//	ok = true
+		//}
+		//fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
 
 	}
 }
@@ -130,9 +307,9 @@ func ReadExcel5(excelFile string) {
 		for j, colCell := range row {
 			if j == 5 {
 				fmt.Println(colCell)
-				var location models2.UserLocation
+				var location models.UserLocation
 				where := "location like '%" + colCell + "%'"
-				err = db.Mysql.Model(models2.UserLocation{}).Where(where).First(&location).Error
+				err = db.Mysql.Model(models.UserLocation{}).Where(where).First(&location).Error
 				fmt.Println(err)
 				if err != nil {
 					return
@@ -147,8 +324,8 @@ func ReadExcel5(excelFile string) {
 	}
 	//for i, p := range pioneers {
 	//	// 根据city_id判断该城市是否已经添加过先锋
-	//	var pioneer models2.Pioneer
-	//	err = db.Mysql.Model(models2.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
+	//	var pioneer models.Pioneer
+	//	err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
 	//	if err == nil {
 	//		fmt.Println("该城市先锋已经存在", i)
 	//		continue
@@ -196,10 +373,10 @@ func ReadCityFIle(cityFile string) {
 
 	for i, line := range lines {
 		fmt.Println(i, line)
-		var userLocation models2.UserLocation
+		var userLocation models.UserLocation
 		//whererCondition := "location = 'Viet Nam " + line + "'"
 		whererCondition := "location = 'Thailand " + line + "'"
-		err = db.Mysql.Model(models2.UserLocation{}).Where(whererCondition).First(&userLocation).Debug().Error
+		err = db.Mysql.Model(models.UserLocation{}).Where(whererCondition).First(&userLocation).Debug().Error
 		// 0x7b43556372050ba40a01e40a2bf9b20514e71977d04f780e38c628c7f14ac40d
 		if err == nil {
 			fmt.Println("该区县已经存在", i, line, userLocation.CountyId, userLocation.CityId)
@@ -246,8 +423,8 @@ func CheckPioneer(excelFile string) {
 				export.CityLevel = colCell
 			} else if j == 2 {
 				export.Pioneer = strings.ToLower(colCell)
-				var pioneer models2.Pioneer
-				err = db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", export.Pioneer).First(&pioneer).Debug().Error
+				var pioneer models.Pioneer
+				err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", export.Pioneer).First(&pioneer).Debug().Error
 				if err == nil {
 					fmt.Println("该城市先锋已经存在", i)
 					export.Deposit = "是"
@@ -267,8 +444,8 @@ func CheckPioneer(excelFile string) {
 		exports = append(exports, export)
 	}
 	// 检查数据库中交过保证金的，是否在表格中
-	var pioneers []models2.Pioneer
-	err = db.Mysql.Model(models2.Pioneer{}).Find(&pioneers).Debug().Error
+	var pioneers []models.Pioneer
+	err = db.Mysql.Model(models.Pioneer{}).Find(&pioneers).Debug().Error
 	if err == nil {
 		for _, p := range pioneers {
 			exits := false
@@ -318,8 +495,8 @@ func CheckPioneer4(excelFile string) {
 				export.CityLevel = colCell
 			} else if j == 2 {
 				export.Pioneer = strings.ToLower(colCell)
-				var pioneer models2.Pioneer
-				err = db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", export.Pioneer).First(&pioneer).Debug().Error
+				var pioneer models.Pioneer
+				err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", export.Pioneer).First(&pioneer).Debug().Error
 				if err == nil {
 					fmt.Println("该城市先锋已经存在", i)
 					export.Deposit = "是"
@@ -341,7 +518,7 @@ func CheckPioneer4(excelFile string) {
 				var userTotal int64
 				for _, cId := range cIds {
 					var userCount int64
-					err = db.Mysql.Model(models2.UserLocation{}).Where("county_id=?", cId).Count(&userCount).Error
+					err = db.Mysql.Model(models.UserLocation{}).Where("county_id=?", cId).Count(&userCount).Error
 					fmt.Printf("county_id:%s,count:%d /n", cId, userCount)
 					userTotal += userCount
 				}
@@ -358,8 +535,8 @@ func CheckPioneer4(excelFile string) {
 		exports = append(exports, export)
 	}
 	// 检查数据库中交过保证金的，是否在表格中
-	var pioneers []models2.Pioneer
-	err = db.Mysql.Model(models2.Pioneer{}).Find(&pioneers).Debug().Error
+	var pioneers []models.Pioneer
+	err = db.Mysql.Model(models.Pioneer{}).Find(&pioneers).Debug().Error
 	if err == nil {
 		for _, p := range pioneers {
 			exits := false
@@ -396,9 +573,9 @@ func CheckPioneer3(excelFile string) {
 		var pioneerAddress string
 		for j, colCell := range row {
 			if j == 2 {
-				var pioneer models2.Pioneer
+				var pioneer models.Pioneer
 				pioneerAddress = strings.ToLower(colCell)
-				err := db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", pioneerAddress).First(&pioneer).Debug().Error
+				err := db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", pioneerAddress).First(&pioneer).Debug().Error
 				if err != nil {
 					fmt.Println("该城市先锋不存在", i)
 					continue
@@ -545,9 +722,9 @@ loop:
 			}
 			if j == 4 {
 				//fmt.Println(colCell)
-				var userLocation models2.UserLocation
+				var userLocation models.UserLocation
 				whereCondition := "location = 'Viet Nam " + colCell + "'"
-				err := db.Mysql.Model(models2.UserLocation{}).Where(whereCondition).First(&userLocation).Debug().Error
+				err := db.Mysql.Model(models.UserLocation{}).Where(whereCondition).First(&userLocation).Debug().Error
 				if err == nil {
 					fmt.Println("该区县已经存在", i, colCell, userLocation.CountyId)
 					// 做映射

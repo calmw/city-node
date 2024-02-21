@@ -84,37 +84,6 @@
         "type": "uint256"
       }
     ],
-    "name": "DailyRewardRecord",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "pioneerAddress",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "toxReward",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "foundsReward",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "delegateReward",
-        "type": "uint256"
-      }
-    ],
     "name": "DailyRewardRecordV2",
     "type": "event"
   },
@@ -221,6 +190,32 @@
       }
     ],
     "name": "adminChangePioneerAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "cityPioneerData_",
+        "type": "address"
+      }
+    ],
+    "name": "adminSetCityPioneerDataAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "USDTAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "adminSetUSDT",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -576,6 +571,19 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "pioneer",
+        "type": "address"
+      }
+    ],
+    "name": "delPioneer",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
         "name": "",
         "type": "address"
       }
@@ -627,13 +635,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "depositSurety",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -774,8 +775,18 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "pioneer",
+        "name": "pioneerAddress_",
         "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "chengShiId",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "cityLevel",
+        "type": "uint256"
       }
     ],
     "name": "initPioneer",
@@ -1040,9 +1051,14 @@
         "internalType": "address",
         "name": "pioneer_",
         "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "pioneerBatch_",
+        "type": "uint256"
       }
     ],
-    "name": "setIsPioneerReturnSurety",
+    "name": "setPioneerBatch",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1184,6 +1200,19 @@
         "internalType": "uint256",
         "name": "",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "usdt",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",

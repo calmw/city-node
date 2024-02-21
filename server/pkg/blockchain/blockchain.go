@@ -7,9 +7,11 @@ import (
 	"context"
 	"fmt"
 	"github.com/ethereum/go-ethereum/accounts/abi/bind"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"math/big"
+	"strings"
 )
 
 // 1 用户定位事件处理，2 城市先锋奖励事件，3增加充值事件，4获取新增质押事件，5获取奖励领取事件
@@ -25,22 +27,24 @@ const (
 const LayoutTime = "2006-01-02 15:04:05"
 
 type CityNodeConfigs struct {
-	ChainId               int64
-	RPC                   string
-	AuthAddress           string
-	WithdrawLimitAddress  string
-	AppraiseAddress       string
-	StarAddress           string
-	CityAddress           string
-	CityPioneerAddress    string
-	UserLocationAddress   string
-	MiningAddress         string
-	SetDelegateAddress    string
-	PledgeStakeAddress    string // 获取用户质押量的合约地址
-	RechargeWeightAddress string // 获取用户质押量的合约地址
-	GetFoundsAddress      string // 获取社交基金值的合约
-	ToxAddress            string
-	PrivateKey            string
+	ChainId                int64
+	RPC                    string
+	AuthAddress            string
+	WithdrawLimitAddress   string
+	AppraiseAddress        string
+	StarAddress            string
+	CityAddress            string
+	CityPioneerAddress     string
+	CityPioneerDataAddress string
+	UserLocationAddress    string
+	MiningAddress          string
+	SetDelegateAddress     string
+	PledgeStakeAddress     string // 获取用户质押量的合约地址
+	RechargeWeightAddress  string // 获取用户质押量的合约地址
+	GetFoundsAddress       string // 获取社交基金值的合约
+	ToxAddress             string
+	USDTAddress            string
+	PrivateKey             string
 }
 
 var CityNodeConfig CityNodeConfigs
@@ -56,6 +60,8 @@ func Client(c CityNodeConfigs) (error, *ethclient.Client) {
 
 func GetAuth(cli *ethclient.Client) (error, *bind.TransactOpts) {
 	privateKeyEcdsa, err := crypto.HexToECDSA(CityNodeConfig.PrivateKey)
+	//fmt.Println(CityNodeConfig.PrivateKey)
+	//fmt.Println(CityNodeConfig.RPC)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, nil
@@ -105,4 +111,12 @@ func GetStartBlock(id int64) (error, uint64) {
 func SetSTartBlock(startBlock, id int64) {
 	fmt.Println("更新区块高度", startBlock)
 	db.Mysql.Model(&models.BlockStore{}).Where("id=?", id).Update("start_block", startBlock)
+}
+
+func ConvertAreaIdAtB(cityId string) [32]byte {
+	if strings.Contains(cityId, "0x") {
+		cityId = strings.ReplaceAll(cityId, "0x", "")
+	}
+	common.Hex2Bytes(cityId)
+	return BytesToByte32(common.Hex2Bytes(cityId))
 }

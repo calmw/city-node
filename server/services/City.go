@@ -7,6 +7,7 @@ import (
 )
 
 func InitCity(secondsPerDay int64) {
+	//appraise := blockchain.NewAppraise()
 	// 管理员设置先锋计划合约地址
 	//blockchain.AdminSetCityPioneerAddress()
 	// 管理员设置用户定位合约地址

@@ -54,17 +54,17 @@
   {
     "inputs": [
       {
-        "internalType": "address",
-        "name": "user_",
-        "type": "address"
+        "internalType": "bytes32",
+        "name": "chengShiId_",
+        "type": "bytes32"
       },
       {
         "internalType": "uint256",
-        "name": "reward_",
+        "name": "suretyUSDT_",
         "type": "uint256"
       }
     ],
-    "name": "adminSetSubReward",
+    "name": "adminSetChengShiSuretyUSDT",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -73,16 +73,50 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "user_",
+        "name": "cityAddress_",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "reward_",
-        "type": "uint256"
       }
     ],
-    "name": "adminSubReward",
+    "name": "adminSetCityAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "cityPioneerAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "adminSetCityPioneerAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "toxAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "adminSetTOX",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "usdtAddress_",
+        "type": "address"
+      }
+    ],
+    "name": "adminSetUSDT",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -111,6 +145,96 @@
     "name": "batchAddAdmin",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "city",
+    "outputs": [
+      {
+        "internalType": "contract City",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "cityContract",
+    "outputs": [
+      {
+        "internalType": "contract ICity",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "cityPioneer",
+    "outputs": [
+      {
+        "internalType": "contract CityPioneer",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "cityPioneerContract",
+    "outputs": [
+      {
+        "internalType": "contract ICityPioneer",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "depositSuretyTOX",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "depositSuretyUSDT",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "user",
+        "type": "address"
+      }
+    ],
+    "name": "getSurety",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -168,6 +292,108 @@
       }
     ],
     "name": "subReward",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "suretyDepositTOX",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "suretyDepositUSDT",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "name": "suretyUSDT",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "tox",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "usdt",
+    "outputs": [
+      {
+        "internalType": "contract IERC20",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "userPeriod",
     "outputs": [
       {
         "internalType": "uint256",

@@ -17,3 +17,7 @@
 #### 生成appraise合约代码
 
 - abigen --abi ../abi/IntoAppraise.json --pkg intoCityNode --type Appraise --out ./pkg/binding/intoCityNode/appraise.go
+
+#### 生成cityPioneerData合约代码
+
+- abigen --abi ../abi/IntoCityPioneerData.json --pkg intoCityNode --type CityPioneerData --out ./pkg/binding/intoCityNode/cityPioneerData.go

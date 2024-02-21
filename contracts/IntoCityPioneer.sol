@@ -6,6 +6,7 @@ import "./RoleAccess.sol";
 import "./interface/IERC20.sol";
 import "./IntoUserLocation.sol";
 import "./interface/IAppraise.sol";
+import "./interface/ICityPioneerData.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 
 interface IntoMining {
@@ -14,14 +15,6 @@ interface IntoMining {
         uint256 amount,
         uint256 types
     ) external; // 增加用户合约余额
-}
-
-interface CityPioneerData {
-    function subReward(address user_) external returns (uint256);
-
-    function adminSetSubReward(address user_, uint256 reward_) external;
-
-    function adminSubReward(address user_, uint256 reward_) external;
 }
 
 contract IntoCityPioneer is RoleAccess, Initializable {
@@ -41,12 +34,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     );
 
     // 城市先锋奖励事件
-    event DailyRewardRecord(
-        address pioneerAddress, // 先锋地址
-        uint256 toxReward, // 赠送质押包奖励的额度
-        uint256 foundsReward, // 社交基金奖励的额度
-        uint256 delegateReward // 新增质押奖励的额度
-    );
+    //    event DailyRewardRecord(
+    //        address pioneerAddress, // 先锋地址
+    //        uint256 toxReward, // 赠送质押包奖励的额度
+    //        uint256 foundsReward, // 社交基金奖励的额度
+    //        uint256 delegateReward // 新增质押奖励的额度
+    //    );
     event DailyRewardRecordV2(
         address pioneerAddress, // 先锋地址
         uint256 toxReward, // 赠送质押包奖励的额度
@@ -81,7 +74,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentCriteria; // 城市先锋考核标准
     // 城市等级 => (索引 => 退还标准)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（点数）
     mapping(uint256 => mapping(uint256 => uint256))
-    public assessmentReturnCriteria; // 城市先锋保证金退还标准
+        public assessmentReturnCriteria; // 城市先锋保证金退还标准
     // 城市等级 => (索引 => 退还比例)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（比例）
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentReturnRate; // 城市先锋保证金退还比例
     // 先锋地址 => 先锋信息， 先锋信息
@@ -142,6 +135,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(address => bool) public isPioneerReturnSurety;
     CityPioneerData public cityPioneerData; // 先锋数据合约
     IAppraise public appraise; // 先锋考核合约
+    IERC20 public usdt; // USDT合约
 
     //                function initialize() public initializer {
     //                    _addAdmin(msg.sender);
@@ -151,6 +145,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    function adminSetTOXAddress(address TOXAddress_) public onlyAdmin {
     //        TOXAddress = TOXAddress_;
     //    }
+
+    // 管理员设置USDT代币地址
+    function adminSetUSDT(address USDTAddress_) public onlyAdmin {
+        usdt = IERC20(USDTAddress_);
+    }
+
     // 管理员更换先锋地址,针对丽水这种不需要再考核的
     function adminChangePioneerAddress(
         address newPioneerAddress_,
@@ -162,11 +162,11 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 管理员设置数据合约地址
-    //    function adminSetCityPioneerDataAddress(
-    //        address cityPioneerData_
-    //    ) public onlyAdmin {
-    //        cityPioneerData = CityPioneerData(cityPioneerData_);
-    //    }
+    function adminSetCityPioneerDataAddress(
+        address cityPioneerData_
+    ) public onlyAdmin {
+        cityPioneerData = CityPioneerData(cityPioneerData_);
+    }
 
     // 管理员设置城市合约地址
     //    function adminSetCityAddress(address cityAddress_) public onlyAdmin {
@@ -174,9 +174,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    }
 
     // 管理员设置考核合约
-    //    function adminSetAppraise(address appraiseAddress_) public onlyAdmin {
-    //        appraise = IAppraise(appraiseAddress_);
-    //    }
+    //        function adminSetAppraise(address appraiseAddress_) public onlyAdmin {
+    //            appraise = IAppraise(appraiseAddress_);
+    //        }
 
     //    // 管理员设置用户定位合约地址
     //    function adminSetUserLocationAddress(address userLocationAddress_) public onlyAdmin {
@@ -258,30 +258,31 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         return uint256(day);
     }
 
-    // 缴纳保证金
-    function depositSurety() public {
+    function initPioneer(
+        address pioneerAddress_,
+        bytes32 chengShiId,
+        uint cityLevel
+    ) public {
+        // 初始化先锋信息
         IntoCity city = IntoCity(cityAddress);
-        // 查询调用者地址是否是城市先锋
-        bytes32 chengShiId = city.pioneerChengShi(msg.sender);
-        require(chengShiId != bytes32(0), "you are not pioneer"); // 不是城市先锋
-        // 查询该城市先锋对应的城市，根据城市查询需要缴纳的保证金数量
-        uint256 surety = city.surety(chengShiId);
-        IERC20 TOXContract = IERC20(TOXAddress);
-        uint256 userBalance = TOXContract.balanceOf(msg.sender);
-
-        require(userBalance >= surety, "your balance is insufficient"); // 余额不足
-        TOXContract.transferFrom(msg.sender, address(this), surety);
-        pioneerInfo[msg.sender].pioneerAddress = msg.sender;
-        pioneerInfo[msg.sender].assessmentMonthStatus = true;
-        pioneerInfo[msg.sender].ctime = block.timestamp;
-        pioneerInfo[msg.sender].suretyTime = block.timestamp;
-        pioneerInfo[msg.sender].cityLevel = city.chengShiLevel(chengShiId);
+        pioneerInfo[pioneerAddress_].pioneerAddress = pioneerAddress_;
+        pioneerInfo[pioneerAddress_].assessmentMonthStatus = true;
+        pioneerInfo[pioneerAddress_].ctime = block.timestamp;
+        pioneerInfo[pioneerAddress_].suretyTime = block.timestamp;
+        pioneerInfo[pioneerAddress_].cityLevel = cityLevel;
         failedDelegate[chengShiId] = 0;
-        if (chengShiId != bytes32(0)) {
-            city.initCityRechargeWeight(chengShiId); // 将先锋绑定的城市的新增质押量变为0
-        }
+        // 将先锋绑定的城市的新增质押量变为0
+        city.initCityRechargeWeight(chengShiId);
         // 更新已交保证金先锋数量
-        pioneers.push(msg.sender);
+        bool exists;
+        for (uint i = 0; i < pioneers.length; i++) {
+            if (pioneers[i] == pioneerAddress_) {
+                exists = true;
+            }
+        }
+        if (!exists) {
+            pioneers.push(pioneerAddress_);
+        }
     }
 
     // 修改先锋信息
@@ -311,53 +312,56 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerPaySurety[msg.sender] = 0;
     }
 
-    function setIsPioneerReturnSurety(address pioneer_) public onlyAdmin {
+    function setPioneerBatch(
+        address pioneer_,
+        uint256 pioneerBatch_
+    ) public onlyAdmin {
         isPioneerReturnSurety[pioneer_] = true;
         // 设置先锋批次
-        appraise.setPioneerBatch(pioneer_, 3);
+        appraise.setPioneerBatch(pioneer_, pioneerBatch_);
     }
 
     function removePioneer(address pioneer_) public onlyAdmin {
-        //        for (uint256 i = 0; i < pioneers.length; i++) {
-        //            if (pioneer_ == pioneers[i]) {
-        //                pioneers[i] = pioneers[pioneers.length - 1];
-        //                pioneers.pop();
-        //            }
-        //        }
-        //        pioneerInfo[pioneer_].assessmentStatus = false;
-        //        alreadyRewardRate[pioneer_][1] = 0;
-        //        alreadyRewardRate[pioneer_][2] = 0;
-        //        alreadyRewardRateTotal[pioneer_] = 0;
-        //
-        //        // 先锋地址 => 先锋福利包收益
-        //        benefitPackageReward[pioneer_] = 0;
-        //        // 先锋地址 => 已领取的先锋福利包收益
-        //        benefitPackageRewardReceived[pioneer_] = 0;
-        //        // 先锋地址 => 先锋社交基金收益
-        //        fundsReward[pioneer_] = 0;
-        //        // 先锋地址 => 已领取的先锋社交基金收益
-        //        fundsRewardReceived[pioneer_] = 0;
-        //        // 先锋地址 => 先锋新增质押收益
-        //        delegateReward[pioneer_] = 0;
-        //        // 先锋地址 => 已领取的先锋新增质押收益
-        //        delegateRewardReceived[pioneer_] = 0;
-        //        // 先锋地址 => 先锋可以退的保证金
-        //        suretyReward[pioneer_] = 0;
-        //        // 先锋地址 => (月份=>退的比例)，月份为1和2，比例为整数
-        //        alreadyRewardRate[pioneer_][1] = 0;
-        //        alreadyRewardRate[pioneer_][2] = 0;
-        //        // 先锋地址 => 先锋已经退还的保证金
-        //        suretyRewardRecord[pioneer_] = 0;
-        //        benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
-        //        fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
-        //        delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
-        //        failedAt[pioneer_] = 0; // 清楚失败时间
-        //        IntoCity city = IntoCity(cityAddress);
-        //        failedDelegate[city.pioneerChengShi(pioneer_)] = 0; // 先锋考核失败时候的累计充值权重
-        //        successTime[pioneer_] = 0; // 清楚成功时间
-        //        suretyMonthWeight[pioneer_][1] = 0; // 清楚成功时间
-        //        suretyMonthWeight[pioneer_][2] = 0; // 清楚成功时间
-        //        appraise.delPioneerPreMonthWeight(pioneer_);
+        for (uint256 i = 0; i < pioneers.length; i++) {
+            if (pioneer_ == pioneers[i]) {
+                pioneers[i] = pioneers[pioneers.length - 1];
+                pioneers.pop();
+            }
+        }
+        pioneerInfo[pioneer_].assessmentStatus = false;
+        alreadyRewardRate[pioneer_][1] = 0;
+        alreadyRewardRate[pioneer_][2] = 0;
+        alreadyRewardRateTotal[pioneer_] = 0;
+
+        // 先锋地址 => 先锋福利包收益
+        benefitPackageReward[pioneer_] = 0;
+        // 先锋地址 => 已领取的先锋福利包收益
+        benefitPackageRewardReceived[pioneer_] = 0;
+        // 先锋地址 => 先锋社交基金收益
+        fundsReward[pioneer_] = 0;
+        // 先锋地址 => 已领取的先锋社交基金收益
+        fundsRewardReceived[pioneer_] = 0;
+        // 先锋地址 => 先锋新增质押收益
+        delegateReward[pioneer_] = 0;
+        // 先锋地址 => 已领取的先锋新增质押收益
+        delegateRewardReceived[pioneer_] = 0;
+        // 先锋地址 => 先锋可以退的保证金
+        suretyReward[pioneer_] = 0;
+        // 先锋地址 => (月份=>退的比例)，月份为1和2，比例为整数
+        alreadyRewardRate[pioneer_][1] = 0;
+        alreadyRewardRate[pioneer_][2] = 0;
+        // 先锋地址 => 先锋已经退还的保证金
+        suretyRewardRecord[pioneer_] = 0;
+        benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
+        fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
+        delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
+        failedAt[pioneer_] = 0; // 清楚失败时间
+        IntoCity city = IntoCity(cityAddress);
+        failedDelegate[city.pioneerChengShi(pioneer_)] = 0; // 先锋考核失败时候的累计充值权重
+        successTime[pioneer_] = 0; // 清楚成功时间
+        suretyMonthWeight[pioneer_][1] = 0; // 清楚成功时间
+        suretyMonthWeight[pioneer_][2] = 0; // 清楚成功时间
+        appraise.delPioneerPreMonthWeight(pioneer_);
     }
 
     // 检测考核与保证金退还,每日执行一次,考核失败的城市，可以参与城市节点竞选
@@ -370,8 +374,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint256 day = getDay() - pioneer.ctime / secondsPerDay;
 
         // 考核
-        if (appraise.pioneerBatch(pioneerAddress_) == 3) {
-            // 第三批次考核
+        //        if (appraise.pioneerBatch(pioneerAddress_) == 3) {
+        if (appraise.pioneerBatch(pioneerAddress_) >= 3) {
+            // 第三四批次考核
             bool dataChange;
             bool appraiseStatus;
             uint256 month;
@@ -432,8 +437,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (day == 90) {
             execStatus = true;
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                        3
-                ];
+                3
+            ];
         } else if (day == 60) {
             // 检测是否满足直接考核通过
             if (
@@ -448,8 +453,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M2
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                        2
-                ];
+                2
+            ];
         } else if (day == 30) {
             // 检测是否满足直接考核通过
             if (
@@ -464,8 +469,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M1
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                        1
-                ];
+                1
+            ];
         }
         if (!execStatus) {
             return;
@@ -518,48 +523,58 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (pioneerAddress_ == 0x12Cc2278b37c2751D11B5A64712Ff439b57F6E6a) {
             rewardAddress = 0x5db860601869Dad7Eb2961341056b389C3149e5f;
         }
+        // 是否是区域先锋
+        bool isCityPioneer = true;
+        if (appraise.pioneerType(pioneerAddress_) == 1) {
+            isCityPioneer = false;
+        }
         ///
 
         // 福利包奖励
-        uint bonus = 93333333333333333333;
+        uint bonus = 40000000000000000000;
+        if (isCityPioneer) {
+            // 城市先锋
+            bonus = 93333333333333333333;
+        }
         benefitPackageReward[rewardAddress] += bonus;
 
         // 社交基金5%奖励
         IntoCity city = IntoCity(cityAddress);
-        uint pioneerAndCityNodeNumber = city.getPioneerAndCityNodeNumber(); // 城市节点上线后，需要加上城市节点的数量
+        // pioneers.length
+        uint pioneerNumber = appraise.pioneerCountyNo(); // 区域先锋的数量
+        if (isCityPioneer) {
+            // 城市先锋
+            pioneerNumber = pioneers.length - pioneerNumber;
+        }
+        //        uint pioneerNumber = city.getPioneerAndCityNodeNumber(); // 城市节点上线后，需要加上城市节点的数量
         uint256 allDailyFoundsTotal = city.getFifteenDayAverageFounds(); // 全网昨日所有城市新增社交基金
         uint256 f;
-        if (pioneerAndCityNodeNumber == 0) {
+        if (pioneerNumber == 0) {
             fundsReward[rewardAddress] += 0;
         } else {
             fundsReward[rewardAddress] +=
                 (allDailyFoundsTotal * 5) /
                 100 /
-                pioneerAndCityNodeNumber;
-            f = (allDailyFoundsTotal * 5) / 100 / pioneerAndCityNodeNumber;
+                pioneerNumber;
+            f = (allDailyFoundsTotal * 5) / 100 / pioneerNumber;
         }
 
-        // 该城市新增质押量1%奖励，不累加
+        // 该城市/区县昨日新增质押量（城市1%/区县0.5%）奖励，不累加
         uint256 yesterdayDelegate = city.getDailyDelegateByChengShiID(
             ChengShiId_,
-            yesterday
+            yesterday,
+            isCityPioneer
         ); // 昨日该城市新增质押权重
-        delegateReward[rewardAddress] += yesterdayDelegate / 100;
+
+        uint dailyDelegateReward = (yesterdayDelegate * 5) / 1000; // 区县先锋
+        if (isCityPioneer) {
+            // 城市先锋
+            delegateReward[rewardAddress] += yesterdayDelegate / 100;
+        }
 
         address pioneerAddress = pioneerAddress_;
 
-        emit DailyRewardRecord(
-            pioneerAddress,
-            bonus,
-            fundsReward[pioneerAddress],
-            delegateReward[pioneerAddress]
-        );
-        emit DailyRewardRecordV2(
-            pioneerAddress,
-            bonus,
-            f,
-            yesterdayDelegate / 100
-        );
+        emit DailyRewardRecordV2(pioneerAddress, bonus, f, dailyDelegateReward);
     }
 
     //     用户提取福利包奖励
@@ -697,7 +712,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 初始化先锋用户
-    function initPioneer(address pioneer) public {
+    function delPioneer(address pioneer) public {
         delete pioneerInfo[pioneer];
     }
 }

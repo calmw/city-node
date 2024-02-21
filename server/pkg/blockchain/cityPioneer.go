@@ -1,26 +1,31 @@
 package blockchain
 
 import (
-	intoCityNode2 "city-node-server/pkg/binding/intoCityNode"
-	"city-node-server/pkg/blockchain/event"
+	"city-node-server/pkg/binding/intoCityNode"
 	"city-node-server/pkg/db"
 	"city-node-server/pkg/log"
 	models2 "city-node-server/pkg/models"
-	"context"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
 	"math/big"
 	"strings"
 	"time"
 )
 
-type CityPioneer struct{}
+type CityPioneer struct {
+	Cli      *ethclient.Client
+	Contract *intoCityNode.CityPioneer
+}
 
-func NewCityPioneer() *CityPioneer {
-	return &CityPioneer{}
+func NewCityPioneer(cli *ethclient.Client) *CityPioneer {
+	cityPioneer, _ := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), cli)
+
+	return &CityPioneer{
+		Cli:      cli,
+		Contract: cityPioneer,
+	}
 }
 
 //	func AdminSetAssessmentCriteria(cityLevel, month, point int64) {
@@ -67,28 +72,32 @@ func NewCityPioneer() *CityPioneer {
 
 // AdminSetAssessmentReturnRate 管理员设置保证金退还比例
 //func (c CityPioneer) AdminSetAppraise() {
-//	err, Cli := Client(CityNodeConfig)
+//	err, auth := GetAuth(c.Cli)
 //	if err != nil {
 //		log.Logger.Sugar().Error(err)
 //		return
 //	}
-//	err, auth := GetAuth(Cli)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return
-//	}
-//	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return
-//	}
-//	criteria, err := cityPioneer.AdminSetAppraise(auth, common.HexToAddress(CityNodeConfig.AppraiseAddress))
+//	criteria, err := c.Contract.AdminSetAppraise(auth, common.HexToAddress(CityNodeConfig.AppraiseAddress))
 //	if err != nil {
 //		log.Logger.Sugar().Error(err)
 //		return
 //	}
 //	fmt.Println(criteria, err)
 //}
+
+func (c CityPioneer) AdminSetCityPioneerDataAddress() {
+	err, auth := GetAuth(c.Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	criteria, err := c.Contract.AdminSetCityPioneerDataAddress(auth, common.HexToAddress(CityNodeConfig.CityPioneerDataAddress))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(criteria.Hash(), err)
+}
 
 //func (c CityPioneer) AdminSetSecondsPerDay(secondsPerDay int64) {
 //	err, Cli := Client(CityNodeConfig)
@@ -125,12 +134,8 @@ func (c CityPioneer) AdminChangePioneerAddress(newPioneerAddress, oldPioneerAddr
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	criteria, err := cityPioneer.AdminChangePioneerAddress(auth, common.HexToAddress(newPioneerAddress), common.HexToAddress(oldPioneerAddress))
+
+	criteria, err := c.Contract.AdminChangePioneerAddress(auth, common.HexToAddress(newPioneerAddress), common.HexToAddress(oldPioneerAddress))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -151,17 +156,7 @@ type Pioneer struct {
 }
 
 func (c CityPioneer) PioneerInfo(pioneerAddress string) (error, Pioneer) {
-	err, Cli := Client(CityNodeConfig)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, Pioneer{}
-	}
-	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err, Pioneer{}
-	}
-	criteria, err := cityPioneer.PioneerInfo(nil, common.HexToAddress(pioneerAddress))
+	criteria, err := c.Contract.PioneerInfo(nil, common.HexToAddress(pioneerAddress))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, Pioneer{}
@@ -387,36 +382,37 @@ func (c CityPioneer) PioneerInfo(pioneerAddress string) (error, Pioneer) {
 //}
 
 // DepositSurety  交保证金
-func DepositSurety() {
-	err, Cli := Client(CityNodeConfig)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	err, auth := GetAuth(Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	criteria, err := cityPioneer.DepositSurety(auth)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	fmt.Println(criteria, err)
-}
+//func DepositSurety() {
+//	err, Cli := Client(CityNodeConfig)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	err, auth := GetAuth(Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	criteria, err := c.DepositSurety(auth)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	fmt.Println(criteria, err)
+//}
+
 func GetPioneer(index int64) (error, string) {
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, ""
 	}
-	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, ""
@@ -431,7 +427,7 @@ func GetPioneer(index int64) (error, string) {
 
 func GetPioneerNumber() (error, int64) {
 	err, Cli := Client(CityNodeConfig)
-	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err, 0
@@ -442,193 +438,6 @@ func GetPioneerNumber() (error, int64) {
 		return err, 0
 	}
 	return nil, number.Int64()
-}
-
-func GetDailyRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
-	time.Sleep(time.Second * 2)
-	InsertDailyRewardLock.Lock()
-	defer InsertDailyRewardLock.Unlock()
-	query := event.BuildQuery(
-		common.HexToAddress(CityNodeConfig.CityPioneerAddress),
-		event.DailyRewardRecord,
-		big.NewInt(startBlock),
-		big.NewInt(endBlock),
-	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
-	logs, err := Cli.FilterLogs(ctx, query)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-	cancel()
-	abi, _ := intoCityNode2.CityPioneerMetaData.GetAbi()
-
-	for _, logE := range logs {
-		logData, err := abi.Unpack(event.DailyRewardRecordEvent.EventName, logE.Data)
-		if err != nil {
-			log.Logger.Sugar().Error(err)
-			return err
-		}
-		var timestamp int64
-		pioneerAddress := strings.ToLower(logData[0].(common.Address).String())
-		nodeReward := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
-		foundsReward := decimal.NewFromBigInt(logData[2].(*big.Int), 0)
-		delegateReward := decimal.NewFromBigInt(logData[3].(*big.Int), 0)
-		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
-		if err == nil {
-			timestamp = int64(header.Time)
-		}
-
-		err = InsertDailyReward(pioneerAddress, logE.TxHash.String(), foundsReward, delegateReward, nodeReward, int64(logE.BlockNumber), timestamp)
-		if err != nil {
-			return err
-		}
-		time.Sleep(time.Second * 3)
-	}
-	return nil
-}
-
-func InsertDailyReward(pioneerAddress, txHash string, foundsReward, delegateReward, nodeReward decimal.Decimal, blockHeight, timestamp int64) error {
-
-	var reward models2.Reward
-	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d", strings.ToLower(pioneerAddress), blockHeight)
-	err := db.Mysql.Table("reward").Where(whereCondition).First(&reward).Error
-	if err == gorm.ErrRecordNotFound {
-		// 获取城市信息
-		var userLocation models2.UserLocation
-		db.Mysql.Model(&models2.UserLocation{}).Where("user=?", strings.ToLower(pioneerAddress)).First(&userLocation)
-		// 插入数据
-		db.Mysql.Table("reward").Create(&models2.Reward{
-			Pioneer:        pioneerAddress,
-			TxHash:         txHash,
-			City:           userLocation.Location,
-			FoundsReward:   foundsReward,
-			DelegateReward: delegateReward,
-			NodeReward:     nodeReward,
-			BlockHeight:    blockHeight,
-			Ctime:          time.Unix(timestamp, 0),
-		})
-	}
-	return nil
-}
-
-//func GetWithdrawalRewardRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
-//	query := event.BuildQuery(
-//		common.HexToAddress(CityNodeConfig.CityPioneerAddress),
-//		event.WithdrawalRewardRecord,
-//		big.NewInt(startBlock),
-//		big.NewInt(endBlock),
-//	)
-//	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
-//	logs, err := Cli.FilterLogs(ctx, query)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return err
-//	}
-//	cancel()
-//	abi, _ := intoCityNode2.CityPioneerMetaData.GetAbi()
-//
-//	for _, logE := range logs {
-//		logData, err := abi.Unpack(event.WithdrawalRewardRecordEvent.EventName, logE.Data)
-//		if err != nil {
-//			log.Logger.Sugar().Error(err)
-//			return err
-//		}
-//		var timestamp int64
-//		pioneerAddress := strings.ToLower(logData[0].(common.Address).String())
-//		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
-//		wType := decimal.NewFromBigInt(logData[2].(*big.Int), 0)
-//		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
-//		if err == nil {
-//			timestamp = int64(header.Time)
-//		}
-//		err = InsertWithdrawalRewardRecord(pioneerAddress, logE.TxHash.String(), amount, wType, int64(logE.BlockNumber), int64(logE.Index), timestamp)
-//		if err != nil {
-//			return err
-//		}
-//		time.Sleep(time.Second * 3)
-//	}
-//	return nil
-//}
-
-//func InsertWithdrawalRewardRecord(pioneerAddress, txHash string, amount, rewardType decimal.Decimal, blockHeight, logIndex, timestamp int64) error {
-//	InsertWithdrawalRewardRecordLock.Lock()
-//	defer InsertWithdrawalRewardRecordLock.Unlock()
-//	var rewardWithdraw models.RewardWithdraw
-//	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d and reward_type=%s", strings.ToLower(pioneerAddress), blockHeight, rewardType.String())
-//	//whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d and log_index=%d", strings.ToLower(pioneerAddress), blockHeight, logIndex)
-//	err := db.Mysql.Model(&models.RewardWithdraw{}).Where(whereCondition).First(&rewardWithdraw).Error
-//	if err == gorm.ErrRecordNotFound {
-//		db.Mysql.Model(&models.RewardWithdraw{}).Create(&models.RewardWithdraw{
-//			Pioneer:     pioneerAddress,
-//			TxHash:      txHash,
-//			Amount:      amount,
-//			RewardType:  rewardType,
-//			BlockHeight: blockHeight,
-//			LogIndex:    logIndex,
-//			Ctime:       time.Unix(timestamp, 0),
-//		})
-//	}
-//	return nil
-//}
-
-func GetSuretyRecordEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
-	fmt.Println(startBlock, endBlock)
-	query := event.BuildQuery(
-		common.HexToAddress(CityNodeConfig.CityPioneerAddress),
-		event.SuretyRecord,
-		big.NewInt(startBlock),
-		big.NewInt(endBlock),
-	)
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
-	logs, err := Cli.FilterLogs(ctx, query)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-	cancel()
-	abi, _ := intoCityNode2.CityPioneerMetaData.GetAbi()
-
-	for _, logE := range logs {
-		logData, err := abi.Unpack(event.SuretyRecordEvent.EventName, logE.Data)
-		if err != nil {
-			log.Logger.Sugar().Error(err)
-			return err
-		}
-		var timestamp int64
-		pioneerAddress := strings.ToLower(logData[0].(common.Address).String())
-		amount := decimal.NewFromBigInt(logData[1].(*big.Int), 0)
-		month := logData[2].(*big.Int).Int64()
-		header, err := Cli.HeaderByNumber(context.Background(), big.NewInt(int64(logE.BlockNumber)))
-		if err == nil {
-			timestamp = int64(header.Time)
-		}
-		err = InsertSuretyRecordRecord(pioneerAddress, logE.TxHash.String(), amount, int64(logE.BlockNumber), month, timestamp)
-		if err != nil {
-			return err
-		}
-		time.Sleep(time.Second * 3)
-	}
-	return nil
-}
-
-func InsertSuretyRecordRecord(pioneerAddress, txHash string, amount decimal.Decimal, blockHeight, month, timestamp int64) error {
-	InsertSuretyRecordRecordLock.Lock()
-	defer InsertSuretyRecordRecordLock.Unlock()
-	var suretyRecord models2.SuretyRecord
-	whereCondition := fmt.Sprintf("pioneer='%s' and block_height=%d", strings.ToLower(pioneerAddress), blockHeight)
-	err := db.Mysql.Model(&models2.SuretyRecord{}).Where(whereCondition).First(&suretyRecord).Error
-	if err == gorm.ErrRecordNotFound {
-		db.Mysql.Model(&models2.SuretyRecord{}).Create(&models2.SuretyRecord{
-			Pioneer:     pioneerAddress,
-			TxHash:      txHash,
-			Amount:      amount,
-			Month:       month,
-			BlockHeight: blockHeight,
-			Ctime:       time.Unix(timestamp, 0),
-		})
-	}
-	return nil
 }
 
 func GetPioneerTaskStatus(pioneerAddress string) bool {

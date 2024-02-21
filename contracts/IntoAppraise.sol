@@ -21,6 +21,9 @@ contract IntoAppraise is RoleAccess, Initializable {
     mapping(address => uint256) public pioneerPreMonthWeight; // 先锋累积到上个月的权重
     mapping(address => uint256) public filedMonth; // 先锋考核失败的月份
     mapping(address => uint256) public pioneerPrePreMonthWeight; // 先锋累积到上上个月的权重
+    mapping(address => uint256) public pioneerType; // 先锋类型，0 城市节点，1 区县节点
+    address[] public pioneerCounty; // 区县节点先锋地址
+    uint public pioneerCountyNo; // 区县节点先锋数量
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -52,10 +55,45 @@ contract IntoAppraise is RoleAccess, Initializable {
     // 管理员设置先锋批次
     function adminSetPioneerBatch(
         address pioneerAddress_,
-        uint256 batch_
+        uint256 batch_,
+        uint256 pioneerType_
     ) public onlyAdmin {
         pioneerBatch[pioneerAddress_] = batch_;
+        pioneerType[pioneerAddress_] = pioneerType_;
     }
+
+    function adminSetPioneerBatchAndPioneerType(
+        address pioneerAddress_,
+        uint256 batch_,
+        uint256 pioneerType_
+    ) public onlyAdmin {
+        pioneerBatch[pioneerAddress_] = batch_;
+        pioneerType[pioneerAddress_] = pioneerType_;
+
+        bool exist;
+        for (uint i = 0; i < pioneerCounty.length; i++) {
+            if (pioneerCounty[i] == pioneerAddress_) {
+                exist = true;
+            }
+        }
+        if (!exist) {
+            pioneerCounty.push(pioneerAddress_);
+            pioneerCountyNo++;
+        }
+    }
+
+    // 用于测试
+    //    function delPioneerCounty(
+    //        address pioneerAddress_
+    //    ) public onlyAdmin {
+    //        for (uint i = 0; i < pioneerCounty.length; i++) {
+    //            if (pioneerCounty[i] == pioneerAddress_) {
+    //                pioneerCounty[i] = pioneerCounty[pioneerCounty.length - 1];
+    //                pioneerCounty.pop();
+    //pioneerCountyNo--;
+    //            }
+    //        }
+    //    }
 
     // 第三批考核,返回（是否考核[可能有数据变更]，考核是否成功，考核月份，考核失败时候的总充值权重）
     function appraiseBeth3(
@@ -103,14 +141,22 @@ contract IntoAppraise is RoleAccess, Initializable {
             // 不在考核时间点
             return (false, false, 0, 0);
         }
-        if (
-            (daysSinceCreate == 30 && userStar >= 3) ||
-            (daysSinceCreate == 60 && userStar >= 4) ||
-            (daysSinceCreate == 90 && userStar >= 5) ||
-            (daysSinceCreate == 180)
-        ) {
-            // 无需考核
-            return (false, false, 0, 0);
+        // 第三批城市先锋，根据星级可以免考核，区域先锋只有第一个月免考核
+        if (pioneerType[pioneerAddress_] == 0) {
+            if (
+                (daysSinceCreate == 30 && userStar >= 3) ||
+                (daysSinceCreate == 60 && userStar >= 4) ||
+                (daysSinceCreate == 90 && userStar >= 5) ||
+                (daysSinceCreate == 180)
+            ) {
+                // 无需考核
+                return (false, false, 0, 0);
+            }
+        } else if (pioneerType[pioneerAddress_] == 1) {
+            if (daysSinceCreate == 30) {
+                // 无需考核
+                return (false, false, 0, 0);
+            }
         }
 
         return (
@@ -121,7 +167,7 @@ contract IntoAppraise is RoleAccess, Initializable {
         );
     }
 
-    // 按星级考核
+    // 根据先锋城市/区域等级考核
     function appraiseByStar(
         address pioneerAddress_,
         uint256 cityLevel_,

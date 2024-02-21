@@ -30,7 +30,6 @@ contract IntoCity is RoleAccess, Initializable {
     address public cityPioneerAddress;
     // 用户定位合约地址
     address public userLocationAddress;
-
     // 用户定位过的区县ID集合
     bytes32[] public allCityIds;
     // 区县ID => 区县等级
@@ -51,12 +50,10 @@ contract IntoCity is RoleAccess, Initializable {
     bytes32[] public pioneerCityIds; // 废弃
     // 区县ID => 区县先锋需要缴纳的保证金
     mapping(bytes32 => uint256) public earnestMoney;
-    // 区县先锋地址 => 是否被设置过区县先锋
+    // 先锋地址 => 是否被设置过先锋
     mapping(address => bool) public hasSetPioneer;
     // 每天定时任务执行状态
     mapping(uint256 => bool) public dailyTaskStatus;
-
-    // 新增变量 -------------------------------------
     // 区县ID => (天=>社交基金量）
     mapping(bytes32 => mapping(uint256 => uint256)) public cityFoundsRecord;
     // 区县ID/城市ID => (天=>质押量）,新增质押量
@@ -76,12 +73,8 @@ contract IntoCity is RoleAccess, Initializable {
     uint256 public allCityFoundsTotal;
     // 新增社交基金累计值，所有的加一起，不区分区县
     uint256 public allFoundsTotal;
-    // 城市ID => 区县先锋需要缴纳的保证金
+    // 城市/区县ID => 城市/区县先锋需要缴纳的保证金,TOX
     mapping(bytes32 => uint256) public surety;
-    // 城市等级 => 该城市先锋需要缴纳的保证金
-    //    mapping(uint256 => uint256) public cityLevelSurety; // 上线删除
-    // 城市ID => 该城市的权重
-    //    mapping(bytes32 => uint256) public chengShiWeight; // 上线删除
     // 城市ID => 城市等级
     mapping(bytes32 => uint256) public chengShiLevel;
     // 先锋城市ID集合
@@ -90,8 +83,6 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(uint256 => uint256) public chengShiLevelSurety;
     // 区县ID => 质押 ,区县先锋所绑定区县新增充值权重（只用于区县先锋）的累计值
     mapping(bytes32 => uint256) public cityRechargeTotal;
-    // 城市ID => 该城市的充值权重
-    //    mapping(bytes32 => uint256) public chengShiRecharge; // 上线删除
     // 城市ID => 该城市的充值权重
     mapping(bytes32 => uint256) public chengShiRechargeWeight;
     // 城市ID => 城市先锋地址
@@ -171,14 +162,15 @@ contract IntoCity is RoleAccess, Initializable {
 
     function adminSetPioneer(
         bytes32 chengShiId_,
-        address pioneer_
+        address pioneer_,
+        uint256 pioneerBatch_
     ) public onlyAdmin {
         require(!hasSetPioneer[pioneer_], "can not set any more");
         chengShiPioneer[chengShiId_] = pioneer_;
         pioneerChengShi[pioneer_] = chengShiId_;
         hasSetPioneer[pioneer_] = true;
         IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-        intoCityPioneer.setIsPioneerReturnSurety(pioneer_); // 新添加的先锋不再退还保证金，并设置先锋批次
+        intoCityPioneer.setPioneerBatch(pioneer_, pioneerBatch_); // 设置先锋批次
         if (!pioneerChengShiIdExits(chengShiId_)) {
             pioneerChengShiIds.push(chengShiId_);
         }
@@ -192,12 +184,6 @@ contract IntoCity is RoleAccess, Initializable {
             oldPioneerAddress_
         ];
     }
-
-    //    function adminRemoveAllPioneer() public onlyAdmin {
-    //        for (uint256 i = 0; i < pioneerChengShiIds.length; i++) {
-    //            pioneerChengShiIds.pop();
-    //        }
-    //    }
 
     function pioneerChengShiIdExits(
         bytes32 chengShiId
@@ -218,7 +204,7 @@ contract IntoCity is RoleAccess, Initializable {
         pioneerChengShi[pioneer_] = bytes32(0);
         hasSetPioneer[pioneer_] = false;
         IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-        intoCityPioneer.initPioneer(pioneer_);
+        intoCityPioneer.delPioneer(pioneer_);
         intoCityPioneer.removePioneer(pioneer_);
 
         for (uint256 i = 0; i < pioneerChengShiIds.length; i++) {
@@ -374,19 +360,24 @@ contract IntoCity is RoleAccess, Initializable {
     // 获取先锋城市某一天质押量
     function getDailyDelegateByChengShiID(
         bytes32 chengShiId_,
-        uint256 day
+        uint256 day,
+        bool isCityPioneer
     ) public view returns (uint256) {
         uint256 total;
-        IntoUserLocation intoUserLocation = IntoUserLocation(
-            userLocationAddress
-        );
-        bytes32[] memory countyIds_ = intoUserLocation.getCountyIdsByChengShiId(
-            chengShiId_
-        );
-        for (uint256 i = 0; i < countyIds_.length; i++) {
-            bytes32 countyId = countyIds_[i];
-            total += countyNewlyPioneerDelegateRecord[countyId][day];
+        if (!isCityPioneer) {
+            total += countyNewlyPioneerDelegateRecord[chengShiId_][day]; // 这里的chengShiId_就是区县ID
+        } else {
+            IntoUserLocation intoUserLocation = IntoUserLocation(
+                userLocationAddress
+            );
+            bytes32[] memory countyIds_ = intoUserLocation
+                .getCountyIdsByChengShiId(chengShiId_);
+            for (uint256 i = 0; i < countyIds_.length; i++) {
+                bytes32 countyId = countyIds_[i];
+                total += countyNewlyPioneerDelegateRecord[countyId][day];
+            }
         }
+
         return total;
     }
 
@@ -441,24 +432,14 @@ contract IntoCity is RoleAccess, Initializable {
         }
         uint256 today = getDay();
         if (setType == 1) {
-            // 增加
-            //            IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-            //            // 判断是否是先锋,先锋累计新增质押，不统计减少的
-            //            if (intoCityPioneer.isPioneer(userAddress_)) { // 是先锋
-            //                bytes32 chengShiId = intoUserLocation.getChengShiIdByCountyId(countyId);
-            //                if (chengShiId != bytes32(0)) {
-            //                    intoCityPioneer.pioneerTask(userAddress_, chengShiId); // 考核和保证金检测
-            //                }
-            //            }
-            //              增加区县质押量
+            // 增加区县质押量
             incrCountyOrChengShiDelegate(
                 userAddress_,
                 countyId,
                 amount_,
                 today
-            ); // 同时增加区县质押量，和城市质押量可以各取各的
+            );
         } else if (setType == 2) {
-            // 减少
             // 减少区县质押量
             descCountyOrChengShiDelegate(
                 userAddress_,
@@ -475,23 +456,6 @@ contract IntoCity is RoleAccess, Initializable {
         }
     }
 
-    function triggerPioneerTask(address user) public {
-        //        IntoUserLocation intoUserLocation = IntoUserLocation(userLocationAddress);
-        //        bytes32 countyId = intoUserLocation.getCountyId(user);
-        //        bytes32 chengShiId = intoUserLocation.cityIdChengShiID(countyId);
-        //        if (chengShiId == bytes32(0)) {
-        //            return;
-        //        }
-        //        if (!isPioneerChengShi(chengShiId)) {
-        //            return;
-        //        }
-        //        address pioneerAddress = chengShiPioneer[chengShiId];
-        //        if (chengShiPioneer[chengShiId] != address(0)) {
-        //            IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-        //            intoCityPioneer.pioneerTask(pioneerAddress, chengShiId); // 考核和保证金检测
-        //        }
-    }
-
     function pioneerDailyTask(address pioneerAddress) external {
         if (pioneerStatus[pioneerAddress]) {
             emit PioneerBlack(pioneerAddress);
@@ -502,17 +466,6 @@ contract IntoCity is RoleAccess, Initializable {
         if (chengShiId != bytes32(0)) {
             intoCityPioneer.pioneerTask(pioneerAddress, chengShiId); // 考核和保证金定时任务
         }
-    }
-
-    function syncCityCheck(address _addr) external {}
-
-    function isPioneerChengShi(bytes32 chengShiId) public view returns (bool) {
-        for (uint256 i; i < pioneerChengShiIds.length; i++) {
-            if (chengShiId == pioneerChengShiIds[i]) {
-                return true;
-            }
-        }
-        return false;
     }
 
     // 获取前15天社交基金平均值
@@ -550,18 +503,10 @@ contract IntoCity is RoleAccess, Initializable {
         }
     }
 
-    // 获取先锋所需保证金，根据先锋地址
+    // 获取先锋所需TOX保证金，根据先锋地址
     function getSuretyByPioneerAddress(address pioneer_) public view {
         bytes32 chengShiId = pioneerChengShi[pioneer_];
         uint256 level = chengShiLevel[chengShiId];
         chengShiLevelSurety[level];
-    }
-
-    // 获取先锋所需保证金，根据先锋地址
-    function getPioneerAndCityNodeNumber() public view returns (uint256) {
-        IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-        uint256 pioneerNumber = intoCityPioneer.getPioneerNumber(); // 先锋数量
-        uint256 cityNodeNumber = 0; // 城市节点数量
-        return pioneerNumber + cityNodeNumber;
     }
 }

@@ -22,4 +22,7 @@ interface ICity {
     function pioneerChengShi(
         address pioneerAddress_
     ) external view returns (bytes32);
+
+    // 城市/区县ID => 城市/区县先锋需要缴纳的保证金,TOX
+    function surety(bytes32 areaId) external view returns (uint);
 }
