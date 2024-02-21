@@ -4,7 +4,6 @@ import (
 	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
 	"city-node-server/services"
-	"fmt"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -15,7 +14,7 @@ func main() {
 	services.InitTestNet()
 	//services.InitUserLocation()
 	//services.InitAppraise()
-	//services.InitCityPioneer(20)
+	services.InitCityPioneer(20)
 	//services.InitCity(20)
 	//services.InitCityPioneerData()
 
@@ -23,12 +22,12 @@ func main() {
 
 	//taskTest()
 	/// 四期设置
-	// areaShiId, pioneerAddress string, level int64, suretyTox int64, suretyUsdt int64, isChengShi bool
-	err := services.AddPioneer("0x97033fc90d09fa7e17279c173eb0a62ab7d4dc04031195bfcf87e37b58e3b407", "0xeb09570B7841b2280F6340728a092Fde216dBbca", 1,
-		5000,
-		1000,
-		false)
-	fmt.Println(err, 123456)
+	//err := services.AddPioneer("0x97033fc90d09fa7e17279c173eb0a62ab7d4dc04031195bfcf87e37b58e3b407", "0xeb09570B7841b2280F6340728a092Fde216dBbca", 1,
+	//	5000,
+	//	1000,
+	//	4,
+	//	false)
+	//fmt.Println(err, 123456)
 
 }
 

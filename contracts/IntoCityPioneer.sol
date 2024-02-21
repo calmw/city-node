@@ -74,7 +74,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentCriteria; // 城市先锋考核标准
     // 城市等级 => (索引 => 退还标准)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（点数）
     mapping(uint256 => mapping(uint256 => uint256))
-    public assessmentReturnCriteria; // 城市先锋保证金退还标准
+        public assessmentReturnCriteria; // 城市先锋保证金退还标准
     // 城市等级 => (索引 => 退还比例)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（比例）
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentReturnRate; // 城市先锋保证金退还比例
     // 先锋地址 => 先锋信息， 先锋信息
@@ -147,21 +147,21 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 管理员更换先锋地址,针对丽水这种不需要再考核的,设置后，两个地址都可以进入先锋界面，只有后面的可以领收益，老账户只可以看
-    function adminChangePioneerAddress(
-        address newPioneerAddress_,
-        address oldPioneerAddress_
-    ) public onlyAdmin {
-        pioneerInfo[newPioneerAddress_] = pioneerInfo[oldPioneerAddress_];
-        IntoCity city = IntoCity(cityAddress);
-        city.changePioneerAddress(newPioneerAddress_, oldPioneerAddress_); // 让新地址可以进入先锋界面
-    }
+    //    function adminChangePioneerAddress(
+    //        address newPioneerAddress_,
+    //        address oldPioneerAddress_
+    //    ) public onlyAdmin {
+    //        pioneerInfo[newPioneerAddress_] = pioneerInfo[oldPioneerAddress_];
+    //        IntoCity city = IntoCity(cityAddress);
+    //        city.changePioneerAddress(newPioneerAddress_, oldPioneerAddress_); // 让新地址可以进入先锋界面
+    //    }
 
     // 管理员设置数据合约地址
-    function adminSetCityPioneerDataAddress(
-        address cityPioneerData_
-    ) public onlyAdmin {
-        cityPioneerData = CityPioneerData(cityPioneerData_);
-    }
+    //    function adminSetCityPioneerDataAddress(
+    //        address cityPioneerData_
+    //    ) public onlyAdmin {
+    //        cityPioneerData = CityPioneerData(cityPioneerData_);
+    //    }
 
     // 管理员设置城市合约地址
     //    function adminSetCityAddress(address cityAddress_) public onlyAdmin {
@@ -258,14 +258,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 修改先锋信息，让考核失败的重新进入正常考核状态
-//    function editPioneerInfo(address pioneerAddress_) public onlyAdmin {
-//        IntoCity city = IntoCity(cityAddress);
-//        bytes32 chengShiId =city.pioneerChengShi(pioneerAddress_);
-//        failedAt[pioneerAddress_] = 0;
-//        failedDelegate[chengShiId]=0;
-//        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
-//        pioneer.assessmentMonthStatus=true;
-//    }
+    //    function editPioneerInfo(address pioneerAddress_) public onlyAdmin {
+    //        IntoCity city = IntoCity(cityAddress);
+    //        bytes32 chengShiId =city.pioneerChengShi(pioneerAddress_);
+    //        failedAt[pioneerAddress_] = 0;
+    //        failedDelegate[chengShiId]=0;
+    //        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
+    //        pioneer.assessmentMonthStatus=true;
+    //    }
 
     // 管理员设置先锋需要补交的保证金
     //    function adminSetPioneerPaySurety(address pioneer_, uint256 amount_) public onlyAdmin {
@@ -414,8 +414,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (day == 90) {
             execStatus = true;
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                        3
-                ];
+                3
+            ];
         } else if (day == 60) {
             // 检测是否满足直接考核通过
             if (
@@ -430,8 +430,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M2
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                        2
-                ];
+                2
+            ];
         } else if (day == 30) {
             // 检测是否满足直接考核通过
             if (
@@ -446,8 +446,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M1
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                        1
-                ];
+                1
+            ];
         }
         if (!execStatus) {
             return;
@@ -563,7 +563,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
         uint256 balance = benefitPackageReward[msg.sender];
 
-        balance = checkBalance(msg.sender, balance);
+        //        balance = checkBalance(msg.sender, balance);// 检查是否需要扣除
 
         benefitPackageReward[msg.sender] = 0; // 更新可领取福利包奖励
         // 将奖励转账到用户合约余额
@@ -583,7 +583,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
         uint256 balance = fundsReward[msg.sender];
 
-        balance = checkBalance(msg.sender, balance);
+        //        balance = checkBalance(msg.sender, balance);// 检查是否需要扣除
 
         fundsReward[msg.sender] = 0; // 更新可领取社交基金奖励
         // 将奖励转账到用户合约余额
@@ -603,7 +603,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
         uint256 balance = delegateReward[msg.sender];
 
-        balance = checkBalance(msg.sender, balance);
+        //        balance = checkBalance(msg.sender, balance);// 检查是否需要扣除
 
         delegateReward[msg.sender] = 0; // 更新可领取新增质押奖励
         // 将奖励转账到用户合约余额
@@ -622,7 +622,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         require(pioneerPaySurety[msg.sender] >= 0, "you need pay surety");
         uint256 balance = suretyReward[msg.sender];
 
-        balance = checkBalance(msg.sender, balance);
+        //        balance = checkBalance(msg.sender, balance);// 检查是否需要扣除
+
         // 更新可退还保证金数额
         suretyReward[msg.sender] = 0;
         // 退还保证金到钱包账户
@@ -638,26 +639,26 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         emit WithdrawalRewardRecord(msg.sender, balance, 4);
     }
 
-    function checkBalance(
-        address user,
-        uint256 balance
-    ) private returns (uint256) {
-        uint256 subReward = cityPioneerData.subReward(user);
-        uint256 subRes;
-        if (balance >= subReward) {
-            balance = balance - subReward;
-            cityPioneerData.adminSubReward(user, subReward);
-            subRes = subReward;
-        } else {
-            cityPioneerData.adminSubReward(user, balance);
-            subRes = balance;
-            balance = 0;
-        }
-        if (subRes > 0) {
-            emit WithdrawalRewardRecord(msg.sender, balance, 1000);
-        }
-        return balance;
-    }
+    //    function checkBalance(
+    //        address user,
+    //        uint256 balance
+    //    ) private returns (uint256) {
+    //        uint256 subReward = cityPioneerData.subReward(user);
+    //        uint256 subRes;
+    //        if (balance >= subReward) {
+    //            balance = balance - subReward;
+    //            cityPioneerData.adminSubReward(user, subReward);
+    //            subRes = subReward;
+    //        } else {
+    //            cityPioneerData.adminSubReward(user, balance);
+    //            subRes = balance;
+    //            balance = 0;
+    //        }
+    //        if (subRes > 0) {
+    //            emit WithdrawalRewardRecord(msg.sender, balance, 1000);
+    //        }
+    //        return balance;
+    //    }
 
     // 将奖励转账到用户合约余额 17 节点 18 基金 19 福利
     function setUserBalance(
