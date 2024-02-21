@@ -74,7 +74,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentCriteria; // 城市先锋考核标准
     // 城市等级 => (索引 => 退还标准)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（点数）
     mapping(uint256 => mapping(uint256 => uint256))
-        public assessmentReturnCriteria; // 城市先锋保证金退还标准
+    public assessmentReturnCriteria; // 城市先锋保证金退还标准
     // 城市等级 => (索引 => 退还比例)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（比例）
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentReturnRate; // 城市先锋保证金退还比例
     // 先锋地址 => 先锋信息， 先锋信息
@@ -141,17 +141,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //                    _addAdmin(msg.sender);
     //                }
 
-    // 管理员设置TOX代币地址
-    //    function adminSetTOXAddress(address TOXAddress_) public onlyAdmin {
-    //        TOXAddress = TOXAddress_;
-    //    }
-
     // 管理员设置USDT代币地址
     function adminSetUSDT(address USDTAddress_) public onlyAdmin {
         usdt = IERC20(USDTAddress_);
     }
 
-    // 管理员更换先锋地址,针对丽水这种不需要再考核的
+    // 管理员更换先锋地址,针对丽水这种不需要再考核的,设置后，两个地址都可以进入先锋界面，只有后面的可以领收益，老账户只可以看
     function adminChangePioneerAddress(
         address newPioneerAddress_,
         address oldPioneerAddress_
@@ -201,29 +196,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     //    // 管理员设置城市先锋保证金退还标准；点数
     //    function adminSetAssessmentReturnCriteria(uint256 chengShiLevel_, uint256 month_, uint256 point_) public onlyAdmin {
     //        assessmentReturnCriteria[chengShiLevel_][month_] = point_;
-    //    }
-    //   // 管理员设置城市先锋保证金退还标准，比例
-    //    function adminSetAssessmentReturnRate(uint256 chengShiLevel_, uint256 month_, uint256 point_) public onlyAdmin {
-    //        assessmentReturnRate[chengShiLevel_][month_] = point_;
-    //    }
-    // 管理员设置城市先锋保证金退还标准，比例
-    //    function adminEditSuretyReward(address pioneerAddress_, uint256 amount_) public onlyAdmin {
-    //        suretyReward[pioneerAddress_] -= amount_;
-    //    }
-
-    // 管理员设置开始考核时间
-    //    function adminSetStartTime(uint256 startTime_) public onlyAdmin {
-    //        startTime = startTime_;
-    //        // 将已经交保证金的先锋，重置开始考核时间
-    //        for (uint256 i; i < pioneers.length; i++) {
-    //            Pioneer storage pioneer = pioneerInfo[pioneers[i]];
-    //            pioneer.ctime = startTime;
-    //        }
-    //    }
-
-    // 管理员设置先锋是否退还保证金
-    //    function adminSetPioneerReturnSurety(address pioneer_, bool pay_) public onlyAdmin {
-    //        isPioneerReturnSurety[pioneer_] = pay_;
     //    }
 
     // 管理员设置每天秒数，用于测试
@@ -437,8 +409,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (day == 90) {
             execStatus = true;
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                3
-            ];
+                        3
+                ];
         } else if (day == 60) {
             // 检测是否满足直接考核通过
             if (
@@ -453,8 +425,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M2
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                2
-            ];
+                        2
+                ];
         } else if (day == 30) {
             // 检测是否满足直接考核通过
             if (
@@ -469,8 +441,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M1
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                1
-            ];
+                        1
+                ];
         }
         if (!execStatus) {
             return;
