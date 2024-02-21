@@ -4,7 +4,7 @@ import (
 	"city-node-server/pkg/binding/intoCityNode"
 	"city-node-server/pkg/db"
 	"city-node-server/pkg/log"
-	models2 "city-node-server/pkg/models"
+	"city-node-server/pkg/models"
 	"context"
 	"errors"
 	"fmt"
@@ -12,7 +12,6 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/shopspring/decimal"
 	"github.com/status-im/keycard-go/hexutils"
 	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"gorm.io/gorm"
@@ -20,6 +19,76 @@ import (
 	"strings"
 	"time"
 )
+
+type City struct {
+	Cli      *ethclient.Client
+	Contract *intoCityNode.City
+}
+
+func NewCity(cli *ethclient.Client) *City {
+	city, _ := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), cli)
+
+	return &City{
+		Cli:      cli,
+		Contract: city,
+	}
+}
+
+func (c *City) AdminSetChengShiLevelAndSurety(chengShiId string, level int64, surety int64) error {
+	cityContract, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), c.Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+
+	err, auth := GetAuth(c.Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+
+	E18 := big.NewInt(1e18)
+	earnestMoneyBigInt := E18.Mul(E18, big.NewInt(surety))
+
+	_, err = cityContract.AdminSetChengShiLevelAndSurety(auth, ConvertAreaIdAtB(chengShiId), big.NewInt(level), earnestMoneyBigInt)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	return nil
+}
+
+func (c *City) AdminSetPioneer(chengShiId, pioneer string, pioneerBatch int64) error {
+	_, auth := GetAuth(c.Cli)
+
+	if strings.Contains(chengShiId, "0x") {
+		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
+	}
+	common.Hex2Bytes(chengShiId)
+	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
+	fmt.Println("set chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer)
+	_, err := c.Contract.AdminSetPioneer(auth, cityIdBytes32, common.HexToAddress(pioneer), big.NewInt(pioneerBatch))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	return nil
+}
+
+func (c *City) AdminRemovePioneer(chengShiId, pioneer string) error {
+	_, auth := GetAuth(c.Cli)
+
+	if strings.Contains(chengShiId, "0x") {
+		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
+	}
+
+	_, err := c.Contract.AdminRemovePioneer(auth, ConvertAreaIdAtB(chengShiId), common.HexToAddress(pioneer))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	return nil
+}
 
 // AdminSetCityPioneerAddress 管理员设置先锋计划合约地址
 func AdminSetCityPioneerAddress() {
@@ -106,30 +175,32 @@ func AdminSetSecondsPerDay(secondsPerDay int64) {
 }
 
 // AdminSetPioneer 管理员设置城市先锋
-func AdminSetPioneer(chengShiId, pioneer string) {
+func AdminSetPioneer(chengShiId, pioneer string, pioneerBatch int64) error {
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
 	_, auth := GetAuth(Cli)
 	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
 	if strings.Contains(chengShiId, "0x") {
 		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
 	}
-	common.Hex2Bytes(chengShiId)
-	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
-	fmt.Println("set chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer)
-	res, err := city.AdminSetPioneer(auth, cityIdBytes32, common.HexToAddress(pioneer))
+	//common.Hex2Bytes(chengShiId)
+	//cityIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
+	//fmt.Println("set chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer)
+	fmt.Println(chengShiId, 999)
+	res, err := city.AdminSetPioneer(auth, ConvertAreaIdAtB(chengShiId), common.HexToAddress(pioneer), big.NewInt(pioneerBatch))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
-	fmt.Println(res, err)
+	fmt.Println(res.Hash().String(), err, 567)
+	return nil
 }
 
 func AdminSetAuthAddress() {
@@ -514,22 +585,23 @@ func AddCityAdmin() {
 }
 
 // AdminSetChengShiLevelAndSurety 管理员设置先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
-func AdminSetChengShiLevelAndSurety(cityId string, level, earnestMoney int64) {
+func AdminSetChengShiLevelAndSurety(cityId string, level, earnestMoney int64) error {
 	err, Cli := Client(CityNodeConfig)
+	fmt.Println(CityNodeConfig.RPC, CityNodeConfig.CityAddress)
 
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
 	err, auth := GetAuth(Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
 	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
 	if strings.Contains(cityId, "0x") {
 		cityId = strings.ReplaceAll(cityId, "0x", "")
@@ -542,9 +614,10 @@ func AdminSetChengShiLevelAndSurety(cityId string, level, earnestMoney int64) {
 	res, err := city.AdminSetChengShiLevelAndSurety(auth, cityIdBytes32, big.NewInt(level), earnestMoneyBigInt)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
-	fmt.Println(res, err)
+	fmt.Println(res.Hash().String(), err, 123)
+	return nil
 }
 
 // AdminEditSurety 管理员修改先锋计划，城市等级以及该等级城市所需缴纳的保证金数额
@@ -669,7 +742,6 @@ func TriggerAllPioneerTask() {
 		nonce_ = int64(nonce)
 		fmt.Println(nonce, err, 8888)
 	}
-	//nonce_ = int64(nonce)
 	fmt.Println(nonce_, 99999)
 
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
@@ -764,8 +836,8 @@ func GetAllPioneer() {
 			continue
 		}
 		if isPioneer {
-			pioneerInfo := models2.Pioneer{}
-			err = db.Mysql.Model(models2.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
+			pioneerInfo := models.Pioneer{}
+			err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
 			if errors.Is(err, gorm.ErrRecordNotFound) {
 				city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
 				if err != nil {
@@ -806,11 +878,11 @@ func GetAllPioneer() {
 					continue
 				}
 				// 根据城市ID查询location
-				local := models2.UserLocation{}
+				local := models.UserLocation{}
 
-				db.Mysql.Model(models2.UserLocation{}).Where("city_id=?", cityId).First(&local)
+				db.Mysql.Model(models.UserLocation{}).Where("city_id=?", cityId).First(&local)
 
-				db.Mysql.Model(models2.Pioneer{}).Create(&models2.Pioneer{
+				db.Mysql.Model(models.Pioneer{}).Create(&models.Pioneer{
 					CityId:         strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res))),
 					Location:       local.Location,
 					CityLevel:      cityLevel.Int64(),
@@ -825,11 +897,7 @@ func GetAllPioneer() {
 
 // TriggerAllPioneerTaskTestNet 触发所有先锋分红和考核
 func TriggerAllPioneerTaskTestNet() {
-	//defer func() {
-	//	if r := recover(); r != nil {
-	//		log.Logger.Sugar().Error("recovery", r)
-	//	}
-	//}()
+
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -880,97 +948,6 @@ func CityRechargeTotal(countyId [32]byte) (error, *big.Int) {
 	return nil, res
 }
 
-//// RechargeDailyWeightRecord 获取区县某一天对应的充值权重
-//func RechargeDailyWeightRecord(countyId [32]byte) (error, *big.Int) {
-//	Cli := Client(CityNodeConfig)
-//	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return err, nil
-//	}
-//	res, err := city.RechargeDailyWeightRecord(nil, countyId)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return err, nil
-//	}
-//
-//	return nil, res
-//}
-
-func InsertAdminSetDelegateRecord(cityId, txHash string, amount decimal.Decimal, ctime int64) error {
-	InsertDelegateLock.Lock()
-	defer InsertDelegateLock.Unlock()
-	var delegate models2.Delegate
-	whereCondition := fmt.Sprintf("city_id='%s' and tx_hash=%d", strings.ToLower(cityId), txHash)
-	err := db.Mysql.Model(&models2.Delegate{}).Where(whereCondition).First(&delegate).Error
-	if err == gorm.ErrRecordNotFound {
-		db.Mysql.Model(&models2.Delegate{}).Create(models2.Delegate{
-			CityId:  cityId,
-			TxHash:  txHash,
-			Ctime:   time.Unix(ctime, 0),
-			Amount:  amount,
-			SetType: 1,
-		})
-	}
-	return nil
-}
-
-//func GetDecreaseCityDelegateEvent(Cli *ethclient.Client, startBlock, endBlock int64) error {
-//	query := event.BuildQuery(common.HexToAddress(
-//		"0xebD06631510A66968f0379A4deB896d3eE7DD6ED"),
-//		event.DecreaseCityDelegate,
-//		big.NewInt(startBlock),
-//		big.NewInt(endBlock),
-//	)
-//	ctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(20))
-//	logs, err := Cli.FilterLogs(ctx, query)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return err
-//	}
-//	cancel()
-//	abi, _ := intoCityNode.CityMetaData.GetAbi()
-//	for _, logE := range logs {
-//		logData, err := abi.Unpack(event.DecreaseCityDelegateEvent.EventName, logE.Data)
-//		if err != nil {
-//			log.Logger.Sugar().Error(err)
-//		}
-//		cityId := "0x" + common.Bytes2Hex(Bytes32ToBytes(logData[0].([32]uint8)))
-//		amount := logData[1].(*big.Int).String()
-//		CreateAdminSetDelegate(models.AdminSetDelegate{
-//			CityId:  cityId,
-//			Amount:  amount,
-//			SetType: 2,
-//		})
-//	}
-//	return nil
-//}
-
-func InsertRechargeRecordEvent(userAddress, countyId string, countyIdBytes32 [32]byte, amount decimal.Decimal, ctime int64) error {
-	InsertRechargeRecordEventLock.Lock()
-	defer InsertRechargeRecordEventLock.Unlock()
-	err, cityId := GetChengShiIdByCityIdByte32(countyIdBytes32)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
-
-	var rechargeRecord models2.RechargeRecord
-	whereCondition := fmt.Sprintf("user='%s' and county_id='%s' and city_id='%s' and amount='%d' and ctime='%d'",
-		strings.ToLower(userAddress), strings.ToLower(countyId), strings.ToLower(cityId), amount, ctime)
-	err = db.Mysql.Model(&models2.RechargeRecord{}).Where(whereCondition).First(&rechargeRecord).Error
-	if err == gorm.ErrRecordNotFound {
-		db.Mysql.Model(&models2.RechargeRecord{}).Create(&models2.RechargeRecord{
-			User:     strings.ToLower(userAddress),
-			CountyId: strings.ToLower(countyId),
-			CityId:   strings.ToLower(cityId),
-			Amount:   amount,
-			Ctime:    time.Unix(ctime, 0),
-		})
-	}
-	return nil
-}
-
 type UserLocationExcel struct {
 	Id      int    `gorm:"column:id;primaryKey" excel:"column:B;desc:ID;width:30"`
 	User    string `json:"user" gorm:"column:user" excel:"column:C;desc:用户地址;width:30"`
@@ -986,8 +963,8 @@ func GetUserLocation() {
 
 	for i := 0; i < 240; i++ {
 		for {
-			var locations []models2.UserLocation
-			err := db.Mysql.Model(models2.UserLocation{}).Where("id>? and id<=?", i*1000, (i+1)*1000).Find(&locations).Error
+			var locations []models.UserLocation
+			err := db.Mysql.Model(models.UserLocation{}).Where("id>? and id<=?", i*1000, (i+1)*1000).Find(&locations).Error
 			if errors.Is(err, gorm.ErrRecordNotFound) {
 				fmt.Println(i, "无数据")
 				break

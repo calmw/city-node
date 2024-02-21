@@ -1,21 +1,13 @@
 package main
 
-import (
-	"city-node-server/pkg/blockchain"
-	"city-node-server/pkg/db"
-	"city-node-server/services"
-	"github.com/jasonlvhit/gocron"
-	"time"
-)
-
 func main() {
 	//defer func() {
 	//	if r := recover(); r != nil {
 	//		fmt.Println("recovery")
 	//	}
 	//}()
-	db.InitMysql()
-	services.InitMainNet()
+	//db.InitMysql()
+	//services.InitMainNet()
 	//services.InitTestNet()
 
 	//services.InitUserLocation()
@@ -98,7 +90,7 @@ func main() {
 	/// 先锋计划定时任务
 
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
-	services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
+	//services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
 	//services.ReadExcel5("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadExcel5("./assets/INTO工作室补贴业绩查询1.31.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadCityFIle("./assets/HaNoi.txt")
@@ -123,18 +115,13 @@ func main() {
 	//services.GetToxTx()
 }
 
-func clearTestNet() {
-	services.InitTestNet()
-	//services.InitCity()
-	taskTest()
-}
-func taskTest() {
-
-	s := gocron.NewScheduler()
-	s.ChangeLoc(time.UTC)
-	//_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
-	_ = s.Every(25).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
-	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
-	<-s.Start() // Start all the pending jobs
-
-}
+//func taskTest() {
+//	services.InitTestNet()
+//
+//	s := gocron.NewScheduler()
+//	s.ChangeLoc(time.UTC)
+//	//_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
+//	_ = s.Every(25).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
+//	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
+//	<-s.Start() // Start all the pending jobs
+//}

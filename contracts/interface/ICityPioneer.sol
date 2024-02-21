@@ -92,4 +92,11 @@ interface ICityPioneer {
         address pioneerAddress_,
         bool status_
     ) external;
+
+    // 初始化先锋信息
+    function initPioneer(
+        address pioneerAddress_,
+        bytes32 chengShiId,
+        uint cityLevel
+    ) external;
 }

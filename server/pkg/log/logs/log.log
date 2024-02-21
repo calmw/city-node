@@ -22110,3 +22110,71 @@
 {"level":"info","time":"2024-02-05T13:53:32.079+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-02-05T13:55:22.800+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-02-05T13:56:06.110+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-19T14:34:27.148+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-19T14:38:02.289+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-19T14:38:55.993+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-19T14:39:15.297+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-19T14:46:39.322+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-19T14:48:39.754+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-19T14:48:55.530+0800","line":"blockchain/city.go:129","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2024-02-19T14:51:14.851+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-19T14:51:16.909+0800","line":"blockchain/city.go:129","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2024-02-19T14:52:03.296+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-19T14:52:05.588+0800","line":"blockchain/city.go:129","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2024-02-19T15:02:03.041+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-19T15:14:07.067+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-19T15:35:52.450+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T09:52:47.295+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T09:55:29.541+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T09:56:18.545+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T09:56:46.510+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T09:57:46.596+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T09:58:09.969+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T10:00:19.209+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T10:00:52.850+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T10:02:10.865+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T10:06:02.360+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-20T10:06:04.977+0800","line":"blockchain/city.go:184","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2024-02-20T10:35:48.814+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-20T10:35:53.074+0800","line":"blockchain/city.go:184","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2024-02-20T10:36:56.292+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-20T10:37:00.231+0800","line":"blockchain/city.go:184","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2024-02-20T10:37:48.974+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-20T10:37:53.229+0800","line":"blockchain/city.go:184","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2024-02-20T10:40:14.892+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-20T10:40:19.998+0800","line":"blockchain/city.go:184","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2024-02-20T11:46:32.167+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T16:44:42.447+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T16:46:05.135+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T16:49:09.689+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T16:49:50.579+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T16:53:42.157+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T17:03:38.443+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T17:07:17.897+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-20T17:07:26.291+0800","line":"blockchain/city.go:72","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-02-20T17:07:26.292+0800","line":"services/pioneer.go:35","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2024-02-20T17:08:22.976+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T17:37:18.222+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T17:39:59.254+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T17:45:26.024+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T17:57:44.526+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-20T17:57:53.509+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T11:38:21.388+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T11:39:25.155+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T11:39:50.456+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T11:40:06.298+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T11:43:54.056+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T11:54:53.695+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-21T11:54:54.673+0800","line":"services/addCityPioneer.go:44","msg":"open 新节点添加.json: no such file or directory","serviceName":"into"}
+{"level":"info","time":"2024-02-21T11:55:37.774+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-21T11:55:39.004+0800","line":"services/addCityPioneer.go:56","msg":"unexpected end of JSON input","serviceName":"into"}
+{"level":"info","time":"2024-02-21T11:56:33.836+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-21T11:56:35.796+0800","line":"services/addCityPioneer.go:57","msg":"unexpected end of JSON input","serviceName":"into"}
+{"level":"info","time":"2024-02-21T11:59:03.191+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T12:00:01.094+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T12:00:33.816+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T12:01:34.482+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T12:02:09.452+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-21T12:02:55.395+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-21T12:03:04.747+0800","line":"blockchain/city.go:199","msg":"invalid nonce; got 731, expected 732: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-02-21T12:03:26.694+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
