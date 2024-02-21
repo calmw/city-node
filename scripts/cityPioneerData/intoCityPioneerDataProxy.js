@@ -2,7 +2,8 @@ const {ethers, upgrades} = require("hardhat")
 require('@openzeppelin/hardhat-upgrades')
 
 // const ProxyAddress = "0x9BCafDc5e97f25d586aBfb4ac5466fA8827b2e5E"
-const ProxyAddress = "0x9FEf79ebfcEa35323A7A1eb0C52B2998D36B975d"
+// const ProxyAddress = "0x9FEf79ebfcEa35323A7A1eb0C52B2998D36B975d"
+const ProxyAddress = "0x7D05883B19cD14c216AD82222c48bCD4eE98914c"
 
 // 可升级合约
 async function main() {

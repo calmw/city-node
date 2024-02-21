@@ -26,7 +26,7 @@ func InitTestNet() {
 		StarAddress:            "0xe8739b502df3A3dC5C0f14c0F27288c06A5ad887", // 获取用户星级合约
 		CityAddress:            "0xDfFA9bfB4D6376DB617fD2Fc56682cC7646cCb9C", // 城市合约地址
 		CityPioneerAddress:     "0x11Ef2544A6f62a2cF589390325ab0A56df1eeF15", // 成市先锋合约地址
-		CityPioneerDataAddress: "0xE3f2910dF8650B3b2B978ad18e8df101B1FEDD62", // 成市先锋数据合约地址
+		CityPioneerDataAddress: "0x7D05883B19cD14c216AD82222c48bCD4eE98914c", // 成市先锋数据合约地址
 		UserLocationAddress:    "0x12CEC1A760E1e25Ce5b143cDB9D115D83603fAba", // 用户定位合约地址
 		MiningAddress:          "0xD8c1d40a6FF4E53577389C8008343081949C373D", // 需要杨森设置IntoMining合约的管理员权限，权限给到cityPioneer
 		SetDelegateAddress:     "0x73A8f49C231ffBF9D190C623361c332bEc59F95A", // 该合约为增加或减少质押量的合约，艳杰，在city给管理员权限

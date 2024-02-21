@@ -32,18 +32,18 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
         _addAdmin(msg.sender);
     }
 
-    //    // 管理员设置用户需要扣除的奖励
-    //    function adminSetSubReward(
-    //        address user_,
-    //        uint256 reward_
-    //    ) public onlyAdmin {
-    //        subReward[user_] = reward_;
-    //    }
-    //
-    //    // 减去用户需要扣除的奖励
-    //    function adminSubReward(address user_, uint256 reward_) public onlyAdmin {
-    //        subReward[user_] -= reward_;
-    //    }
+    // 管理员设置用户需要扣除的奖励
+    function adminSetSubReward(
+        address user_,
+        uint256 reward_
+    ) public onlyAdmin {
+        subReward[user_] = reward_;
+    }
+
+    // 减去用户需要扣除的奖励
+    function adminSubReward(address user_, uint256 reward_) public onlyAdmin {
+        subReward[user_] -= reward_;
+    }
 
     // 设置先锋合约
     function adminSetCityPioneerAddress(
