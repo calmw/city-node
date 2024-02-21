@@ -257,10 +257,15 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         }
     }
 
-    // 修改先锋信息
-    //    function editPioneerInfo(address pioneerAddress_) public onlyAdmin {
-    //        isPioneerReturnSurety[pioneerAddress_] = false;
-    //    }
+    // 修改先锋信息，让考核失败的重新进入正常考核状态
+//    function editPioneerInfo(address pioneerAddress_) public onlyAdmin {
+//        IntoCity city = IntoCity(cityAddress);
+//        bytes32 chengShiId =city.pioneerChengShi(pioneerAddress_);
+//        failedAt[pioneerAddress_] = 0;
+//        failedDelegate[chengShiId]=0;
+//        Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
+//        pioneer.assessmentMonthStatus=true;
+//    }
 
     // 管理员设置先锋需要补交的保证金
     //    function adminSetPioneerPaySurety(address pioneer_, uint256 amount_) public onlyAdmin {
