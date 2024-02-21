@@ -8,7 +8,7 @@
     "build": "npx hardhat compile",
     "deploy-appraise-testnet": "npx hardhat --network match_test run scripts/appraise/appraise.js",
     "deploy-appraise-mainnet": "npx hardhat --network match run scripts/appraise/appraise.js",
-    "upgrade-cityProxy-testnet": "npx hardhat --network match_test run scripts/city/intoCityProxy.j",
+    "upgrade-cityProxy-testnet": "npx hardhat --network match_test run scripts/city/intoCityProxy.js",
     "upgrade-cityPioneer-testnet": "npx hardhat --network match_test run scripts/cityPioneer/intoCityPioneerProxy.js",
     "upgrade-cityPioneerData-testnet": "npx hardhat --network match_test run scripts/cityPioneerData/intoCityPioneerDataProxy.js",
     "upgrade-appraise-testnet": "npx hardhat --network match_test run scripts/appraise/appraise_proxy.js",
