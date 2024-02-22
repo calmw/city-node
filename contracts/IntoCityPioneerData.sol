@@ -27,6 +27,7 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
     ICityPioneer public cityPioneerContract; // 先锋合约
     mapping(address => uint256) public suretyDepositUSDT; // 先锋已经缴纳的USDT保证金数量
     mapping(address => uint256) public suretyDepositTOX; // 先锋已经缴纳的TOX保证金数量
+    mapping(address => bool) public isGlobalNode; // 是否是全球节点。节点地址=>是否是全球节点
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -73,6 +74,14 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
         uint256 suretyUSDT_
     ) public onlyAdmin {
         suretyUSDT[chengShiId_] = suretyUSDT_;
+    }
+
+    // 管理员设置全球节点，全球节点用户不能参与先锋计划
+    function adminSetIsGlobalNode(
+        address globalNodeAddress_,
+        bool isGlobalNode_
+    ) public onlyAdmin {
+        isGlobalNode[globalNodeAddress_] = isGlobalNode_;
     }
 
     function getSurety(address user) public view returns (uint, uint) {

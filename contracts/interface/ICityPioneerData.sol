@@ -9,4 +9,6 @@ interface CityPioneerData {
     function adminSubReward(address user_, uint256 reward_) external;
 
     function suretyUSDT(bytes32 chengShiID) external returns (uint256);
+
+    function isGlobalNode(address user_) external returns (bool);
 }

@@ -14,8 +14,8 @@ func main() {
 	services.InitTestNet()
 	//services.InitUserLocation()
 	//services.InitAppraise()
-	services.InitCityPioneer(20)
-	//services.InitCity(20)
+	//services.InitCityPioneer(20)
+	services.InitCity(20)
 	//services.InitCityPioneerData()
 
 	//db.InitMysql()
