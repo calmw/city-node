@@ -132,7 +132,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 城市先锋地址=>需要补交保证金数量
     mapping(address => uint256) public pioneerPaySurety;
     // 城市先锋地址=>是否退还保证金（需求更新，后面增加的先锋不退还保证金），true的话不退还保证金
-    mapping(address => bool) public isPioneerReturnSurety;
+    mapping(address => bool) public isPioneerReturnSurety; // 针对第一期用户，已经过期废弃
     CityPioneerData public cityPioneerData; // 先锋数据合约
     IAppraise public appraise; // 先锋考核合约
     IERC20 public usdt; // USDT合约
@@ -289,11 +289,15 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerPaySurety[msg.sender] = 0;
     }
 
-    function setPioneerBatch(
+    // 添加先锋的检查
+    function setPioneerBefore(
         address pioneer_,
         uint256 pioneerBatch_
     ) public onlyAdmin {
-        isPioneerReturnSurety[pioneer_] = true;
+        // 设置不退保证金
+        //        isPioneerReturnSurety[pioneer_] = true;
+        // 检查是否是全球节点
+        require(!cityPioneerData.isGlobalNode(pioneer_), "you are global node");
         // 设置先锋批次
         appraise.setPioneerBatch(pioneer_, pioneerBatch_);
     }

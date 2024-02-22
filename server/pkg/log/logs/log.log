@@ -22179,3 +22179,11 @@
 {"level":"error","time":"2024-02-21T12:03:04.747+0800","line":"blockchain/city.go:199","msg":"invalid nonce; got 731, expected 732: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"info","time":"2024-02-21T12:03:26.694+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-02-21T15:40:21.217+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-22T10:10:05.212+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-02-22T10:14:52.130+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-22T10:14:55.559+0800","line":"blockchain/city.go:292","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"error","time":"2024-02-22T10:14:57.330+0800","line":"blockchain/city.go:199","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"info","time":"2024-02-22T10:15:15.891+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-22T10:15:18.755+0800","line":"blockchain/city.go:292","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
+{"level":"info","time":"2024-02-22T10:15:46.161+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-02-22T10:15:50.407+0800","line":"blockchain/city.go:199","msg":"rpc error: code = Unknown desc = execution reverted","serviceName":"into"}
