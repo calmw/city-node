@@ -11,6 +11,8 @@ interface City {} // 废弃
 interface CityPioneer {} // 废弃
 
 contract IntoCityPioneerData is RoleAccess, Initializable {
+    event DepositSurety(address pioneer, uint256 isUsdt, uint256 amount);
+
     // 用户地址=>用户需要扣除的奖励
     mapping(address => uint256) public subReward; // 废弃
     // 用户地址=>第几期用户
@@ -96,6 +98,7 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
 
     function depositSuretyTOX() public {
         (uint256 _suretyTOX, uint256 _suretyUSDT) = getSurety(msg.sender);
+        // 没有交过TOX的话，交TOX
         if (suretyDepositTOX[msg.sender] < _suretyTOX) {
             // 没交过TOX
             uint256 userBalance = tox.balanceOf(msg.sender);
@@ -104,9 +107,16 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
                 "your balance of TOX is insufficient"
             ); // 余额不足
             tox.transferFrom(msg.sender, address(this), _suretyTOX);
+            suretyDepositTOX[msg.sender] += _suretyTOX;
+
+            emit DepositSurety(msg.sender, 0, _suretyTOX);
         }
-        // 如果交过USDT,设置成为先锋
-        if (suretyDepositUSDT[msg.sender] >= _suretyUSDT) {
+
+        // 如果已经交过USDT,并且不是先锋就设置成为先锋
+        if (
+            (suretyDepositUSDT[msg.sender] >= _suretyUSDT) &&
+            !cityPioneerContract.isPioneer(msg.sender)
+        ) {
             bytes32 chengShiId = cityContract.pioneerChengShi(msg.sender);
             uint cityLevel = cityContract.chengShiLevel(chengShiId);
             cityPioneerContract.initPioneer(msg.sender, chengShiId, cityLevel);
@@ -115,6 +125,7 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
 
     function depositSuretyUSDT() public {
         (uint256 _suretyTOX, uint256 _suretyUSDT) = getSurety(msg.sender);
+        // 没有交过USDT的话，交USDT
         if (suretyDepositUSDT[msg.sender] < _suretyUSDT) {
             // 没交过USDT
             uint256 userBalance = usdt.balanceOf(msg.sender);
@@ -122,13 +133,26 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
                 userBalance >= _suretyUSDT,
                 "your balance of USDT is insufficient"
             ); // 余额不足
-            tox.transferFrom(msg.sender, address(this), _suretyUSDT);
+            usdt.transferFrom(msg.sender, address(this), _suretyUSDT);
+            suretyDepositUSDT[msg.sender] += _suretyUSDT;
+
+            emit DepositSurety(msg.sender, 1, _suretyUSDT);
         }
-        // 如果交过USDT,设置成为先锋
-        if (suretyDepositTOX[msg.sender] >= _suretyTOX) {
+
+        // 如果已经交过TOX,并且不是先锋就设置成为先锋
+        if (
+            (suretyDepositTOX[msg.sender] >= _suretyTOX) &&
+            !cityPioneerContract.isPioneer(msg.sender)
+        ) {
             bytes32 chengShiId = cityContract.pioneerChengShi(msg.sender);
             uint cityLevel = cityContract.chengShiLevel(chengShiId);
             cityPioneerContract.initPioneer(msg.sender, chengShiId, cityLevel);
         }
+    }
+
+    // 重置先锋账户已经交的保证金
+    function clearPioneerSurety(address pioneerAddress_) public {
+        suretyDepositTOX[pioneerAddress_] = 0;
+        suretyDepositUSDT[pioneerAddress_] = 0;
     }
 }

@@ -31,7 +31,7 @@ var (
 
 // CityPioneerDataMetaData contains all meta data concerning the CityPioneerData contract.
 var CityPioneerDataMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"suretyUSDT_\",\"type\":\"uint256\"}],\"name\":\"adminSetChengShiSuretyUSDT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityPioneerAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityPioneerAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"toxAddress_\",\"type\":\"address\"}],\"name\":\"adminSetTOX\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"usdtAddress_\",\"type\":\"address\"}],\"name\":\"adminSetUSDT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"city\",\"outputs\":[{\"internalType\":\"contractCity\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityContract\",\"outputs\":[{\"internalType\":\"contractICity\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityPioneer\",\"outputs\":[{\"internalType\":\"contractCityPioneer\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityPioneerContract\",\"outputs\":[{\"internalType\":\"contractICityPioneer\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositSuretyTOX\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositSuretyUSDT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getSurety\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"subReward\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"suretyDepositTOX\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"suretyDepositUSDT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"suretyUSDT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tox\",\"outputs\":[{\"internalType\":\"contractIERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"usdt\",\"outputs\":[{\"internalType\":\"contractIERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userPeriod\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"suretyUSDT_\",\"type\":\"uint256\"}],\"name\":\"adminSetChengShiSuretyUSDT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityPioneerAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCityPioneerAddress\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"globalNodeAddress_\",\"type\":\"address\"},{\"internalType\":\"bool\",\"name\":\"isGlobalNode_\",\"type\":\"bool\"}],\"name\":\"adminSetIsGlobalNode\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"reward_\",\"type\":\"uint256\"}],\"name\":\"adminSetSubReward\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"toxAddress_\",\"type\":\"address\"}],\"name\":\"adminSetTOX\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"usdtAddress_\",\"type\":\"address\"}],\"name\":\"adminSetUSDT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"reward_\",\"type\":\"uint256\"}],\"name\":\"adminSubReward\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"city\",\"outputs\":[{\"internalType\":\"contractCity\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityContract\",\"outputs\":[{\"internalType\":\"contractICity\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityPioneer\",\"outputs\":[{\"internalType\":\"contractCityPioneer\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"cityPioneerContract\",\"outputs\":[{\"internalType\":\"contractICityPioneer\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositSuretyTOX\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"depositSuretyUSDT\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"}],\"name\":\"getSurety\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"isGlobalNode\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"subReward\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"suretyDepositTOX\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"suretyDepositUSDT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"suretyUSDT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"tox\",\"outputs\":[{\"internalType\":\"contractIERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"usdt\",\"outputs\":[{\"internalType\":\"contractIERC20\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"userPeriod\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // CityPioneerDataABI is the input ABI used to generate the binding from.
@@ -398,6 +398,37 @@ func (_CityPioneerData *CityPioneerDataCallerSession) IsAdmin(account common.Add
 	return _CityPioneerData.Contract.IsAdmin(&_CityPioneerData.CallOpts, account)
 }
 
+// IsGlobalNode is a free data retrieval call binding the contract method 0x724fbdb6.
+//
+// Solidity: function isGlobalNode(address ) view returns(bool)
+func (_CityPioneerData *CityPioneerDataCaller) IsGlobalNode(opts *bind.CallOpts, arg0 common.Address) (bool, error) {
+	var out []interface{}
+	err := _CityPioneerData.contract.Call(opts, &out, "isGlobalNode", arg0)
+
+	if err != nil {
+		return *new(bool), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(bool)).(*bool)
+
+	return out0, err
+
+}
+
+// IsGlobalNode is a free data retrieval call binding the contract method 0x724fbdb6.
+//
+// Solidity: function isGlobalNode(address ) view returns(bool)
+func (_CityPioneerData *CityPioneerDataSession) IsGlobalNode(arg0 common.Address) (bool, error) {
+	return _CityPioneerData.Contract.IsGlobalNode(&_CityPioneerData.CallOpts, arg0)
+}
+
+// IsGlobalNode is a free data retrieval call binding the contract method 0x724fbdb6.
+//
+// Solidity: function isGlobalNode(address ) view returns(bool)
+func (_CityPioneerData *CityPioneerDataCallerSession) IsGlobalNode(arg0 common.Address) (bool, error) {
+	return _CityPioneerData.Contract.IsGlobalNode(&_CityPioneerData.CallOpts, arg0)
+}
+
 // SubReward is a free data retrieval call binding the contract method 0xd092918f.
 //
 // Solidity: function subReward(address ) view returns(uint256)
@@ -699,6 +730,48 @@ func (_CityPioneerData *CityPioneerDataTransactorSession) AdminSetCityPioneerAdd
 	return _CityPioneerData.Contract.AdminSetCityPioneerAddress(&_CityPioneerData.TransactOpts, cityPioneerAddress_)
 }
 
+// AdminSetIsGlobalNode is a paid mutator transaction binding the contract method 0x65f0f793.
+//
+// Solidity: function adminSetIsGlobalNode(address globalNodeAddress_, bool isGlobalNode_) returns()
+func (_CityPioneerData *CityPioneerDataTransactor) AdminSetIsGlobalNode(opts *bind.TransactOpts, globalNodeAddress_ common.Address, isGlobalNode_ bool) (*types.Transaction, error) {
+	return _CityPioneerData.contract.Transact(opts, "adminSetIsGlobalNode", globalNodeAddress_, isGlobalNode_)
+}
+
+// AdminSetIsGlobalNode is a paid mutator transaction binding the contract method 0x65f0f793.
+//
+// Solidity: function adminSetIsGlobalNode(address globalNodeAddress_, bool isGlobalNode_) returns()
+func (_CityPioneerData *CityPioneerDataSession) AdminSetIsGlobalNode(globalNodeAddress_ common.Address, isGlobalNode_ bool) (*types.Transaction, error) {
+	return _CityPioneerData.Contract.AdminSetIsGlobalNode(&_CityPioneerData.TransactOpts, globalNodeAddress_, isGlobalNode_)
+}
+
+// AdminSetIsGlobalNode is a paid mutator transaction binding the contract method 0x65f0f793.
+//
+// Solidity: function adminSetIsGlobalNode(address globalNodeAddress_, bool isGlobalNode_) returns()
+func (_CityPioneerData *CityPioneerDataTransactorSession) AdminSetIsGlobalNode(globalNodeAddress_ common.Address, isGlobalNode_ bool) (*types.Transaction, error) {
+	return _CityPioneerData.Contract.AdminSetIsGlobalNode(&_CityPioneerData.TransactOpts, globalNodeAddress_, isGlobalNode_)
+}
+
+// AdminSetSubReward is a paid mutator transaction binding the contract method 0x57e7b3b0.
+//
+// Solidity: function adminSetSubReward(address user_, uint256 reward_) returns()
+func (_CityPioneerData *CityPioneerDataTransactor) AdminSetSubReward(opts *bind.TransactOpts, user_ common.Address, reward_ *big.Int) (*types.Transaction, error) {
+	return _CityPioneerData.contract.Transact(opts, "adminSetSubReward", user_, reward_)
+}
+
+// AdminSetSubReward is a paid mutator transaction binding the contract method 0x57e7b3b0.
+//
+// Solidity: function adminSetSubReward(address user_, uint256 reward_) returns()
+func (_CityPioneerData *CityPioneerDataSession) AdminSetSubReward(user_ common.Address, reward_ *big.Int) (*types.Transaction, error) {
+	return _CityPioneerData.Contract.AdminSetSubReward(&_CityPioneerData.TransactOpts, user_, reward_)
+}
+
+// AdminSetSubReward is a paid mutator transaction binding the contract method 0x57e7b3b0.
+//
+// Solidity: function adminSetSubReward(address user_, uint256 reward_) returns()
+func (_CityPioneerData *CityPioneerDataTransactorSession) AdminSetSubReward(user_ common.Address, reward_ *big.Int) (*types.Transaction, error) {
+	return _CityPioneerData.Contract.AdminSetSubReward(&_CityPioneerData.TransactOpts, user_, reward_)
+}
+
 // AdminSetTOX is a paid mutator transaction binding the contract method 0x0697161b.
 //
 // Solidity: function adminSetTOX(address toxAddress_) returns()
@@ -739,6 +812,27 @@ func (_CityPioneerData *CityPioneerDataSession) AdminSetUSDT(usdtAddress_ common
 // Solidity: function adminSetUSDT(address usdtAddress_) returns()
 func (_CityPioneerData *CityPioneerDataTransactorSession) AdminSetUSDT(usdtAddress_ common.Address) (*types.Transaction, error) {
 	return _CityPioneerData.Contract.AdminSetUSDT(&_CityPioneerData.TransactOpts, usdtAddress_)
+}
+
+// AdminSubReward is a paid mutator transaction binding the contract method 0xc5b0363e.
+//
+// Solidity: function adminSubReward(address user_, uint256 reward_) returns()
+func (_CityPioneerData *CityPioneerDataTransactor) AdminSubReward(opts *bind.TransactOpts, user_ common.Address, reward_ *big.Int) (*types.Transaction, error) {
+	return _CityPioneerData.contract.Transact(opts, "adminSubReward", user_, reward_)
+}
+
+// AdminSubReward is a paid mutator transaction binding the contract method 0xc5b0363e.
+//
+// Solidity: function adminSubReward(address user_, uint256 reward_) returns()
+func (_CityPioneerData *CityPioneerDataSession) AdminSubReward(user_ common.Address, reward_ *big.Int) (*types.Transaction, error) {
+	return _CityPioneerData.Contract.AdminSubReward(&_CityPioneerData.TransactOpts, user_, reward_)
+}
+
+// AdminSubReward is a paid mutator transaction binding the contract method 0xc5b0363e.
+//
+// Solidity: function adminSubReward(address user_, uint256 reward_) returns()
+func (_CityPioneerData *CityPioneerDataTransactorSession) AdminSubReward(user_ common.Address, reward_ *big.Int) (*types.Transaction, error) {
+	return _CityPioneerData.Contract.AdminSubReward(&_CityPioneerData.TransactOpts, user_, reward_)
 }
 
 // BatchAddAdmin is a paid mutator transaction binding the contract method 0x2c9ab42b.

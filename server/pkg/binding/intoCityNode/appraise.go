@@ -31,7 +31,7 @@ var (
 
 // AppraiseMetaData contains all meta data concerning the Appraise contract.
 var AppraiseMetaData = &bind.MetaData{
-	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityPioneerAddress_\",\"type\":\"address\"}],\"name\":\"adminSetPioneer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"batch_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"pioneerType_\",\"type\":\"uint256\"}],\"name\":\"adminSetPioneerBatch\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"batch_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"pioneerType_\",\"type\":\"uint256\"}],\"name\":\"adminSetPioneerBatchAndPioneerType\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"starAddress_\",\"type\":\"address\"}],\"name\":\"adminSetStar\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cityLevel_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"weight_\",\"type\":\"uint256\"}],\"name\":\"adminSetWeightByCityLevel\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"}],\"name\":\"appraiseBeth3\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"city\",\"outputs\":[{\"internalType\":\"contractICity\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"}],\"name\":\"delPioneerPreMonthWeight\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"filedMonth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"}],\"name\":\"getStar\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"initialize\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pioneer\",\"outputs\":[{\"internalType\":\"contractICityPioneer\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerBatch\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerCounty\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pioneerCountyNo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerMonthWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerMonthWeightProcess\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerPreMonthWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerPrePreMonthWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"}],\"name\":\"pioneerProcess\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"}],\"name\":\"pioneerProcess2\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerType\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"batch_\",\"type\":\"uint256\"}],\"name\":\"setPioneerBatch\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"star\",\"outputs\":[{\"internalType\":\"contractIStar\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"weightByCityLevel\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
+	ABI: "[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"AdminRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"version\",\"type\":\"uint8\"}],\"name\":\"Initialized\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"addAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityAddress_\",\"type\":\"address\"}],\"name\":\"adminSetCity\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"cityPioneerAddress_\",\"type\":\"address\"}],\"name\":\"adminSetPioneer\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"batch_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"pioneerType_\",\"type\":\"uint256\"}],\"name\":\"adminSetPioneerBatch\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"batch_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"pioneerType_\",\"type\":\"uint256\"}],\"name\":\"adminSetPioneerBatchAndPioneerType\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"starAddress_\",\"type\":\"address\"}],\"name\":\"adminSetStar\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"pioneerBatch_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"isArea_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"areaLevel_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"month_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"weight_\",\"type\":\"uint256\"}],\"name\":\"adminSetWeightByAreaLevel\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"cityLevel_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"weight_\",\"type\":\"uint256\"}],\"name\":\"adminSetWeightByCityLevel\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"allAdmins\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"admins\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"chengShiId_\",\"type\":\"bytes32\"}],\"name\":\"appraiseBeth\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"amounts\",\"type\":\"address[]\"}],\"name\":\"batchAddAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"city\",\"outputs\":[{\"internalType\":\"contractICity\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"}],\"name\":\"delPioneerPreMonthWeight\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"filedMonth\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"}],\"name\":\"getStar\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"isAdmin\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pioneer\",\"outputs\":[{\"internalType\":\"contractICityPioneer\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerBatch\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerCounty\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pioneerCountyNo\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerMonthWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"pioneerMonthWeightProcess\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerPreMonthWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerPrePreMonthWeight\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"}],\"name\":\"pioneerProcess\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"}],\"name\":\"pioneerProcess2\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"pioneerType\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"removeAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceAdmin\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"pioneerAddress_\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"batch_\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"pioneerType_\",\"type\":\"uint256\"}],\"name\":\"setPioneerBatchAndType\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"star\",\"outputs\":[{\"internalType\":\"contractIStar\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"weightByAreaLevel\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"weightByCityLevel\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
 }
 
 // AppraiseABI is the input ABI used to generate the binding from.
@@ -710,6 +710,37 @@ func (_Appraise *AppraiseCallerSession) Star() (common.Address, error) {
 	return _Appraise.Contract.Star(&_Appraise.CallOpts)
 }
 
+// WeightByAreaLevel is a free data retrieval call binding the contract method 0x67692660.
+//
+// Solidity: function weightByAreaLevel(uint256 , uint256 , uint256 , uint256 ) view returns(uint256)
+func (_Appraise *AppraiseCaller) WeightByAreaLevel(opts *bind.CallOpts, arg0 *big.Int, arg1 *big.Int, arg2 *big.Int, arg3 *big.Int) (*big.Int, error) {
+	var out []interface{}
+	err := _Appraise.contract.Call(opts, &out, "weightByAreaLevel", arg0, arg1, arg2, arg3)
+
+	if err != nil {
+		return *new(*big.Int), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new(*big.Int)).(**big.Int)
+
+	return out0, err
+
+}
+
+// WeightByAreaLevel is a free data retrieval call binding the contract method 0x67692660.
+//
+// Solidity: function weightByAreaLevel(uint256 , uint256 , uint256 , uint256 ) view returns(uint256)
+func (_Appraise *AppraiseSession) WeightByAreaLevel(arg0 *big.Int, arg1 *big.Int, arg2 *big.Int, arg3 *big.Int) (*big.Int, error) {
+	return _Appraise.Contract.WeightByAreaLevel(&_Appraise.CallOpts, arg0, arg1, arg2, arg3)
+}
+
+// WeightByAreaLevel is a free data retrieval call binding the contract method 0x67692660.
+//
+// Solidity: function weightByAreaLevel(uint256 , uint256 , uint256 , uint256 ) view returns(uint256)
+func (_Appraise *AppraiseCallerSession) WeightByAreaLevel(arg0 *big.Int, arg1 *big.Int, arg2 *big.Int, arg3 *big.Int) (*big.Int, error) {
+	return _Appraise.Contract.WeightByAreaLevel(&_Appraise.CallOpts, arg0, arg1, arg2, arg3)
+}
+
 // WeightByCityLevel is a free data retrieval call binding the contract method 0x775492b2.
 //
 // Solidity: function weightByCityLevel(uint256 ) view returns(uint256)
@@ -867,6 +898,27 @@ func (_Appraise *AppraiseTransactorSession) AdminSetStar(starAddress_ common.Add
 	return _Appraise.Contract.AdminSetStar(&_Appraise.TransactOpts, starAddress_)
 }
 
+// AdminSetWeightByAreaLevel is a paid mutator transaction binding the contract method 0xfce8ddfc.
+//
+// Solidity: function adminSetWeightByAreaLevel(uint256 pioneerBatch_, uint256 isArea_, uint256 areaLevel_, uint256 month_, uint256 weight_) returns()
+func (_Appraise *AppraiseTransactor) AdminSetWeightByAreaLevel(opts *bind.TransactOpts, pioneerBatch_ *big.Int, isArea_ *big.Int, areaLevel_ *big.Int, month_ *big.Int, weight_ *big.Int) (*types.Transaction, error) {
+	return _Appraise.contract.Transact(opts, "adminSetWeightByAreaLevel", pioneerBatch_, isArea_, areaLevel_, month_, weight_)
+}
+
+// AdminSetWeightByAreaLevel is a paid mutator transaction binding the contract method 0xfce8ddfc.
+//
+// Solidity: function adminSetWeightByAreaLevel(uint256 pioneerBatch_, uint256 isArea_, uint256 areaLevel_, uint256 month_, uint256 weight_) returns()
+func (_Appraise *AppraiseSession) AdminSetWeightByAreaLevel(pioneerBatch_ *big.Int, isArea_ *big.Int, areaLevel_ *big.Int, month_ *big.Int, weight_ *big.Int) (*types.Transaction, error) {
+	return _Appraise.Contract.AdminSetWeightByAreaLevel(&_Appraise.TransactOpts, pioneerBatch_, isArea_, areaLevel_, month_, weight_)
+}
+
+// AdminSetWeightByAreaLevel is a paid mutator transaction binding the contract method 0xfce8ddfc.
+//
+// Solidity: function adminSetWeightByAreaLevel(uint256 pioneerBatch_, uint256 isArea_, uint256 areaLevel_, uint256 month_, uint256 weight_) returns()
+func (_Appraise *AppraiseTransactorSession) AdminSetWeightByAreaLevel(pioneerBatch_ *big.Int, isArea_ *big.Int, areaLevel_ *big.Int, month_ *big.Int, weight_ *big.Int) (*types.Transaction, error) {
+	return _Appraise.Contract.AdminSetWeightByAreaLevel(&_Appraise.TransactOpts, pioneerBatch_, isArea_, areaLevel_, month_, weight_)
+}
+
 // AdminSetWeightByCityLevel is a paid mutator transaction binding the contract method 0xdf06f4ab.
 //
 // Solidity: function adminSetWeightByCityLevel(uint256 cityLevel_, uint256 weight_) returns()
@@ -888,25 +940,25 @@ func (_Appraise *AppraiseTransactorSession) AdminSetWeightByCityLevel(cityLevel_
 	return _Appraise.Contract.AdminSetWeightByCityLevel(&_Appraise.TransactOpts, cityLevel_, weight_)
 }
 
-// AppraiseBeth3 is a paid mutator transaction binding the contract method 0xb028a6a4.
+// AppraiseBeth is a paid mutator transaction binding the contract method 0xed501b13.
 //
-// Solidity: function appraiseBeth3(address pioneerAddress_, bytes32 chengShiId_) returns(bool, bool, uint256, uint256)
-func (_Appraise *AppraiseTransactor) AppraiseBeth3(opts *bind.TransactOpts, pioneerAddress_ common.Address, chengShiId_ [32]byte) (*types.Transaction, error) {
-	return _Appraise.contract.Transact(opts, "appraiseBeth3", pioneerAddress_, chengShiId_)
+// Solidity: function appraiseBeth(address pioneerAddress_, bytes32 chengShiId_) returns(bool, bool, uint256, uint256)
+func (_Appraise *AppraiseTransactor) AppraiseBeth(opts *bind.TransactOpts, pioneerAddress_ common.Address, chengShiId_ [32]byte) (*types.Transaction, error) {
+	return _Appraise.contract.Transact(opts, "appraiseBeth", pioneerAddress_, chengShiId_)
 }
 
-// AppraiseBeth3 is a paid mutator transaction binding the contract method 0xb028a6a4.
+// AppraiseBeth is a paid mutator transaction binding the contract method 0xed501b13.
 //
-// Solidity: function appraiseBeth3(address pioneerAddress_, bytes32 chengShiId_) returns(bool, bool, uint256, uint256)
-func (_Appraise *AppraiseSession) AppraiseBeth3(pioneerAddress_ common.Address, chengShiId_ [32]byte) (*types.Transaction, error) {
-	return _Appraise.Contract.AppraiseBeth3(&_Appraise.TransactOpts, pioneerAddress_, chengShiId_)
+// Solidity: function appraiseBeth(address pioneerAddress_, bytes32 chengShiId_) returns(bool, bool, uint256, uint256)
+func (_Appraise *AppraiseSession) AppraiseBeth(pioneerAddress_ common.Address, chengShiId_ [32]byte) (*types.Transaction, error) {
+	return _Appraise.Contract.AppraiseBeth(&_Appraise.TransactOpts, pioneerAddress_, chengShiId_)
 }
 
-// AppraiseBeth3 is a paid mutator transaction binding the contract method 0xb028a6a4.
+// AppraiseBeth is a paid mutator transaction binding the contract method 0xed501b13.
 //
-// Solidity: function appraiseBeth3(address pioneerAddress_, bytes32 chengShiId_) returns(bool, bool, uint256, uint256)
-func (_Appraise *AppraiseTransactorSession) AppraiseBeth3(pioneerAddress_ common.Address, chengShiId_ [32]byte) (*types.Transaction, error) {
-	return _Appraise.Contract.AppraiseBeth3(&_Appraise.TransactOpts, pioneerAddress_, chengShiId_)
+// Solidity: function appraiseBeth(address pioneerAddress_, bytes32 chengShiId_) returns(bool, bool, uint256, uint256)
+func (_Appraise *AppraiseTransactorSession) AppraiseBeth(pioneerAddress_ common.Address, chengShiId_ [32]byte) (*types.Transaction, error) {
+	return _Appraise.Contract.AppraiseBeth(&_Appraise.TransactOpts, pioneerAddress_, chengShiId_)
 }
 
 // BatchAddAdmin is a paid mutator transaction binding the contract method 0x2c9ab42b.
@@ -951,27 +1003,6 @@ func (_Appraise *AppraiseTransactorSession) DelPioneerPreMonthWeight(pioneerAddr
 	return _Appraise.Contract.DelPioneerPreMonthWeight(&_Appraise.TransactOpts, pioneerAddress_)
 }
 
-// Initialize is a paid mutator transaction binding the contract method 0x8129fc1c.
-//
-// Solidity: function initialize() returns()
-func (_Appraise *AppraiseTransactor) Initialize(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _Appraise.contract.Transact(opts, "initialize")
-}
-
-// Initialize is a paid mutator transaction binding the contract method 0x8129fc1c.
-//
-// Solidity: function initialize() returns()
-func (_Appraise *AppraiseSession) Initialize() (*types.Transaction, error) {
-	return _Appraise.Contract.Initialize(&_Appraise.TransactOpts)
-}
-
-// Initialize is a paid mutator transaction binding the contract method 0x8129fc1c.
-//
-// Solidity: function initialize() returns()
-func (_Appraise *AppraiseTransactorSession) Initialize() (*types.Transaction, error) {
-	return _Appraise.Contract.Initialize(&_Appraise.TransactOpts)
-}
-
 // RemoveAdmin is a paid mutator transaction binding the contract method 0x1785f53c.
 //
 // Solidity: function removeAdmin(address account) returns()
@@ -1014,25 +1045,25 @@ func (_Appraise *AppraiseTransactorSession) RenounceAdmin() (*types.Transaction,
 	return _Appraise.Contract.RenounceAdmin(&_Appraise.TransactOpts)
 }
 
-// SetPioneerBatch is a paid mutator transaction binding the contract method 0x85fc8b9d.
+// SetPioneerBatchAndType is a paid mutator transaction binding the contract method 0x14ebeb2e.
 //
-// Solidity: function setPioneerBatch(address pioneerAddress_, uint256 batch_) returns()
-func (_Appraise *AppraiseTransactor) SetPioneerBatch(opts *bind.TransactOpts, pioneerAddress_ common.Address, batch_ *big.Int) (*types.Transaction, error) {
-	return _Appraise.contract.Transact(opts, "setPioneerBatch", pioneerAddress_, batch_)
+// Solidity: function setPioneerBatchAndType(address pioneerAddress_, uint256 batch_, uint256 pioneerType_) returns()
+func (_Appraise *AppraiseTransactor) SetPioneerBatchAndType(opts *bind.TransactOpts, pioneerAddress_ common.Address, batch_ *big.Int, pioneerType_ *big.Int) (*types.Transaction, error) {
+	return _Appraise.contract.Transact(opts, "setPioneerBatchAndType", pioneerAddress_, batch_, pioneerType_)
 }
 
-// SetPioneerBatch is a paid mutator transaction binding the contract method 0x85fc8b9d.
+// SetPioneerBatchAndType is a paid mutator transaction binding the contract method 0x14ebeb2e.
 //
-// Solidity: function setPioneerBatch(address pioneerAddress_, uint256 batch_) returns()
-func (_Appraise *AppraiseSession) SetPioneerBatch(pioneerAddress_ common.Address, batch_ *big.Int) (*types.Transaction, error) {
-	return _Appraise.Contract.SetPioneerBatch(&_Appraise.TransactOpts, pioneerAddress_, batch_)
+// Solidity: function setPioneerBatchAndType(address pioneerAddress_, uint256 batch_, uint256 pioneerType_) returns()
+func (_Appraise *AppraiseSession) SetPioneerBatchAndType(pioneerAddress_ common.Address, batch_ *big.Int, pioneerType_ *big.Int) (*types.Transaction, error) {
+	return _Appraise.Contract.SetPioneerBatchAndType(&_Appraise.TransactOpts, pioneerAddress_, batch_, pioneerType_)
 }
 
-// SetPioneerBatch is a paid mutator transaction binding the contract method 0x85fc8b9d.
+// SetPioneerBatchAndType is a paid mutator transaction binding the contract method 0x14ebeb2e.
 //
-// Solidity: function setPioneerBatch(address pioneerAddress_, uint256 batch_) returns()
-func (_Appraise *AppraiseTransactorSession) SetPioneerBatch(pioneerAddress_ common.Address, batch_ *big.Int) (*types.Transaction, error) {
-	return _Appraise.Contract.SetPioneerBatch(&_Appraise.TransactOpts, pioneerAddress_, batch_)
+// Solidity: function setPioneerBatchAndType(address pioneerAddress_, uint256 batch_, uint256 pioneerType_) returns()
+func (_Appraise *AppraiseTransactorSession) SetPioneerBatchAndType(pioneerAddress_ common.Address, batch_ *big.Int, pioneerType_ *big.Int) (*types.Transaction, error) {
+	return _Appraise.Contract.SetPioneerBatchAndType(&_Appraise.TransactOpts, pioneerAddress_, batch_, pioneerType_)
 }
 
 // AppraiseAdminAddedIterator is returned from FilterAdminAdded and is used to iterate over the raw logs and unpacked data for AdminAdded events raised by the Appraise contract.

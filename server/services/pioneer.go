@@ -5,10 +5,7 @@ import (
 	"city-node-server/pkg/log"
 )
 
-func AddPioneer(areaShiId, pioneerAddress string, level int64, suretyTox int64, suretyUsdt int64, pioneerBatch int64, isChengShi bool) error {
-	if !isChengShi {
-		level += 20
-	}
+func AddPioneerBatch4(areaShiId, pioneerAddress string, level int64, suretyTox int64, suretyUsdt int64, pioneerBatch int64, pioneerType int64) error {
 	err, cli := blockchain.Client(blockchain.CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -30,7 +27,7 @@ func AddPioneer(areaShiId, pioneerAddress string, level int64, suretyTox int64, 
 		return err
 	}
 
-	err = city.AdminSetPioneer(areaShiId, pioneerAddress, pioneerBatch)
+	err = city.AdminSetPioneer(areaShiId, pioneerAddress, pioneerBatch, pioneerType)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err

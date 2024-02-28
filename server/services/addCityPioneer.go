@@ -33,12 +33,12 @@ type Pioneer struct {
 	AreaName       string `json:"area_name"`
 	AreaLevel      string `json:"area_level"`
 	PioneerBatch   string `json:"pioneer_batch"`
-	CityId         string `json:"city_id"`
-	IsCityNode     string `json:"is_city_node"`
+	AreaId         string `json:"area_id"`
+	IsAreaNode     int64  `json:"is_area_node"`
 	PioneerAddress string `json:"pioneer_address"`
 }
 
-// AddPioneerBeth3 添加三期先锋
+// AddPioneerBeth3 添加三期先锋,四期上线前海需要用
 func AddPioneerBeth3() {
 	pioneerBytes, err := os.ReadFile("./assets/新节点添加.json")
 	if err != nil {
@@ -62,11 +62,11 @@ func AddPioneerBeth3() {
 	cid := location.CityId
 
 	pioneer.PioneerAddress = strings.ToLower(pioneer.PioneerAddress)
-	pioneer.CityId = strings.ToLower(pioneer.CityId)
+	pioneer.AreaId = strings.ToLower(pioneer.AreaId)
 
-	fmt.Println("表格中CityID和数据库中是否相等", cid == strings.ToLower(pioneer.CityId))
-	if pioneer.IsCityNode != "true" {
-		panic("IsCityNode error")
+	fmt.Println("表格中CityID和数据库中是否相等", cid == strings.ToLower(pioneer.AreaId))
+	if pioneer.IsAreaNode != 0 {
+		panic("IsAreaNode error")
 	}
 	var suretyTOX int64
 	level, _ := strconv.ParseInt(pioneer.AreaLevel, 10, 64)
@@ -82,32 +82,32 @@ func AddPioneerBeth3() {
 
 	// 根据city_id判断该城市是否已经添加过先锋
 	var pioneerModel models.Pioneer
-	err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", pioneer.CityId).First(&pioneerModel).Debug().Error
+	err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", pioneer.AreaId).First(&pioneerModel).Debug().Error
 	if err == nil {
 		panic("该城市先锋已经存在")
 	} else {
 		fmt.Println("该城市先锋不存在")
 	}
-	fmt.Println(fmt.Sprintf("address:%s,cityId:%s,cityLevel:%s,suretyTOX:%d", pioneer.PioneerAddress, pioneer.CityId, pioneer.AreaLevel, suretyTOX))
+	fmt.Println(fmt.Sprintf("address:%s,cityId:%s,cityLevel:%s,suretyTOX:%d", pioneer.PioneerAddress, pioneer.AreaId, pioneer.AreaLevel, suretyTOX))
 
-	for true {
-		err = blockchain2.AdminSetChengShiLevelAndSurety(pioneer.CityId, level, suretyTOX)
-		if err == nil {
-			break
-		}
-	}
-	for true {
-		err = blockchain2.AdminSetPioneer(pioneer.CityId, pioneer.PioneerAddress, 3)
-		if err == nil {
-			break
-		}
-	}
+	//for true {
+	//	err = blockchain2.AdminSetChengShiLevelAndSurety(pioneer.AreaId, level, suretyTOX)
+	//	if err == nil {
+	//		break
+	//	}
+	//}
+	//for true {
+	//	err = blockchain2.AdminSetPioneer(pioneer.AreaId, pioneer.PioneerAddress)
+	//	if err == nil {
+	//		break
+	//	}
+	//}
 
 	err, cityIdBytes32 := blockchain2.PioneerChengShi(pioneer.PioneerAddress)
 	err, levelChain := blockchain2.ChengShiLevel(cityIdBytes32)
 	fmt.Println(err, level, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), 555)
 	var ok bool
-	if pioneer.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
+	if pioneer.AreaId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
 		ok = true
 	}
 	fmt.Println(pioneer.PioneerAddress, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
@@ -135,66 +135,87 @@ func AddPioneerBeth4() {
 
 	var location models.UserLocation
 	where := "location like '%" + pioneer.AreaName + "%'"
+	if pioneer.IsAreaNode == 1 {
+		where = "county like '%" + pioneer.AreaName + "%'"
+	}
 	err = db.Mysql.Model(models.UserLocation{}).Where(where).First(&location).Error
 	if err != nil {
 		return
 	}
-	cid := location.CityId
-
-	pioneer.PioneerAddress = strings.ToLower(pioneer.PioneerAddress)
-	pioneer.CityId = strings.ToLower(pioneer.CityId)
-
-	fmt.Println("表格中CityID和数据库中是否相等", cid == strings.ToLower(pioneer.CityId))
-	if pioneer.IsCityNode != "true" {
-		panic("IsCityNode error")
+	aid := location.CityId
+	if pioneer.IsAreaNode == 1 {
+		aid = location.CountyId
 	}
+	pioneer.PioneerAddress = strings.ToLower(pioneer.PioneerAddress)
+	pioneer.AreaId = strings.ToLower(pioneer.AreaId)
 
-	var isCityNode bool
-	if pioneer.IsCityNode == "true" {
-		isCityNode = true
-	} else if pioneer.IsCityNode == "false" {
-		isCityNode = false
+	if pioneer.IsAreaNode == 1 {
+		fmt.Println("表格中CountyID和数据库中是否相等", aid == pioneer.AreaId)
 	} else {
-		panic("IsCityNode error")
+
+		fmt.Println("表格中CityID和数据库中是否相等", aid == pioneer.AreaId)
+	}
+	if aid != pioneer.AreaId {
+		panic("表格中CountyID和数据库中不相等")
 	}
 
 	var suretyTOX int64
 	var suretyUSDT int64
 	level, _ := strconv.ParseInt(pioneer.AreaLevel, 10, 64)
-	if level == 1 {
-		suretyTOX = 100000
-		suretyUSDT = 10000
-	} else if level == 2 {
-		suretyTOX = 60000
-		suretyUSDT = 8000
-	} else if level == 3 {
-		if !isCityNode {
+	if pioneer.IsAreaNode == 1 {
+		if level == 1 {
+			//suretyTOX = 5000 // 主网
+			//suretyUSDT = 1000
+			suretyTOX = 10 // 测试网
+			suretyUSDT = 5
+		} else if level == 2 {
+			//suretyTOX = 3000
+			//suretyUSDT = 600
+			suretyTOX = 6
+			suretyUSDT = 3
+		} else {
 			panic("level error")
 		}
-		suretyTOX = 40000
-		suretyUSDT = 6000
+	} else {
+		if level == 1 {
+			//suretyTOX = 100000
+			//suretyUSDT = 10000
+			suretyTOX = 100
+			suretyUSDT = 100
+		} else if level == 2 {
+			//suretyTOX = 60000
+			//suretyUSDT = 8000
+			suretyTOX = 80
+			suretyUSDT = 60
+		} else if level == 3 {
+			//suretyTOX = 40000
+			//suretyUSDT = 6000
+			suretyTOX = 60
+			suretyUSDT = 40
+		} else {
+			panic("level error")
+		}
 	}
 
 	// 根据city_id判断该城市是否已经添加过先锋
 	var pioneerModel models.Pioneer
-	err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", pioneer.CityId).First(&pioneerModel).Debug().Error
+	err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", pioneer.AreaId).First(&pioneerModel).Debug().Error
 	if err == nil {
 		panic("该城市先锋已经存在")
 	} else {
 		fmt.Println("该城市先锋不存在")
 	}
-	fmt.Println(fmt.Sprintf("address:%s,cityId:%s,cityLevel:%s,suretyTOX:%d", pioneer.PioneerAddress, pioneer.CityId, pioneer.AreaLevel, suretyTOX))
+	fmt.Println(fmt.Sprintf("address:%s,areaId:%s,cityLevel:%s,suretyTOX:%d", pioneer.PioneerAddress, pioneer.AreaId, pioneer.AreaLevel, suretyTOX))
 
-	for true {
-		err = AddPioneer(
-			pioneer.CityId,
+	for {
+		err = AddPioneerBatch4(
+			pioneer.AreaId,
 			pioneer.PioneerAddress,
 			level,
 			suretyTOX,
 			suretyUSDT,
 			4,
-			isCityNode)
-		fmt.Println(err, 123456)
+			pioneer.IsAreaNode)
 		if err == nil {
 			break
 		}
@@ -202,13 +223,11 @@ func AddPioneerBeth4() {
 
 	err, cityIdBytes32 := blockchain2.PioneerChengShi(pioneer.PioneerAddress)
 	err, levelChain := blockchain2.ChengShiLevel(cityIdBytes32)
-	fmt.Println(err, level, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), 555)
 	var ok bool
-	if pioneer.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
+	if pioneer.AreaId == strings.ToLower(blockchain2.ConvertAreaIdBtA(cityIdBytes32)) {
 		ok = true
 	}
 	fmt.Println(pioneer.PioneerAddress, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
-
 }
 
 func ReadExcel(excelFile string) {
@@ -565,7 +584,12 @@ func CheckPioneer3(excelFile string) {
 	}
 	// 取得 Sheet1 表格中所有的行
 	rows := f.GetRows("Sheet1")
-	appraise := blockchain2.NewAppraise()
+	err, cli := blockchain2.Client(blockchain2.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	appraise := blockchain2.NewAppraise(cli)
 	for i, row := range rows {
 		if i == 0 {
 			continue

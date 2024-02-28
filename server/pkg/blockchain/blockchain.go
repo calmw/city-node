@@ -10,6 +10,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/status-im/keycard-go/hexutils"
 	"math/big"
 	"strings"
 )
@@ -119,4 +120,10 @@ func ConvertAreaIdAtB(cityId string) [32]byte {
 	}
 	common.Hex2Bytes(cityId)
 	return BytesToByte32(common.Hex2Bytes(cityId))
+}
+
+func ConvertAreaIdBtA(cityId [32]byte) string {
+	cityIdBytes := Bytes32ToBytes(cityId)
+	hexutils.BytesToHex(cityIdBytes)
+	return strings.ToLower("0x" + hexutils.BytesToHex(cityIdBytes))
 }

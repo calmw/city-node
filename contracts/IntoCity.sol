@@ -58,7 +58,7 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => mapping(uint256 => uint256)) public cityFoundsRecord;
     // 区县ID/城市ID => (天=>质押量）,新增质押量
     mapping(bytes32 => mapping(uint256 => uint256))
-    public cityNewlyDelegateRecord;
+        public cityNewlyDelegateRecord;
     // 区县ID/城市ID => 质押 ,区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
     mapping(bytes32 => uint256) public cityDelegateTotal; // 上线删除
     // 所有区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
@@ -75,7 +75,7 @@ contract IntoCity is RoleAccess, Initializable {
     uint256 public allFoundsTotal;
     // 城市/区县ID => 城市/区县先锋需要缴纳的保证金,TOX
     mapping(bytes32 => uint256) public surety;
-    // 城市ID => 城市等级
+    // 城市ID => 城市/区域等级
     mapping(bytes32 => uint256) public chengShiLevel;
     // 先锋城市ID集合
     bytes32[] public pioneerChengShiIds;
@@ -95,7 +95,7 @@ contract IntoCity is RoleAccess, Initializable {
     address public foundsAddress;
     //  城市ID=>(天=>当天累计充值)   充值权重
     mapping(bytes32 => mapping(uint256 => uint256))
-    public rechargeDailyWeightRecord;
+        public rechargeDailyWeightRecord;
     //  天=>累计充值)   充值权重
     mapping(uint256 => uint256) public rechargeDailyWeight;
     //  全部累计充值权重
@@ -104,10 +104,10 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => uint256) public cityOrChengShiWeightTotal; // 废弃
     // 区县ID => (天=>质押量）,新增质押量，不算减去的
     mapping(bytes32 => mapping(uint256 => uint256))
-    public countyNewlyPioneerDelegateRecord;
+        public countyNewlyPioneerDelegateRecord;
     //  城市ID=>(天=>当天到之前累计充值)   充值权重
     mapping(bytes32 => mapping(uint256 => uint256))
-    public rechargeDailyTotalWeightRecord;
+        public rechargeDailyTotalWeightRecord;
     //  城市先锋地址=>需要补加的充值权重
     mapping(address => uint256) public rechargeWeightAdditional;
     //  城市先锋地址=>状态(true 停止定时任务)
@@ -163,14 +163,15 @@ contract IntoCity is RoleAccess, Initializable {
     function adminSetPioneer(
         bytes32 chengShiId_,
         address pioneer_,
-        uint256 pioneerBatch_
+        uint256 pioneerBatch_,
+        uint256 pioneerType_
     ) public onlyAdmin {
         require(!hasSetPioneer[pioneer_], "can not set any more");
         chengShiPioneer[chengShiId_] = pioneer_;
         pioneerChengShi[pioneer_] = chengShiId_;
         hasSetPioneer[pioneer_] = true;
         IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-        intoCityPioneer.setPioneerBefore(pioneer_, pioneerBatch_); // 设置预添加先锋的信息
+        intoCityPioneer.setPioneerBefore(pioneer_, pioneerBatch_, pioneerType_); // 设置预添加先锋的信息
         if (!pioneerChengShiIdExits(chengShiId_)) {
             pioneerChengShiIds.push(chengShiId_);
         }
@@ -181,8 +182,8 @@ contract IntoCity is RoleAccess, Initializable {
         address oldPioneerAddress_
     ) public {
         pioneerChengShi[newPioneerAddress_] = pioneerChengShi[
-                    oldPioneerAddress_
-            ];
+            oldPioneerAddress_
+        ];
     }
 
     function pioneerChengShiIdExits(
@@ -205,13 +206,13 @@ contract IntoCity is RoleAccess, Initializable {
         hasSetPioneer[pioneer_] = false;
         IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
         intoCityPioneer.delPioneer(pioneer_);
-        intoCityPioneer.removePioneer(pioneer_);
+        intoCityPioneer.removePioneer(pioneer_, chengShiId_);
 
         for (uint256 i = 0; i < pioneerChengShiIds.length; i++) {
             if (pioneerChengShiIds[i] == chengShiId_) {
                 pioneerChengShiIds[i] = pioneerChengShiIds[
                     pioneerChengShiIds.length - 1
-                    ];
+                ];
                 pioneerChengShiIds.pop();
             }
         }
@@ -273,7 +274,7 @@ contract IntoCity is RoleAccess, Initializable {
         rechargeWeightAdditional[pioneer_] = weight_;
     }
 
-    // 管理员设置先锋计划，城市等级以及该等级区县所需缴纳的保证金数额
+    // 管理员设置先锋计划，城市等级以及该等级区县所需缴纳的保证金数额，第三期不需要更改或到期的话，可删除
     function adminSetChengShiLevelAndSurety(
         bytes32 chengShiId_,
         uint256 level_,
@@ -282,6 +283,14 @@ contract IntoCity is RoleAccess, Initializable {
         chengShiLevel[chengShiId_] = level_;
         surety[chengShiId_] = surety_;
         chengShiLevelSurety[level_] = surety_;
+    }
+
+    // 设置城市/区域等级
+    function adminSetAreaLevel(
+        bytes32 AreaId_,
+        uint256 level_
+    ) public onlyAdmin {
+        chengShiLevel[AreaId_] = level_; // 城市/区域等级
     }
 
     // 管理员修改先锋计划，区县等级以及该等级区县所需缴纳的保证金数额
