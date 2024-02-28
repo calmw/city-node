@@ -5,8 +5,8 @@ interface IAppraise {
     // 获取先锋批次
     function pioneerBatch(address pioneerAddress_) external returns (uint256);
 
-    // 第三批考核
-    function appraiseBeth3(
+    // 第三四批考核
+    function appraiseBeth(
         address pioneerAddress_,
         bytes32 chengShiId_
     ) external returns (bool, bool, uint256, uint256);
@@ -14,8 +14,12 @@ interface IAppraise {
     //
     function delPioneerPreMonthWeight(address pioneerAddress_) external;
 
-    // 设置先锋批次
-    function setPioneerBatch(address pioneerAddress_, uint256 batch_) external;
+    // 设置先锋批次和类型
+    function setPioneerBatchAndType(
+        address pioneerAddress_,
+        uint256 batch_,
+        uint256 pioneerType_
+    ) external;
 
     // 获取区域节点数量
     function pioneerCountyNo() external returns (uint256);

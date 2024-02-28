@@ -4,6 +4,7 @@ import (
 	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
 	"city-node-server/services"
+	"fmt"
 	"github.com/jasonlvhit/gocron"
 	"time"
 )
@@ -15,19 +16,28 @@ func main() {
 	//services.InitUserLocation()
 	//services.InitAppraise()
 	//services.InitCityPioneer(20)
-	services.InitCity(20)
+	//services.InitCity(20)
 	//services.InitCityPioneerData()
 
 	//db.InitMysql()
 
 	//taskTest()
-	/// 四期设置
-	//err := services.AddPioneer("0x97033fc90d09fa7e17279c173eb0a62ab7d4dc04031195bfcf87e37b58e3b407", "0xeb09570B7841b2280F6340728a092Fde216dBbca", 1,
-	//	5000,
-	//	1000,
-	//	4,
-	//	false)
-	//fmt.Println(err, 123456)
+	// 四期设置
+	//services.AddPioneerBeth4()
+	err := services.AddPioneerBatch4(
+		"0x3edf72f7ab938a14e6aae3701a1e5acbb2512c840a019c6ead9d01415dbac864",
+		"0x365Cae736D93Ad3e388919d0E4d3EE6Ed364b060",
+		1,
+		10, //5000 6
+		5,  // 1000 3
+		4,
+		1)
+	fmt.Println(err, 123456)
+	//0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34
+	//services.RemovePioneer(
+	//	"0x3edf72f7ab938a14e6aae3701a1e5acbb2512c840a019c6ead9d01415dbac864",
+	//	"0x365Cae736D93Ad3e388919d0E4d3EE6Ed364b060",
+	//)
 
 }
 

@@ -30,31 +30,6 @@
     "inputs": [
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "pioneer",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "isUsdt",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "DepositSurety",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
         "internalType": "uint8",
         "name": "version",
         "type": "uint8"
@@ -276,19 +251,6 @@
       }
     ],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "address",
-        "name": "pioneerAddress_",
-        "type": "address"
-      }
-    ],
-    "name": "clearPioneerSurety",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

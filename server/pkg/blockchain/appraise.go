@@ -5,13 +5,22 @@ import (
 	"city-node-server/pkg/log"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/ethclient"
 	"math/big"
 )
 
-type Appraise struct{}
+type Appraise struct {
+	Cli      *ethclient.Client
+	Contract *intoCityNode.Appraise
+}
 
-func NewAppraise() *Appraise {
-	return &Appraise{}
+func NewAppraise(cli *ethclient.Client) *Appraise {
+	appraise, _ := intoCityNode.NewAppraise(common.HexToAddress(CityNodeConfig.AppraiseAddress), cli)
+
+	return &Appraise{
+		Cli:      cli,
+		Contract: appraise,
+	}
 }
 
 // AdminSetStar 管理员设置Star合约地址
@@ -172,4 +181,36 @@ func (a Appraise) AdminSetWeightByCityLevel() {
 		return
 	}
 	fmt.Println(res, err)
+}
+
+// AdminSetWeightByAreaLevel
+// uint256 pioneerBatch_,
+//
+//	uint256 isChengShi_, // 0 城市 1 区域
+//	uint256 areaLevel_,
+//	uint256 month_,
+//	uint256 weight_
+func (a Appraise) AdminSetWeightByAreaLevel(pioneerBatch_, isArea_, areaLevel_, month_, weight_ int64) error {
+
+	err, auth := GetAuth(a.Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	bigE18 := big.NewInt(1e18)
+	res, err := a.Contract.AdminSetWeightByAreaLevel(
+		auth,
+		big.NewInt(pioneerBatch_),
+		big.NewInt(isArea_),
+		big.NewInt(areaLevel_),
+		big.NewInt(month_),
+		bigE18.Mul(bigE18, big.NewInt(weight_)),
+	)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+
+	fmt.Println(res, err)
+	return nil
 }

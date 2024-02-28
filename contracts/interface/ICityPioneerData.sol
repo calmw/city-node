@@ -11,4 +11,7 @@ interface CityPioneerData {
     function suretyUSDT(bytes32 chengShiID) external returns (uint256);
 
     function isGlobalNode(address user_) external returns (bool);
+
+    // 清除先锋
+    function clearPioneerSurety(address pioneerAddress_) external;
 }

@@ -99,4 +99,7 @@ interface ICityPioneer {
         bytes32 chengShiId,
         uint cityLevel
     ) external;
+
+    // 查询是否是先锋
+    function isPioneer(address user) external view returns (bool);
 }

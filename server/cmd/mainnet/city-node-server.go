@@ -11,11 +11,22 @@ func main() {
 	services.InitMainNet()
 	//services.InitUserLocation()
 	//services.InitCityPioneer(86400)
-	services.InitCity(86400)
+	//services.InitCity(86400)
 	//services.InitAppraise()
 
-	services.AddPioneerBeth3()
+	services.AddPioneerBeth3() // 四期上线前可用，需要更新ABI
+	services.AddPioneerBeth4()
 
+	// 获取一二期用户最近三个月重置权重详情
+	//pioneers := []string{
+	//	"0xE137fF4FCdDA90C3665562F52491B511155e19FF",
+	//	"0x7295f5a83337163aA06c70dcdd51903aCc5E27fa",
+	//	"0x90E9aAD6EE78F79058A9d7aA1655205465bef695",
+	//	"0x342AcB8027b227fB4104ff35fE9cc373d103eC92",
+	//	"0x21DCe990d025e909049E7966e42850491CB42afd",
+	//	"0x7D574395807fd442F199Baa05166eC267b7776f8",
+	//}
+	//blockchain.RechargeWeightRecordByChengId(pioneers)
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
 	//services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
 	//services.ReadExcel5("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx") // 查询用户所在城市的网体业绩

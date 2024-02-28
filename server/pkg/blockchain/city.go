@@ -35,11 +35,6 @@ func NewCity(cli *ethclient.Client) *City {
 }
 
 func (c *City) AdminSetChengShiLevelAndSurety(chengShiId string, level int64, surety int64) error {
-	cityContract, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), c.Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return err
-	}
 
 	err, auth := GetAuth(c.Cli)
 	if err != nil {
@@ -50,7 +45,7 @@ func (c *City) AdminSetChengShiLevelAndSurety(chengShiId string, level int64, su
 	E18 := big.NewInt(1e18)
 	earnestMoneyBigInt := E18.Mul(E18, big.NewInt(surety))
 
-	_, err = cityContract.AdminSetChengShiLevelAndSurety(auth, ConvertAreaIdAtB(chengShiId), big.NewInt(level), earnestMoneyBigInt)
+	_, err = c.Contract.AdminSetChengShiLevelAndSurety(auth, ConvertAreaIdAtB(chengShiId), big.NewInt(level), earnestMoneyBigInt)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err
@@ -58,20 +53,30 @@ func (c *City) AdminSetChengShiLevelAndSurety(chengShiId string, level int64, su
 	return nil
 }
 
-func (c *City) AdminSetPioneer(chengShiId, pioneer string, pioneerBatch int64) error {
+//func (c *City) AdminSetAreaLevel(areaId string, level int64) error {
+//	err, auth := GetAuth(c.Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err
+//	}
+//	_, err = c.Contract.AdminSetAreaLevel(auth, ConvertAreaIdAtB(areaId), big.NewInt(level))
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return err
+//	}
+//	return nil
+//}
+
+func (c *City) AdminSetPioneer(areaId, pioneer string, pioneerBatch, pioneerType int64) error {
 	_, auth := GetAuth(c.Cli)
 
-	if strings.Contains(chengShiId, "0x") {
-		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
-	}
-	common.Hex2Bytes(chengShiId)
-	cityIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
-	fmt.Println("set chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer)
-	_, err := c.Contract.AdminSetPioneer(auth, cityIdBytes32, common.HexToAddress(pioneer), big.NewInt(pioneerBatch))
+	_, err := c.Contract.AdminSetPioneer(auth, ConvertAreaIdAtB(areaId), common.HexToAddress(pioneer), big.NewInt(pioneerBatch), big.NewInt(pioneerType))
+	//_, err := c.Contract.AdminSetPioneer(auth, ConvertAreaIdAtB(areaId), common.HexToAddress(pioneer))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err
 	}
+	fmt.Println("set areaId: ", areaId, "pioneer: ", pioneer)
 	return nil
 }
 
@@ -175,7 +180,8 @@ func AdminSetSecondsPerDay(secondsPerDay int64) {
 }
 
 // AdminSetPioneer 管理员设置城市先锋
-func AdminSetPioneer(chengShiId, pioneer string, pioneerBatch int64) error {
+func AdminSetPioneer(chengShiId, pioneer string, pioneerBatch, pioneerType int64) error {
+	//func AdminSetPioneer(chengShiId, pioneer string) error {
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -187,14 +193,9 @@ func AdminSetPioneer(chengShiId, pioneer string, pioneerBatch int64) error {
 		log.Logger.Sugar().Error(err)
 		return err
 	}
-	if strings.Contains(chengShiId, "0x") {
-		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
-	}
-	//common.Hex2Bytes(chengShiId)
-	//cityIdBytes32 := BytesToByte32(common.Hex2Bytes(chengShiId))
-	//fmt.Println("set chengShiId: ", common.Bytes2Hex(Bytes32ToBytes(cityIdBytes32)), "pioneer: ", pioneer)
-	fmt.Println(chengShiId, 999)
-	res, err := city.AdminSetPioneer(auth, ConvertAreaIdAtB(chengShiId), common.HexToAddress(pioneer), big.NewInt(pioneerBatch))
+
+	res, err := city.AdminSetPioneer(auth, ConvertAreaIdAtB(chengShiId), common.HexToAddress(pioneer), big.NewInt(pioneerBatch), big.NewInt(pioneerType))
+	//res, err := city.AdminSetPioneer(auth, ConvertAreaIdAtB(chengShiId), common.HexToAddress(pioneer))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err

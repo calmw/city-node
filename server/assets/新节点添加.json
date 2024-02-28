@@ -1,8 +1,8 @@
 {
-  "area_name": "沧州",
-  "area_level": "3",
+  "area_name": "柳州",
+  "area_level": "1",
   "pioneer_batch": "4",
-  "city_id": "0x44974426d9a801c47dcfbc9467afafa6005076e1689b693e97957b29d469bc72",
-  "is_city_node": "true",
-  "pioneer_address": "0x1B525Dc21651D9A8f1fDA25154B653769e41Dd7C"
+  "area_id": "0x0c5ee37ede78ec9433d1463c110938ab53902b3bdc6799f472ceb1967558f3db",
+  "is_area_node": 0,
+  "pioneer_address": "0x287229fD161feaf69a14b6848Da2690C29d4a0Ea"
 }

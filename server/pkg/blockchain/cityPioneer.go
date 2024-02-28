@@ -85,19 +85,19 @@ func NewCityPioneer(cli *ethclient.Client) *CityPioneer {
 //	fmt.Println(criteria, err)
 //}
 
-func (c CityPioneer) AdminSetCityPioneerDataAddress() {
-	err, auth := GetAuth(c.Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	criteria, err := c.Contract.AdminSetCityPioneerDataAddress(auth, common.HexToAddress(CityNodeConfig.CityPioneerDataAddress))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	fmt.Println(criteria.Hash(), err)
-}
+//func (c CityPioneer) AdminSetCityPioneerDataAddress() {
+//	err, auth := GetAuth(c.Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	criteria, err := c.Contract.AdminSetCityPioneerDataAddress(auth, common.HexToAddress(CityNodeConfig.CityPioneerDataAddress))
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	fmt.Println(criteria.Hash(), err)
+//}
 
 //func (c CityPioneer) AdminSetSecondsPerDay(secondsPerDay int64) {
 //	err, Cli := Client(CityNodeConfig)
@@ -123,25 +123,25 @@ func (c CityPioneer) AdminSetCityPioneerDataAddress() {
 //	fmt.Println(criteria, err)
 //}
 
-func (c CityPioneer) AdminChangePioneerAddress(newPioneerAddress, oldPioneerAddress string) {
-	err, Cli := Client(CityNodeConfig)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	err, auth := GetAuth(Cli)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-
-	criteria, err := c.Contract.AdminChangePioneerAddress(auth, common.HexToAddress(newPioneerAddress), common.HexToAddress(oldPioneerAddress))
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	fmt.Println(criteria, err)
-}
+//func (c CityPioneer) AdminChangePioneerAddress(newPioneerAddress, oldPioneerAddress string) {
+//	err, Cli := Client(CityNodeConfig)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	err, auth := GetAuth(Cli)
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//
+//	criteria, err := c.Contract.AdminChangePioneerAddress(auth, common.HexToAddress(newPioneerAddress), common.HexToAddress(oldPioneerAddress))
+//	if err != nil {
+//		log.Logger.Sugar().Error(err)
+//		return
+//	}
+//	fmt.Println(criteria, err)
+//}
 
 type Pioneer struct {
 	PioneerAddress        common.Address

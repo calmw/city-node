@@ -28,9 +28,9 @@ contract IntoAppraise is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => mapping(uint256 => mapping(uint256 => uint256))))
         public weightByAreaLevel; // 先锋考核标准,从四期开始。
 
-    function initialize() public initializer {
-        _addAdmin(msg.sender);
-    }
+    //    function initialize() public initializer {
+    //        _addAdmin(msg.sender);
+    //    }
 
     // 管理员设置Star合约地址
     function adminSetStar(address starAddress_) public onlyAdmin {
@@ -58,15 +58,13 @@ contract IntoAppraise is RoleAccess, Initializable {
     // 管理员设置先锋考核标准
     function adminSetWeightByAreaLevel(
         uint256 pioneerBatch_,
-        uint256 isChengShi_, // 0 城市 1 区域
+        uint256 isArea_, // 0 城市 1 区域
         uint256 areaLevel_,
         uint256 month_,
         uint256 weight_
     ) public onlyAdmin {
         // weightByAreaLevel // 期数=>（城市/区域节点 =>（等级=>(月份=>业绩值)））
-        weightByAreaLevel[pioneerBatch_][isChengShi_][areaLevel_][
-            month_
-        ] = weight_;
+        weightByAreaLevel[pioneerBatch_][isArea_][areaLevel_][month_] = weight_;
     }
 
     // 管理员设置先锋批次
@@ -99,8 +97,8 @@ contract IntoAppraise is RoleAccess, Initializable {
         }
     }
 
-    // 第三批考核,返回（是否考核[可能有数据变更]，考核是否成功，考核月份，考核失败时候的总充值权重）
-    function appraiseBeth3(
+    // 第三四批考核,返回（是否考核[可能有数据变更]，考核是否成功，考核月份，考核失败时候的总充值权重）
+    function appraiseBeth(
         address pioneerAddress_,
         bytes32 chengShiId_
     ) public onlyAdmin returns (bool, bool, uint256, uint256) {
@@ -295,11 +293,13 @@ contract IntoAppraise is RoleAccess, Initializable {
         return star.ownerVip(pioneerAddress_);
     }
 
-    // 设置先锋批次
-    function setPioneerBatch(
+    // 设置先锋批次和类型
+    function setPioneerBatchAndType(
         address pioneerAddress_,
-        uint256 batch_
+        uint256 batch_,
+        uint256 pioneerType_
     ) public onlyAdmin {
         pioneerBatch[pioneerAddress_] = batch_;
+        pioneerType[pioneerAddress_] = pioneerType_;
     }
 }
