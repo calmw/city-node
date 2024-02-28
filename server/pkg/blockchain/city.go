@@ -158,7 +158,7 @@ func AdminSetFoundsAddress() {
 	fmt.Println(res, err)
 }
 
-// AdminSetFoundsAddress 管理员设置获取过去15天社交基金平均值的合约地址
+// AdminSetSecondsPerDay 管理员设置获取过去15天社交基金平均值的合约地址
 func AdminSetSecondsPerDay(secondsPerDay int64) {
 	err, Cli := Client(CityNodeConfig)
 	if err != nil {

@@ -81,7 +81,7 @@ contract IntoCity is RoleAccess, Initializable {
     bytes32[] public pioneerChengShiIds;
     // 城市等级 => 该城市先锋需要缴纳的保证金
     mapping(uint256 => uint256) public chengShiLevelSurety;
-    // 区县ID => 质押 ,区县先锋所绑定区县新增充值权重（只用于区县先锋）的累计值
+    // 区县ID => 质押 ,区县新增充值权重（只用于区县先锋）的累计值
     mapping(bytes32 => uint256) public cityRechargeTotal;
     // 城市ID => 该城市的充值权重
     mapping(bytes32 => uint256) public chengShiRechargeWeight;
@@ -116,6 +116,8 @@ contract IntoCity is RoleAccess, Initializable {
     IWithdrawLimit public withdrawLimit; // 是否在小黑屋合约
     address public authAddress; // SBT认证合约
     address public withdrawLimitAddress; // 是否在小黑屋合约
+    // 区县ID => 质押 ,区县先锋所绑定区县新增充值权重（只用于区县先锋）的累计值
+    mapping(bytes32 => uint256) public countyPioneerRechargeTotal;
 
     //        function initialize() public initializer {
     //            _addAdmin(msg.sender);
@@ -172,6 +174,10 @@ contract IntoCity is RoleAccess, Initializable {
         hasSetPioneer[pioneer_] = true;
         IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
         intoCityPioneer.setPioneerBefore(pioneer_, pioneerBatch_, pioneerType_); // 设置预添加先锋的信息
+
+        if (pioneerType_ == 1) {
+            countyPioneerRechargeTotal[chengShiId_] = 0; // 初始化区域先锋的充值权重
+        }
         if (!pioneerChengShiIdExits(chengShiId_)) {
             pioneerChengShiIds.push(chengShiId_);
         }
@@ -262,6 +268,7 @@ contract IntoCity is RoleAccess, Initializable {
         // rechargeDailyTotalWeightRecord[countyId][today] += amount;// 区县ID=>(天=>当天累计充值)   充值权重
 
         cityRechargeTotal[countyId] += amount; // 区县ID=>累计充值权重   充值权重
+        countyPioneerRechargeTotal[countyId] += amount; // 区县ID=>累计充值权重   区县先锋充值权重
 
         emit RechargeRecord(user, countyId, amount, block.timestamp);
     }

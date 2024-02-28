@@ -185,11 +185,6 @@ contract IntoAppraise is RoleAccess, Initializable {
         uint256 areaLevel_,
         uint256 month_
     ) private returns (bool) {
-        // uint256 pioneerBatch_,
-        //        uint256 isChengShi_, // 0 城市 1 区域
-        //        uint256 areaLevel_,
-        //        uint256 month_,
-        //        uint256 weight_
         if (pioneerBatch_ == 3) {
             /// 三期考核
             if (
@@ -203,7 +198,6 @@ contract IntoAppraise is RoleAccess, Initializable {
             }
             /// 三期考核
         } else {
-            // weightByAreaLevel[pioneerBatch_][isChengShi_][areaLevel_][month_] = weight_;
             if (
                 pioneerMonthWeight[pioneerAddress_][month_] >=
                 weightByAreaLevel[pioneerBatch_][isChengShi_][areaLevel_][
@@ -237,20 +231,32 @@ contract IntoAppraise is RoleAccess, Initializable {
     function pioneerProcess(
         address pioneerAddress_
     ) public view returns (uint256, uint256) {
+        uint256 weightTotal;
+        uint256 weightTarget;
         bytes32 chengShiId = city.pioneerChengShi(pioneerAddress_);
         uint256 cityLevel = city.chengShiLevel(chengShiId);
-        uint256 weightTotal = city.getChengShiRechargeWeight(chengShiId);
         uint256 failedWeight = pioneer.failedDelegate(chengShiId);
+        if (pioneerBatch[pioneerAddress_] == 3) {
+            weightTotal = city.getChengShiRechargeWeight(chengShiId);
+        weightTarget=weightByCityLevel[cityLevel];
+        } else if (pioneerBatch[pioneerAddress_] == 4) {
+            // 区县先锋的重置权重
+            weightTotal = city.countyPioneerRechargeTotal(chengShiId);
+            // 期数=>（城市/区域节点 =>（等级=>(月份=>业绩值)））
+            weightTarget=weightByAreaLevel[4][pioneerType[pioneerAddress_]][cityLevel][1];
+        }
 
         if (filedMonth[pioneerAddress_] > 0) {
             return (
                 failedWeight - pioneerPrePreMonthWeight[pioneerAddress_],
-                weightByCityLevel[cityLevel]
+//                weightByCityLevel[cityLevel]
+            weightTarget
             );
         } else {
             return (
                 weightTotal - pioneerPreMonthWeight[pioneerAddress_],
-                weightByCityLevel[cityLevel]
+//                weightByCityLevel[cityLevel]
+            weightTarget
             );
         }
     }
@@ -271,7 +277,7 @@ contract IntoAppraise is RoleAccess, Initializable {
         uint256 daysSinceCreate = pioneer.getDay() -
             (pioneerInfo.ctime / pioneer.secondsPerDay());
 
-        return (failedWeight, weightTotal, daysSinceCreate / 30);
+        return (failedWeight, weightTotal, pioneerBatch[pioneerAddress_]);
     }
 
     // 删除先锋当前的进度

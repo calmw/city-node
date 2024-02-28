@@ -179,6 +179,19 @@
   {
     "inputs": [
       {
+        "internalType": "uint56",
+        "name": "secondsPerDay_",
+        "type": "uint56"
+      }
+    ],
+    "name": "adminSetSecondsPerDay",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "USDTAddress_",
         "type": "address"
@@ -987,6 +1000,11 @@
         "internalType": "address",
         "name": "pioneer_",
         "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "areaId",
+        "type": "bytes32"
       }
     ],
     "name": "removePioneer",
