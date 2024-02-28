@@ -13,6 +13,11 @@ interface ICity {
     // 获取先锋对应城市的等级
     function chengShiLevel(bytes32 chengShiId_) external view returns (uint256);
 
+    // 获取区县先锋的充值权重
+    function countyPioneerRechargeTotal(
+        bytes32 countyId_
+    ) external view returns (uint256);
+
     // 获取城市需要缴纳的保证金,城市等级 => 该城市先锋需要缴纳的保证金
     function chengShiLevelSurety(
         uint256 chengShiLevel_

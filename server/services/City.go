@@ -15,7 +15,7 @@ func InitCity(secondsPerDay int64) {
 	// 管理员设置获取过去15天社交基金平均值的合约地址
 	//blockchain.AdminSetFoundsAddress()
 	// 设置每天秒数
-	//blockchain.AdminSetSecondsPerDay(secondsPerDay)
+	blockchain.AdminSetSecondsPerDay(secondsPerDay)
 	//blockchain.AdminSetAuthAddress()
 	//blockchain.AdminSetWithdrawLimitAddress()
 

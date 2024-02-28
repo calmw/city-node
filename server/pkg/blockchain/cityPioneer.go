@@ -99,29 +99,21 @@ func NewCityPioneer(cli *ethclient.Client) *CityPioneer {
 //	fmt.Println(criteria.Hash(), err)
 //}
 
-//func (c CityPioneer) AdminSetSecondsPerDay(secondsPerDay int64) {
-//	err, Cli := Client(CityNodeConfig)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return
-//	}
-//	err, auth := GetAuth(Cli)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return
-//	}
-//	cityPioneer, err := intoCityNode2.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return
-//	}
-//	criteria, err := cityPioneer.AdminSetSecondsPerDay(auth, big.NewInt(secondsPerDay))
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return
-//	}
-//	fmt.Println(criteria, err)
-//}
+func (c CityPioneer) AdminSetSecondsPerDay(secondsPerDay int64) {
+
+	err, auth := GetAuth(c.Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	criteria, err := c.Contract.AdminSetSecondsPerDay(auth, big.NewInt(secondsPerDay))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	fmt.Println(criteria, err)
+}
 
 //func (c CityPioneer) AdminChangePioneerAddress(newPioneerAddress, oldPioneerAddress string) {
 //	err, Cli := Client(CityNodeConfig)

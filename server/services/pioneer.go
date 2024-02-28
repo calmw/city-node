@@ -3,6 +3,8 @@ package services
 import (
 	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/log"
+	"strings"
+	"time"
 )
 
 func AddPioneerBatch4(areaShiId, pioneerAddress string, level int64, suretyTox int64, suretyUsdt int64, pioneerBatch int64, pioneerType int64) error {
@@ -35,17 +37,234 @@ func AddPioneerBatch4(areaShiId, pioneerAddress string, level int64, suretyTox i
 	return nil
 }
 
-func RemovePioneer(areaShiId, pioneerAddress string) {
+func RemovePioneer(areaShiId, pioneerAddress string) error {
 	err, cli := blockchain.Client(blockchain.CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
 	}
 	city := blockchain.NewCity(cli)
 	err = city.AdminRemovePioneer(areaShiId, pioneerAddress)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
-		return
+		return err
+	}
+
+	return nil
+}
+
+func AddPioneerTest() {
+	// 我的
+	// "0x3edf72f7ab938a14e6aae3701a1e5acbb2512c840a019c6ead9d01415dbac864",
+	// "0x365Cae736D93Ad3e388919d0E4d3EE6Ed364b060",
+
+	// 玉斌
+	// 0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6
+	// 0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d
+
+	//services.AddPioneerBeth4()
+	//err := services.AddPioneerBatch4(
+	//	"0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6",
+	//	"0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d",
+	//	1,
+	//	10, //5000 6
+	//	5, // 1000 3
+	//	4,
+	//	1)
+	//fmt.Println(err, 123456)
+
+	//err := services.AddPioneerBatch4(
+	//	"0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6",
+	//	"0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d",
+	//	1,
+	//	6, //5000 6
+	//	3, // 1000 3
+	//	4,
+	//	0)
+	//fmt.Println(err, 123456)
+
+	//0x0a23fb256dc6340f9287a2edf424eb5cb92f37f39a8f58cc6c1a9fa349d51b34
+
+	//services.RemovePioneer(
+	//	"0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6",
+	//	"0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d",
+	//)
+}
+
+func ResetYuBin() {
+	// 玉斌
+	// 0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6
+	// 0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d
+
+	for {
+		err := RemovePioneer(
+			"0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6",
+			"0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d",
+		)
+		if err == nil {
+			break
+		}
+	}
+	time.Sleep(time.Second * 2)
+	for {
+		err := AddPioneerBatch4(
+			"0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6",
+			"0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d",
+			1,
+			10, //5000 6
+			5,  // 1000 3
+			4,
+			1)
+		if err == nil {
+			break
+		}
+	}
+}
+
+func ResetYeHui() {
+	// 业辉
+	// 0x4c26fda7d3080732ee56f0d2bfd089ae1ff8040a568cbddfabc7df759a320ca9
+	// 0x287229fD161feaf69a14b6848Da2690C29d4a0Ea
+
+	for {
+		err := RemovePioneer(
+			"0x4c26fda7d3080732ee56f0d2bfd089ae1ff8040a568cbddfabc7df759a320ca9",
+			"0x287229fD161feaf69a14b6848Da2690C29d4a0Ea",
+		)
+		if err == nil {
+			break
+		}
+	}
+	time.Sleep(time.Second * 2)
+	for {
+		err := AddPioneerBatch4(
+			"0x4c26fda7d3080732ee56f0d2bfd089ae1ff8040a568cbddfabc7df759a320ca9",
+			"0x287229fD161feaf69a14b6848Da2690C29d4a0Ea",
+			1,
+			10, //5000 6
+			5,  // 1000 3
+			4,
+			1)
+		if err == nil {
+			break
+		}
+	}
+}
+
+func ResetJingJing(pioneer string) {
+	/// 景景
+	//	0xd35a0ba3b4048cea0b00f3659353645b31affe150409591b8292de2933df2f1f, // 新乡红旗区，区域节点，一级县区
+	//	0x360C815e8C5F130913113801D0c57611Ee95723A,
+	//  0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5  // 新乡，城市节点，一级城市
+	//  0xb3b640E65eA83BC683115348bb63b78470097A30
+
+	if strings.ToLower("0x360C815e8C5F130913113801D0c57611Ee95723A") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0xd35a0ba3b4048cea0b00f3659353645b31affe150409591b8292de2933df2f1f",
+				"0x360C815e8C5F130913113801D0c57611Ee95723A",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0xd35a0ba3b4048cea0b00f3659353645b31affe150409591b8292de2933df2f1f",
+				"0x360C815e8C5F130913113801D0c57611Ee95723A",
+				1,
+				10, //5000 6
+				5,  // 1000 3
+				4,
+				1)
+			if err == nil {
+				break
+			}
+		}
+	} else if strings.ToLower("0xb3b640E65eA83BC683115348bb63b78470097A30") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5",
+				"0xb3b640E65eA83BC683115348bb63b78470097A30",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5",
+				"0xb3b640E65eA83BC683115348bb63b78470097A30",
+				1,
+				100, //5000 6
+				100, // 1000 3
+				4,
+				0)
+			if err == nil {
+				break
+			}
+		}
+	}
+
+}
+
+func ResetWangPing(pioneer string) {
+	/// 王平
+	// 0xfcbd8b9c3139222ae5d427bdf278de3d9f96ffa721e92fbfb125ecb6707998cf, // 渭南市 （三线城市）
+	// 0x74bBa41049B40803cBcF97ea6F60d0e064d24B72,
+	// 0x4de9096348869d087c953a1b6df5267276b15929bf8c3eedd52332bb946dadda  // 渭南市韩城市（二级区域）
+	// 0x010E293425F6Ad6D498893267C096853603D0d42
+
+	if strings.ToLower("0x010E293425F6Ad6D498893267C096853603D0d42") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0x4de9096348869d087c953a1b6df5267276b15929bf8c3eedd52332bb946dadda",
+				"0x010E293425F6Ad6D498893267C096853603D0d42",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0x4de9096348869d087c953a1b6df5267276b15929bf8c3eedd52332bb946dadda",
+				"0x010E293425F6Ad6D498893267C096853603D0d42",
+				2,
+				10, //5000 6
+				5,  // 1000 3
+				4,
+				1)
+			if err == nil {
+				break
+			}
+		}
+	} else if strings.ToLower("0x74bBa41049B40803cBcF97ea6F60d0e064d24B72") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0xfcbd8b9c3139222ae5d427bdf278de3d9f96ffa721e92fbfb125ecb6707998cf",
+				"0x74bBa41049B40803cBcF97ea6F60d0e064d24B72",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0xfcbd8b9c3139222ae5d427bdf278de3d9f96ffa721e92fbfb125ecb6707998cf",
+				"0x74bBa41049B40803cBcF97ea6F60d0e064d24B72",
+				3,
+				40, //5000 6
+				60, // 1000 3
+				4,
+				0)
+			if err == nil {
+				break
+			}
+		}
 	}
 
 }

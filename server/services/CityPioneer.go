@@ -17,16 +17,16 @@ import (
 )
 
 func InitCityPioneer(secondsPerDay int64) {
-	//err, cli := blockchain.Client(blockchain.CityNodeConfig)
-	//if err != nil {
-	//	log.Logger.Sugar().Error(err)
-	//	return
-	//}
-	//cityPioneer := blockchain.NewCityPioneer(cli)
+	err, cli := blockchain.Client(blockchain.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	cityPioneer := blockchain.NewCityPioneer(cli)
 	//cityPioneer.AdminSetAppraise()
 	//cityPioneer.AdminSetCityPioneerDataAddress()
 	//cityPioneer.AdminChangePioneerAddress("0x5db860601869Dad7Eb2961341056b389C3149e5f", "0x12Cc2278b37c2751D11B5A64712Ff439b57F6E6a")
-	//cityPioneer.AdminSetSecondsPerDay(secondsPerDay)
+	cityPioneer.AdminSetSecondsPerDay(secondsPerDay)
 	// 管理员设置TOX代币地址
 	//AdminSetTOXAddress
 	// 管理员设置城市合约地址
