@@ -12,10 +12,11 @@ func main() {
 	//services.InitUserLocation()
 	//services.InitCityPioneer(86400)
 	//services.InitCity(86400)
-	//services.InitAppraise()
+	services.InitAppraise()
+	services.InitCityPioneerData()
 
-	services.AddPioneerBeth3() // 四期上线前可用，需要更新ABI
-	services.AddPioneerBeth4()
+	//services.AddPioneerBeth3() // 四期上线前可用，需要更新ABI
+	//services.AddPioneerBeth4()
 
 	// 获取一二期用户最近三个月重置权重详情
 	//pioneers := []string{

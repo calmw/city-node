@@ -99,3 +99,17 @@ func (cpd *CityPioneerData) AdminSetCityPioneerAddress() error {
 	}
 	return nil
 }
+
+func (cpd *CityPioneerData) AdminSetIsGlobalNode(globalNodeAddress string) error {
+
+	err, auth := GetAuth(cpd.Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	_, err = cpd.Contract.AdminSetIsGlobalNode(auth, common.HexToAddress(globalNodeAddress), true)
+	if err != nil {
+		return err
+	}
+	return nil
+}

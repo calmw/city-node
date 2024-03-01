@@ -23557,3 +23557,76 @@
 {"level":"error","time":"2024-03-01T22:38:24.686+0800","line":"services/pioneer.go:49","msg":"invalid nonce; got 684321, expected 684322: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"error","time":"2024-03-01T22:38:26.115+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 684322, expected 684323: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"error","time":"2024-03-01T22:38:26.115+0800","line":"services/pioneer.go:49","msg":"invalid nonce; got 684322, expected 684323: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-01T22:52:29.858+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-03-01T22:52:33.100+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 684944, expected 684945: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T22:52:33.100+0800","line":"services/pioneer.go:49","msg":"invalid nonce; got 684944, expected 684945: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-01T23:51:15.292+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-01T23:51:16.545+0800","line":"db/level_db.go:9","msg":"Init level db","serviceName":"into"}
+{"level":"info","time":"2024-03-01T23:55:38.635+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-01T23:55:40.520+0800","line":"db/level_db.go:9","msg":"Init level db","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:06:41.051+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"panic","time":"2024-03-02T00:06:41.378+0800","line":"db/mysql.go:44","msg":"mysql connention error ==>  driver: bad connection","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:06:58.395+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:10:15.241+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:10:17.657+0800","line":"db/level_db.go:9","msg":"Init level db","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:12:46.089+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:12:47.863+0800","line":"db/level_db.go:9","msg":"Init level db","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:14:08.305+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:14:11.227+0800","line":"db/level_db.go:9","msg":"Init level db","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:16:02.241+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:16:03.142+0800","line":"db/level_db.go:9","msg":"Init level db","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:18:20.448+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:18:37.559+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:18:37.560+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:18:43.773+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:18:43.773+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:18:47.385+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:18:47.386+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:18:50.895+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:18:50.896+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:11.528+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:11.528+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:16.501+0800","line":"services/pioneer.go:28","msg":"invalid nonce; got 690084, expected 690086: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:24.920+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:24.920+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:29.730+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:29.730+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:32.852+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:32.852+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:37.279+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:37.279+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:43.472+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:43.473+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:44.916+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690123, expected 690124: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:44.916+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690123, expected 690124: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:48.865+0800","line":"services/pioneer.go:28","msg":"invalid nonce; got 690128, expected 690129: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:56.477+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690135, expected 690136: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:19:56.477+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690135, expected 690136: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:03.349+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:03.350+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:05.040+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690145, expected 690146: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:05.040+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690145, expected 690146: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:09.178+0800","line":"services/pioneer.go:28","msg":"invalid nonce; got 690150, expected 690151: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:12.538+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690153, expected 690154: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:12.538+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690153, expected 690154: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:16.672+0800","line":"services/pioneer.go:28","msg":"invalid nonce; got 690158, expected 690159: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:18.359+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690159, expected 690161: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:18.359+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690159, expected 690161: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:22.619+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:22.619+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:28.215+0800","line":"blockchain/city.go:76","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:28.216+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:29.552+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690175, expected 690176: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:29.552+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690175, expected 690176: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:31.719+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690178, expected 690179: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:31.720+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690178, expected 690179: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-02T00:20:39.528+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:48.263+0800","line":"services/pioneer.go:28","msg":"invalid nonce; got 690196, expected 690197: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:50.808+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690199, expected 690200: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:50.808+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690199, expected 690200: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:52.491+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690202, expected 690203: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:52.491+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690202, expected 690203: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:53.733+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690204, expected 690205: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:53.733+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690204, expected 690205: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:55.453+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 690205, expected 690207: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-02T00:20:55.453+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 690205, expected 690207: invalid sequence: invalid sequence","serviceName":"into"}

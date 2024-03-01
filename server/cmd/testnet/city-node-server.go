@@ -15,7 +15,7 @@ func main() {
 	//services.InitAppraise()
 	//services.InitCityPioneer(30)
 	//services.InitCity(30)
-	services.InitCityPioneerData()
+	//services.InitCityPioneerData()
 
 	//db.InitMysql()
 
@@ -54,6 +54,7 @@ func main() {
 	//services.ResetWangPing("0xa4394cA3985598Fff63E9551e81DD4D8602eA68B")
 	//services.ResetWangPing("0xA2C100a4C098D3D05Ff8c0AE2CE4Ea93eCe550A8")
 	//services.ResetWangPing("0xbF0D360879Cc0AED8479058fbf8f86F510512188")
+	//services.ResetWangPing("0xC250bFC206Ba2d9b761Eb51537ef8D665e0a54d7")
 
 	//taskTest()
 

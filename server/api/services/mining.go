@@ -771,8 +771,7 @@ func (c *Mining) RechargeSum(req *request.RechargeSum) (int, []Recharge) {
 // RechargeSumInCity 查询此用户所在城市的网体业绩，网体不在这个城市的不做計算
 func (c *Mining) RechargeSumInCity() int {
 
-	//ReadExcel("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
-	ReadExcel("../assets/INTO工作室补贴业绩查询1.31.xlsx")
+	ReadExcel("./assets/工作室申请统计表(审核3月1日).xlsx")
 
 	return statecode.CommonSuccess
 }
@@ -782,7 +781,7 @@ func (c *Mining) SyncUserData() int {
 
 	//ReadExcel("./assets/INTO工作室补贴业绩查询1.31.xlsx")
 	//SyncStatus("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
-	SyncStatus("../assets/INTO工作室补贴业绩查询1.31.xlsx")
+	SyncStatus("./assets/工作室申请统计表(审核3月1日).xlsx")
 
 	return statecode.CommonSuccess
 }
@@ -816,7 +815,8 @@ func ReadExcel(excelFile string) int {
 				//	studioInfo.Community = colCell
 				//} else if j == 6 {
 				studioInfo.City = colCell
-			} else if j == 8 {
+			} else if j == 9 {
+				fmt.Println(colCell)
 				countTimeSlice := strings.Split(strings.TrimSpace(colCell), "-")
 				date := strings.Replace(countTimeSlice[0], "月", "-", -1)
 				date = strings.Replace(date, "日", "", -1)
@@ -1093,7 +1093,7 @@ func InCity(user, cityId string) bool {
 func SyncStatus(excelFile string) {
 	f, err := excelize.OpenFile(excelFile)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err, 1111)
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
