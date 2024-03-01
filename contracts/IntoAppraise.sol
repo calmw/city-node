@@ -77,17 +77,17 @@ contract IntoAppraise is RoleAccess, Initializable {
         pioneerType[pioneerAddress_] = pioneerType_;
     }
 
-    function addAreaPioneerNo(address pioneerAddress_) public {
-        //        bool exist;
-        //        for (uint i = 0; i < pioneerCounty.length; i++) {
-        //            if (pioneerCounty[i] == pioneerAddress_) {
-        //                exist = true;
-        //            }
-        //        }
-        //        if (!exist) {
-        //            pioneerCounty.push(pioneerAddress_);
-        //            pioneerCountyNo++;
-        //        }
+    function addAreaPioneerNo(address pioneerAddress_) onlyAdmin {
+        bool exist;
+        for (uint i = 0; i < pioneerCounty.length; i++) {
+            if (pioneerCounty[i] == pioneerAddress_) {
+                exist = true;
+            }
+        }
+        if (!exist) {
+            pioneerCounty.push(pioneerAddress_);
+            pioneerCountyNo++;
+        }
     }
 
     // 第三四批考核,返回（是否考核[可能有数据变更]，考核是否成功，考核月份，考核失败时候的总充值权重）
