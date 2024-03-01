@@ -30,6 +30,7 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
     mapping(address => uint256) public suretyDepositUSDT; // 先锋已经缴纳的USDT保证金数量
     mapping(address => uint256) public suretyDepositTOX; // 先锋已经缴纳的TOX保证金数量
     mapping(address => bool) public isGlobalNode; // 是否是全球节点。节点地址=>是否是全球节点
+    address[] public failedPioneers; // 考核失败的先锋
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -154,5 +155,17 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
     function clearPioneerSurety(address pioneerAddress_) public {
         suretyDepositTOX[pioneerAddress_] = 0;
         suretyDepositUSDT[pioneerAddress_] = 0;
+    }
+
+    function addFailedPioneer(address pioneerAddress_) public onlyAdmin {
+        bool exist;
+        for (uint i = 0; i < failedPioneers.length; i++) {
+            if (failedPioneers[i] == pioneerAddress_) {
+                exist = true;
+            }
+        }
+        if (!exist) {
+            failedPioneers.push(pioneerAddress_);
+        }
     }
 }

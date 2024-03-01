@@ -2,7 +2,6 @@ package main
 
 import (
 	"city-node-server/pkg/utils"
-	"city-node-server/services"
 	"fmt"
 )
 
@@ -18,7 +17,7 @@ func main() {
 
 	//services.InitUserLocation()
 	//services.InitCityPioneer(300)
-	services.InitCity(300)
+	//services.InitCity(300)
 	//services.InitAppraise()
 
 	//blockchain.TriggerAllPioneerTask()
@@ -62,7 +61,7 @@ func main() {
 	//blockchain.GetRechargeDailyWeightRecordByChengId("0x936557454f464570813fe0c6e164d114cfc2d49eb5478f4e9867805eb4d3667b", 19616) // 19616 000000000000000000
 
 	//fmt.Println(utils.ThreeDesEncrypt("0,126"))
-	fmt.Println(utils.ThreeDesDecrypt("Uf3vXx6YC/1oIIJEoGrMcQ=="))
+	fmt.Println(utils.ThreeDesDecrypt("S1sYVRmYhaL+o1Ge3XxZ6g=="))
 	//fmt.Println(utils.Keccak256("0,276"))
 	//fmt.Println(strings.ToLower("0x17dC6411D638672A073f23267C4735ca877AA623"))
 	//fmt.Println(utils.Keccak256("0,136,621122")) //0x5BC49BF2BB0F74F6B3321451F04FE277696611BC6A0A2D144F034B27C914F8F0
