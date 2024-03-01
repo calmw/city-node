@@ -528,18 +528,21 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
         // 社交基金5%奖励
         IntoCity city = IntoCity(cityAddress);
-        // pioneers.length
-        uint pioneerNumber = appraise.pioneerCountyNo(); // 区域先锋的数量
-        if (pioneerNumber > 0 && pioneerNumber < 1000) {
-            pioneerNumber = 1000;
-        }
+        uint pioneerNumber;
         if (pioneerType == 0) {
             // 城市先锋
-            pioneerNumber = pioneers.length - pioneerNumber;
-            if (pioneerNumber > 0 && pioneerNumber < 100) {
-                pioneerNumber = 100;
+            pioneerNumber = 100;
+            if (pioneers.length > pioneerNumber) {
+                pioneerNumber = pioneers.length;
+            }
+        } else {
+            pioneerNumber = 1000;
+            uint256 areaNum = appraise.pioneerCountyNo();
+            if (areaNum > pioneerNumber) {
+                pioneerNumber = areaNum;
             }
         }
+
         uint256 allDailyFoundsTotal = city.getFifteenDayAverageFounds(); // 全网昨日所有城市新增社交基金
         uint256 _fundsReward;
         if (pioneerNumber > 0) {
