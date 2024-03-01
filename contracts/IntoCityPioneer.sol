@@ -313,12 +313,6 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             }
         }
         delete pioneerInfo[pioneer_];
-        //        pioneerInfo[pioneer_].assessmentStatus = false;
-        //        delete alreadyRewardRate[pioneer_];
-        //        alreadyRewardRate[pioneer_][1] = 0;
-        //        alreadyRewardRate[pioneer_][2] = 0;
-        //        alreadyRewardRateTotal[pioneer_] = 0;
-
         // 先锋地址 => 先锋福利包收益
         benefitPackageReward[pioneer_] = 0;
         // 先锋地址 => 已领取的先锋福利包收益
@@ -331,22 +325,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         delegateReward[pioneer_] = 0;
         // 先锋地址 => 已领取的先锋新增质押收益
         delegateRewardReceived[pioneer_] = 0;
-        // 先锋地址 => 先锋可以退的保证金
-        //        suretyReward[pioneer_] = 0;
-        // 先锋地址 => (月份=>退的比例)，月份为1和2，比例为整数
-        //        alreadyRewardRate[pioneer_][1] = 0;
-        //        alreadyRewardRate[pioneer_][2] = 0;
-        // 先锋地址 => 先锋已经退还的保证金
-        //        suretyRewardRecord[pioneer_] = 0;
         benefitPackageRewardStatus[pioneer_] = false; // 用户福袋奖励提取状态
         fundsRewardStatus[pioneer_] = false; // 用户社交基金奖励提取状态
         delegateRewardStatus[pioneer_] = false; // 用户新增质押奖励提取状态
         delete failedAt[pioneer_]; // 清除失败时间
-        //        IntoCity city = IntoCity(cityAddress);
         delete failedDelegate[areaId]; // 先锋考核失败时候的累计充值权重
         delete successTime[pioneer_]; // 清楚成功时间
-        //        suretyMonthWeight[pioneer_][1] = 0; // 清楚成功时间
-        //        suretyMonthWeight[pioneer_][2] = 0; // 清楚成功时间
         appraise.delPioneerPreMonthWeight(pioneer_);
         cityPioneerData.clearPioneerSurety(pioneer_);
     }
@@ -511,12 +495,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             rewardAddress = 0x5db860601869Dad7Eb2961341056b389C3149e5f;
         }
         // 是否是区域先锋
-        //        bool isCityPioneer = true;
         uint256 pioneerType = appraise.pioneerType(pioneerAddress_);
-        //        if (pioneerType == 1) {
-        //            isCityPioneer = false;
-        //        }
-        ///
 
         // 福利包奖励
         uint bonus = 40000000000000000000;
