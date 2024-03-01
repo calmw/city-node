@@ -23,4 +23,17 @@ func InitCityPioneerData() {
 	err = cityPioneerData.AdminSetCityPioneerAddress()
 	fmt.Println(err)
 
+	var globalNode = []string{
+		"",
+	}
+
+	for _, g := range globalNode {
+		for {
+			err = cityPioneerData.AdminSetIsGlobalNode(g)
+			fmt.Println(err)
+			if err == nil {
+				break
+			}
+		}
+	}
 }

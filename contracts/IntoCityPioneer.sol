@@ -488,6 +488,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             today - (pioneer.ctime / secondsPerDay) >=
             (presidencyTime / secondsPerDay)
         ) {
+            cityPioneerData.addFailedPioneer(
+                pioneerAddress_,
+                appraise.pioneerType(pioneerAddress_)
+            ); // 添加失败的先锋
             return;
         }
         // 昨日，天
@@ -513,13 +517,15 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         uint pioneerNumber;
         if (pioneerType == 0) {
             // 城市先锋
-            pioneerNumber = 100;
+//            pioneerNumber = 100;
+            pioneerNumber = 1;
             if (pioneers.length > pioneerNumber) {
                 pioneerNumber = pioneers.length;
             }
             pioneerNumber -= cityPioneerData.getFailedCityPioneerNo();
         } else {
-            pioneerNumber = 1000;
+//            pioneerNumber = 1000;
+            pioneerNumber = 1;
             uint256 areaNum = appraise.pioneerCountyNo();
             if (areaNum > pioneerNumber) {
                 pioneerNumber = areaNum;
