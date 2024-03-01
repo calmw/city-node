@@ -77,7 +77,7 @@ contract IntoAppraise is RoleAccess, Initializable {
         pioneerType[pioneerAddress_] = pioneerType_;
     }
 
-    function addAreaPioneerNo(address pioneerAddress_) onlyAdmin {
+    function addAreaPioneerNo(address pioneerAddress_) public onlyAdmin {
         bool exist;
         for (uint i = 0; i < pioneerCounty.length; i++) {
             if (pioneerCounty[i] == pioneerAddress_) {
