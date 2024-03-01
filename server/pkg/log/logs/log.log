@@ -23433,3 +23433,5 @@
 {"level":"error","time":"2024-03-01T17:50:19.302+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 674037, expected 674038: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"error","time":"2024-03-01T17:50:19.302+0800","line":"services/pioneer.go:49","msg":"invalid nonce; got 674037, expected 674038: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"info","time":"2024-03-01T17:50:39.685+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-01T18:08:52.079+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-01T18:23:35.602+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
