@@ -181,10 +181,10 @@ contract IntoAppraise is RoleAccess, Initializable {
     function appraisePioneer(
         address pioneerAddress_,
         uint256 pioneerBatch_,
-        uint256 isChengShi_,
+        uint256 pioneerType_,
         uint256 areaLevel_,
         uint256 month_
-    ) private returns (bool) {
+    ) public returns (bool) {
         if (pioneerBatch_ == 3) {
             /// 三期考核
             if (
@@ -201,7 +201,7 @@ contract IntoAppraise is RoleAccess, Initializable {
             // 四期
             if (
                 pioneerMonthWeight[pioneerAddress_][month_] >=
-                weightByAreaLevel[pioneerBatch_][isChengShi_][areaLevel_][
+                weightByAreaLevel[pioneerBatch_][pioneerType_][areaLevel_][
                     month_
                 ]
             ) {

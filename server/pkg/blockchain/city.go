@@ -929,8 +929,16 @@ func TriggerAllPioneerTaskTestNet() {
 	fmt.Println(pioneerNumber, "-----", err, pioneerNumber)
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
-		_, err = city.PioneerDailyTask(auth, pioneer)
-		fmt.Println(pioneer.String(), i, err)
+		res, err := city.PioneerDailyTask(auth, pioneer)
+		if err == nil {
+			if res != nil {
+				fmt.Println(pioneer.String(), i, err, res.Hash())
+			} else {
+				fmt.Println(pioneer.String(), i, "res nil:", res)
+			}
+		} else {
+			fmt.Println(pioneer.String(), i, "error:", err)
+		}
 	}
 }
 
