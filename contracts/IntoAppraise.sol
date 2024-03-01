@@ -17,7 +17,7 @@ contract IntoAppraise is RoleAccess, Initializable {
     // 城市等级=>充值权重
     mapping(uint256 => uint256) public weightByCityLevel; // 先锋考核标准，三期用户
     mapping(address => mapping(uint256 => uint256))
-        public pioneerMonthWeightProcess; // 先锋按月的每月实时新增权重, 废弃
+    public pioneerMonthWeightProcess; // 先锋按月的每月实时新增权重, 废弃
     mapping(address => uint256) public pioneerPreMonthWeight; // 先锋累积到上个月的权重
     mapping(address => uint256) public filedMonth; // 先锋考核失败的月份
     mapping(address => uint256) public pioneerPrePreMonthWeight; // 先锋累积到上上个月的权重
@@ -26,7 +26,7 @@ contract IntoAppraise is RoleAccess, Initializable {
     uint public pioneerCountyNo; // 区县节点先锋数量
     // 期数=>（城市/区域节点 =>（等级=>(月份=>业绩值)））
     mapping(uint256 => mapping(uint256 => mapping(uint256 => mapping(uint256 => uint256))))
-        public weightByAreaLevel; // 先锋考核标准,从四期开始。
+    public weightByAreaLevel; // 先锋考核标准,从四期开始。
 
     //    function initialize() public initializer {
     //        _addAdmin(msg.sender);
@@ -158,20 +158,26 @@ contract IntoAppraise is RoleAccess, Initializable {
             // 不在考核时间点
             return (false, false, 0, 0);
         }
+
+        // 第6个月都免考核
+        if (daysSinceCreate == 180) {
+            // 无需考核
+            return (false, false, 0, 0);
+        }
+
         // 第三批城市先锋，根据星级可以免考核，区域先锋只有第一个月免考核
         if (pioneerBatch[pioneerAddress_] == 3) {
             if (
                 (daysSinceCreate == 30 && userStar >= 3) ||
                 (daysSinceCreate == 60 && userStar >= 4) ||
-                (daysSinceCreate == 90 && userStar >= 5) ||
-                (daysSinceCreate == 180)
+                (daysSinceCreate == 90 && userStar >= 5)
             ) {
                 // 无需考核
                 return (false, false, 0, 0);
             }
         } else if (pioneerBatch[pioneerAddress_] == 4) {
             // 第四期用户第一个月都免考核
-            if (daysSinceCreate == 30 || daysSinceCreate == 180) {
+            if (daysSinceCreate == 30) {
                 // 无需考核
                 return (false, false, 0, 0);
             }
@@ -182,12 +188,12 @@ contract IntoAppraise is RoleAccess, Initializable {
         return (
             true,
             appraisePioneer(
-                pioneerAddr_,
-                pioneerBatch[pioneerAddr_],
-                pioneerType[pioneerAddr_],
-                areaLevel,
-                daysSinceCreate / 30
-            ), //考核
+            pioneerAddr_,
+            pioneerBatch[pioneerAddr_],
+            pioneerType[pioneerAddr_],
+            areaLevel,
+            daysSinceCreate / 30
+        ), //考核
             daysSinceCreate / 30,
             chengShiRechargeWeight
         );
@@ -218,7 +224,7 @@ contract IntoAppraise is RoleAccess, Initializable {
             if (
                 pioneerMonthWeight[pioneerAddress_][month_] >=
                 weightByAreaLevel[pioneerBatch_][isChengShi_][areaLevel_][
-                    month_
+                month_
                 ]
             ) {
                 return true;
@@ -258,8 +264,8 @@ contract IntoAppraise is RoleAccess, Initializable {
         } else if (pioneerBatch[pioneerAddress_] == 4) {
             // 期数=>（城市/区域节点 =>（等级=>(月份=>业绩值)））
             weightTarget = weightByAreaLevel[4][pioneerType[pioneerAddress_]][
-                cityLevel
-            ][1];
+                        cityLevel
+                ][1];
         }
         if (pioneerType[pioneerAddress_] == 1) {
             weightTotal = city.countyPioneerRechargeTotal(chengShiId);
@@ -297,8 +303,8 @@ contract IntoAppraise is RoleAccess, Initializable {
         } else if (pioneerBatch[pioneerAddress_] == 4) {
             // 期数=>（城市/区域节点 =>（等级=>(月份=>业绩值)））
             weightTarget = weightByAreaLevel[4][pioneerType[pioneerAddress_]][
-                cityLevel
-            ][1];
+                        cityLevel
+                ][1];
         }
         if (pioneerType[pioneerAddress_] == 1) {
             weightTotal = city.countyPioneerRechargeTotal(chengShiId);

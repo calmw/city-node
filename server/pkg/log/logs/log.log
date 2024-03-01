@@ -23399,3 +23399,37 @@
 {"level":"info","time":"2024-03-01T16:13:44.590+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-03-01T16:15:25.389+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-03-01T16:45:42.904+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-01T17:23:24.137+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:23:27.689+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 672487, expected 672488: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:23:27.689+0800","line":"services/pioneer.go:49","msg":"invalid nonce; got 672487, expected 672488: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:23:32.541+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 672491, expected 672494: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:23:32.542+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 672491, expected 672494: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:23:34.008+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 672494, expected 672495: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:23:34.008+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 672494, expected 672495: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:23:35.227+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 672495, expected 672496: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:23:35.227+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 672495, expected 672496: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-01T17:39:38.581+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-01T17:40:04.940+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:40:07.837+0800","line":"blockchain/cityPioneer.go:112","msg":"invalid nonce; got 673455, expected 673456: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-01T17:40:22.897+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-01T17:48:53.178+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:48:58.397+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 673955, expected 673956: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:48:58.398+0800","line":"services/pioneer.go:49","msg":"invalid nonce; got 673955, expected 673956: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-01T17:49:12.727+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:49:18.584+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 673979, expected 673980: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:49:18.585+0800","line":"services/pioneer.go:49","msg":"invalid nonce; got 673979, expected 673980: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:49:20.468+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 673979, expected 673982: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:49:20.468+0800","line":"services/pioneer.go:49","msg":"invalid nonce; got 673979, expected 673982: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:49:24.692+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 673985, expected 673986: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:49:24.692+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 673985, expected 673986: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-01T17:49:45.997+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:49:55.227+0800","line":"blockchain/city.go:76","msg":"invalid nonce; got 674016, expected 674017: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:49:55.227+0800","line":"services/pioneer.go:34","msg":"invalid nonce; got 674016, expected 674017: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:49:56.139+0800","line":"blockchain/city.go:50","msg":"invalid nonce; got 674017, expected 674018: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:49:56.139+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 674017, expected 674018: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-01T17:50:13.002+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:50:17.754+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 674036, expected 674037: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:50:17.754+0800","line":"services/pioneer.go:49","msg":"invalid nonce; got 674036, expected 674037: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:50:19.302+0800","line":"blockchain/city.go:92","msg":"invalid nonce; got 674037, expected 674038: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-01T17:50:19.302+0800","line":"services/pioneer.go:49","msg":"invalid nonce; got 674037, expected 674038: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-01T17:50:39.685+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}

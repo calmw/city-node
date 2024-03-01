@@ -336,6 +336,10 @@ func ResetWangPing(pioneer string) {
 	//0xbF0D360879Cc0AED8479058fbf8f86F510512188
 	//0xdb60dad7d29002a0b4379895f5be941e8b8b9c073ff54d746b28d23b60291cb6 福州 鼓楼区
 	//0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a
+	//
+	//0xC250bFC206Ba2d9b761Eb51537ef8D665e0a54d7
+	//0xdb60dad7d29002a0b4379895f5be941e8b8b9c073ff54d746b28d23b60291cb6 福州 鼓楼区
+	//0xc50db5c60dc66068637ffc825954152fbce8b73a290285f252697c31b005a382  佛山
 
 	if strings.ToLower("0x010E293425F6Ad6D498893267C096853603D0d42") == strings.ToLower(pioneer) {
 		for {
@@ -449,6 +453,30 @@ func ResetWangPing(pioneer string) {
 				"0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a",
 				"0xbF0D360879Cc0AED8479058fbf8f86F510512188",
 				3,
+				40, //5000 6
+				60, // 1000 3
+				3,
+				0)
+			if err == nil {
+				break
+			}
+		}
+	} else if strings.ToLower("0xC250bFC206Ba2d9b761Eb51537ef8D665e0a54d7") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0xc50db5c60dc66068637ffc825954152fbce8b73a290285f252697c31b005a382",
+				"0xC250bFC206Ba2d9b761Eb51537ef8D665e0a54d7",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0xc50db5c60dc66068637ffc825954152fbce8b73a290285f252697c31b005a382",
+				"0xC250bFC206Ba2d9b761Eb51537ef8D665e0a54d7",
+				1,
 				40, //5000 6
 				60, // 1000 3
 				3,

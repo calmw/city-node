@@ -381,6 +381,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
                     // 更新考核失败时间
                     if (failedAt[pioneer.pioneerAddress] <= 0) {
                         failedAt[pioneer.pioneerAddress] = block.timestamp;
+                        cityPioneerData.addFailedPioneer(pioneerAddress_); // 添加失败的先锋
                     }
                     // 先锋当前充值权重
                     failedDelegate[chengShiId_] = chengShiRechargeWeight;
