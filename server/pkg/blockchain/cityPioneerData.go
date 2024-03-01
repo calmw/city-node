@@ -100,6 +100,20 @@ func (cpd *CityPioneerData) AdminSetCityPioneerAddress() error {
 	return nil
 }
 
+func (cpd *CityPioneerData) AddAdmin() error {
+
+	err, auth := GetAuth(cpd.Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
+	_, err = cpd.Contract.AddAdmin(auth, common.HexToAddress(CityNodeConfig.CityPioneerAddress))
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (cpd *CityPioneerData) AdminSetIsGlobalNode(globalNodeAddress string) error {
 
 	err, auth := GetAuth(cpd.Cli)

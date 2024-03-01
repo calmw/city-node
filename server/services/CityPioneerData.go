@@ -14,14 +14,41 @@ func InitCityPioneerData() {
 	}
 	cityPioneerData := blockchain.NewCityPioneerData(cli)
 
-	err = cityPioneerData.AdminSetUSDT()
-	fmt.Println(err)
-	err = cityPioneerData.AdminSetTOX()
-	fmt.Println(err)
-	err = cityPioneerData.AdminSetCityAddress()
-	fmt.Println(err)
-	err = cityPioneerData.AdminSetCityPioneerAddress()
-	fmt.Println(err)
+	for {
+		err = cityPioneerData.AdminSetUSDT()
+		fmt.Println(err)
+		if err == nil {
+			break
+		}
+	}
+	for {
+		err = cityPioneerData.AdminSetTOX()
+		fmt.Println(err)
+		if err == nil {
+			break
+		}
+	}
+	for {
+		err = cityPioneerData.AdminSetCityAddress()
+		fmt.Println(err)
+		if err == nil {
+			break
+		}
+	}
+	for {
+		err = cityPioneerData.AdminSetCityPioneerAddress()
+		fmt.Println(err)
+		if err == nil {
+			break
+		}
+	}
+	for {
+		err = cityPioneerData.AddAdmin()
+		fmt.Println(err)
+		if err == nil {
+			break
+		}
+	}
 
 	var globalNode = []string{
 		"",

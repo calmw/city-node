@@ -23,7 +23,8 @@ func InitAppraise() {
 	//// AdminSetPioneerBatch 管理员设置先锋批次
 	////appraise.AdminSetPioneerBatch("", 3)
 	//// AdminSetWeightByCityLevel 管理员设置第三批考核标准
-	appraise.AdminSetWeightByCityLevel()
+	//appraise.AdminSetWeightByCityLevel()
+
 	// 设置四期区域和城市节点的考核标准，三期的在weightByCityLevel中存储
 	{
 		// 添加城市考核标准1，2，3线城市

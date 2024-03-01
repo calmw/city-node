@@ -45256,7 +45256,7 @@
             "label": "cityPioneer",
             "offset": 0,
             "slot": "5",
-            "type": "t_contract(CityPioneer)4144",
+            "type": "t_contract(CityPioneer)1120",
             "contract": "IntoCityPioneerData",
             "src": "contracts/IntoCityPioneerData.sol:22"
           },
@@ -45264,7 +45264,7 @@
             "label": "city",
             "offset": 0,
             "slot": "6",
-            "type": "t_contract(City)4143",
+            "type": "t_contract(City)1119",
             "contract": "IntoCityPioneerData",
             "src": "contracts/IntoCityPioneerData.sol:24"
           },
@@ -45280,7 +45280,7 @@
             "label": "tox",
             "offset": 0,
             "slot": "8",
-            "type": "t_contract(IERC20)6150",
+            "type": "t_contract(IERC20)2102",
             "contract": "IntoCityPioneerData",
             "src": "contracts/IntoCityPioneerData.sol:29"
           },
@@ -45288,7 +45288,7 @@
             "label": "usdt",
             "offset": 0,
             "slot": "9",
-            "type": "t_contract(IERC20)6150",
+            "type": "t_contract(IERC20)2102",
             "contract": "IntoCityPioneerData",
             "src": "contracts/IntoCityPioneerData.sol:29"
           },
@@ -45296,7 +45296,7 @@
             "label": "cityContract",
             "offset": 0,
             "slot": "10",
-            "type": "t_contract(ICity)5897",
+            "type": "t_contract(ICity)1909",
             "contract": "IntoCityPioneerData",
             "src": "contracts/IntoCityPioneerData.sol:30"
           },
@@ -45304,7 +45304,7 @@
             "label": "cityPioneerContract",
             "offset": 0,
             "slot": "11",
-            "type": "t_contract(ICityPioneer)6060",
+            "type": "t_contract(ICityPioneer)2072",
             "contract": "IntoCityPioneerData",
             "src": "contracts/IntoCityPioneerData.sol:30"
           },
@@ -45378,23 +45378,23 @@
             "label": "bytes32",
             "numberOfBytes": "32"
           },
-          "t_contract(City)4143": {
+          "t_contract(City)1119": {
             "label": "contract City",
             "numberOfBytes": "20"
           },
-          "t_contract(CityPioneer)4144": {
+          "t_contract(CityPioneer)1120": {
             "label": "contract CityPioneer",
             "numberOfBytes": "20"
           },
-          "t_contract(ICity)5897": {
+          "t_contract(ICity)1909": {
             "label": "contract ICity",
             "numberOfBytes": "20"
           },
-          "t_contract(ICityPioneer)6060": {
+          "t_contract(ICityPioneer)2072": {
             "label": "contract ICityPioneer",
             "numberOfBytes": "20"
           },
-          "t_contract(IERC20)6150": {
+          "t_contract(IERC20)2102": {
             "label": "contract IERC20",
             "numberOfBytes": "20"
           },
@@ -48321,7 +48321,7 @@
             "label": "star",
             "offset": 2,
             "slot": "2",
-            "type": "t_contract(IStar)6441",
+            "type": "t_contract(IStar)2975",
             "contract": "IntoAppraise",
             "src": "contracts/IntoAppraise.sol:11"
           },
@@ -48329,7 +48329,7 @@
             "label": "pioneer",
             "offset": 0,
             "slot": "3",
-            "type": "t_contract(ICityPioneer)6341",
+            "type": "t_contract(ICityPioneer)2935",
             "contract": "IntoAppraise",
             "src": "contracts/IntoAppraise.sol:12"
           },
@@ -48337,7 +48337,7 @@
             "label": "city",
             "offset": 0,
             "slot": "4",
-            "type": "t_contract(ICity)6178",
+            "type": "t_contract(ICity)2772",
             "contract": "IntoAppraise",
             "src": "contracts/IntoAppraise.sol:13"
           },
@@ -48451,15 +48451,15 @@
             "label": "bytes32",
             "numberOfBytes": "32"
           },
-          "t_contract(ICity)6178": {
+          "t_contract(ICity)2772": {
             "label": "contract ICity",
             "numberOfBytes": "20"
           },
-          "t_contract(ICityPioneer)6341": {
+          "t_contract(ICityPioneer)2935": {
             "label": "contract ICityPioneer",
             "numberOfBytes": "20"
           },
-          "t_contract(IStar)6441": {
+          "t_contract(IStar)2975": {
             "label": "contract IStar",
             "numberOfBytes": "20"
           },

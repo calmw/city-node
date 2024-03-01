@@ -13,7 +13,7 @@ module.exports = {
     },
     networks: {
         match: {
-            url: "http://18.179.50.41:8545",
+            url: "https://match-rpc-1.intoverse.co",
             accounts: [account.key]
         },
         match_test: {
