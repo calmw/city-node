@@ -184,4 +184,12 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
             }
         }
     }
+
+    function getFailedCityPioneerNo() public view returns(uint256) {
+      return  failedCityPioneers.length;
+    }
+
+    function getFailedAreaPioneersNo() public view returns(uint256) {
+      return  failedAreaPioneers.length;
+    }
 }

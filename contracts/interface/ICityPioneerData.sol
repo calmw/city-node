@@ -10,6 +10,10 @@ interface CityPioneerData {
 
     function suretyUSDT(bytes32 chengShiID) external returns (uint256);
 
+    function getFailedCityPioneerNo() external view returns(uint256);
+
+    function getFailedAreaPioneersNo() external view returns(uint256);
+
     function isGlobalNode(address user_) external returns (bool);
 
     // 清除先锋

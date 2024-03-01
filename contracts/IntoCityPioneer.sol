@@ -74,7 +74,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentCriteria; // 城市先锋考核标准
     // 城市等级 => (索引 => 退还标准)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（点数）
     mapping(uint256 => mapping(uint256 => uint256))
-        public assessmentReturnCriteria; // 城市先锋保证金退还标准
+    public assessmentReturnCriteria; // 城市先锋保证金退还标准
     // 城市等级 => (索引 => 退还比例)，索引1，2，3为第一个月的，索引4，5，6为第二个月的；退保证金标准（比例）
     mapping(uint256 => mapping(uint256 => uint256)) public assessmentReturnRate; // 城市先锋保证金退还比例
     // 先锋地址 => 先锋信息， 先锋信息
@@ -411,8 +411,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (day == 90) {
             execStatus = true;
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                3
-            ];
+                        3
+                ];
         } else if (day == 60) {
             // 检测是否满足直接考核通过
             if (
@@ -427,8 +427,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M2
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                2
-            ];
+                        2
+                ];
         } else if (day == 30) {
             // 检测是否满足直接考核通过
             if (
@@ -443,8 +443,8 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             execStatus = true;
             // 没达到M3，考核M1
             assessmentCriteriaThreshold = assessmentCriteria[pioneer.cityLevel][
-                1
-            ];
+                        1
+                ];
         }
         if (!execStatus) {
             return;
@@ -517,12 +517,14 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             if (pioneers.length > pioneerNumber) {
                 pioneerNumber = pioneers.length;
             }
+            pioneerNumber -= cityPioneerData.getFailedCityPioneerNo();
         } else {
             pioneerNumber = 1000;
             uint256 areaNum = appraise.pioneerCountyNo();
             if (areaNum > pioneerNumber) {
                 pioneerNumber = areaNum;
             }
+            pioneerNumber -= cityPioneerData.getFailedAreaPioneersNo();
         }
 
         uint256 allDailyFoundsTotal = city.getFifteenDayAverageFounds(); // 全网昨日所有城市新增社交基金
