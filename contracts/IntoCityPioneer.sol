@@ -258,7 +258,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (!exists) {
             pioneers.push(pioneerAddress_);
         }
-        appraise.adminAreaPioneerNo(pioneerAddress_);
+        appraise.addAreaPioneerNo(pioneerAddress_);
     }
 
     // 修改先锋信息，让考核失败的重新进入正常考核状态
