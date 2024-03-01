@@ -290,7 +290,6 @@ contract IntoAppraise is RoleAccess, Initializable {
             weightTotal = city.getChengShiRechargeWeight(chengShiId);
         }
 
-        //        if (pioneerBatch[pioneerAddress_] > 3) {
         uint256 proc1;
         if (filedMonth[pioneerAddress_] > 0) {
             if (failedWeight > pioneerPrePreMonthWeight[pioneerAddress_]) {
@@ -303,9 +302,6 @@ contract IntoAppraise is RoleAccess, Initializable {
                 proc1 = weightTotal - pioneerPreMonthWeight[pioneerAddress_];
             }
         }
-        //        } else { // 一二三期
-        //            return (weightTotal, weightByCityLevel[cityLevel]);
-        //        }
         return (proc1, weightTarget, 0);
     }
 
