@@ -919,7 +919,13 @@ func TriggerAllPioneerTaskTestNet() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	pioneerNumber, err := cityPioneer.GetPioneerNumber(nil)
+	var pioneerNumber *big.Int
+	for {
+		pioneerNumber, err = cityPioneer.GetPioneerNumber(nil)
+		if err == nil && pioneerNumber != nil {
+			break
+		}
+	}
 	fmt.Println(pioneerNumber, "-----", err, pioneerNumber)
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
@@ -928,6 +934,7 @@ func TriggerAllPioneerTaskTestNet() {
 	}
 }
 
+// 0xcD1f731A1529d5F8e8f8cA94dF6092B680C88e2E
 // CityRechargeTotal 获取区县对应的累计充值权重
 func CityRechargeTotal(countyId [32]byte) (error, *big.Int) {
 	err, Cli := Client(CityNodeConfig)

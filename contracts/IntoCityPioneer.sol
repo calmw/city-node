@@ -258,6 +258,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (!exists) {
             pioneers.push(pioneerAddress_);
         }
+        appraise.adminAreaPioneerNo(pioneerAddress_);
     }
 
     // 修改先锋信息，让考核失败的重新进入正常考核状态
@@ -509,7 +510,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             rewardAddress = 0x5db860601869Dad7Eb2961341056b389C3149e5f;
         }
         // 是否是区域先锋
-//        bool isCityPioneer = true;
+        //        bool isCityPioneer = true;
         uint256 pioneerType = appraise.pioneerType(pioneerAddress_);
         //        if (pioneerType == 1) {
         //            isCityPioneer = false;
@@ -528,23 +529,22 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         IntoCity city = IntoCity(cityAddress);
         // pioneers.length
         uint pioneerNumber = appraise.pioneerCountyNo(); // 区域先锋的数量
+        if (pioneerNumber > 0 && pioneerNumber < 1000) {
+            pioneerNumber = 1000;
+        }
         if (pioneerType == 0) {
             // 城市先锋
             pioneerNumber = pioneers.length - pioneerNumber;
-        }
-        //        uint pioneerNumber = city.getPioneerAndCityNodeNumber(); // 城市节点上线后，需要加上城市节点的数量
-        uint256 allDailyFoundsTotal = city.getFifteenDayAverageFounds(); // 全网昨日所有城市新增社交基金
-        uint256 f;
-        if (pioneerNumber == 0) {
-            fundsReward[rewardAddress] += 0;
-        } else {
-            f = (allDailyFoundsTotal * 5) / 100 / pioneerNumber;
-            if (f > 600) {
-                // 社交基金奖励上限600
-                f = 600;
+            if (pioneerNumber > 0 && pioneerNumber < 100) {
+                pioneerNumber = 100;
             }
-            fundsReward[rewardAddress] += f;
         }
+        uint256 allDailyFoundsTotal = city.getFifteenDayAverageFounds(); // 全网昨日所有城市新增社交基金
+        uint256 _fundsReward;
+        if (pioneerNumber > 0) {
+            _fundsReward = (allDailyFoundsTotal * 5) / 100 / pioneerNumber;
+        }
+        fundsReward[rewardAddress] += _fundsReward;
 
         // 社交节点，该城市/区县昨日新增质押量（城市1%/区县0.5%）奖励，不累加
         uint256 yesterdayDelegate = city.getDailyDelegateByChengShiID(
@@ -564,7 +564,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
 
         address pioneerAddress = pioneerAddress_;
 
-        emit DailyRewardRecordV2(pioneerAddress, bonus, f, dailyDelegateReward);
+        emit DailyRewardRecordV2(
+            pioneerAddress,
+            bonus,
+            _fundsReward,
+            dailyDelegateReward
+        );
     }
 
     //     用户提取福利包奖励
@@ -707,7 +712,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         delete pioneerInfo[pioneer];
     }
 
-    function getPioneerType(address pioneerAddress_) public view returns(uint256) {
+    function getPioneerType(
+        address pioneerAddress_
+    ) public view returns (uint256) {
         return appraise.pioneerType(pioneerAddress_);
     }
 }

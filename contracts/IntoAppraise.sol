@@ -97,6 +97,21 @@ contract IntoAppraise is RoleAccess, Initializable {
         }
     }
 
+    function adminAreaPioneerNo(
+        address pioneerAddress_
+    ) public onlyAdmin {
+        bool exist;
+        for (uint i = 0; i < pioneerCounty.length; i++) {
+            if (pioneerCounty[i] == pioneerAddress_) {
+                exist = true;
+            }
+        }
+        if (!exist) {
+            pioneerCounty.push(pioneerAddress_);
+            pioneerCountyNo++;
+        }
+    }
+
     // 第三四批考核,返回（是否考核[可能有数据变更]，考核是否成功，考核月份，考核失败时候的总充值权重）
     function appraiseBeth(
         address pioneerAddress_,
@@ -154,9 +169,9 @@ contract IntoAppraise is RoleAccess, Initializable {
                 // 无需考核
                 return (false, false, 0, 0);
             }
-        } else {
+        } else if (pioneerBatch[pioneerAddress_] == 4) {
             // 第四期用户第一个月都免考核
-            if (daysSinceCreate == 30) {
+            if (daysSinceCreate == 30 || daysSinceCreate == 180) {
                 // 无需考核
                 return (false, false, 0, 0);
             }
@@ -252,40 +267,62 @@ contract IntoAppraise is RoleAccess, Initializable {
             weightTotal = city.getChengShiRechargeWeight(chengShiId);
         }
 
+        uint256 proc1;
         if (filedMonth[pioneerAddress_] > 0) {
-            return (
-                failedWeight - pioneerPrePreMonthWeight[pioneerAddress_],
-                weightTarget
-            );
+            if (failedWeight > pioneerPrePreMonthWeight[pioneerAddress_]) {
+                proc1 =
+                    failedWeight -
+                    pioneerPrePreMonthWeight[pioneerAddress_];
+            }
         } else {
-            return (
-                weightTotal - pioneerPreMonthWeight[pioneerAddress_],
-                weightTarget
-            );
+            if (weightTotal > pioneerPreMonthWeight[pioneerAddress_]) {
+                proc1 = weightTotal - pioneerPreMonthWeight[pioneerAddress_];
+            }
         }
+
+        return (proc1, weightTarget);
     }
 
     // 获取先锋当前的进度，测试用
     function pioneerProcess2(
         address pioneerAddress_
     ) public view returns (uint256, uint256, uint256) {
+        uint256 weightTotal;
+        uint256 weightTarget;
         bytes32 chengShiId = city.pioneerChengShi(pioneerAddress_);
-        //        uint256 cityLevel = city.chengShiLevel(chengShiId);
-        uint256 weightTotal = city.getChengShiRechargeWeight(chengShiId);
+        uint256 cityLevel = city.chengShiLevel(chengShiId);
         uint256 failedWeight = pioneer.failedDelegate(chengShiId);
+        if (pioneerBatch[pioneerAddress_] == 3) {
+            weightTarget = weightByCityLevel[cityLevel];
+        } else if (pioneerBatch[pioneerAddress_] == 4) {
+            // 期数=>（城市/区域节点 =>（等级=>(月份=>业绩值)））
+            weightTarget = weightByAreaLevel[4][pioneerType[pioneerAddress_]][
+                cityLevel
+            ][1];
+        }
+        if (pioneerType[pioneerAddress_] == 1) {
+            weightTotal = city.countyPioneerRechargeTotal(chengShiId);
+        } else {
+            weightTotal = city.getChengShiRechargeWeight(chengShiId);
+        }
 
-        // 根据先锋交保证金时间获取现在第几个月
-        Pioneer memory pioneerInfo = pioneer.pioneerInfo(pioneerAddress_);
-
-        // 当前距离交完保证金的天数
-        uint256 daysSinceCreate = pioneer.getDay() -
-            (pioneerInfo.ctime / pioneer.secondsPerDay());
-
-        return (
-            pioneerType[pioneerAddress_],
-            weightTotal,
-            pioneerBatch[pioneerAddress_]
-        );
+        //        if (pioneerBatch[pioneerAddress_] > 3) {
+        uint256 proc1;
+        if (filedMonth[pioneerAddress_] > 0) {
+            if (failedWeight > pioneerPrePreMonthWeight[pioneerAddress_]) {
+                proc1 =
+                    failedWeight -
+                    pioneerPrePreMonthWeight[pioneerAddress_];
+            }
+        } else {
+            if (weightTotal > pioneerPreMonthWeight[pioneerAddress_]) {
+                proc1 = weightTotal - pioneerPreMonthWeight[pioneerAddress_];
+            }
+        }
+        //        } else { // 一二三期
+        //            return (weightTotal, weightByCityLevel[cityLevel]);
+        //        }
+        return (proc1, weightTarget, 0);
     }
 
     // 删除先锋当前的进度

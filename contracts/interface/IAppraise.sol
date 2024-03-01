@@ -25,5 +25,11 @@ interface IAppraise {
     function pioneerCountyNo() external returns (uint256);
 
     // 获取先锋类型
-    function pioneerType(address pioneerAddress_) external view returns (uint256);
+    function pioneerType(
+        address pioneerAddress_
+    ) external view returns (uint256);
+
+    function adminAreaPioneerNo(
+        address pioneerAddress_
+    )external;
 }
