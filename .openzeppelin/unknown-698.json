@@ -38890,7 +38890,7 @@
             "label": "star",
             "offset": 2,
             "slot": "2",
-            "type": "t_contract(IStar)2512",
+            "type": "t_contract(IStar)6562",
             "contract": "IntoAppraise",
             "src": "contracts/IntoAppraise.sol:11"
           },
@@ -38898,7 +38898,7 @@
             "label": "pioneer",
             "offset": 0,
             "slot": "3",
-            "type": "t_contract(ICityPioneer)2502",
+            "type": "t_contract(ICityPioneer)6474",
             "contract": "IntoAppraise",
             "src": "contracts/IntoAppraise.sol:12"
           },
@@ -38906,7 +38906,7 @@
             "label": "city",
             "offset": 0,
             "slot": "4",
-            "type": "t_contract(ICity)2339",
+            "type": "t_contract(ICity)6311",
             "contract": "IntoAppraise",
             "src": "contracts/IntoAppraise.sol:13"
           },
@@ -39020,15 +39020,15 @@
             "label": "bytes32",
             "numberOfBytes": "32"
           },
-          "t_contract(ICity)2339": {
+          "t_contract(ICity)6311": {
             "label": "contract ICity",
             "numberOfBytes": "20"
           },
-          "t_contract(ICityPioneer)2502": {
+          "t_contract(ICityPioneer)6474": {
             "label": "contract ICityPioneer",
             "numberOfBytes": "20"
           },
-          "t_contract(IStar)2512": {
+          "t_contract(IStar)6562": {
             "label": "contract IStar",
             "numberOfBytes": "20"
           },
@@ -40652,6 +40652,500 @@
               }
             ],
             "numberOfBytes": "224"
+          },
+          "t_struct(Set)509_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "4875dd0c72a0340392f65aaf7096c148b77dbf6d4f85184716b1b5990a8c9be2": {
+      "address": "0x87965f2542083F278615826d7ce0b63e092De15b",
+      "txHash": "0x9ecdca5b5cca1efb8ae17788072a97a493cc5d54516721f60c21b4cf3aab76bb",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_admins",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(AddressSet)824_storage",
+            "contract": "RoleAccess",
+            "src": "contracts/RoleAccess.sol:8"
+          },
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "star",
+            "offset": 2,
+            "slot": "2",
+            "type": "t_contract(IStar)6498",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:11"
+          },
+          {
+            "label": "pioneer",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_contract(ICityPioneer)6410",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:12"
+          },
+          {
+            "label": "city",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_contract(ICity)6247",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:13"
+          },
+          {
+            "label": "pioneerMonthWeight",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:15"
+          },
+          {
+            "label": "pioneerBatch",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:18"
+          },
+          {
+            "label": "weightByCityLevel",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:20"
+          },
+          {
+            "label": "pioneerMonthWeightProcess",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:21"
+          },
+          {
+            "label": "pioneerPreMonthWeight",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:23"
+          },
+          {
+            "label": "filedMonth",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:24"
+          },
+          {
+            "label": "pioneerPrePreMonthWeight",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:26"
+          },
+          {
+            "label": "pioneerType",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:28"
+          },
+          {
+            "label": "pioneerCounty",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:31"
+          },
+          {
+            "label": "pioneerCountyNo",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_uint256",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:32"
+          },
+          {
+            "label": "weightByAreaLevel",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))))",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:37"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_contract(ICity)6247": {
+            "label": "contract ICity",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ICityPioneer)6410": {
+            "label": "contract ICityPioneer",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IStar)6498": {
+            "label": "contract IStar",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(address => mapping(uint256 => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))))": {
+            "label": "mapping(uint256 => mapping(uint256 => mapping(uint256 => mapping(uint256 => uint256))))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_uint256,t_uint256)))": {
+            "label": "mapping(uint256 => mapping(uint256 => mapping(uint256 => uint256)))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(uint256 => mapping(uint256 => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)824_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)509_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_struct(Set)509_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)",
+                "offset": 0,
+                "slot": "1"
+              }
+            ],
+            "numberOfBytes": "64"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        },
+        "namespaces": {}
+      }
+    },
+    "14f33bc738e3c58619cd6a25eae66c9cf475ffec9057daa891b884b3fd0fd5f2": {
+      "address": "0x17508B36f54D5cd09e46BE9a4880927b22Aa545C",
+      "txHash": "0xd3d85b655b38a46718df4a6aa4d84f3c6ebeae5101177884af62e43e9c3b70c2",
+      "layout": {
+        "solcVersion": "0.8.18",
+        "storage": [
+          {
+            "label": "_admins",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_struct(AddressSet)824_storage",
+            "contract": "RoleAccess",
+            "src": "contracts/RoleAccess.sol:8"
+          },
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:63",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "2",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:68"
+          },
+          {
+            "label": "star",
+            "offset": 2,
+            "slot": "2",
+            "type": "t_contract(IStar)2435",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:11"
+          },
+          {
+            "label": "pioneer",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_contract(ICityPioneer)2425",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:12"
+          },
+          {
+            "label": "city",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_contract(ICity)2262",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:13"
+          },
+          {
+            "label": "pioneerMonthWeight",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:15"
+          },
+          {
+            "label": "pioneerBatch",
+            "offset": 0,
+            "slot": "6",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:18"
+          },
+          {
+            "label": "weightByCityLevel",
+            "offset": 0,
+            "slot": "7",
+            "type": "t_mapping(t_uint256,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:20"
+          },
+          {
+            "label": "pioneerMonthWeightProcess",
+            "offset": 0,
+            "slot": "8",
+            "type": "t_mapping(t_address,t_mapping(t_uint256,t_uint256))",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:21"
+          },
+          {
+            "label": "pioneerPreMonthWeight",
+            "offset": 0,
+            "slot": "9",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:23"
+          },
+          {
+            "label": "filedMonth",
+            "offset": 0,
+            "slot": "10",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:24"
+          },
+          {
+            "label": "pioneerPrePreMonthWeight",
+            "offset": 0,
+            "slot": "11",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:26"
+          },
+          {
+            "label": "pioneerType",
+            "offset": 0,
+            "slot": "12",
+            "type": "t_mapping(t_address,t_uint256)",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:28"
+          },
+          {
+            "label": "pioneerCounty",
+            "offset": 0,
+            "slot": "13",
+            "type": "t_array(t_address)dyn_storage",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:31"
+          },
+          {
+            "label": "pioneerCountyNo",
+            "offset": 0,
+            "slot": "14",
+            "type": "t_uint256",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:32"
+          },
+          {
+            "label": "weightByAreaLevel",
+            "offset": 0,
+            "slot": "15",
+            "type": "t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))))",
+            "contract": "IntoAppraise",
+            "src": "contracts/IntoAppraise.sol:37"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]",
+            "numberOfBytes": "32"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]",
+            "numberOfBytes": "32"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_bytes32": {
+            "label": "bytes32",
+            "numberOfBytes": "32"
+          },
+          "t_contract(ICity)2262": {
+            "label": "contract ICity",
+            "numberOfBytes": "20"
+          },
+          "t_contract(ICityPioneer)2425": {
+            "label": "contract ICityPioneer",
+            "numberOfBytes": "20"
+          },
+          "t_contract(IStar)2435": {
+            "label": "contract IStar",
+            "numberOfBytes": "20"
+          },
+          "t_mapping(t_address,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(address => mapping(uint256 => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))))": {
+            "label": "mapping(uint256 => mapping(uint256 => mapping(uint256 => mapping(uint256 => uint256))))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_uint256,t_mapping(t_uint256,t_uint256)))": {
+            "label": "mapping(uint256 => mapping(uint256 => mapping(uint256 => uint256)))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_uint256,t_uint256))": {
+            "label": "mapping(uint256 => mapping(uint256 => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_uint256)": {
+            "label": "mapping(uint256 => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_struct(AddressSet)824_storage": {
+            "label": "struct EnumerableSetUpgradeable.AddressSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)509_storage",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "64"
           },
           "t_struct(Set)509_storage": {
             "label": "struct EnumerableSetUpgradeable.Set",

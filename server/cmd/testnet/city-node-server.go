@@ -40,7 +40,7 @@ func main() {
 
 	//services.ResetYeHui()
 	//services.ResetYuBin()
-	services.ResetJingJing("0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d") // 焦作市先锋 三线
+	//services.ResetJingJing("0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d") // 焦作市先锋 三线
 	//services.ResetJingJing("0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8") // 杭州先锋 二线
 	//services.ResetJingJing("0xc1CfC68d1CD8CE6571ee8ee167b2c80E249bCe32") // 新乡先锋 一线
 	//services.ResetJingJing("0x360C815e8C5F130913113801D0c57611Ee95723A") // 新乡一级县区

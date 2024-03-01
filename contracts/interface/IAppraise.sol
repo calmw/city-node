@@ -29,5 +29,6 @@ interface IAppraise {
         address pioneerAddress_
     ) external view returns (uint256);
 
-    function adminAreaPioneerNo(address pioneerAddress_) external;
+    // 添加先锋地址
+    function addAreaPioneerNo(address pioneerAddress_) external;
 }
