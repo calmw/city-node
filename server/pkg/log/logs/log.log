@@ -23442,3 +23442,6 @@
 {"level":"info","time":"2024-03-01T18:37:16.124+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-03-01T18:51:27.542+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
 {"level":"info","time":"2024-03-01T19:02:30.269+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-01T19:16:49.959+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-01T19:19:20.935+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"error","time":"2024-03-01T19:19:31.887+0800","line":"services/pioneer.go:28","msg":"invalid nonce; got 678022, expected 678024: invalid sequence: invalid sequence","serviceName":"into"}
