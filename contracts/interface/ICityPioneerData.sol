@@ -16,5 +16,8 @@ interface CityPioneerData {
     function clearPioneerSurety(address pioneerAddress_) external;
 
     // 添加考核失败的先锋
-    function addFailedPioneer(address pioneerAddress_) external;
+    function addFailedPioneer(
+        address pioneerAddress_,
+        uint256 pioneerType_
+    ) external;
 }

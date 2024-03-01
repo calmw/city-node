@@ -45,7 +45,7 @@ func main() {
 	//services.ResetJingJing("0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8") // 杭州先锋 二线
 	//services.ResetJingJing("0xc1CfC68d1CD8CE6571ee8ee167b2c80E249bCe32") // 新乡先锋 一线
 	//services.ResetJingJing("0x360C815e8C5F130913113801D0c57611Ee95723A") // 新乡一级县区
-	//services.ResetJingJing("0xcD1f731A1529d5F8e8f8cA94dF6092B680C88e2E") // 新乡原阳，二级区域
+	services.ResetJingJing("0xcD1f731A1529d5F8e8f8cA94dF6092B680C88e2E") // 新乡原阳，二级区域
 	//services.AdminSetRechargeAmountTask()
 	//services.AdminSetDelegateTask()
 	//services.ResetWangPing("0x74bBa41049B40803cBcF97ea6F60d0e064d24B72")

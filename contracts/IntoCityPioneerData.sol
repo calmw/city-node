@@ -30,7 +30,9 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
     mapping(address => uint256) public suretyDepositUSDT; // 先锋已经缴纳的USDT保证金数量
     mapping(address => uint256) public suretyDepositTOX; // 先锋已经缴纳的TOX保证金数量
     mapping(address => bool) public isGlobalNode; // 是否是全球节点。节点地址=>是否是全球节点
-    address[] public failedPioneers; // 考核失败的先锋
+    address[] public failedPioneers; // --------------  上线删除
+    address[] public failedAreaPioneers; // 考核失败的先锋
+    address[] public failedCityPioneers; // 考核失败的先锋
 
     function initialize() public initializer {
         _addAdmin(msg.sender);
@@ -157,15 +159,29 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
         suretyDepositUSDT[pioneerAddress_] = 0;
     }
 
-    function addFailedPioneer(address pioneerAddress_) public onlyAdmin {
+    function addFailedPioneer(
+        address pioneerAddress_,
+        uint256 pioneerType_
+    ) public onlyAdmin {
         bool exist;
-        for (uint i = 0; i < failedPioneers.length; i++) {
-            if (failedPioneers[i] == pioneerAddress_) {
-                exist = true;
+        if (pioneerType_ == 1) {
+            for (uint i = 0; i < failedAreaPioneers.length; i++) {
+                if (failedAreaPioneers[i] == pioneerAddress_) {
+                    exist = true;
+                }
             }
-        }
-        if (!exist) {
-            failedPioneers.push(pioneerAddress_);
+            if (!exist) {
+                failedAreaPioneers.push(pioneerAddress_);
+            }
+        } else {
+            for (uint i = 0; i < failedCityPioneers.length; i++) {
+                if (failedCityPioneers[i] == pioneerAddress_) {
+                    exist = true;
+                }
+            }
+            if (!exist) {
+                failedCityPioneers.push(pioneerAddress_);
+            }
         }
     }
 }
