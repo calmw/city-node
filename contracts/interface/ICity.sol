@@ -9,7 +9,6 @@ interface ICity {
     function getChengShiRechargeWeight(
         bytes32 chengShiId
     ) external view returns (uint256);
-
     // 获取先锋对应城市的等级
     function chengShiLevel(bytes32 chengShiId_) external view returns (uint256);
 

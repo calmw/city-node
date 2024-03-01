@@ -4,6 +4,7 @@ go 1.21.6
 
 require (
 	github.com/360EntSecGroup-Skylar/excelize v1.4.1
+	github.com/360EntSecGroup-Skylar/excelize/v2 v2.4.0
 	github.com/ethereum/go-ethereum v1.13.11
 	github.com/forgoer/openssl v1.6.0
 	github.com/gin-gonic/gin v1.9.1
@@ -21,7 +22,6 @@ require (
 )
 
 require (
-	github.com/360EntSecGroup-Skylar/excelize/v2 v2.4.0 // indirect
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/bits-and-blooms/bitset v1.10.0 // indirect

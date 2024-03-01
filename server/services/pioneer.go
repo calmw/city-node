@@ -93,12 +93,12 @@ func AddPioneerTest() {
 
 func ResetYuBin() {
 	// 玉斌
-	// 0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6
+	// 0x3ebfe141b23e28220361b813ee0fd5b18eb15db214c58d20fa66c0875dbbb281  // 湛江 徐闻县
 	// 0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d
 
 	for {
 		err := RemovePioneer(
-			"0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6",
+			"0x3ebfe141b23e28220361b813ee0fd5b18eb15db214c58d20fa66c0875dbbb281",
 			"0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d",
 		)
 		if err == nil {
@@ -108,7 +108,7 @@ func ResetYuBin() {
 	time.Sleep(time.Second * 2)
 	for {
 		err := AddPioneerBatch4(
-			"0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6",
+			"0x3ebfe141b23e28220361b813ee0fd5b18eb15db214c58d20fa66c0875dbbb281",
 			"0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d",
 			1,
 			10, //5000 6
@@ -156,7 +156,20 @@ func ResetJingJing(pioneer string) {
 	//	0xd35a0ba3b4048cea0b00f3659353645b31affe150409591b8292de2933df2f1f, // 新乡红旗区，区域节点，一级县区
 	//	0x360C815e8C5F130913113801D0c57611Ee95723A,
 	//  0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5  // 新乡，城市节点，一级城市
-	//  0xb3b640E65eA83BC683115348bb63b78470097A30
+	//  0xb3b640E65eA83BC683115348bb63b78470097A30 定位区县 0x64a5b80bf352b0ede5c59ffe909636b4b9dfeb3314717d3edcf260be634d25c5 郑州管城区
+
+	// 焦作市
+	//blockchain.AdminRemovePioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
+	//blockchain.AdminSetPioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
+	// 杭州
+	//blockchain.AdminRemovePioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8")
+	//blockchain.AdminSetPioneer("0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6", "0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8")
+
+	// 新乡
+	//blockchain.AdminRemovePioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0xc1CfC68d1CD8CE6571ee8ee167b2c80E249bCe32")
+
+	// 新乡原阳，二级先锋
+	// 0xcD1f731A1529d5F8e8f8cA94dF6092B680C88e2E 0xe5abc510cd002e604dff20e595f121e073dad93b136574a0cd571f1f407404a8
 
 	if strings.ToLower("0x360C815e8C5F130913113801D0c57611Ee95723A") == strings.ToLower(pioneer) {
 		for {
@@ -206,8 +219,103 @@ func ResetJingJing(pioneer string) {
 				break
 			}
 		}
+	} else if strings.ToLower("0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d",
+				"0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d",
+				"0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d",
+				3,
+				60, //5000 6
+				40, // 1000 3
+				4,
+				0)
+			if err == nil {
+				break
+			}
+		}
+	} else if strings.ToLower("0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6",
+				"0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6",
+				"0x28ddE14d31Bd7025b3Db1FA8eC7C5707E4FFE1e8",
+				2,
+				80, //5000 6
+				60, // 1000 3
+				4,
+				0)
+			if err == nil {
+				break
+			}
+		}
+	} else if strings.ToLower("0xc1CfC68d1CD8CE6571ee8ee167b2c80E249bCe32") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5",
+				"0xc1CfC68d1CD8CE6571ee8ee167b2c80E249bCe32",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5",
+				"0xc1CfC68d1CD8CE6571ee8ee167b2c80E249bCe32",
+				1,
+				100, //5000 6
+				100, // 1000 3
+				4,
+				0)
+			if err == nil {
+				break
+			}
+		}
+	} else if strings.ToLower("0xcD1f731A1529d5F8e8f8cA94dF6092B680C88e2E") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0xe5abc510cd002e604dff20e595f121e073dad93b136574a0cd571f1f407404a8",
+				"0xcD1f731A1529d5F8e8f8cA94dF6092B680C88e2E",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0xe5abc510cd002e604dff20e595f121e073dad93b136574a0cd571f1f407404a8",
+				"0xcD1f731A1529d5F8e8f8cA94dF6092B680C88e2E",
+				2,
+				6, //5000 6
+				3, // 1000 3
+				4,
+				1)
+			if err == nil {
+				break
+			}
+		}
 	}
-
 }
 
 func ResetWangPing(pioneer string) {
