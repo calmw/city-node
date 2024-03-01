@@ -13,7 +13,7 @@ func main() {
 	//services.InitCityPioneer(86400)
 	//services.InitCity(86400)
 	services.InitAppraise()
-	services.InitCityPioneerData()
+	//services.InitCityPioneerData()
 
 	//services.AddPioneerBeth3() // 四期上线前可用，需要更新ABI
 	//services.AddPioneerBeth4()

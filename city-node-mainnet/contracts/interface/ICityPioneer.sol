@@ -92,4 +92,16 @@ interface ICityPioneer {
         address pioneerAddress_,
         bool status_
     ) external;
+
+    // 初始化先锋信息
+    function initPioneer(
+        address pioneerAddress_,
+        bytes32 chengShiId,
+        uint cityLevel
+    ) external;
+
+    // 查询是否是先锋
+    function isPioneer(address user) external view returns (bool);
+
+    function getPioneerType(address pioneerAddress_) external returns (uint256);
 }

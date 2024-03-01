@@ -6,6 +6,10 @@
   "scripts": {
     "prettier": "prettier --write 'contracts/**/*.sol'",
     "build": "npx hardhat compile",
+    "upgrade-cityProxy": "npx hardhat --network match run scripts/city/intoCityProxy.js",
+    "upgrade-cityPioneer": "npx hardhat --network match run scripts/cityPioneer/intoCityPioneerProxy.js",
+    "upgrade-cityPioneerData": "npx hardhat --network match run scripts/cityPioneerData/intoCityPioneerDataProxy.js",
+    "upgrade-appraise": "npx hardhat --network match run scripts/appraise/appraise_proxy.js",
     "debug": "npx hardhat console --network localhost",
     "nodetest": "npx hardhat node",
     "test": "npx hardhat test"
