@@ -144,7 +144,7 @@ contract IntoAppraise is RoleAccess, Initializable {
             return (false, false, 0, 0);
         }
         // 第三批城市先锋，根据星级可以免考核，区域先锋只有第一个月免考核
-        if (pioneerType[pioneerAddress_] == 0) {
+        if (pioneerBatch[pioneerAddress_] == 3) {
             if (
                 (daysSinceCreate == 30 && userStar >= 3) ||
                 (daysSinceCreate == 60 && userStar >= 4) ||
@@ -154,7 +154,8 @@ contract IntoAppraise is RoleAccess, Initializable {
                 // 无需考核
                 return (false, false, 0, 0);
             }
-        } else if (pioneerType[pioneerAddress_] == 1) {
+        } else {
+            // 第四期用户第一个月都免考核
             if (daysSinceCreate == 30) {
                 // 无需考核
                 return (false, false, 0, 0);
@@ -198,6 +199,7 @@ contract IntoAppraise is RoleAccess, Initializable {
             }
             /// 三期考核
         } else {
+            // 四期
             if (
                 pioneerMonthWeight[pioneerAddress_][month_] >=
                 weightByAreaLevel[pioneerBatch_][isChengShi_][areaLevel_][
@@ -237,26 +239,28 @@ contract IntoAppraise is RoleAccess, Initializable {
         uint256 cityLevel = city.chengShiLevel(chengShiId);
         uint256 failedWeight = pioneer.failedDelegate(chengShiId);
         if (pioneerBatch[pioneerAddress_] == 3) {
-            weightTotal = city.getChengShiRechargeWeight(chengShiId);
-        weightTarget=weightByCityLevel[cityLevel];
+            weightTarget = weightByCityLevel[cityLevel];
         } else if (pioneerBatch[pioneerAddress_] == 4) {
-            // 区县先锋的重置权重
-            weightTotal = city.countyPioneerRechargeTotal(chengShiId);
             // 期数=>（城市/区域节点 =>（等级=>(月份=>业绩值)））
-            weightTarget=weightByAreaLevel[4][pioneerType[pioneerAddress_]][cityLevel][1];
+            weightTarget = weightByAreaLevel[4][pioneerType[pioneerAddress_]][
+                cityLevel
+            ][1];
+        }
+        if (pioneerType[pioneerAddress_] == 1) {
+            weightTotal = city.countyPioneerRechargeTotal(chengShiId);
+        } else {
+            weightTotal = city.getChengShiRechargeWeight(chengShiId);
         }
 
         if (filedMonth[pioneerAddress_] > 0) {
             return (
                 failedWeight - pioneerPrePreMonthWeight[pioneerAddress_],
-//                weightByCityLevel[cityLevel]
-            weightTarget
+                weightTarget
             );
         } else {
             return (
                 weightTotal - pioneerPreMonthWeight[pioneerAddress_],
-//                weightByCityLevel[cityLevel]
-            weightTarget
+                weightTarget
             );
         }
     }
@@ -277,7 +281,11 @@ contract IntoAppraise is RoleAccess, Initializable {
         uint256 daysSinceCreate = pioneer.getDay() -
             (pioneerInfo.ctime / pioneer.secondsPerDay());
 
-        return (failedWeight, weightTotal, pioneerBatch[pioneerAddress_]);
+        return (
+            pioneerType[pioneerAddress_],
+            weightTotal,
+            pioneerBatch[pioneerAddress_]
+        );
     }
 
     // 删除先锋当前的进度

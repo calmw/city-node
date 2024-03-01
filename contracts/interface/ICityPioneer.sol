@@ -102,4 +102,6 @@ interface ICityPioneer {
 
     // 查询是否是先锋
     function isPioneer(address user) external view returns (bool);
+
+    function getPioneerType(address pioneerAddress_) external returns (uint256);
 }

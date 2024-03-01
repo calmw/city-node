@@ -244,7 +244,10 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         pioneerInfo[pioneerAddress_].cityLevel = cityLevel;
         failedDelegate[chengShiId] = 0;
         // 将先锋绑定的城市的新增质押量变为0
-        city.initCityRechargeWeight(chengShiId);
+        city.initCityRechargeWeight(
+            chengShiId,
+            appraise.pioneerType(pioneerAddress_)
+        );
         // 更新已交保证金先锋数量
         bool exists;
         for (uint i = 0; i < pioneers.length; i++) {
@@ -506,15 +509,16 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             rewardAddress = 0x5db860601869Dad7Eb2961341056b389C3149e5f;
         }
         // 是否是区域先锋
-        bool isCityPioneer = true;
-        if (appraise.pioneerType(pioneerAddress_) == 1) {
-            isCityPioneer = false;
-        }
+//        bool isCityPioneer = true;
+        uint256 pioneerType = appraise.pioneerType(pioneerAddress_);
+        //        if (pioneerType == 1) {
+        //            isCityPioneer = false;
+        //        }
         ///
 
         // 福利包奖励
         uint bonus = 40000000000000000000;
-        if (isCityPioneer) {
+        if (pioneerType == 0) {
             // 城市先锋
             bonus = 93333333333333333333;
         }
@@ -524,7 +528,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         IntoCity city = IntoCity(cityAddress);
         // pioneers.length
         uint pioneerNumber = appraise.pioneerCountyNo(); // 区域先锋的数量
-        if (isCityPioneer) {
+        if (pioneerType == 0) {
             // 城市先锋
             pioneerNumber = pioneers.length - pioneerNumber;
         }
@@ -534,25 +538,29 @@ contract IntoCityPioneer is RoleAccess, Initializable {
         if (pioneerNumber == 0) {
             fundsReward[rewardAddress] += 0;
         } else {
-            fundsReward[rewardAddress] +=
-                (allDailyFoundsTotal * 5) /
-                100 /
-                pioneerNumber;
             f = (allDailyFoundsTotal * 5) / 100 / pioneerNumber;
+            if (f > 600) {
+                // 社交基金奖励上限600
+                f = 600;
+            }
+            fundsReward[rewardAddress] += f;
         }
 
-        // 该城市/区县昨日新增质押量（城市1%/区县0.5%）奖励，不累加
+        // 社交节点，该城市/区县昨日新增质押量（城市1%/区县0.5%）奖励，不累加
         uint256 yesterdayDelegate = city.getDailyDelegateByChengShiID(
             ChengShiId_,
             yesterday,
-            isCityPioneer
+            pioneerType
         ); // 昨日该城市新增质押权重
 
-        uint dailyDelegateReward = (yesterdayDelegate * 5) / 1000; // 区县先锋
-        if (isCityPioneer) {
+        uint dailyDelegateReward;
+        if (pioneerType == 0) {
             // 城市先锋
-            delegateReward[rewardAddress] += yesterdayDelegate / 100;
+            dailyDelegateReward = yesterdayDelegate / 100;
+        } else {
+            dailyDelegateReward = (yesterdayDelegate * 5) / 1000; // 区县先锋
         }
+        delegateReward[rewardAddress] += dailyDelegateReward;
 
         address pioneerAddress = pioneerAddress_;
 
@@ -697,5 +705,9 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     // 初始化先锋用户
     function delPioneer(address pioneer) public {
         delete pioneerInfo[pioneer];
+    }
+
+    function getPioneerType(address pioneerAddress_) public view returns(uint256) {
+        return appraise.pioneerType(pioneerAddress_);
     }
 }

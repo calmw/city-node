@@ -46,7 +46,7 @@ func InitCity(secondsPerDay int64) {
 	//blockchain.AdminSetPioneer("0x85202e610a59bdbc7559cabd41c28f4ecfe18675575572ac5822ca697df5103d", "0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d")
 
 	// 新乡
-	//blockchain.AdminRemovePioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0x360C815e8C5F130913113801D0c57611Ee95723A")
+	//blockchain.AdminRemovePioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0xc1CfC68d1CD8CE6571ee8ee167b2c80E249bCe32")
 	//blockchain.AdminSetPioneer("0x9882a6038f5037928f8ceabccbbbe73652f94cda789484427957542073dbb2f5", "0x360C815e8C5F130913113801D0c57611Ee95723A", 3)
 
 	// 杭州
@@ -120,8 +120,7 @@ func AdminSetDelegateTask() {
 	inc := randInt * 1000
 	//dec := randInt * 500
 	accounts := []string{
-		"0xCe07c0Df73EE82A1F77b0bD3c6967a7f6a29342B",
-		"0xFAa3e964bB91fc62270DCf3DBfa7Bf9e8239E697",
+		"0x360C815e8C5F130913113801D0c57611Ee95723A",
 	}
 
 	for _, account := range accounts {
@@ -141,9 +140,7 @@ func AdminSetRechargeAmountTask() {
 	//inc := 1000000000
 	accounts := []string{
 		//"0xa75a076c5529b3813f53c9bd24ab1f7da37994fc",
-		"0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d",
-		"0x0151D7707B3D20d8Fcaa9A6448bc42663cF46736",
-		"0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d",
+		"0x360C815e8C5F130913113801D0c57611Ee95723A",
 	}
 
 	for _, account := range accounts {
