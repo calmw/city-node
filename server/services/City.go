@@ -140,7 +140,7 @@ func AdminSetRechargeAmountTask() {
 	//inc := 1000000000
 	accounts := []string{
 		//"0xa75a076c5529b3813f53c9bd24ab1f7da37994fc",
-		"0x360C815e8C5F130913113801D0c57611Ee95723A",
+		"0xA2C100a4C098D3D05Ff8c0AE2CE4Ea93eCe550A8",
 	}
 
 	for _, account := range accounts {

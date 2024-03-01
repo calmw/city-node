@@ -405,7 +405,9 @@ contract IntoCity is RoleAccess, Initializable {
     ) public view returns (uint256) {
         uint256 weight;
         IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-        uint256 pioneerType_ = intoCityPioneer.getPioneerType(chengShiPioneer[chengShiId]);
+        uint256 pioneerType_ = intoCityPioneer.getPioneerType(
+            chengShiPioneer[chengShiId]
+        );
         if (pioneerType_ == 1) {
             // 区域先锋
             weight += countyPioneerRechargeTotal[chengShiId];

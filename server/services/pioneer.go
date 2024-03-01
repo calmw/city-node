@@ -325,6 +325,18 @@ func ResetWangPing(pioneer string) {
 	// 0x4de9096348869d087c953a1b6df5267276b15929bf8c3eedd52332bb946dadda  // 渭南市韩城市（二级区域）
 	// 0x010E293425F6Ad6D498893267C096853603D0d42
 
+	// 0xa4394cA3985598Fff63E9551e81DD4D8602eA68B
+	//0x9181a959c9c4a16284eadf62405b56b5a4cf39ff14f8b9efbe09feeb37d99e25
+	//0xe48baef0767f2198d4a783075148f0d7650294f840652960e9ea74f56c9171a6
+	//
+	//0xA2C100a4C098D3D05Ff8c0AE2CE4Ea93eCe550A8
+	//0xed725125d1de69c4aad9d3efd40a85622632d196a0dbf11935f0fb278aed2057 合肥 蜀山区
+	//0x730ad915d608f40a7cea880f5abc7fe6bb253f903667be02ec00dd3028f7d24a
+	//
+	//0xbF0D360879Cc0AED8479058fbf8f86F510512188
+	//0xdb60dad7d29002a0b4379895f5be941e8b8b9c073ff54d746b28d23b60291cb6 福州 鼓楼区
+	//0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a
+
 	if strings.ToLower("0x010E293425F6Ad6D498893267C096853603D0d42") == strings.ToLower(pioneer) {
 		for {
 			err := RemovePioneer(
@@ -368,6 +380,78 @@ func ResetWangPing(pioneer string) {
 				40, //5000 6
 				60, // 1000 3
 				4,
+				0)
+			if err == nil {
+				break
+			}
+		}
+	} else if strings.ToLower("0xa4394cA3985598Fff63E9551e81DD4D8602eA68B") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0xee72b2ea43e56148d63a0adf23653790ab0e0ab31bc0f8a4326ab9f377ee931a",
+				"0xa4394cA3985598Fff63E9551e81DD4D8602eA68B",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0xee72b2ea43e56148d63a0adf23653790ab0e0ab31bc0f8a4326ab9f377ee931a",
+				"0xa4394cA3985598Fff63E9551e81DD4D8602eA68B",
+				3,
+				40, //5000 6
+				60, // 1000 3
+				1,
+				0)
+			if err == nil {
+				break
+			}
+		}
+	} else if strings.ToLower("0xA2C100a4C098D3D05Ff8c0AE2CE4Ea93eCe550A8") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0x730ad915d608f40a7cea880f5abc7fe6bb253f903667be02ec00dd3028f7d24a",
+				"0xA2C100a4C098D3D05Ff8c0AE2CE4Ea93eCe550A8",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0x730ad915d608f40a7cea880f5abc7fe6bb253f903667be02ec00dd3028f7d24a",
+				"0xA2C100a4C098D3D05Ff8c0AE2CE4Ea93eCe550A8",
+				3,
+				40, //5000 6
+				60, // 1000 3
+				2,
+				0)
+			if err == nil {
+				break
+			}
+		}
+	} else if strings.ToLower("0xbF0D360879Cc0AED8479058fbf8f86F510512188") == strings.ToLower(pioneer) {
+		for {
+			err := RemovePioneer(
+				"0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a",
+				"0xbF0D360879Cc0AED8479058fbf8f86F510512188",
+			)
+			if err == nil {
+				break
+			}
+		}
+		time.Sleep(time.Second * 2)
+		for {
+			err := AddPioneerBatch4(
+				"0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a",
+				"0xbF0D360879Cc0AED8479058fbf8f86F510512188",
+				3,
+				40, //5000 6
+				60, // 1000 3
+				3,
 				0)
 			if err == nil {
 				break
