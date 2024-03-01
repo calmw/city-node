@@ -339,7 +339,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     function checkPioneer(
         bytes32 chengShiId_,
         address pioneerAddress_
-    ) private {
+    ) public {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         IntoCity city = IntoCity(cityAddress);
         uint256 day = getDay() - pioneer.ctime / secondsPerDay;
@@ -476,7 +476,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
     }
 
     // 每日奖励发放
-    function reward(bytes32 ChengShiId_, address pioneerAddress_) private {
+    function reward(bytes32 ChengShiId_, address pioneerAddress_) public {
         Pioneer storage pioneer = pioneerInfo[pioneerAddress_];
         // 考核状态（按月考核）不正常，不发放奖励
         if (!pioneer.assessmentMonthStatus) {
