@@ -164,34 +164,34 @@ func AddPioneerBeth4() {
 	level, _ := strconv.ParseInt(pioneer.AreaLevel, 10, 64)
 	if pioneer.IsAreaNode == 1 {
 		if level == 1 {
-			//suretyTOX = 5000 // 主网
-			//suretyUSDT = 1000
-			suretyTOX = 10 // 测试网
-			suretyUSDT = 5
+			suretyTOX = 5000 // 主网
+			suretyUSDT = 1000
+			//suretyTOX = 10 // 测试网
+			//suretyUSDT = 5
 		} else if level == 2 {
-			//suretyTOX = 3000
-			//suretyUSDT = 600
-			suretyTOX = 6
-			suretyUSDT = 3
+			suretyTOX = 3000
+			suretyUSDT = 600
+			//suretyTOX = 6
+			//suretyUSDT = 3
 		} else {
 			panic("level error")
 		}
 	} else {
 		if level == 1 {
-			//suretyTOX = 100000
-			//suretyUSDT = 10000
-			suretyTOX = 100
-			suretyUSDT = 100
+			suretyTOX = 100000
+			suretyUSDT = 10000
+			//suretyTOX = 100
+			//suretyUSDT = 100
 		} else if level == 2 {
-			//suretyTOX = 60000
-			//suretyUSDT = 8000
-			suretyTOX = 80
-			suretyUSDT = 60
+			suretyTOX = 60000
+			suretyUSDT = 8000
+			//suretyTOX = 80
+			//suretyUSDT = 60
 		} else if level == 3 {
-			//suretyTOX = 40000
-			//suretyUSDT = 6000
-			suretyTOX = 60
-			suretyUSDT = 40
+			suretyTOX = 40000
+			suretyUSDT = 6000
+			//suretyTOX = 60
+			//suretyUSDT = 40
 		} else {
 			panic("level error")
 		}
