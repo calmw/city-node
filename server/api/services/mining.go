@@ -13,6 +13,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/360EntSecGroup-Skylar/excelize/v2"
+	"github.com/calmw/fdb"
 	"github.com/shopspring/decimal"
 	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"gorm.io/gorm"
@@ -90,19 +91,20 @@ type RechargeRecord struct {
 }
 
 type StudioInfo struct {
-	UserName  string `json:"user_name" excel:"column:B;desc:报名人;width:30"`
-	Level     string `json:"level" excel:"column:C;desc:级别;width:30"`
-	User      string `json:"user" excel:"column:D;desc:钱包地址;width:30"`
-	Super     string `json:"super" excel:"column:E;desc:上级领导人;width:30"`
-	Community string `json:"community" excel:"column:F;desc:隶属社区;width:30"`
-	City      string `json:"city" excel:"column:G;desc:城市;width:30"`
-	Address   string `json:"address" excel:"column:H;desc:工作室地址;width:30"`
+	UserName string `json:"user_name" excel:"column:B;desc:报名人;width:30"`
+	Level    string `json:"level" excel:"column:C;desc:级别;width:30"`
+	User     string `json:"user" excel:"column:D;desc:钱包地址;width:30"`
+	Super    string `json:"super" excel:"column:E;desc:上级领导人;width:30"`
+	//Community string `json:"community" excel:"column:F;desc:隶属社区;width:30"`
+	City string `json:"city" excel:"column:F;desc:城市;width:30"`
+	//Address   string `json:"address" excel:"column:H;desc:工作室地址;width:30"`
 	//ApplyTime      string `json:"apply_time" excel:"column:I;desc:申请日期;width:30"`
 	//AuditeTime     string `json:"audite_time" excel:"column:J;desc:审核日期;width:30"`
 	//AuditeContent  string `json:"audite_content" excel:"column:K;desc:审核内容;width:30"`
 	//ApprovedTime   string `json:"approved_time" excel:"column:L;desc:审核通过日期;width:30"`
-	CountTime      []int  `json:"count_time" excel:"column:I;desc:业绩计算起止时间;width:30"`
-	RechargeWeight string `json:"recharge_weight" excel:"column:J;desc:充值权重;width:30"`
+	CountTime      []int  `json:"count_time"`
+	Time           string `json:"time" excel:"column:G;desc:业绩计算起止时间;width:30"`
+	RechargeWeight string `json:"recharge_weight" excel:"column:H;desc:充值权重;width:30"`
 }
 
 type StudioUserInfo struct {
@@ -233,16 +235,15 @@ func (c *Mining) LedgerDetails(req *request.LedgerDetails) (int, []Ledger, decim
 	}
 	/// 查指定网体数据
 	// 查询下级用户缓存
-	yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
-	cacheKey := "LedgerDetails-" + yesterday + req.User
-	ok, data := utils.EventCache.Get(cacheKey)
-	if !ok {
+	cacheKey := fmt.Sprintf("team-data-%s", strings.ToLower(req.User))
+	data, err := db.FDB.Get([]byte(cacheKey))
+	if err != nil {
 		// 异步拉取数据
 		SyncChain <- req.User
 		return statecode.SyncingData, result, decimalZero, decimalZero, decimalZero, decimalZero
 	}
 	var sons Sons
-	err := json.Unmarshal(data, &sons)
+	err = json.Unmarshal(data, &sons)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return statecode.CommonErrServerErr, result, decimalZero, decimalZero, decimalZero, decimalZero
@@ -532,16 +533,16 @@ func (c *Mining) Ledger(req *request.LedgerDetails) (int, []LedgerSum, decimal.D
 	}
 	/// 查指定网体数据
 	// 查询下级用户缓存
-	yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
-	cacheKey := "LedgerDetails-" + yesterday + req.User
-	ok, data := utils.EventCache.Get(cacheKey)
-	if !ok {
+	cacheKey := fmt.Sprintf("team-data-%s", strings.ToLower(req.User))
+
+	data, err := db.FDB.Get([]byte(cacheKey))
+	if errors.Is(err, fdb.ErrKeyNotFound) {
 		// 异步拉取数据
 		SyncChain <- req.User
 		return statecode.SyncingData, result, decimalZero, decimalZero, decimalZero, decimalZero
 	}
 	var sons Sons
-	err := json.Unmarshal(data, &sons)
+	err = json.Unmarshal(data, &sons)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return statecode.CommonErrServerErr, result, decimalZero, decimalZero, decimalZero, decimalZero
@@ -711,16 +712,15 @@ func (c *Mining) RechargeSum(req *request.RechargeSum) (int, []Recharge) {
 	}
 	/// 查指定网体数据
 	// 查询下级用户缓存
-	yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
-	cacheKey := "LedgerDetails-" + yesterday + req.User
-	ok, data := utils.EventCache.Get(cacheKey)
-	if !ok {
+	cacheKey := fmt.Sprintf("team-data-%s", strings.ToLower(req.User))
+	data, err := db.FDB.Get([]byte(cacheKey))
+	if errors.Is(err, fdb.ErrKeyIsEmpty) {
 		// 异步拉取数据
 		SyncChain <- req.User
 		return statecode.SyncingData, result
 	}
 	var sons Sons
-	err := json.Unmarshal(data, &sons)
+	err = json.Unmarshal(data, &sons)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return statecode.CommonErrServerErr, result
@@ -771,7 +771,7 @@ func (c *Mining) RechargeSum(req *request.RechargeSum) (int, []Recharge) {
 // RechargeSumInCity 查询此用户所在城市的网体业绩，网体不在这个城市的不做計算
 func (c *Mining) RechargeSumInCity() int {
 
-	ReadExcel("./assets/工作室申请统计表(审核3月1日).xlsx")
+	ReadExcel("./assets/工作室申请统计表.xlsx")
 
 	return statecode.CommonSuccess
 }
@@ -781,7 +781,7 @@ func (c *Mining) SyncUserData() int {
 
 	//ReadExcel("./assets/INTO工作室补贴业绩查询1.31.xlsx")
 	//SyncStatus("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx")
-	SyncStatus("./assets/工作室申请统计表(审核3月1日).xlsx")
+	SyncStatus("./assets/工作室申请统计表.xlsx")
 
 	return statecode.CommonSuccess
 }
@@ -806,14 +806,13 @@ func ReadExcel(excelFile string) int {
 			if j == 1 {
 				studioInfo.UserName = colCell
 			} else if j == 2 {
-				studioInfo.Level = colCell
-			} else if j == 3 {
+				fmt.Println(colCell)
 				studioInfo.User = strings.ToLower(colCell)
-			} else if j == 4 {
+			} else if j == 3 {
+				fmt.Println(colCell)
 				studioInfo.Super = colCell
-			} else if j == 5 {
-				//	studioInfo.Community = colCell
-				//} else if j == 6 {
+			} else if j == 4 {
+				fmt.Println(colCell)
 				studioInfo.City = colCell
 			} else if j == 9 {
 				fmt.Println(colCell)
@@ -824,6 +823,7 @@ func ReadExcel(excelFile string) int {
 				month, _ := strconv.Atoi(dateSlice[0])
 				day, _ := strconv.Atoi(dateSlice[1])
 				studioInfo.CountTime = []int{month, day}
+				studioInfo.Time = fmt.Sprintf("%d/%d-%d/%d", month, day, 2, 29)
 			}
 		}
 		studioInfos = append(studioInfos, studioInfo)
@@ -842,10 +842,9 @@ func ReadExcel(excelFile string) int {
 
 		// 查询下级用户缓存
 		userAddress := studioInfo.User
-		yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
-		cacheKey := "LedgerDetails-" + yesterday + userAddress
-		ok, data := utils.EventCache.Get(cacheKey)
-		if !ok {
+		cacheKey := fmt.Sprintf("team-data-%s", strings.ToLower(userAddress))
+		data, err := db.FDB.Get([]byte(cacheKey))
+		if errors.Is(err, fdb.ErrKeyNotFound) {
 			log.Logger.Error("异步拉取数据")
 			return statecode.SyncingData
 		}
@@ -903,7 +902,7 @@ func ReadExcel(excelFile string) int {
 			studioInfo.UserName,
 			studioInfo.City,
 			fmt.Sprintf("%d-%02d-%02d", 2024, studioInfo.CountTime[0], studioInfo.CountTime[1]),
-			"2024-02-01",
+			"2024-02-29",
 			studioInfo.User,
 			studioInfo.RechargeWeight,
 		)
@@ -911,7 +910,7 @@ func ReadExcel(excelFile string) int {
 	}
 
 	f = xjexcel.ListToExcel(result, "团队充值", "详情")
-	fileName := fmt.Sprintf("./工作室充值权重2.xlsx")
+	fileName := fmt.Sprintf("./工作室充值权重.xlsx")
 	f.SaveAs(fileName)
 
 	return statecode.CommonSuccess
@@ -919,63 +918,27 @@ func ReadExcel(excelFile string) int {
 
 func GetWeight(user, cityId, userName string, countTime []int) (error, decimal.Decimal, bool) {
 	inCity := false
-	key := fmt.Sprintf("%s-%s", user, cityId)
-	var val string
-	valBytes, err := db.LevelDb.Get([]byte(key), nil)
+	///
+	keyUser := fmt.Sprintf("location-%s", strings.ToLower(user))
+	locationRecordBytes, err := db.FDB.Get([]byte(keyUser))
 	if err != nil {
-		userLocation := models2.UserLocation{}
-		err = db.Mysql.Model(models2.UserLocation{}).Where("user=?", user).First(&userLocation).Error
-		if err == nil {
-			key = fmt.Sprintf("%s-%s", user, cityId)
-			if userLocation.CityId == cityId {
-				inCity = true
-				val = "1"
-				err = db.LevelDb.Put([]byte(key), []byte(val), nil)
-				if err != nil {
-					log.Logger.Sugar().Error("LevelDb.Put error:", err)
-				}
-				db.LevelDb.Put([]byte(fmt.Sprintf("%s_city", user)), []byte(userLocation.Location), nil)
-			} else {
-				val = "2"
-				err = db.LevelDb.Put([]byte(key), []byte(val), nil)
-				if err != nil {
-					log.Logger.Sugar().Error("LevelDb.Put error:", err)
-				}
-				log.Logger.Sugar().Error(err)
-				return err, decimal.Zero, inCity
-			}
-		} else if errors.Is(err, gorm.ErrRecordNotFound) {
-			val = "3" // 用户未定位，下次统计重新查询
-			err = db.LevelDb.Put([]byte(key), []byte(val), nil)
-			if err != nil {
-				log.Logger.Sugar().Error("LevelDb.Put error:", err)
-			}
-			return err, decimal.Zero, inCity
-		} else {
-			log.Logger.Sugar().Error(err)
-			return err, decimal.Zero, inCity
-		}
+		return err, decimal.Zero, inCity
 	}
-	if string(valBytes) == "1" {
+	var locationRecord models2.UserLocation
+	err = json.Unmarshal(locationRecordBytes, &locationRecord)
+	if err != nil {
+		return err, decimal.Zero, inCity
+	}
+	if locationRecord.CityId == cityId {
 		inCity = true
 	}
-	// 每次统计打开一次，用户定位数据会更新
-	//if string(valBytes) == "3" {
-	//	InCity(user, cityId)
-	//}
+	///
 	if !inCity {
 		return err, decimal.Zero, inCity
 	}
 
-	// 获取该用户网体充值权重，审核通过后到12月31日的充值权重
-	//countTimeSlice := strings.Split(countTime, "-")
-	//date := strings.Replace(countTimeSlice[0], "月", "-", -1)
-	//date = strings.Replace(date, "日", "", -1)
-	//dateSlice := strings.Split(date, "-")
-	//month, _ := strconv.Atoi(dateSlice[0])
-	//day, _ := strconv.Atoi(dateSlice[1])
-	err, d := GetRechargeWeight(user, fmt.Sprintf("%d-%02d-%02d 00:00:00", 2024, countTime[0], countTime[1]), "2024-01-31 00:00:00")
-	//err, d := GetRechargeWeightFromDb(user, fmt.Sprintf("%s-%s-%s 00:00:00", countTimeSlice[0], countTimeSlice[1], countTimeSlice[2]), "2024-01-01 00:00:00")
+	// 获取该用户网体充值权重，审核通过后到2月29日的充值权重
+	err, d := GetRechargeWeight(user, fmt.Sprintf("%d-%02d-%02d 00:00:00", 2024, countTime[0], countTime[1]), "2024-03-01 00:00:00")
 	if err != nil {
 		log.Logger.Sugar().Debugf("工作室：%s，是否在绑定城市：%v,下级：%s,获取权重错误：%v", userName, inCity, user, err)
 		return err, decimal.Zero, inCity
@@ -1099,7 +1062,7 @@ func SyncStatus(excelFile string) {
 	// 取得 Sheet1 表格中所有的行
 	rows, err := f.GetRows("Sheet1")
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println(err, 2222)
 		return
 	}
 	for i, row := range rows {
@@ -1107,7 +1070,7 @@ func SyncStatus(excelFile string) {
 			continue
 		}
 		for j, colCell := range row {
-			if j == 5 {
+			if j == 4 {
 				fmt.Println(colCell)
 				var location models2.UserLocation
 				where := "location like '%" + colCell + "%'"
@@ -1118,17 +1081,21 @@ func SyncStatus(excelFile string) {
 				}
 			}
 
-			if j == 3 {
+			if j == 2 {
 				// 查询下级用户缓存
 				userAddress := strings.ToLower(colCell)
-				yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
-				cacheKey := "LedgerDetails-" + yesterday + userAddress
-				ok, _ := utils.EventCache.Get(cacheKey)
-				if !ok {
-					// 异步拉取数据
-					SyncChain <- userAddress
-					fmt.Println("异步拉取数据", i)
-					continue
+				cacheKey := fmt.Sprintf("team-data-%s", strings.ToLower(userAddress))
+				_, err = db.FDB.Get([]byte(cacheKey))
+				if err != nil {
+					if errors.Is(err, fdb.ErrKeyNotFound) {
+						// 异步拉取数据
+						SyncChain <- userAddress
+						fmt.Println("异步拉取数据", i)
+						continue
+					} else {
+						fmt.Println(err)
+						return
+					}
 				}
 			}
 		}

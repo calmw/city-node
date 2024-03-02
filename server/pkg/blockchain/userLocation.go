@@ -439,14 +439,14 @@ func RestoreUserLocation(user string) error {
 		code = append(code, "0")
 	}
 	if len(code) < 3 {
-		log.Logger.Sugar().Warnln("用户位置加密信息解析错误", user, locationCode, locationEncrypt, code)
+		log.Logger.Sugar().Warn("用户位置加密信息解析错误", user, locationCode, locationEncrypt, code)
 		return errors.New("用户位置加密信息解析错误")
 	}
 	// 国外用户
 	codeSecond := code[1]
 	codeSecondSlice := strings.Split(codeSecond, "")
 	if code[0] != "0" && codeSecondSlice[0] != "0" {
-		log.Logger.Sugar().Warnln("国外用户位置信息", user, locationCode, locationEncrypt, code)
+		log.Logger.Sugar().Warn("国外用户位置信息", user, locationCode, locationEncrypt, code)
 		code[2] = "0"
 	}
 	// 容错，国内城市code首位是0的情况
@@ -546,14 +546,14 @@ func ReSaveUserLocation() {
 			code = append(code, "0")
 		}
 		if len(code) < 3 {
-			log.Logger.Sugar().Warnln("用户位置加密信息解析错误", code)
+			log.Logger.Sugar().Warn("用户位置加密信息解析错误", code)
 			return
 		}
 		// 国外用户
 		codeSecond := code[1]
 		codeSecondSlice := strings.Split(codeSecond, "")
 		if code[0] != "0" && codeSecondSlice[0] != "0" {
-			log.Logger.Sugar().Warnln("国外用户位置信息", code)
+			log.Logger.Sugar().Warn("国外用户位置信息", code)
 			code[2] = "0"
 		}
 		// 容错，国内城市code首位是0的情况
@@ -781,7 +781,7 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 			code = append(code, "0")
 		}
 		if len(code) < 3 {
-			log.Logger.Sugar().Warnln("用户位置加密信息解析错误", userAddress.String(), locationCode, locationEncrypt, code)
+			log.Logger.Sugar().Warn("用户位置加密信息解析错误", userAddress.String(), locationCode, locationEncrypt, code)
 			continue
 		}
 		//if code[0] != "0" {
@@ -792,7 +792,7 @@ func GetUserLocationRecordEvent(Cli *ethclient.Client, startBlock, endBlock int6
 		codeSecond := code[1]
 		codeSecondSlice := strings.Split(codeSecond, "")
 		if code[0] != "0" && codeSecondSlice[0] != "0" {
-			log.Logger.Sugar().Warnln("国外用户位置信息", userAddress.String(), locationCode, locationEncrypt, code)
+			log.Logger.Sugar().Warn("国外用户位置信息", userAddress.String(), locationCode, locationEncrypt, code)
 			code[2] = "0"
 		}
 		// 容错，国内城市code首位是0的情况

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
 	"city-node-server/services"
 )
@@ -12,11 +13,13 @@ func main() {
 	//services.InitUserLocation()
 	//services.InitCityPioneer(86400)
 	//services.InitCity(86400)
-	services.InitAppraise()
+	//services.InitAppraise()
 	//services.InitCityPioneerData()
 
 	//services.AddPioneerBeth3() // 四期上线前可用，需要更新ABI
 	//services.AddPioneerBeth4()
+
+	blockchain.TriggerAllPioneerTask()
 
 	// 获取一二期用户最近三个月重置权重详情
 	//pioneers := []string{
@@ -39,5 +42,15 @@ func main() {
 	//services.CheckPioneer3("./assets/城市先锋-用户信息.xlsx") // 设置先锋批次
 	//services.CheckPioneer2("./assets/城市先锋-用户信息.xlsx", "./assets/副本城市节点汇总11.26.2.xlsx") // 确认用户是否交保证金
 	//services.CheckLocation("./assets/越南2.xlsx") // 查看位置是否存在,把县城映射到省（越南等国家）
+
+	//err := services.AddPioneerBatch4(
+	//	"0x4de9096348869d087c953a1b6df5267276b15929bf8c3eedd52332bb946dadda",
+	//	"0x62C6490dE592F439092eac4567f74e1622c9C9C9",
+	//	2,
+	//	3000, //5000 6
+	//	600,  // 1000 3
+	//	4,
+	//	1)
+	//fmt.Println(err)
 
 }

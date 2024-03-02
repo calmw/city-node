@@ -1,12 +1,14 @@
 package services
 
 import (
-	utils2 "city-node-server/api/utils"
+	"city-node-server/pkg/db"
 	"city-node-server/pkg/log"
+	"city-node-server/pkg/models"
 	"city-node-server/pkg/utils"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -16,6 +18,7 @@ var SyncChain = make(chan string, 1000)
 func GetUserSons(user string) error {
 	// 获取下级数据
 	url := fmt.Sprintf("https://subg-api.intoverse.co/api/v1/wallet/relations?wallet_address=%s", user)
+	fmt.Println(url)
 	err, data := utils.GetWithHeader(url, map[string]string{})
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -24,7 +27,7 @@ func GetUserSons(user string) error {
 	var sons Sons
 	err = json.Unmarshal(data, &sons)
 	if err != nil {
-		log.Logger.Sugar().Infof(string(data))
+		log.Logger.Sugar().Infof(user, string(data))
 		log.Logger.Sugar().Error(err)
 		return err
 	}
@@ -32,10 +35,14 @@ func GetUserSons(user string) error {
 		log.Logger.Sugar().Error(err)
 		return errors.New("获取数据失败")
 	}
-	// 存入缓存
-	yesterday := time.Now().Add(-time.Hour * 24).Format("2006-01-02")
-	cacheKey := "LedgerDetails-" + yesterday + user
-	utils2.EventCache.Set(cacheKey, data, 86405)
+	// 存入fdb
+	cacheKey := fmt.Sprintf("team-data-%s", strings.ToLower(user))
+	err = db.FDB.Set([]byte(cacheKey), time.Second*86400, data)
+	if err != nil {
+		log.Logger.Sugar().Error("获取team数据error：", err)
+		return err
+	}
+	log.Logger.Sugar().Debug("获取team数成功")
 	return nil
 }
 
@@ -66,5 +73,32 @@ func InitSyncTask() {
 				return
 			}
 		}
+	}
+}
+
+// SyncUserLocationToDb 位置数据同步到本地
+func SyncUserLocationToDb() {
+	i := 0
+	for {
+		var userLocations []models.UserLocation
+		offset := i * 1000
+		db.Mysql.Model(&models.UserLocation{}).Where("id>?", offset).Order("id asc").Limit(1000).Find(&userLocations)
+		if len(userLocations) == 0 {
+			break
+		}
+
+		for _, location := range userLocations {
+			locationBytes, err := json.Marshal(location)
+			if err != nil {
+				panic(err)
+			}
+
+			key := fmt.Sprintf("location-%s", strings.ToLower(location.User))
+			err = db.FDB.Set([]byte(key), 0, locationBytes)
+			if err != nil {
+				panic(err)
+			}
+		}
+		i++
 	}
 }

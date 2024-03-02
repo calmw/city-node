@@ -4,7 +4,6 @@ import (
 	"city-node-server/api/middlewares"
 	"city-node-server/api/routes"
 	"city-node-server/api/services"
-	"city-node-server/api/utils"
 	"city-node-server/api/validate"
 	"city-node-server/pkg/db"
 	"github.com/gin-gonic/gin"
@@ -18,8 +17,14 @@ func main() {
 	// init level db
 	db.InitLevelDb()
 
+	// init fdb
+	db.InitFdb()
+
+	services.SyncUserLocationToDb()
+	//return
+
 	// init cache
-	go utils.InitCache()
+	//go utils.InitCache()
 
 	go services.InitSyncTask()
 
