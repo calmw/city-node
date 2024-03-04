@@ -608,7 +608,6 @@ func CheckPioneer3(excelFile string) {
 				//if colCell != "1" {
 				//	continue
 				//}
-				//fmt.Println("该先锋批次", i, colCell)
 				//// AdminSetPioneerBatch 管理员设置先锋批次
 				//fmt.Println(pioneerAddress, utils.StringToInt64(colCell))
 				//for i := 0; i < 20; i++ {
@@ -620,13 +619,14 @@ func CheckPioneer3(excelFile string) {
 				//}
 
 				err, beath := appraise.PioneerBatch(pioneerAddress)
+				fmt.Println("该先锋批次", i, err, colCell, beath)
 
-				if beath != utils.StringToInt64(colCell) {
-					fmt.Println("++++++++++++++++++++++ 错误", err)
-				} else {
-					fmt.Println("正确", err, beath, "--", i, colCell)
-
-				}
+				//if beath != utils.StringToInt64(colCell) {
+				//	fmt.Println("++++++++++++++++++++++ 错误", err)
+				//} else {
+				//	fmt.Println("正确", err, beath, "--", i, colCell)
+				//
+				//}
 
 				//cityPioneer := blockchain2.NewCityPioneer()
 				//err, pioneerInfo := cityPioneer.PioneerInfo(pioneerAddress)

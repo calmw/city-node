@@ -1,6 +1,7 @@
 package main
 
 import (
+	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/utils"
 	"fmt"
 )
@@ -85,7 +86,7 @@ func main() {
 	/// 先锋计划定时任务
 	//db.InitMysql()
 	//services.InitMainNet()
-	//blockchain.TriggerAllPioneerTask()
+	blockchain.TriggerAllPioneerTask()
 	//ticker := time.NewTicker(time.Hour)
 	//for {
 	//	<-ticker.C
