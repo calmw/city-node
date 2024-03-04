@@ -20,9 +20,6 @@ func main() {
 	// init fdb
 	db.InitFdb()
 
-	services.SyncUserLocationToDb()
-	//return
-
 	// init cache
 	//go utils.InitCache()
 

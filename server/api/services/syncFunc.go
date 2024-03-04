@@ -3,12 +3,10 @@ package services
 import (
 	"city-node-server/pkg/db"
 	"city-node-server/pkg/log"
-	"city-node-server/pkg/models"
 	"city-node-server/pkg/utils"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"strings"
 	"time"
 )
 
@@ -36,7 +34,7 @@ func GetUserSons(user string) error {
 		return errors.New("获取数据失败")
 	}
 	// 存入fdb
-	cacheKey := fmt.Sprintf("team-data-%s", strings.ToLower(user))
+	cacheKey := "team-data" + user
 	err = db.FDB.Set([]byte(cacheKey), time.Second*86400, data)
 	if err != nil {
 		log.Logger.Sugar().Error("获取team数据error：", err)
@@ -73,32 +71,5 @@ func InitSyncTask() {
 				return
 			}
 		}
-	}
-}
-
-// SyncUserLocationToDb 位置数据同步到本地
-func SyncUserLocationToDb() {
-	i := 0
-	for {
-		var userLocations []models.UserLocation
-		offset := i * 1000
-		db.Mysql.Model(&models.UserLocation{}).Where("id>?", offset).Order("id asc").Limit(1000).Find(&userLocations)
-		if len(userLocations) == 0 {
-			break
-		}
-
-		for _, location := range userLocations {
-			locationBytes, err := json.Marshal(location)
-			if err != nil {
-				panic(err)
-			}
-
-			key := fmt.Sprintf("location-%s", strings.ToLower(location.User))
-			err = db.FDB.Set([]byte(key), 0, locationBytes)
-			if err != nil {
-				panic(err)
-			}
-		}
-		i++
 	}
 }
