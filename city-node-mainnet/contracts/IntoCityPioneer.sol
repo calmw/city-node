@@ -523,7 +523,7 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             }
             pioneerNumber -= cityPioneerData.getFailedCityPioneerNo();
         } else {
-            pioneerNumber = 1000;
+            pioneerNumber = 2000;
             uint256 areaNum = appraise.pioneerCountyNo();
             if (areaNum > pioneerNumber) {
                 pioneerNumber = areaNum;
