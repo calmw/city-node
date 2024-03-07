@@ -58,7 +58,7 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => mapping(uint256 => uint256)) public cityFoundsRecord;
     // 区县ID/城市ID => (天=>质押量）,新增质押量
     mapping(bytes32 => mapping(uint256 => uint256))
-    public cityNewlyDelegateRecord;
+        public cityNewlyDelegateRecord;
     // 区县ID/城市ID => 质押 ,区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
     mapping(bytes32 => uint256) public cityDelegateTotal; // 上线删除
     // 所有区县先锋所绑定区县新增质押量（只用于区县先锋）的累计值
@@ -95,7 +95,7 @@ contract IntoCity is RoleAccess, Initializable {
     address public foundsAddress;
     //  城市ID=>(天=>当天累计充值)   充值权重
     mapping(bytes32 => mapping(uint256 => uint256))
-    public rechargeDailyWeightRecord;
+        public rechargeDailyWeightRecord;
     //  天=>累计充值)   充值权重
     mapping(uint256 => uint256) public rechargeDailyWeight;
     //  全部累计充值权重
@@ -104,10 +104,10 @@ contract IntoCity is RoleAccess, Initializable {
     mapping(bytes32 => uint256) public cityOrChengShiWeightTotal; // 废弃
     // 区县ID => (天=>质押量）,新增质押量，不算减去的
     mapping(bytes32 => mapping(uint256 => uint256))
-    public countyNewlyPioneerDelegateRecord;
+        public countyNewlyPioneerDelegateRecord;
     //  城市ID=>(天=>当天到之前累计充值)   充值权重
     mapping(bytes32 => mapping(uint256 => uint256))
-    public rechargeDailyTotalWeightRecord;
+        public rechargeDailyTotalWeightRecord;
     //  城市先锋地址=>需要补加的充值权重
     mapping(address => uint256) public rechargeWeightAdditional;
     //  城市先锋地址=>状态(true 停止定时任务)
@@ -118,6 +118,12 @@ contract IntoCity is RoleAccess, Initializable {
     address public withdrawLimitAddress; // 是否在小黑屋合约
     // 区县ID => 质押 ,区县先锋所绑定区县新增充值权重（只用于区县先锋）的累计值
     mapping(bytes32 => uint256) public countyPioneerRechargeTotal;
+    // 区域ID=>(天=>质押量)
+    mapping(bytes32 => mapping(uint256 => uint256))
+        public countyPioneerDelegateDesc; // 区域先锋，初始化时候，需要减去的数量；记录交保证金的时刻该区县的质押量（按天），该区县质押量在第二天统计的时候，统计初始化那天的质押量；所以第二天的质押量等于第一天总的质押量-记录交保证金的时刻该区县的质押量
+    // 区域ID=>(天=>质押量是否为0)
+    mapping(bytes32 => mapping(uint256 => bool))
+        public countyPioneerDelegateZero; // 记录区域节点，刚加完保证金的前一天，质押权重设置为0
 
     //        function initialize() public initializer {
     //            _addAdmin(msg.sender);
@@ -185,8 +191,8 @@ contract IntoCity is RoleAccess, Initializable {
         address oldPioneerAddress_
     ) public {
         pioneerChengShi[newPioneerAddress_] = pioneerChengShi[
-                    oldPioneerAddress_
-            ];
+            oldPioneerAddress_
+        ];
     }
 
     function pioneerChengShiIdExits(
@@ -215,7 +221,7 @@ contract IntoCity is RoleAccess, Initializable {
             if (pioneerChengShiIds[i] == chengShiId_) {
                 pioneerChengShiIds[i] = pioneerChengShiIds[
                     pioneerChengShiIds.length - 1
-                    ];
+                ];
                 pioneerChengShiIds.pop();
             }
         }
@@ -378,7 +384,26 @@ contract IntoCity is RoleAccess, Initializable {
     ) public view returns (uint256) {
         uint256 total;
         if (pioneerType == 1) {
-            total += countyNewlyPioneerDelegateRecord[chengShiId_][day]; // 这里的chengShiId_就是区县ID
+            // 新的区域先锋，第一天查前一天质押量，要返回0
+            if (countyPioneerDelegateZero[chengShiId_][day]) {
+                return total;
+            }
+
+            // 新的区域先锋，第二天查要减去前一天初始化之前的质押量
+            uint256 delegateDesc = countyPioneerDelegateDesc[chengShiId_][day];
+
+            if (delegateDesc > 0) {
+                if (
+                    delegateDesc <=
+                    countyNewlyPioneerDelegateRecord[chengShiId_][day]
+                ) {
+                    total +=
+                        countyNewlyPioneerDelegateRecord[chengShiId_][day] -
+                        delegateDesc;
+                }
+            } else {
+                total += countyNewlyPioneerDelegateRecord[chengShiId_][day]; // 这里的chengShiId_就是区县ID
+            }
         } else {
             IntoUserLocation intoUserLocation = IntoUserLocation(
                 userLocationAddress
@@ -519,6 +544,10 @@ contract IntoCity is RoleAccess, Initializable {
     ) public onlyAdmin {
         if (pioneerType_ == 1) {
             countyPioneerRechargeTotal[chengShiId_] = 0; // 初始化区域先锋的充值权重
+            countyPioneerDelegateDesc[chengShiId_][
+                getDay()
+            ] = countyNewlyPioneerDelegateRecord[chengShiId_][getDay()];
+            countyPioneerDelegateZero[chengShiId_][getDay() - 1] = true;
         } else {
             // 初始化城市先锋的充值权重
             IntoUserLocation intoUserLocation = IntoUserLocation(
