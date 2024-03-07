@@ -9,8 +9,8 @@ import (
 )
 
 func InitMainNet() {
-	key := os.Getenv("META_ACCOUNT")
-	//key := os.Getenv("HUZHI")
+	//key := os.Getenv("META_ACCOUNT")
+	key := os.Getenv("HUZHI")
 	var config models.Config
 	err := db.Mysql.Model(models.Config{}).Where("id=1").First(&config).Error
 	if err != nil {

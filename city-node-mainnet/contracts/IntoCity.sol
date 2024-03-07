@@ -518,7 +518,9 @@ contract IntoCity is RoleAccess, Initializable {
         uint256 pioneerType_
     ) public onlyAdmin {
         if (pioneerType_ == 1) {
-            countyPioneerRechargeTotal[chengShiId_] = 0; // 初始化区域先锋的充值权重
+            countyPioneerRechargeTotal[chengShiId_] = 0; // 初始化区域先锋总的的充值权重
+            countyNewlyPioneerDelegateRecord[chengShiId_][getDay()-1] = 0; // 初始化区域昨天的充值权重
+            countyNewlyPioneerDelegateRecord[chengShiId_][getDay()] = 0; // 初始化区域今天的充值权重
         } else {
             // 初始化城市先锋的充值权重
             IntoUserLocation intoUserLocation = IntoUserLocation(
