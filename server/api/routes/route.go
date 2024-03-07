@@ -31,5 +31,9 @@ func InitRoute(e *gin.Engine) *gin.Engine {
 	v1Group.GET("/syncUserData", miningController.SyncUserData)           // 城市团队充值汇总
 	v1Group.GET("/rechargeSumInCity", miningController.RechargeSumInCity) // 城市团队充值汇总
 
+	// 测试
+	testController := controllers.TestController{}
+	v1Group.GET("/test/user", testController.Account) // 城市团队充值汇总
+
 	return e
 }
