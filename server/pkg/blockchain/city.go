@@ -537,7 +537,7 @@ func AddCityAdmin() {
 		return
 	}
 
-	_, err = city.AddAdmin(auth, common.HexToAddress("0x73A8f49C231ffBF9D190C623361c332bEc59F95A"))
+	_, err = city.AddAdmin(auth, common.HexToAddress("0x94b627F4F829Ac5E97fDc556B5BEeeFf9beF417e"))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return

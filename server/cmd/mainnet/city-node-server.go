@@ -18,6 +18,8 @@ func main() {
 	//services.AddPioneerBeth3() // 四期上线前可用，需要更新ABI
 	//services.AddPioneerBeth4()
 
+	go services.InitSyncTask()
+
 	// 获取一二期用户最近三个月重置权重详情
 	//pioneers := []string{
 	//	"0xE137fF4FCdDA90C3665562F52491B511155e19FF",
@@ -30,7 +32,7 @@ func main() {
 	//blockchain.RechargeWeightRecordByChengId(pioneers)
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
 	//services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
-	services.ReadExcel("./assets/区县节点统计表.xlsx")
+	//services.ReadExcel("./assets/区县节点统计表.xlsx")
 	//services.ReadExcel5("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadExcel5("./assets/INTO工作室补贴业绩查询1.31.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadCityFIle("./assets/HaNoi.txt")
@@ -56,5 +58,10 @@ func main() {
 	//	4,
 	//	1)
 	//fmt.Println(err)
+
+	db.InitFdb()
+	db.InitLevelDb()
+	services.SyncStatus("assets/区县节点报名表.xlsx")
+	services.GetRaceNodeWeight("assets/区县节点报名表.xlsx")
 
 }
