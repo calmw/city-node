@@ -16,6 +16,7 @@ func InitCity(secondsPerDay int64) {
 	//blockchain.AdminSetFoundsAddress()
 	// 设置每天秒数
 	blockchain.AdminSetSecondsPerDay(secondsPerDay)
+	//blockchain.AddCityAdmin()
 	//blockchain.AdminSetAuthAddress()
 	//blockchain.AdminSetWithdrawLimitAddress()
 
@@ -117,10 +118,11 @@ func AdminSetDelegateTask() {
 	if randInt == 0 {
 		randInt = 2
 	}
-	inc := randInt * 1000
+	inc := randInt * 100000
 	//dec := randInt * 500
 	accounts := []string{
-		"0x360C815e8C5F130913113801D0c57611Ee95723A",
+		"0x81F61e0b02d899956d2d96ACc2c6F9Cb43D6b99d",
+		//"0x360C815e8C5F130913113801D0c57611Ee95723A",
 	}
 
 	for _, account := range accounts {
@@ -140,7 +142,7 @@ func AdminSetRechargeAmountTask() {
 	//inc := 1000000000
 	accounts := []string{
 		//"0xa75a076c5529b3813f53c9bd24ab1f7da37994fc",
-		"0xA2C100a4C098D3D05Ff8c0AE2CE4Ea93eCe550A8",
+		"0x360C815e8C5F130913113801D0c57611Ee95723A",
 	}
 
 	for _, account := range accounts {

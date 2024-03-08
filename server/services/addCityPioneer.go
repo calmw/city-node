@@ -9,7 +9,7 @@ import (
 	"city-node-server/pkg/models"
 	"encoding/json"
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"github.com/status-im/keycard-go/hexutils"
 	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"os"
@@ -314,7 +314,7 @@ func ReadExcel(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("总表")
+	rows, err := f.GetRows("总表")
 
 forOut:
 	for i, row := range rows {
@@ -428,7 +428,7 @@ func ReadExcel5(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	for i, row := range rows {
 		if i == 1 || i == 0 {
 			continue
@@ -538,7 +538,7 @@ func CheckPioneer(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	var exports []Export
 	for i, row := range rows {
 		if i == 0 {
@@ -610,7 +610,7 @@ func CheckPioneer4(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	var exports []Export
 	for i, row := range rows {
 		if i == 0 {
@@ -693,7 +693,7 @@ func CheckPioneer3(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	err, cli := blockchain2.Client(blockchain2.CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -766,7 +766,7 @@ func CheckPioneer2(excelFile, excelFile2 string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	var pioneers []string
 	for i, row := range rows {
 		if i == 0 {
@@ -779,7 +779,7 @@ func CheckPioneer2(excelFile, excelFile2 string) {
 		}
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows = f2.GetRows("Sheet1")
+	rows, err = f2.GetRows("Sheet1")
 	var pioneers2 []string
 	for i, row := range rows {
 		if i == 0 || i == 1 {
@@ -841,7 +841,7 @@ func CheckLocation(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	fmt.Println(len(rows), 6)
 loop:
 	for i, row := range rows {

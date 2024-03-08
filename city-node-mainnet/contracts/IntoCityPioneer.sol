@@ -494,6 +494,12 @@ contract IntoCityPioneer is RoleAccess, Initializable {
             ); // 添加失败的先锋
             return;
         }
+
+        // 第一天不让领取收益
+        if (pioneer.suretyTime / secondsPerDay == today) {
+            return;
+        }
+
         // 昨日，天
         uint256 yesterday = getDay() - 1;
         /// 浙江丽水的先锋发放收益地址由 0x12Cc2278b37c2751D11B5A64712Ff439b57F6E6a更改为0x5db860601869Dad7Eb2961341056b389C3149e5f
