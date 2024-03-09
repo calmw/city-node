@@ -9,7 +9,7 @@ import (
 	"city-node-server/pkg/models"
 	"encoding/json"
 	"fmt"
-	"github.com/360EntSecGroup-Skylar/excelize"
+	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"github.com/status-im/keycard-go/hexutils"
 	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"os"
@@ -20,7 +20,7 @@ import (
 
 type PioneerInfo struct {
 	Address   string
-	CityId    string
+	AreaId    string
 	CityLevel int64
 	Money     int64
 }
@@ -30,12 +30,12 @@ type PioneerSurety struct {
 }
 
 type Pioneer struct {
-	AreaName       string `json:"area_name"`
-	AreaLevel      string `json:"area_level"`
-	PioneerBatch   string `json:"pioneer_batch"`
-	AreaId         string `json:"area_id"`
-	IsAreaNode     int64  `json:"is_area_node"`
-	PioneerAddress string `json:"pioneer_address"`
+	AreaName       string `json:"area_name" excel:"column:B;desc:先锋地区;width:30"`
+	AreaLevel      int64  `json:"area_level" excel:"column:C;desc:先锋等级;width:30"`
+	PioneerBatch   string `json:"pioneer_batch" excel:"column:D;desc:批次;width:30"`
+	AreaId         string `json:"area_id" excel:"column:E;desc:地区ID;width:30"`
+	IsAreaNode     int64  `json:"is_area_node" excel:"column:F;desc:是否是区域先锋;width:30"`
+	PioneerAddress string `json:"pioneer_address" excel:"column:G;desc:先锋钱包地址;width:30"`
 }
 
 // AddPioneerBeth3 添加三期先锋,四期上线前海需要用
@@ -69,7 +69,7 @@ func AddPioneerBeth3() {
 		panic("IsAreaNode error")
 	}
 	var suretyTOX int64
-	level, _ := strconv.ParseInt(pioneer.AreaLevel, 10, 64)
+	level := pioneer.AreaLevel
 	if level == 1 {
 		suretyTOX = 100000
 	} else if level == 2 {
@@ -161,7 +161,7 @@ func AddPioneerBeth4() {
 
 	var suretyTOX int64
 	var suretyUSDT int64
-	level, _ := strconv.ParseInt(pioneer.AreaLevel, 10, 64)
+	level := pioneer.AreaLevel
 	if pioneer.IsAreaNode == 1 {
 		if level == 1 {
 			suretyTOX = 5000 // 主网
@@ -230,83 +230,193 @@ func AddPioneerBeth4() {
 	fmt.Println(pioneer.PioneerAddress, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
 }
 
+func AddPioneerBeth4FromExcel(pioneer Pioneer) {
+	if pioneer.PioneerBatch != "4" {
+		panic("pioneer batch error")
+	}
+
+	var suretyTOX int64
+	var suretyUSDT int64
+	level := pioneer.AreaLevel
+	if pioneer.IsAreaNode == 1 {
+		if level == 1 {
+			suretyTOX = 5000 // 主网
+			suretyUSDT = 1000
+		} else if level == 2 {
+			suretyTOX = 3000
+			suretyUSDT = 600
+		} else {
+			panic("level error")
+		}
+	} else {
+		if level == 1 {
+			suretyTOX = 100000
+			suretyUSDT = 10000
+		} else if level == 2 {
+			suretyTOX = 60000
+			suretyUSDT = 8000
+		} else if level == 3 {
+			suretyTOX = 40000
+			suretyUSDT = 6000
+		} else {
+			panic("level error")
+		}
+	}
+
+	// 根据city_id判断该城市是否已经添加过先锋
+	var pioneerModel models.Pioneer
+	err := db.Mysql.Model(models.Pioneer{}).Where("city_id=?", pioneer.AreaId).First(&pioneerModel).Debug().Error
+	if err == nil {
+		panic("该城市先锋已经存在")
+	} else {
+		fmt.Println("该城市先锋不存在")
+	}
+
+	fmt.Println(fmt.Sprintf("地区：%s,address:%s,areaId:%s,cityLevel:%d,suretyTOX:%d,suretyUSDT:%d,IsAreaNode:%d", pioneer.AreaName, pioneer.PioneerAddress, pioneer.AreaId, pioneer.AreaLevel, suretyTOX, suretyUSDT, pioneer.IsAreaNode))
+
+	for {
+		err = AddPioneerBatch4(
+			pioneer.AreaId,
+			pioneer.PioneerAddress,
+			level,
+			suretyTOX,
+			suretyUSDT,
+			4,
+			pioneer.IsAreaNode,
+		)
+
+		//fmt.Println(err, pioneer.AreaName, strings.Contains(err.Error(), "can not set any more"), 6666666)
+
+		if err == nil || strings.Contains(err.Error(), "can not set any more") {
+			break
+		}
+		if err == nil || strings.Contains(err.Error(), "you are global node") {
+			log.Logger.Sugar().Info("全球节点", pioneer)
+			break
+		}
+	}
+
+	//err, cityIdBytes32 := blockchain2.PioneerChengShi(pioneer.PioneerAddress)
+	//err, levelChain := blockchain2.ChengShiLevel(cityIdBytes32)
+	//var ok bool
+	//if pioneer.AreaId == strings.ToLower(blockchain2.ConvertAreaIdBtA(cityIdBytes32)) {
+	//	ok = true
+	//}
+	//fmt.Println(pioneer.PioneerAddress, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
+}
+
 func ReadExcel(excelFile string) {
-	var pioneers []PioneerInfo
+	var pioneers []Pioneer
+	var noLocationPioneers []Pioneer
 	f, err := excelize.OpenFile(excelFile)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("总表")
+
+forOut:
 	for i, row := range rows {
 		if i == 1 || i == 0 {
 			continue
 		}
-		pioneer := PioneerInfo{}
-		var cid string
+		hasLocation := false
+		pioneer := Pioneer{PioneerBatch: "4"}
 		for j, colCell := range row {
-			if j == 1 {
-				l := strings.Split(colCell, " ")
-				lot := ""
-				for _, s := range l[1:] {
-					lot += " " + s
-				}
-				lot = strings.TrimSpace(lot)
-				var location models.UserLocation
-				where := "location like '%" + lot + "%'"
-				err = db.Mysql.Model(models.UserLocation{}).Where(where).First(&location).Error
-				if err != nil {
-					return
-				}
-				pioneer.CityId = location.CityId
-				cid = location.CityId
-			}
+			var location models.UserLocation
 			if j == 3 {
-				pioneer.Address = strings.ToLower(colCell)
-			}
-			if j == 5 {
-				fmt.Println(i, "表格中CityID和数据库中是否相等", cid == strings.ToLower(colCell))
+				colCell = strings.TrimSpace(colCell)
+				area := strings.Split(colCell, " ")
+				var where string
+				if len(area) == 1 {
+					pioneer.AreaName = area[0]
+					where = "city like '%" + area[0] + "%'"
+				} else if len(area) == 2 {
+					pioneer.AreaName = area[0] + " " + area[1]
+					where = "city like '%" + area[0] + "%' and county like '%" + area[1] + "%'"
+				} else {
+					panic("地区错误")
+				}
+
+				err = db.Mysql.Model(models.UserLocation{}).Where(where).First(&location).Error
+				if err == nil {
+					hasLocation = true
+					if len(area) == 1 {
+						pioneer.AreaId = location.CityId
+					} else if len(area) == 2 {
+						pioneer.AreaId = location.CountyId
+					}
+				} else {
+					fmt.Println(colCell, "该地区有问题", 123)
+				}
+
+				if colCell == "德阳市" ||
+					colCell == "金华市 东阳市" ||
+					colCell == "临沂市 沂水县" ||
+					colCell == "宁波市 宁海县" ||
+					colCell == "莆田市 仙游县" {
+					fmt.Println(pioneer.AreaName, len(area), pioneer.AreaId, 99990)
+					continue forOut
+				}
+
 			}
 			if j == 4 {
-				level, _ := strconv.ParseInt(colCell, 10, 64)
-				pioneer.CityLevel = level
-				if level == 1 {
-					pioneer.Money = 100000
-				} else if level == 2 {
-					pioneer.Money = 60000
-				} else if level == 3 {
-					pioneer.Money = 40000
+				pioneer.PioneerAddress = strings.ToLower(colCell)
+			}
+			if j == 5 {
+				if colCell == "一线区县节点" {
+					pioneer.IsAreaNode = 1
+					pioneer.AreaLevel = 1
+				} else if colCell == "二线区县节点" {
+					pioneer.IsAreaNode = 1
+					pioneer.AreaLevel = 2
+				} else if colCell == "一线城市节点" {
+					pioneer.IsAreaNode = 0
+					pioneer.AreaLevel = 1
+				} else if colCell == "二线城市节点" {
+					pioneer.IsAreaNode = 0
+					pioneer.AreaLevel = 2
+				} else if colCell == "三线城市节点" {
+					pioneer.IsAreaNode = 0
+					pioneer.AreaLevel = 3
 				}
 			}
 		}
-		pioneers = append(pioneers, pioneer)
+		if hasLocation {
+			pioneers = append(pioneers, pioneer)
+		} else {
+			noLocationPioneers = append(noLocationPioneers, pioneer)
+		}
 	}
+
+	f2 := xjexcel.ListToExcel(pioneers, "先锋信息", "先锋详情")
+	fileName := fmt.Sprintf("./先锋信息.xlsx")
+	f2.SaveAs(fileName)
+
+	f3 := xjexcel.ListToExcel(noLocationPioneers, "先锋信息", "先锋详情")
+	fileName = fmt.Sprintf("./更改后依然有问题地区信息.xlsx")
+	f3.SaveAs(fileName)
+
 	for i, p := range pioneers {
+		if p.PioneerAddress != strings.ToLower("0x17E56C5f4E271a2Ce0920580784C6397e247C9d9") {
+			continue
+		}
 		// 根据city_id判断该城市是否已经添加过先锋
 		var pioneer models.Pioneer
-		err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
+		err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", p.AreaId).First(&pioneer).Debug().Error
 		if err == nil {
 			fmt.Println("该城市先锋已经存在", i)
 			continue
 		} else {
 			fmt.Println("该城市先锋不存在", i)
 		}
-		fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
-
-		blockchain2.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
-
-		//blockchain2.AdminSetPioneer(p.CityId, p.Address)
-
-		//err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
-		//err, level := blockchain2.ChengShiLevel(cityIdBytes32)
-		//fmt.Println(err, level, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), 555)
-		//var ok bool
-		//if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
-		//	ok = true
+		fmt.Println(p.AreaName, p.AreaLevel, p.AreaId, p.PioneerBatch, p.PioneerAddress, p.IsAreaNode, i)
+		//if i < 12 {
+		//	continue
 		//}
-		//fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
 
+		AddPioneerBeth4FromExcel(p)
 	}
 }
 
@@ -318,7 +428,7 @@ func ReadExcel5(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	for i, row := range rows {
 		if i == 1 || i == 0 {
 			continue
@@ -344,7 +454,7 @@ func ReadExcel5(excelFile string) {
 	//for i, p := range pioneers {
 	//	// 根据city_id判断该城市是否已经添加过先锋
 	//	var pioneer models.Pioneer
-	//	err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", p.CityId).First(&pioneer).Debug().Error
+	//	err = db.Mysql.Model(models.Pioneer{}).Where("city_id=?", p.AreaId).First(&pioneer).Debug().Error
 	//	if err == nil {
 	//		fmt.Println("该城市先锋已经存在", i)
 	//		continue
@@ -352,23 +462,23 @@ func ReadExcel5(excelFile string) {
 	//		fmt.Println("该城市先锋不存在", i)
 	//	}
 	//	//fmt.Println("")
-	//	fmt.Println(p.Address, p.CityId, p.CityLevel, p.Money, i)
+	//	fmt.Println(p.Address, p.AreaId, p.CityLevel, p.Money, i)
 	//	//if i == 11 {
-	//	//blockchain2.AdminSetChengShiLevelAndSurety(p.CityId, p.CityLevel, p.Money)
+	//	//blockchain2.AdminSetChengShiLevelAndSurety(p.AreaId, p.CityLevel, p.Money)
 	//	//time.Sleep(time.Second * 5)
 	//	//}
 	//	//if i == 15 {
-	//	//blockchain2.AdminSetPioneer(p.CityId, p.Address)
+	//	//blockchain2.AdminSetPioneer(p.AreaId, p.Address)
 	//	//time.Sleep(time.Second * 10)
 	//	//}
-	//	//blockchain.AdminSetPioneer(p.CityId, p.Address)
+	//	//blockchain.AdminSetPioneer(p.AreaId, p.Address)
 	//
 	//	//time.Sleep(time.Second * 8)
 	//	//
 	//	//err, cityIdBytes32 := blockchain2.PioneerChengShi(p.Address)
 	//	//err, level := blockchain2.ChengShiLevel(cityIdBytes32)
 	//	//var ok bool
-	//	//if p.CityId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
+	//	//if p.AreaId == strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))) {
 	//	//	ok = true
 	//	//}
 	//	//fmt.Println(i, p.Address, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, level)
@@ -401,7 +511,7 @@ func ReadCityFIle(cityFile string) {
 			fmt.Println("该区县已经存在", i, line, userLocation.CountyId, userLocation.CityId)
 			//if i == 12 || i == 17 || i == 23 || i == 25 {
 			//
-			//	fmt.Println("该区县已经存在", i, line, userLocation.CountyId, userLocation.CityId)
+			//	fmt.Println("该区县已经存在", i, line, userLocation.CountyId, userLocation.AreaId)
 			//	blockchain2.SetCityMapping(userLocation.CountyId, "0x7b43556372050ba40a01e40a2bf9b20514e71977d04f780e38c628c7f14ac40d", "pYnBembRMi+rRswBxe+wsg==")
 			//	time.Sleep(time.Second * 15)
 			//}
@@ -428,7 +538,7 @@ func CheckPioneer(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	var exports []Export
 	for i, row := range rows {
 		if i == 0 {
@@ -500,7 +610,7 @@ func CheckPioneer4(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	var exports []Export
 	for i, row := range rows {
 		if i == 0 {
@@ -583,7 +693,7 @@ func CheckPioneer3(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	err, cli := blockchain2.Client(blockchain2.CityNodeConfig)
 	if err != nil {
 		log.Logger.Sugar().Error(err)
@@ -656,7 +766,7 @@ func CheckPioneer2(excelFile, excelFile2 string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	var pioneers []string
 	for i, row := range rows {
 		if i == 0 {
@@ -669,7 +779,7 @@ func CheckPioneer2(excelFile, excelFile2 string) {
 		}
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows = f2.GetRows("Sheet1")
+	rows, err = f2.GetRows("Sheet1")
 	var pioneers2 []string
 	for i, row := range rows {
 		if i == 0 || i == 1 {
@@ -731,7 +841,7 @@ func CheckLocation(excelFile string) {
 		return
 	}
 	// 取得 Sheet1 表格中所有的行
-	rows := f.GetRows("Sheet1")
+	rows, err := f.GetRows("Sheet1")
 	fmt.Println(len(rows), 6)
 loop:
 	for i, row := range rows {

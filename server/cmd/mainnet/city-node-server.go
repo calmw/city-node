@@ -3,7 +3,6 @@ package main
 import (
 	"city-node-server/pkg/db"
 	"city-node-server/services"
-	"fmt"
 )
 
 func main() {
@@ -17,7 +16,9 @@ func main() {
 	//services.InitCityPioneerData()
 
 	//services.AddPioneerBeth3() // 四期上线前可用，需要更新ABI
-	services.AddPioneerBeth4()
+	//services.AddPioneerBeth4()
+
+	go services.InitSyncTask()
 
 	// 获取一二期用户最近三个月重置权重详情
 	//pioneers := []string{
@@ -31,6 +32,7 @@ func main() {
 	//blockchain.RechargeWeightRecordByChengId(pioneers)
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
 	//services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
+	//services.ReadExcel("./assets/区县节点统计表.xlsx")
 	//services.ReadExcel5("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadExcel5("./assets/INTO工作室补贴业绩查询1.31.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadCityFIle("./assets/HaNoi.txt")
@@ -41,14 +43,25 @@ func main() {
 	//services.CheckPioneer2("./assets/城市先锋-用户信息.xlsx", "./assets/副本城市节点汇总11.26.2.xlsx") // 确认用户是否交保证金
 	//services.CheckLocation("./assets/越南2.xlsx") // 查看位置是否存在,把县城映射到省（越南等国家）
 
-	err := services.AddPioneerBatch4(
-		"0x4de9096348869d087c953a1b6df5267276b15929bf8c3eedd52332bb946dadda",
-		"0x62C6490dE592F439092eac4567f74e1622c9C9C9",
-		2,
-		3000, //5000 6
-		600,  // 1000 3
-		4,
-		1)
-	fmt.Println(err)
+	//err := services.RemovePioneer(
+	//	"0x04d2e819ac80f065817de42af3cf9131cae829e98e3a9887cfef49fc5080e2e6",
+	//	"0x17E56C5f4E271a2Ce0920580784C6397e247C9d9",
+	//)
+	//fmt.Println(err)
+
+	//err := services.AddPioneerBatch4(
+	//	"0x4de9096348869d087c953a1b6df5267276b15929bf8c3eedd52332bb946dadda",
+	//	"0x62C6490dE592F439092eac4567f74e1622c9C9C9",
+	//	2,
+	//	3000, //5000 6
+	//	600,  // 1000 3
+	//	4,
+	//	1)
+	//fmt.Println(err)
+
+	db.InitFdb()
+	db.InitLevelDb()
+	services.SyncStatus("assets/区县节点报名表.xlsx")
+	services.GetRaceNodeWeight("assets/区县节点报名表.xlsx")
 
 }

@@ -80,7 +80,7 @@ func (c *Pioneer) Reward(req *request.Reward) (int, int64, []models.Reward) {
 //	db.Mysql.Table("recharge_weight").Select("`county_id`,`pioneer`").Where(whereCondition).Group("county_id").Find(&rechargeWeight)
 //	db.Mysql.Table("recharge_weight").Where(whereCondition).Select("sum(weight) as total").Scan(&total)
 //	pioneerWeight := PioneerWeight{
-//		CityId:      pioneer.CityId,
+//		AreaId:      pioneer.AreaId,
 //		Location:    pioneer.CityLocation,
 //		TotalWeight: decimal.NewFromFloat(total.Total),
 //	}

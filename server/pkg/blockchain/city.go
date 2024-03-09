@@ -53,25 +53,9 @@ func (c *City) AdminSetChengShiLevelAndSurety(chengShiId string, level int64, su
 	return nil
 }
 
-//func (c *City) AdminSetAreaLevel(areaId string, level int64) error {
-//	err, auth := GetAuth(c.Cli)
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return err
-//	}
-//	_, err = c.Contract.AdminSetAreaLevel(auth, ConvertAreaIdAtB(areaId), big.NewInt(level))
-//	if err != nil {
-//		log.Logger.Sugar().Error(err)
-//		return err
-//	}
-//	return nil
-//}
-
 func (c *City) AdminSetPioneer(areaId, pioneer string, pioneerBatch, pioneerType int64) error {
 	_, auth := GetAuth(c.Cli)
-
 	_, err := c.Contract.AdminSetPioneer(auth, ConvertAreaIdAtB(areaId), common.HexToAddress(pioneer), big.NewInt(pioneerBatch), big.NewInt(pioneerType))
-	//_, err := c.Contract.AdminSetPioneer(auth, ConvertAreaIdAtB(areaId), common.HexToAddress(pioneer))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err
@@ -553,7 +537,7 @@ func AddCityAdmin() {
 		return
 	}
 
-	_, err = city.AddAdmin(auth, common.HexToAddress("0x73A8f49C231ffBF9D190C623361c332bEc59F95A"))
+	_, err = city.AddAdmin(auth, common.HexToAddress("0x94b627F4F829Ac5E97fDc556B5BEeeFf9beF417e"))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return
@@ -710,6 +694,7 @@ func TriggerAllPioneerTask() {
 	Cli, err := ethclient.Dial(CityNodeConfig.RPC)
 	if err != nil {
 		log.Logger.Sugar().Error("dail failed")
+		return
 	}
 
 	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
@@ -723,27 +708,33 @@ func TriggerAllPioneerTask() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
-	pioneerNumber, err := cityPioneer.GetPioneerNumber(nil)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
-	nonce_ := int64(0)
-	nonce, err := Cli.NonceAt(context.Background(), common.HexToAddress("0x89876D12A4cB4d19957cEBE3663EA485E05fD3f2"), nil)
-	if err != nil {
-		time.Sleep(time.Second * 5)
-		nonce, err = Cli.NonceAt(context.Background(), common.HexToAddress("0x89876D12A4cB4d19957cEBE3663EA485E05fD3f2"), nil)
-		if err != nil {
+
+	var pioneerNumber *big.Int
+	for {
+		pioneerNumber, err = cityPioneer.GetPioneerNumber(nil)
+		if err != nil || pioneerNumber == nil {
 			log.Logger.Sugar().Error(err)
-			return
-		} else {
-			nonce_ = int64(nonce)
+			break
 		}
-	} else {
-		nonce_ = int64(nonce)
-		fmt.Println(nonce, err, 8888)
+		time.Sleep(time.Second)
 	}
-	fmt.Println(nonce_, 99999)
+
+	//nonce_ := int64(0)
+	//nonce, err := Cli.NonceAt(context.Background(), common.HexToAddress("0x89876D12A4cB4d19957cEBE3663EA485E05fD3f2"), nil)
+	//if err != nil {
+	//	time.Sleep(time.Second * 5)
+	//	nonce, err = Cli.NonceAt(context.Background(), common.HexToAddress("0x89876D12A4cB4d19957cEBE3663EA485E05fD3f2"), nil)
+	//	if err != nil {
+	//		log.Logger.Sugar().Error(err)
+	//		return
+	//	} else {
+	//		nonce_ = int64(nonce)
+	//	}
+	//} else {
+	//	nonce_ = int64(nonce)
+	//	fmt.Println(nonce, err, 8888)
+	//}
+	//fmt.Println(nonce_, 99999)
 
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
@@ -787,7 +778,7 @@ func TriggerAllPioneerTask() {
 			continue
 		} else {
 			for k := 0; k < 10; k++ {
-				err, auth := GetAuth2(nonce_)
+				err, auth := GetAuth(Cli)
 				if err != nil {
 					log.Logger.Sugar().Error(err)
 					continue
@@ -795,12 +786,11 @@ func TriggerAllPioneerTask() {
 				_, err = city.PioneerDailyTask(auth, pioneer)
 				if err != nil {
 					log.Logger.Sugar().Error("定时任务执行失败：", err)
-					time.Sleep(time.Second * 5)
+					time.Sleep(time.Second * 2)
 					continue
 				} else {
 					log.Logger.Sugar().Info("定时任务执行成功")
 					SetPioneerTaskStatus(pioneer.String())
-					nonce_++
 					break
 				}
 			}
@@ -813,18 +803,24 @@ func GetAllPioneer() {
 	Cli, err := ethclient.Dial(CityNodeConfig.RPC)
 	if err != nil {
 		log.Logger.Sugar().Error("dail failed")
+		return
 	}
 	cityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
+	var pioneerNumber *big.Int
+	for {
+		pioneerNumber, err = cityPioneer.GetPioneerNumber(nil)
+		if err != nil || pioneerNumber == nil {
+			log.Logger.Sugar().Error(err)
+			break
+		}
+		time.Sleep(time.Second)
 	}
-	pioneerNumber, err := cityPioneer.GetPioneerNumber(nil)
-	if err != nil {
-		log.Logger.Sugar().Error(err)
-		return
-	}
+
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
 		if err != nil {
@@ -852,12 +848,7 @@ func GetAllPioneer() {
 				}
 
 				/// 获取考核状态
-				CityPioneer, err := intoCityNode.NewCityPioneer(common.HexToAddress(CityNodeConfig.CityPioneerAddress), Cli)
-				if err != nil {
-					log.Logger.Sugar().Error(err)
-					continue
-				}
-				info, err := CityPioneer.PioneerInfo(nil, common.HexToAddress(pioneer.String()))
+				info, err := cityPioneer.PioneerInfo(nil, common.HexToAddress(pioneer.String()))
 				if err != nil {
 					log.Logger.Sugar().Error(err)
 					return
@@ -865,9 +856,9 @@ func GetAllPioneer() {
 				failedDelegate := ""
 				failedAt := ""
 				if !info.AssessmentMonthStatus {
-					failedDelegateRes, _ := CityPioneer.FailedDelegate(nil, res)
+					failedDelegateRes, _ := cityPioneer.FailedDelegate(nil, res)
 					failedDelegate = failedDelegateRes.String()
-					failedAtRes, _ := CityPioneer.FailedAt(nil, common.HexToAddress(pioneer.String()))
+					failedAtRes, _ := cityPioneer.FailedAt(nil, common.HexToAddress(pioneer.String()))
 					failedAt = failedAtRes.String()
 				}
 
