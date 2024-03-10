@@ -32,7 +32,7 @@ type PioneerSurety struct {
 type Pioneer struct {
 	AreaName       string `json:"area_name" excel:"column:B;desc:先锋地区;width:30"`
 	AreaLevel      int64  `json:"area_level" excel:"column:C;desc:先锋等级;width:30"`
-	PioneerBatch   string `json:"pioneer_batch" excel:"column:D;desc:批次;width:30"`
+	PioneerBatch   int64  `json:"pioneer_batch" excel:"column:D;desc:批次;width:30"`
 	AreaId         string `json:"area_id" excel:"column:E;desc:地区ID;width:30"`
 	IsAreaNode     int64  `json:"is_area_node" excel:"column:F;desc:是否是区域先锋;width:30"`
 	PioneerAddress string `json:"pioneer_address" excel:"column:G;desc:先锋钱包地址;width:30"`
@@ -129,7 +129,7 @@ func AddPioneerBeth4() {
 		return
 	}
 
-	if pioneer.PioneerBatch != "4" {
+	if pioneer.PioneerBatch != 4 {
 		panic("pioneer batch error")
 	}
 
@@ -231,7 +231,7 @@ func AddPioneerBeth4() {
 }
 
 func AddPioneerBeth4FromExcel(pioneer Pioneer) {
-	if pioneer.PioneerBatch != "4" {
+	if pioneer.PioneerBatch != 4 {
 		panic("pioneer batch error")
 	}
 
@@ -305,6 +305,98 @@ func AddPioneerBeth4FromExcel(pioneer Pioneer) {
 	//fmt.Println(pioneer.PioneerAddress, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
 }
 
+func AddPioneerBeth4FromDb() {
+
+	var pioneerAddInfos []models.PioneerAddInfo
+
+	err := db.Mysql.Model(&models.PioneerAddInfo{}).Where("is_set=? and pioneer_status=?", 0, 0).Find(&pioneerAddInfos).Error
+
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	for _, info := range pioneerAddInfos {
+		if info.PioneerBatch != 4 {
+			panic("pioneer batch error")
+		}
+
+		var suretyTOX int64
+		var suretyUSDT int64
+		level := info.AreaLevel
+		if info.IsAreaNode == 1 {
+			if level == 1 {
+				suretyTOX = 5000 // 主网
+				suretyUSDT = 1000
+			} else if level == 2 {
+				suretyTOX = 3000
+				suretyUSDT = 600
+			} else {
+				panic("level error")
+			}
+		} else {
+			if level == 1 {
+				suretyTOX = 100000
+				suretyUSDT = 10000
+			} else if level == 2 {
+				suretyTOX = 60000
+				suretyUSDT = 8000
+			} else if level == 3 {
+				suretyTOX = 40000
+				suretyUSDT = 6000
+			} else {
+				panic("level error")
+			}
+		}
+
+		fmt.Println(fmt.Sprintf("地区：%s,address:%s,areaId:%s,areaLevel:%d,suretyTOX:%d,suretyUSDT:%d,IsAreaNode:%d", info.Location, info.Pioneer, info.AreaId, info.AreaLevel, suretyTOX, suretyUSDT, info.IsAreaNode))
+
+		// 重置,需要重置，并且改先锋地址之前是已经失效的先锋
+		if info.IsReset == 1 && info.OldAreaId != "" {
+			for {
+				err = RemovePioneer(
+					info.OldAreaId,
+					info.Pioneer,
+				)
+				if err == nil {
+					break
+				}
+			}
+		}
+
+		// 添加
+		for {
+			err = AddPioneerBatch4(
+				info.AreaId,
+				info.Pioneer,
+				level,
+				suretyTOX,
+				suretyUSDT,
+				4,
+				info.IsAreaNode,
+			)
+
+			if err == nil || strings.Contains(err.Error(), "can not set any more") {
+				break
+			}
+			if err == nil || strings.Contains(err.Error(), "you are global node") {
+				log.Logger.Sugar().Info("全球节点")
+				break
+			}
+		}
+		err, cityIdBytes32 := blockchain2.PioneerChengShi(info.Pioneer)
+		err, levelChain := blockchain2.ChengShiLevel(cityIdBytes32)
+		var ok bool
+		if info.AreaId == strings.ToLower(blockchain2.ConvertAreaIdBtA(cityIdBytes32)) {
+			ok = true
+		}
+		fmt.Println(info.Pioneer, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
+		db.Mysql.Model(&models.PioneerAddInfo{}).Where("pioneer=?", info.Pioneer).Update("is_set", 1)
+
+	}
+
+}
+
 func ReadExcel(excelFile string) {
 	var pioneers []Pioneer
 	var noLocationPioneers []Pioneer
@@ -322,7 +414,7 @@ forOut:
 			continue
 		}
 		hasLocation := false
-		pioneer := Pioneer{PioneerBatch: "4"}
+		pioneer := Pioneer{PioneerBatch: 4}
 		for j, colCell := range row {
 			var location models.UserLocation
 			if j == 3 {
@@ -351,11 +443,7 @@ forOut:
 					fmt.Println(colCell, "该地区有问题", 123)
 				}
 
-				if colCell == "德阳市" ||
-					colCell == "金华市 东阳市" ||
-					colCell == "临沂市 沂水县" ||
-					colCell == "宁波市 宁海县" ||
-					colCell == "莆田市 仙游县" {
+				if colCell == "德阳市" {
 					fmt.Println(pioneer.AreaName, len(area), pioneer.AreaId, 99990)
 					continue forOut
 				}
@@ -868,6 +956,164 @@ loop:
 					fmt.Println("该城市不存在", i, colCell)
 				}
 			}
+		}
+	}
+}
+
+func SyncAddPioneerInfoFromExcel(excelFile string) {
+	var pioneers []Pioneer
+	f, err := excelize.OpenFile(excelFile)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	err, cli := blockchain2.Client(blockchain2.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	// 设置所需缴纳的TOX，城市等级
+	city := blockchain2.NewCity(cli)
+
+	// 取得 Sheet1 表格中所有的行
+	rows, err := f.GetRows("Sheet1")
+
+	for i, row := range rows {
+		if i == 1 || i == 0 {
+			continue
+		}
+		pioneer := Pioneer{PioneerBatch: 4}
+		for j, colCell := range row {
+			var location models.UserLocation
+			if j == 3 {
+				colCell = strings.TrimSpace(colCell)
+				area := strings.Split(colCell, " ")
+				var where string
+				pioneer.AreaName = colCell
+				where = "city like '%" + area[0] + "%' and county like '%" + area[1] + "%'"
+				fmt.Println(where)
+				err = db.Mysql.Model(models.UserLocation{}).Where(where).First(&location).Error
+				if err == nil {
+					pioneer.AreaId = location.CountyId
+				} else {
+					fmt.Println(colCell, "该地区有问题", 123)
+				}
+
+			}
+			if j == 4 {
+				pioneer.PioneerAddress = strings.ToLower(colCell)
+			}
+			if j == 5 {
+				if colCell == "一线区县节点" {
+					pioneer.IsAreaNode = 1
+					pioneer.AreaLevel = 1
+				} else if colCell == "二线区县节点" {
+					pioneer.IsAreaNode = 1
+					pioneer.AreaLevel = 2
+				} else {
+					panic("节点级别错误")
+				}
+			}
+		}
+		fmt.Println(pioneer)
+		pioneers = append(pioneers, pioneer)
+	}
+
+	fmt.Println(pioneers, city)
+	SyncAddPioneerInfoToDb(pioneers, city)
+}
+
+func SyncAddPioneerInfoToDb(pioneers []Pioneer, city *blockchain2.City) {
+	for i, p := range pioneers {
+		isSet := int64(0)
+		isReset := int64(0)
+		var remark, oldAreaId string
+		pioneerStatus := int64(0)
+		// 根据city_id判断该城市是否已经添加过先锋
+		var pioneer models.Pioneer
+		err := db.Mysql.Model(models.Pioneer{}).Where("area_id=?", p.AreaId).First(&pioneer).Debug().Error
+		if err == nil {
+			if pioneer.FailedAt != "" {
+				fmt.Println("该地区的先锋已经存在,但考核失败", i)
+				remark = "该地区的先锋已经存在,但考核失败"
+				isReset = 1
+			} else if pioneer.IsOverTime > 0 {
+				fmt.Println("该地区的先锋已经存在,但已经到期", i)
+				remark = "该地区的先锋已经存在,但已经到期"
+				isReset = 1
+			} else {
+				fmt.Println("该地区的先锋已经存在,且状态正常", i)
+				remark = "该地区的先锋已经存在,且状态正常"
+				pioneerStatus = 1
+			}
+			if remark != "" {
+				remark += ";"
+			}
+		}
+		pioneer = models.Pioneer{}
+		err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", p.PioneerAddress).First(&pioneer).Debug().Error
+		if err == nil {
+			oldAreaId = pioneer.AreaId
+			if pioneer.FailedAt != "" {
+				fmt.Println("该先锋已经存在,但考核失败", i)
+				remark += "该先锋已经存在,但考核失败"
+				isReset = 1
+			} else if pioneer.IsOverTime > 0 {
+				fmt.Println("该先锋已经存在,但已经到期", i)
+				remark += "该先锋已经存在,但已经到期"
+				isReset = 1
+			} else {
+				fmt.Println("该先锋已经存在,且状态正常", i)
+				remark += "该先锋已经存在,且状态正常"
+				pioneerStatus = 1
+			}
+		}
+		existAreaId, err2 := city.PioneerCity(p.PioneerAddress)
+		if err2 != nil {
+			log.Logger.Sugar().Error(err)
+			return
+		}
+		if existAreaId != "0x0000000000000000000000000000000000000000000000000000000000000000" {
+			isSet = 1
+			remark += "该先锋已经录入过"
+			fmt.Println("该先锋已经设置过", i)
+		}
+		existPioneerAddress, err2 := city.ChengShiPioneer(p.AreaId)
+		if err2 != nil {
+			log.Logger.Sugar().Error(err)
+			return
+		}
+		fmt.Println(existPioneerAddress, 98790)
+		if existPioneerAddress != "0x0000000000000000000000000000000000000000" {
+			isSet = 1
+			remark += "该地区已经录入过"
+			fmt.Println("该地区已经录入过", i)
+		}
+		var pioneerAddInfo models.PioneerAddInfo
+		err = db.Mysql.Model(&models.PioneerAddInfo{}).Where("area_id=?", p.AreaId).First(&pioneerAddInfo).Debug().Error
+		if err == nil {
+			fmt.Println("该地区先锋已设置过", i)
+		}
+
+		fmt.Println(p.AreaName, p.AreaLevel, p.AreaId, p.PioneerBatch, p.PioneerAddress, p.IsAreaNode, i)
+		pioneerAddInfo = models.PioneerAddInfo{
+			AreaId:        p.AreaId,
+			OldAreaId:     oldAreaId,
+			Location:      p.AreaName,
+			Pioneer:       p.PioneerAddress,
+			AreaLevel:     p.AreaLevel,
+			IsAreaNode:    p.IsAreaNode,
+			PioneerBatch:  p.PioneerBatch,
+			IsSet:         isSet,
+			IsReset:       isReset,
+			PioneerStatus: pioneerStatus,
+			Remark:        remark,
+			Ctime:         time.Now().Format("2006-01-02 15:04:05"),
+		}
+		fmt.Println(pioneerAddInfo)
+		err = db.Mysql.Model(&models.PioneerAddInfo{}).Create(&pioneerAddInfo).Error
+		if err != nil {
+			fmt.Println("插入数据出错", i)
 		}
 	}
 }

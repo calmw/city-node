@@ -65,18 +65,45 @@ func (c *City) AdminSetPioneer(areaId, pioneer string, pioneerBatch, pioneerType
 }
 
 func (c *City) AdminRemovePioneer(chengShiId, pioneer string) error {
-	_, auth := GetAuth(c.Cli)
+	err, auth := GetAuth(c.Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return err
+	}
 
 	if strings.Contains(chengShiId, "0x") {
 		chengShiId = strings.ReplaceAll(chengShiId, "0x", "")
 	}
-
-	_, err := c.Contract.AdminRemovePioneer(auth, ConvertAreaIdAtB(chengShiId), common.HexToAddress(pioneer))
+	_, err = c.Contract.AdminRemovePioneer(auth, ConvertAreaIdAtB(chengShiId), common.HexToAddress(pioneer))
 	if err != nil {
 		log.Logger.Sugar().Error(err)
 		return err
 	}
 	return nil
+}
+
+func (c *City) PioneerCity(pioneer string) (string, error) {
+
+	AreaIdBytes32, err := c.Contract.PioneerCity(nil, common.HexToAddress(pioneer))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return "", err
+	}
+
+	return strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(AreaIdBytes32))), nil
+}
+
+func (c *City) ChengShiPioneer(areaId string) (string, error) {
+	if strings.Contains(areaId, "0x") {
+		areaId = strings.ReplaceAll(areaId, "0x", "")
+	}
+	address, err := c.Contract.ChengShiPioneer(nil, ConvertAreaIdAtB(areaId))
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return "", err
+	}
+
+	return address.Hex(), nil
 }
 
 // AdminSetCityPioneerAddress 管理员设置先锋计划合约地址
@@ -835,7 +862,7 @@ func GetAllPioneer() {
 		}
 		pioneerInfo := models.Pioneer{}
 		create := false
-		err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
+		err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=? and is_over_time=0", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			log.Logger.Sugar().Error(err)
 			continue

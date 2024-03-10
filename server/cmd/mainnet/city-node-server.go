@@ -1,6 +1,7 @@
 package main
 
 import (
+	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
 	"city-node-server/services"
 )
@@ -30,7 +31,15 @@ func main() {
 	//blockchain.RechargeWeightRecordByChengId(pioneers)
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
 	//services.ReadExcel("./assets/城市节点报名表合肥.xlsx")
-	//services.ReadExcel("./assets/区县节点统计表.xlsx")
+	//services.ReadExcel("./assets/区县节点报名表2.xlsx")
+
+	/// 添加先锋
+	blockchain.GetAllPioneer()
+	//services.SyncAddPioneerInfoFromExcel("./assets/新一批城市节点统计表.xlsx")
+	//services.SyncAddPioneerInfoFromExcel("./assets/区县节点报名表_竞选.xlsx")
+	//services.AddPioneerBeth4FromDb()
+	/// 添加先锋
+
 	//services.ReadExcel5("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadExcel5("./assets/INTO工作室补贴业绩查询1.31.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadCityFIle("./assets/HaNoi.txt")

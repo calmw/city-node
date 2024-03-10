@@ -52,7 +52,7 @@ func InitMysql() {
 	_ = db.Callback().Raw().After("gorm:raw").Register("after_raw", After)
 
 	//自动迁移为给定模型运行自动迁移，只会添加缺失的字段，不会删除/更改当前数据
-	//db.AutoMigrate(&models.Pioneer{})
+	//db.AutoMigrate(&models.PioneerAddInfo{})
 
 	sqlDB, err := db.DB()
 	if err != nil {
@@ -64,12 +64,12 @@ func InitMysql() {
 	//sqlDB.SetMaxOpenConns(mysqlConf.MaxOpenConns) // 最大连接数   默认0是无限制的  使用默认值即可
 	sqlDB.SetConnMaxLifetime(time.Second * 20)
 
-	//err = db.AutoMigrate(models.Pioneer{})
+	//err = db.AutoMigrate(models.PioneerAddInfo{})
 	Mysql = db
 }
 
 func After(db *gorm.DB) {
 	db.Dialector.Explain(db.Statement.SQL.String(), db.Statement.Vars...)
-	sql := db.Dialector.Explain(db.Statement.SQL.String(), db.Statement.Vars...)
-	log.Logger.Info(sql)
+	//sql := db.Dialector.Explain(db.Statement.SQL.String(), db.Statement.Vars...)
+	//log.Logger.Info(sql)
 }
