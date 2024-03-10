@@ -9917,3 +9917,413 @@
 {"level":"info","time":"2024-03-10T17:00:22.818+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x83108cAd12Be9540B9C7CCafAA830078e93ee89d","serviceName":"into"}
 {"level":"info","time":"2024-03-10T17:00:23.062+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x83108cad12be9540b9c7ccafaa830078e93ee89d'","serviceName":"into"}
 {"level":"error","time":"2024-03-10T17:00:23.062+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:23.500+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xc0dd380b0a1e88e12d3257d71dc6f57b07fcdb2f' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:23.708+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xc0Dd380B0A1E88E12d3257D71dc6f57B07FcDB2F","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:23.947+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xc0dd380b0a1e88e12d3257d71dc6f57b07fcdb2f'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:23.947+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:24.381+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x7f84ef0f9d1969f418b006deab4eab98ba3f3f78' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:24.582+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x7F84ef0f9D1969f418B006deAB4eaB98bA3F3F78","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:24.812+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x7f84ef0f9d1969f418b006deab4eab98ba3f3f78'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:24.812+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:25.230+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x7edf5283d215aa283e2b693df79f4b9f0dc6854a' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:25.441+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x7EDf5283d215AA283E2B693Df79F4b9f0dC6854A","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:25.669+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x7edf5283d215aa283e2b693df79f4b9f0dc6854a'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:25.670+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:26.089+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xab718f2080ec6b6144e46fde150d3e6bc83287f9' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:26.298+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xab718F2080EC6b6144e46Fde150d3e6bc83287f9","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:26.526+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xab718f2080ec6b6144e46fde150d3e6bc83287f9'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:26.526+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:27.004+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x35dc4c94ec975cf3dd1589d8858fcdcf6296c3ae' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:27.235+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x35Dc4C94Ec975cf3DD1589d8858fcDcf6296C3aE","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:27.471+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x35dc4c94ec975cf3dd1589d8858fcdcf6296c3ae'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:27.471+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:27.911+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x0ed2f42151bef21bb70d7311f06aca365a9da591' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:28.116+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x0ED2f42151BeF21Bb70d7311F06aCA365A9DA591","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:28.342+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x0ed2f42151bef21bb70d7311f06aca365a9da591'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:28.342+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:28.769+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x3c7e6dbdcfcccb5ebadf4d2af9fd8f8bc8eced09' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:28.971+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x3C7E6DBDcFcCcb5eBADF4D2AF9fD8f8bc8ECeD09","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:29.203+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x3c7e6dbdcfcccb5ebadf4d2af9fd8f8bc8eced09'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:29.204+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:29.631+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x0e2b526c105844442c54c97b086cc32030978a8a' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:29.833+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x0e2B526c105844442C54c97B086Cc32030978A8A","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:30.070+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x0e2b526c105844442c54c97b086cc32030978a8a'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:30.070+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:30.486+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x42485de1e7ce19837872efde8f0b0c0f07239fbd' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:30.806+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x42485De1e7ce19837872eFDE8f0b0c0F07239fbd","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:31.042+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x42485de1e7ce19837872efde8f0b0c0f07239fbd'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:31.042+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:32.447+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x7f8beeb8bf8236866ff4d39b3c6a5a201f0f5c86' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:32.652+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x7F8BeeB8BF8236866Ff4d39b3C6A5a201f0f5c86","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:32.883+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x7f8beeb8bf8236866ff4d39b3c6a5a201f0f5c86'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:32.883+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:33.303+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x8115c5193988b0510bfd69727a08c48ed9e86c65' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:33.517+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x8115c5193988b0510bfd69727A08c48ed9E86c65","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:33.733+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x8115c5193988b0510bfd69727a08c48ed9e86c65'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:33.733+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:34.154+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xf7f6ca295288111133c994fab2cd343f15e6ba06' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:34.359+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xF7f6CA295288111133C994fAb2cD343F15E6Ba06","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:34.573+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xf7f6ca295288111133c994fab2cd343f15e6ba06'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:34.573+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:34.989+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x549cf7ff82d8039b86293468b2551b6b3709ae7e' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:35.196+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x549cf7FF82D8039b86293468B2551b6B3709ae7E","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:35.411+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x549cf7ff82d8039b86293468b2551b6b3709ae7e'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:35.411+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:35.820+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xc745992e24a0f123d2ca17464a8ea24664eee508' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:36.021+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xC745992E24a0F123D2cA17464a8eA24664Eee508","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:36.236+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xc745992e24a0f123d2ca17464a8ea24664eee508'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:36.236+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:36.678+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x1f3ac81f4a4d33b9d905d967118baeeeb658f4e0' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:36.884+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x1f3AC81F4a4d33B9D905d967118BaEEEB658F4e0","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:37.097+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x1f3ac81f4a4d33b9d905d967118baeeeb658f4e0'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:37.097+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:37.549+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xceed349f14a1cf1b272ce4b21b63686e85b6f2da' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:37.775+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xcEEd349F14A1CF1B272CE4B21b63686E85b6F2dA","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:37.986+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xceed349f14a1cf1b272ce4b21b63686e85b6f2da'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:37.986+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:38.452+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x4fc21f81d2f09646558c042943e7b0f4acb89cf0' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:38.656+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x4FC21f81D2f09646558C042943E7B0F4AcB89Cf0","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:38.893+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x4fc21f81d2f09646558c042943e7b0f4acb89cf0'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:38.893+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:39.307+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x4aff3f52878ee55e4e2a9e5f31597e1ebe04de45' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:39.510+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x4AFf3F52878eE55e4e2A9e5f31597E1EbE04dE45","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:39.720+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x4aff3f52878ee55e4e2a9e5f31597e1ebe04de45'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:39.720+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:40.128+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x0ad3b37f1c1ea04ed455fe049c0624a30f986506' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:40.330+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x0ad3B37F1C1Ea04eD455FE049c0624a30F986506","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:40.543+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x0ad3b37f1c1ea04ed455fe049c0624a30f986506'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:40.543+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:40.961+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xa2c00c0ad17cfc874e21f029acbf8a7c869d1a32' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:41.167+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xa2C00c0AD17CFc874e21f029aCbF8a7c869d1A32","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:41.378+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xa2c00c0ad17cfc874e21f029acbf8a7c869d1a32'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:41.378+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:41.789+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x5c98d8e6b5598b1fa4d6e0206520431b3ff2a743' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:41.992+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x5c98d8e6b5598b1fA4D6e0206520431B3ff2A743","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:42.207+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x5c98d8e6b5598b1fa4d6e0206520431b3ff2a743'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:42.207+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:42.632+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x5d649f0b33d2ad1e65aba96137059d4e63c8d309' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:42.881+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x5d649f0b33D2AD1E65aBA96137059d4E63C8d309","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:43.094+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x5d649f0b33d2ad1e65aba96137059d4e63c8d309'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:43.094+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:43.565+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xdbdfa7c51cc6701dd2c9e79266e83456725be2ac' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:43.778+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xDBDfa7c51CC6701Dd2c9E79266E83456725Be2ac","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:43.989+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xdbdfa7c51cc6701dd2c9e79266e83456725be2ac'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:43.990+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:44.409+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xe83cb07c2fd00cc3d46b24241d31d9bcbfb539aa' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:44.620+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xE83cb07c2fD00CC3D46b24241d31d9bcBfb539aA","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:44.862+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xe83cb07c2fd00cc3d46b24241d31d9bcbfb539aa'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:44.862+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:45.287+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x31ce68b1004a6efeb3f5d11e06e32dda7fbc93cd' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:45.490+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x31ce68B1004a6efEB3f5d11e06e32DdA7Fbc93cd","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:45.734+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x31ce68b1004a6efeb3f5d11e06e32dda7fbc93cd'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:45.735+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:46.152+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x65eee6e62c214d105eae7c2e797dc76d106a7228' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:46.356+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x65eee6e62C214d105EaE7C2E797Dc76d106A7228","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:46.573+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x65eee6e62c214d105eae7c2e797dc76d106a7228'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:46.573+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:47.028+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xcd8a50c5e43b71e20fcdf493d957abfbaa358a4c' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:47.232+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xcd8a50c5e43B71e20fCdF493d957AbfBaa358A4c","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:47.456+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xcd8a50c5e43b71e20fcdf493d957abfbaa358a4c'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:47.456+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:47.889+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x1a31f040e9cf59146c0ecdcbfd5bdec11f2b1da0' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:48.137+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x1a31f040e9Cf59146C0ECDcBfd5BDEC11f2B1da0","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:48.353+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x1a31f040e9cf59146c0ecdcbfd5bdec11f2b1da0'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:48.353+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:48.824+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x93aae577c121277c1b0c50b33de2c06fb79a5d11' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:49.058+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x93AAE577C121277C1B0c50B33dE2c06Fb79a5D11","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:49.282+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x93aae577c121277c1b0c50b33de2c06fb79a5d11'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:49.282+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:49.748+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xd6fe94059e11eaa77ccd5087821e6d543ed493c3' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:49.975+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xd6FE94059E11eaa77cCD5087821e6d543ED493C3","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:50.191+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xd6fe94059e11eaa77ccd5087821e6d543ed493c3'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:50.191+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:50.607+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xa6df9aa47f8138e11faf5aa51cbfe60b6bfd2ead' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:50.816+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xA6DF9Aa47f8138e11faF5aa51CbfE60b6bfD2eAD","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:51.036+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xa6df9aa47f8138e11faf5aa51cbfe60b6bfd2ead'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:51.036+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:51.452+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xdf9fce87521b5a14311e0d2151fb64491ead6794' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:51.657+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xDf9FCE87521b5a14311E0d2151FB64491EaD6794","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:51.872+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xdf9fce87521b5a14311e0d2151fb64491ead6794'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:51.872+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:52.294+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x002cdca05b8ca426c64163ec49feb6b1debf7254' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:52.496+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x002cdca05B8cA426C64163Ec49FEb6b1deBF7254","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:53.629+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x002cdca05b8ca426c64163ec49feb6b1debf7254'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:53.629+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:54.107+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x0feb12e45928765bed8b6e4504c4c34f79713fec' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:54.341+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x0fEB12e45928765BEd8B6E4504C4c34f79713fEc","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:54.545+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x0feb12e45928765bed8b6e4504c4c34f79713fec'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:54.545+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:54.960+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xb72af269f4c53e604ab510ce969ef512b2383d77' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:55.166+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xb72af269f4C53E604AB510Ce969Ef512b2383d77","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:55.484+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xb72af269f4c53e604ab510ce969ef512b2383d77'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:55.484+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:55.899+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xe77ea01ed05566a2c7bb8757623873c82635fd26' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:56.111+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xe77Ea01ED05566A2C7BB8757623873c82635fd26","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:56.321+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xe77ea01ed05566a2c7bb8757623873c82635fd26'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:56.321+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:56.731+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xb54eb019675de0b214757a1e417b37b550c2b688' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:56.938+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xB54eB019675de0B214757a1E417B37B550c2B688","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:57.147+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xb54eb019675de0b214757a1e417b37b550c2b688'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:57.147+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:57.557+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x89275d66c4ba8a62c77e0272f90d26427cc2f961' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:57.760+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x89275D66c4bA8A62C77e0272F90d26427cC2F961","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:57.964+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x89275d66c4ba8a62c77e0272f90d26427cc2f961'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:57.964+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:58.382+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xdc0fab4ca0df443177e1475a7e1a9acf2d2c98e1' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:58.618+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xDc0FaB4cA0dF443177e1475a7e1A9ACf2d2c98E1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:58.826+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xdc0fab4ca0df443177e1475a7e1a9acf2d2c98e1'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:58.826+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:59.285+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x8f550aeb698d6def341d85d5c859e3279995ed32' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:59.500+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x8f550aeb698d6DEF341D85d5c859E3279995ed32","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:00:59.699+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x8f550aeb698d6def341d85d5c859e3279995ed32'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:00:59.699+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:00.116+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x55dfdf4e908db19c5dfc67d593696f8d4f5f8941' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:00.325+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x55dFDf4E908Db19c5dfC67d593696F8d4f5f8941","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:00.531+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x55dfdf4e908db19c5dfc67d593696f8d4f5f8941'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:00.531+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:01.038+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xcb6376c99ce85e5572e889c18fcf24600b97e7f9' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:01.241+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xcb6376C99Ce85e5572E889C18fcf24600B97e7F9","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:01.444+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xcb6376c99ce85e5572e889c18fcf24600b97e7f9'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:01.444+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:01.850+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x119f399024432ac3c0ac868418990f8f190dc3ed' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:02.051+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x119F399024432aC3C0AC868418990f8F190dc3Ed","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:02.248+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x119f399024432ac3c0ac868418990f8f190dc3ed'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:02.248+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:02.708+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x2e20608cee12d0f0002e7f47ce671e2b1724825a' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:02.912+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x2e20608ceE12D0f0002E7f47cE671E2b1724825A","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:03.111+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x2e20608cee12d0f0002e7f47ce671e2b1724825a'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:03.112+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:03.520+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xd3f53003cb973a40666bcebfced82b0bc07fac82' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:03.735+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xd3f53003Cb973A40666bcEBfceD82B0bC07fac82","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:03.939+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xd3f53003cb973a40666bcebfced82b0bc07fac82'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:03.940+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:04.406+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x26a5bed0f6cd34e811a28f6e9bb5a5cdba2ea474' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:04.643+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x26a5beD0F6CD34e811A28f6e9BB5a5cDba2Ea474","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:04.847+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x26a5bed0f6cd34e811a28f6e9bb5a5cdba2ea474'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:04.847+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:05.311+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x31128f1a1bce051e413d9e584832a95175f5dcec' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:05.525+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x31128F1a1bce051E413D9e584832a95175F5dCEc","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:05.725+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x31128f1a1bce051e413d9e584832a95175f5dcec'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:05.725+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:06.143+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x79c2256fee25496f1b2583aba0ef569864e71633' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:06.347+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x79C2256fEE25496f1b2583aBA0ef569864E71633","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:06.550+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x79c2256fee25496f1b2583aba0ef569864e71633'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:06.550+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:06.957+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x3908e45df8808eabe012d090bafad95e3179fec2' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:07.163+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x3908E45Df8808EAbe012D090bafAd95E3179feC2","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:07.365+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x3908e45df8808eabe012d090bafad95e3179fec2'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:07.365+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:07.779+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x93ac9105105b58e9de1634cc0311643ab2016354' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:07.984+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x93aC9105105b58e9DE1634CC0311643AB2016354","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:08.193+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x93ac9105105b58e9de1634cc0311643ab2016354'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:08.193+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:08.623+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x5713c35ffb558c1df80256477f3957f6cf74b04a' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:08.853+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x5713c35FfB558C1DF80256477f3957f6Cf74B04a","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:09.062+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x5713c35ffb558c1df80256477f3957f6cf74b04a'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:09.062+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:09.514+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x6c4164eaf61236f458b585fd330e1a9801c82e9a' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:09.752+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x6C4164eaF61236F458b585fd330E1A9801c82E9A","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:09.954+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x6c4164eaf61236f458b585fd330e1a9801c82e9a'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:09.954+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:10.427+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xd8f7a9d37d0a7a20e1622f4e741850af583935ae' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:10.652+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xd8f7a9d37d0a7A20e1622f4E741850AF583935AE","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:10.856+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xd8f7a9d37d0a7a20e1622f4e741850af583935ae'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:10.856+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:11.270+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x50095903444fb49d69db556639a937254e4154a6' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:11.478+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x50095903444fB49D69DB556639A937254E4154a6","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:11.679+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x50095903444fb49d69db556639a937254e4154a6'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:11.679+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:12.096+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x4e13f03f3c8a60cf3a8e0733e72a8fcad27cba4c' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:12.373+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x4E13f03F3c8A60cF3A8e0733e72a8FCAd27CBA4C","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:12.578+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x4e13f03f3c8a60cf3a8e0733e72a8fcad27cba4c'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:12.578+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:12.982+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x41a6f2bd58c87178fd85d1bd1283ab795a498dfa' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:13.186+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x41A6F2bD58C87178fd85d1BD1283ab795a498DFa","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:13.395+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x41a6f2bd58c87178fd85d1bd1283ab795a498dfa'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:13.395+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:14.857+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x79efaf035285e75016fb5978dcfbe60e41d39fe8' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:15.098+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x79EFAf035285E75016Fb5978dcFbE60E41d39Fe8","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:15.334+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x79efaf035285e75016fb5978dcfbe60e41d39fe8'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:15.334+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:15.824+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x4c792c528f37c2afc3d51339b261d721f68f5fca' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:16.052+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x4c792c528F37C2AFC3D51339b261d721F68F5FcA","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:16.282+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x4c792c528f37c2afc3d51339b261d721f68f5fca'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:16.282+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:16.713+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x6b00ffeb0ebec8db36e7d5c3fa6dbb5950a48f45' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:16.930+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x6B00FfeB0eBEc8dB36e7D5c3fA6dbb5950a48f45","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:17.165+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x6b00ffeb0ebec8db36e7d5c3fa6dbb5950a48f45'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:17.165+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:17.583+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x2b915260ba9996f92f395193333ff37bc1b15413' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:17.590+0800","line":"blockchain/city.go:751","msg":"Post \"https://match-rpc-2.intoverse.co\": EOF","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:18.379+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x522223d016e8a37656927e4e5c08a210f58fac38' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:18.602+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x522223D016E8a37656927e4e5c08A210F58FAc38","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:18.832+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x522223d016e8a37656927e4e5c08a210f58fac38'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:18.832+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:19.276+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x5c71c06e145f1a00b540e7855b9379bceb563876' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:19.522+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x5c71c06E145f1A00B540e7855B9379bCEb563876","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:19.748+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x5c71c06e145f1a00b540e7855b9379bceb563876'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:19.748+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:20.239+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x76bdb806b67b43fb655788c578269b06cfc0f2e2' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:20.488+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x76bDb806B67B43FB655788C578269b06cFC0f2e2","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:20.713+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x76bdb806b67b43fb655788c578269b06cfc0f2e2'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:20.713+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:21.174+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xbbf0ac37650b7db1ff950147bc4e74a3616eedfe' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:21.392+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xbBF0AC37650B7db1fF950147bc4e74A3616EEdfe","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:21.620+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xbbf0ac37650b7db1ff950147bc4e74a3616eedfe'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:21.620+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:22.063+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x8c7c07715c9946d74cae5e91d286b35a8f8c273f' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:22.289+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x8c7c07715C9946d74CaE5E91D286B35A8f8C273f","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:22.515+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x8c7c07715c9946d74cae5e91d286b35a8f8c273f'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:22.515+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:22.954+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x05bb88636aeceac8b2b4a6be800bbd16327f3ce9' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:23.175+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x05bB88636AecEaC8b2b4A6Be800bBd16327f3ce9","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:23.396+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x05bb88636aeceac8b2b4a6be800bbd16327f3ce9'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:23.397+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:23.844+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xb4ac8930982150c555108d094ce5ea8f3c00f789' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:24.064+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xb4aC8930982150C555108d094ce5EA8f3C00f789","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:24.294+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xb4ac8930982150c555108d094ce5ea8f3c00f789'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:24.294+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:24.731+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x527bddd52c8863f808b2a48651883561831a5166' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:25.300+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x527BDDD52C8863f808b2A48651883561831a5166","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:25.524+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x527bddd52c8863f808b2a48651883561831a5166'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:25.524+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:26.003+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xd481ac32fdbf430f986ba5a683c585a8ee475d11' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:26.257+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xd481aC32fdBf430F986ba5a683c585a8ee475D11","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:26.480+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xd481ac32fdbf430f986ba5a683c585a8ee475d11'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:26.480+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:26.928+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x0b2441800e7f2d6e9e25f96bf56ba7c96772fc1b' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:27.146+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x0B2441800E7F2D6e9E25f96BF56Ba7c96772fc1B","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:27.375+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x0b2441800e7f2d6e9e25f96bf56ba7c96772fc1b'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:27.375+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:27.813+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x919c7fcf68ff8e76c67460f5db07658b9946cf1a' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:28.050+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x919c7Fcf68Ff8e76c67460f5Db07658b9946cf1A","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:28.272+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x919c7fcf68ff8e76c67460f5db07658b9946cf1a'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:28.272+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:28.712+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xf146bcdd46fe3171f06d6124ef50b440ce40768a' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:28.927+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xf146bCDd46FE3171f06D6124eF50B440Ce40768a","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:29.152+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xf146bcdd46fe3171f06d6124ef50b440ce40768a'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:29.152+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:29.596+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x30ba79e0f24021bba63c2f512d111c7bc89f3b23' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:29.816+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x30ba79e0f24021BBa63c2f512D111C7BC89f3b23","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:30.040+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x30ba79e0f24021bba63c2f512d111c7bc89f3b23'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:30.040+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:30.512+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x8290f92d634179507b20fd967c0907b61fa77c98' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:30.767+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x8290f92d634179507b20fD967c0907b61Fa77c98","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:30.993+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x8290f92d634179507b20fd967c0907b61fa77c98'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:30.993+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:31.746+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x98866874cd4705ff54191f630a4af2f5c4679143' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:31.969+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x98866874Cd4705Ff54191F630A4Af2F5C4679143","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:32.195+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x98866874cd4705ff54191f630a4af2f5c4679143'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:32.195+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:32.975+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x3397635ea79a60d59a0aa71dbe853eb8e3fe69da' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:33.203+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x3397635Ea79A60d59A0aa71dbE853eB8e3fE69dA","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:33.454+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x3397635ea79a60d59a0aa71dbe853eb8e3fe69da'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:33.454+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:33.896+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x37883ad070ad24893cec060419630e2daa909882' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:34.120+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x37883ad070Ad24893cec060419630E2DAA909882","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:34.346+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x37883ad070ad24893cec060419630e2daa909882'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:34.346+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:34.794+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x64763adc58efe6774dfa222f5263f1421affc0f5' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:35.011+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x64763adC58eFE6774DFa222f5263F1421aFFc0f5","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:36.146+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x64763adc58efe6774dfa222f5263f1421affc0f5'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:36.146+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:36.631+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xf748d043d35d1f6365855626fd443f4ae09ec238' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:36.883+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xf748d043D35D1f6365855626fd443f4ae09EC238","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:37.132+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xf748d043d35d1f6365855626fd443f4ae09ec238'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:37.132+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:37.595+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xbdd5e079d4a8298e0b664b295aeac176cf7dc297' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:37.811+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xbdD5E079D4a8298e0B664b295AeAC176Cf7Dc297","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:38.028+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xbdd5e079d4a8298e0b664b295aeac176cf7dc297'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:38.028+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:38.464+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x60293cf71b14ae4226858a30ef595025ff917836' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:38.686+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x60293cf71B14aE4226858a30ef595025fF917836","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:38.908+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x60293cf71b14ae4226858a30ef595025ff917836'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:38.908+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:39.347+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xea19df1fcbf5c84143db98d3667fe844078a45ee' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:39.591+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xEa19df1fcBF5C84143dB98D3667fE844078a45Ee","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:39.810+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xea19df1fcbf5c84143db98d3667fe844078a45ee'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:39.810+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:40.242+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x8efdb9e135de67ce7c40273895cf1262df14e9ed' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:40.466+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x8EFDB9e135DE67CE7c40273895cF1262dF14e9ed","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:40.680+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x8efdb9e135de67ce7c40273895cf1262df14e9ed'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:40.680+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:41.136+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x2d92bcc74b628744b767d9105d68a2c3ff8e9bb1' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:41.382+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x2d92bCc74b628744B767d9105D68a2c3Ff8e9bB1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:41.599+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x2d92bcc74b628744b767d9105d68a2c3ff8e9bb1'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:41.599+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:42.080+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x345930b715c90770deb0cff62119211d2e143ef8' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:42.328+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x345930B715c90770DEb0CFF62119211d2E143EF8","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:42.550+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x345930b715c90770deb0cff62119211d2e143ef8'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:42.550+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:42.988+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xcecae064a3343109ba07374c7e4976b2adcb2b2a' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:43.205+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xCECae064A3343109BA07374C7E4976B2ADcb2b2a","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:43.420+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xcecae064a3343109ba07374c7e4976b2adcb2b2a'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:43.420+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:43.930+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x63d4c4bedf17108677cc397fccbce0b16a91bec9' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:44.159+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x63D4C4beDf17108677cc397FCCbCe0b16A91bEc9","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:44.555+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x63d4c4bedf17108677cc397fccbce0b16a91bec9'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:44.555+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:44.994+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x479d6467a2ac0b2ebb88fef7740ef4f0c03c44d9' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:45.219+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x479D6467a2aC0B2eBb88FeF7740EF4f0C03c44d9","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:45.430+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x479d6467a2ac0b2ebb88fef7740ef4f0c03c44d9'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:45.430+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:45.866+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xd09737a6f543cbea885648c4c86cbc4c40f03dce' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:46.088+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xd09737a6F543cbea885648c4c86cBc4C40F03dce","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:46.304+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xd09737a6f543cbea885648c4c86cbc4c40f03dce'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:46.304+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:46.776+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xd13e459a0c8c4f65f1887649c2649a6cfff0c529' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:47.029+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xD13e459A0c8C4f65F1887649C2649A6cFfF0C529","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:47.246+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xd13e459a0c8c4f65f1887649c2649a6cfff0c529'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:47.246+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:47.723+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x75be50353bd21364184cf8a85d92117f65ed1229' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:47.959+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x75be50353bd21364184Cf8A85D92117f65Ed1229","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:48.190+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x75be50353bd21364184cf8a85d92117f65ed1229'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:48.190+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:48.628+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xf176841b0568757dbf9538c8b51820b866464beb' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:48.849+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xF176841b0568757dBf9538C8B51820B866464BEB","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:49.065+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xf176841b0568757dbf9538c8b51820b866464beb'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:49.065+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:49.496+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xde58fffe1ec63cd19489f11a6e77fa35cbc6f71b' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:49.717+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xde58fffE1Ec63cd19489F11A6E77fA35CBc6F71b","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:49.933+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xde58fffe1ec63cd19489f11a6e77fa35cbc6f71b'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:49.933+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:50.385+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xa3b547278951d357a468482b7b3b0d9e3f7858c2' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:50.652+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xA3b547278951D357a468482b7B3B0d9E3f7858c2","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:50.864+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xa3b547278951d357a468482b7b3b0d9e3f7858c2'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:50.864+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:51.304+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xc09bed7350992c0cd7f98377559411a1fc9a4218' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:51.525+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xc09BeD7350992c0Cd7F98377559411A1fC9a4218","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:51.738+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xc09bed7350992c0cd7f98377559411a1fc9a4218'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:51.738+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:52.217+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xea0d9e361501e48999ca38bfec9cb2ec46e85d25' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:52.469+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xeA0d9E361501e48999Ca38bFEC9cb2EC46E85d25","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:52.692+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xea0d9e361501e48999ca38bfec9cb2ec46e85d25'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:52.692+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:53.155+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xe8a884845301e8aa097e3420949fc28456c23f7a' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:53.506+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xE8a884845301e8AA097e3420949FC28456c23F7a","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:53.723+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xe8a884845301e8aa097e3420949fc28456c23f7a'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:53.723+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:54.187+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x54e73f5dc8e9b6e0cb3ab38a8c1d329c284b7bb4' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:54.405+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x54e73F5dC8e9B6E0cB3Ab38a8C1d329c284B7Bb4","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:54.622+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x54e73f5dc8e9b6e0cb3ab38a8c1d329c284b7bb4'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:54.622+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:55.059+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xabb47df6e0e7b228d6934cff19ff587b547b41f3' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:55.281+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xaBb47Df6E0E7b228d6934CFF19Ff587b547B41f3","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:55.505+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xabb47df6e0e7b228d6934cff19ff587b547b41f3'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:55.505+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:55.951+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x62b8a70c7146d2d7258ded7ba376dc70cc772018' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:56.176+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x62b8a70C7146d2d7258deD7Ba376dC70Cc772018","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:57.351+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x62b8a70c7146d2d7258ded7ba376dc70cc772018'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:57.352+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:57.829+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0xac160d391b147481b484189f53a42e9aa9b47369' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:58.074+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0xaC160d391b147481b484189f53A42E9aA9b47369","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:58.298+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0xac160d391b147481b484189f53a42e9aa9b47369'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:58.298+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:58.828+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x9705f9f1bb354136ac926914d356ebbcccc12765' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:59.049+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x9705f9f1bB354136aC926914D356EbBcccc12765","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:59.268+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x9705f9f1bb354136ac926914d356ebbcccc12765'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:01:59.268+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:59.721+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_task` WHERE pioneer='0x527ee5e64c3056d520217b2bbc45b1be5a58ba05' and date='2024-03-10' ORDER BY `pioneer_task`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:01:59.941+0800","line":"blockchain/cityPioneer.go:452","msg":"pioneer task success 0x527Ee5e64C3056d520217b2BbC45b1BE5a58bA05","serviceName":"into"}
+{"level":"info","time":"2024-03-10T17:02:00.160+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_task` SET `status`=1 WHERE pioneer='0x527ee5e64c3056d520217b2bbc45b1be5a58ba05'","serviceName":"into"}
+{"level":"error","time":"2024-03-10T17:02:00.160+0800","line":"blockchain/city.go:762","msg":"已经执行成功，跳过","serviceName":"into"}
