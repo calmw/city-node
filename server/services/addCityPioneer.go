@@ -633,7 +633,7 @@ func CheckPioneer4(excelFile string) {
 					fmt.Println("该城市先锋不存在", i)
 					export.Deposit = "未交"
 				}
-				fmt.Println(pioneer.CityId, "----")
+				//fmt.Println(pioneer.CityId, "----")
 				err, chengShiIdBytes32 := blockchain2.PioneerChengShi(export.Pioneer)
 				if err != nil {
 					fmt.Println("获取先锋城市错误", i)

@@ -712,29 +712,12 @@ func TriggerAllPioneerTask() {
 	var pioneerNumber *big.Int
 	for {
 		pioneerNumber, err = cityPioneer.GetPioneerNumber(nil)
-		if err != nil || pioneerNumber == nil {
+		if err == nil || pioneerNumber != nil {
 			log.Logger.Sugar().Error(err)
 			break
 		}
 		time.Sleep(time.Second)
 	}
-
-	//nonce_ := int64(0)
-	//nonce, err := Cli.NonceAt(context.Background(), common.HexToAddress("0x89876D12A4cB4d19957cEBE3663EA485E05fD3f2"), nil)
-	//if err != nil {
-	//	time.Sleep(time.Second * 5)
-	//	nonce, err = Cli.NonceAt(context.Background(), common.HexToAddress("0x89876D12A4cB4d19957cEBE3663EA485E05fD3f2"), nil)
-	//	if err != nil {
-	//		log.Logger.Sugar().Error(err)
-	//		return
-	//	} else {
-	//		nonce_ = int64(nonce)
-	//	}
-	//} else {
-	//	nonce_ = int64(nonce)
-	//	fmt.Println(nonce, err, 8888)
-	//}
-	//fmt.Println(nonce_, 99999)
 
 	for i := 0; i < int(pioneerNumber.Int64()); i++ {
 		pioneer, err := cityPioneer.Pioneers(nil, big.NewInt(int64(i)))
@@ -778,7 +761,7 @@ func TriggerAllPioneerTask() {
 			continue
 		} else {
 			for k := 0; k < 10; k++ {
-				err, auth := GetAuth(Cli)
+				err, auth := GetPioneerDailyTaskAuth(Cli)
 				if err != nil {
 					log.Logger.Sugar().Error(err)
 					continue
@@ -810,14 +793,29 @@ func GetAllPioneer() {
 		log.Logger.Sugar().Error(err)
 		return
 	}
+	city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	cityPioneerData, err := intoCityNode.NewCityPioneerData(common.HexToAddress(CityNodeConfig.CityPioneerDataAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+	appraise, err := intoCityNode.NewAppraise(common.HexToAddress(CityNodeConfig.AppraiseAddress), Cli)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
 
 	var pioneerNumber *big.Int
 	for {
 		pioneerNumber, err = cityPioneer.GetPioneerNumber(nil)
-		if err != nil || pioneerNumber == nil {
-			log.Logger.Sugar().Error(err)
+		if err == nil || pioneerNumber == nil {
 			break
 		}
+		log.Logger.Sugar().Error(err)
 		time.Sleep(time.Second)
 	}
 
@@ -832,57 +830,136 @@ func GetAllPioneer() {
 			log.Logger.Sugar().Error(err)
 			continue
 		}
-		if isPioneer {
-			pioneerInfo := models.Pioneer{}
-			err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
-			if errors.Is(err, gorm.ErrRecordNotFound) {
-				city, err := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), Cli)
-				if err != nil {
-					log.Logger.Sugar().Error(err)
-					continue
-				}
-				res, err := city.PioneerChengShi(nil, common.HexToAddress(pioneer.String()))
-				if err != nil {
-					log.Logger.Sugar().Error(err)
-					continue
-				}
+		if !isPioneer {
+			continue
+		}
+		pioneerInfo := models.Pioneer{}
+		create := false
+		err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
+		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			create = true
+		}
+		/// 查询状态
+		// 查询批次
+		batch, err := appraise.PioneerBatch(nil, common.HexToAddress(pioneer.String()))
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
+		// 获取先锋类型
+		pioneerType, err := appraise.PioneerType(nil, common.HexToAddress(pioneer.String()))
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
+		// 查询地区ID
+		areaID, err := city.PioneerChengShi(nil, common.HexToAddress(pioneer.String()))
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
 
-				/// 获取考核状态
-				info, err := cityPioneer.PioneerInfo(nil, common.HexToAddress(pioneer.String()))
-				if err != nil {
-					log.Logger.Sugar().Error(err)
-					return
-				}
-				failedDelegate := ""
-				failedAt := ""
-				if !info.AssessmentMonthStatus {
-					failedDelegateRes, _ := cityPioneer.FailedDelegate(nil, res)
-					failedDelegate = failedDelegateRes.String()
-					failedAtRes, _ := cityPioneer.FailedAt(nil, common.HexToAddress(pioneer.String()))
-					failedAt = failedAtRes.String()
-				}
-
-				/// 获取先锋绑定城市信息
-				cityId := strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res)))
-				cityLevel, err := city.ChengShiLevel(nil, res)
-				if err != nil {
-					log.Logger.Sugar().Error(err)
-					continue
-				}
-				// 根据城市ID查询location
-				local := models.UserLocation{}
-
-				db.Mysql.Model(models.UserLocation{}).Where("city_id=?", cityId).First(&local)
-
-				db.Mysql.Model(models.Pioneer{}).Create(&models.Pioneer{
-					CityId:         strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(res))),
-					Location:       local.Location,
-					CityLevel:      cityLevel.Int64(),
-					Pioneer:        strings.ToLower(pioneer.String()),
-					FailedDelegate: failedDelegate,
-					FailedAt:       failedAt,
-				})
+		// 查询考核状态
+		info, err := cityPioneer.PioneerInfo(nil, common.HexToAddress(pioneer.String()))
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			return
+		}
+		failedDelegate := ""
+		failedAt := ""
+		if !info.AssessmentMonthStatus {
+			failedDelegateRes, _ := cityPioneer.FailedDelegate(nil, areaID)
+			failedDelegate = failedDelegateRes.String()
+			failedAtRes, _ := cityPioneer.FailedAt(nil, common.HexToAddress(pioneer.String()))
+			failedAt = failedAtRes.String()
+		}
+		// 查询到期时间
+		endTimestamp := info.Ctime.Int64() + 86400*(180-1)
+		endTime := time.Unix(endTimestamp, 0).Format("2006-01-02")
+		isOverTime := int64(0)
+		if time.Now().Unix()/86400 > endTimestamp/86400 {
+			isOverTime = 1
+		}
+		// 获取先锋绑定城市信息
+		areaIdStr := strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(areaID)))
+		areaLevel, err := city.ChengShiLevel(nil, areaID)
+		if err != nil {
+			log.Logger.Sugar().Error(err)
+			continue
+		}
+		suretyUsdt := int64(0)
+		suretyTox := int64(0)
+		if batch.Int64() > 3 {
+			tox, err := cityPioneerData.SuretyDepositTOX(nil, common.HexToAddress(pioneer.String()))
+			if err != nil {
+				log.Logger.Sugar().Error(err)
+				return
 			}
+			suretyTox = tox.Div(tox, big.NewInt(1e18)).Int64()
+			usdt, err := cityPioneerData.SuretyDepositUSDT(nil, common.HexToAddress(pioneer.String()))
+			if err != nil {
+				log.Logger.Sugar().Error(err)
+				return
+			}
+			suretyUsdt = usdt.Div(usdt, big.NewInt(1e18)).Int64()
+		} else {
+			if areaLevel.Int64() == 1 {
+				suretyTox = 100000
+			} else if areaLevel.Int64() == 2 {
+				suretyTox = 60000
+			} else if areaLevel.Int64() == 3 {
+				suretyTox = 40000
+			}
+		}
+
+		// 根据城市ID查询location
+		local := models.UserLocation{}
+		var whereCondition string
+		if pioneerType.Int64() == 1 {
+			whereCondition = fmt.Sprintf("county_id='%s'", areaIdStr)
+		} else {
+			whereCondition = fmt.Sprintf("city_id='%s'", areaIdStr)
+		}
+		db.Mysql.Model(models.UserLocation{}).Where(whereCondition).First(&local)
+		if create {
+			// 不存在创建
+			db.Mysql.Model(models.Pioneer{}).Create(&models.Pioneer{
+				AreaId:         areaIdStr,
+				Location:       local.Location,
+				Pioneer:        strings.ToLower(pioneer.String()),
+				FailedDelegate: failedDelegate,
+				FailedAt:       failedAt,
+				AreaLevel:      areaLevel.Int64(),
+				IsAreaNode:     pioneerType.Int64(),
+				PioneerBatch:   batch.Int64(),
+				EndTime:        endTime,
+				IsOverTime:     isOverTime,
+				SuretyUsdt:     suretyUsdt,
+				SuretyTox:      suretyTox,
+			})
+		} else {
+			// 未到期，未考核失败的更新
+			if failedAt != "" || isOverTime > 0 {
+				continue
+			}
+			db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).Updates(&models.Pioneer{
+				AreaId:         areaIdStr,
+				Location:       local.Location,
+				Pioneer:        strings.ToLower(pioneer.String()),
+				FailedDelegate: failedDelegate,
+				FailedAt:       failedAt,
+				AreaLevel:      areaLevel.Int64(),
+				IsAreaNode:     pioneerType.Int64(),
+				PioneerBatch:   batch.Int64(),
+				EndTime:        endTime,
+				IsOverTime:     isOverTime,
+				SuretyUsdt:     suretyUsdt,
+				SuretyTox:      suretyTox,
+			})
 		}
 	}
 }

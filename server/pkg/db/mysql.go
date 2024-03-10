@@ -11,21 +11,21 @@ import (
 
 func InitMysql() {
 	log.Logger.Info("Init Mysql")
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		`root`,
-		`root`,
-		`127.0.0.1`,
-		`3306`,
-		`city_node`,
-	)
-
 	//dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
 	//	`root`,
-	//	`let_me_in_gzHncU1q`,
-	//	`18.181.188.151`,
-	//	`3307`,
+	//	`root`,
+	//	`127.0.0.1`,
+	//	`3306`,
 	//	`city_node`,
 	//)
+
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		`root`,
+		`let_me_in_gzHncU1q`,
+		`18.181.188.151`,
+		`3307`,
+		`city_node`,
+	)
 	//fmt.Println(dsn)
 	db, err := gorm.Open(mysql.New(mysql.Config{
 		DSN:                       dsn,   // DSN data source name
@@ -52,7 +52,7 @@ func InitMysql() {
 	_ = db.Callback().Raw().After("gorm:raw").Register("after_raw", After)
 
 	//自动迁移为给定模型运行自动迁移，只会添加缺失的字段，不会删除/更改当前数据
-	//db.AutoMigrate(&TestTable{})
+	//db.AutoMigrate(&models.Pioneer{})
 
 	sqlDB, err := db.DB()
 	if err != nil {

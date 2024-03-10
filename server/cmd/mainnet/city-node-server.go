@@ -18,8 +18,6 @@ func main() {
 	//services.AddPioneerBeth3() // 四期上线前可用，需要更新ABI
 	//services.AddPioneerBeth4()
 
-	go services.InitSyncTask()
-
 	// 获取一二期用户最近三个月重置权重详情
 	//pioneers := []string{
 	//	"0xE137fF4FCdDA90C3665562F52491B511155e19FF",
@@ -59,9 +57,11 @@ func main() {
 	//	1)
 	//fmt.Println(err)
 
-	db.InitFdb()
-	db.InitLevelDb()
-	services.SyncStatus("assets/区县节点报名表.xlsx")
-	services.GetRaceNodeWeight("assets/区县节点报名表.xlsx")
+	//db.InitFdb()
+	//db.InitLevelDb()
+	//go services.InitSyncTask()
+	////services.SyncUserLocation()
+	//services.SyncStatus("assets/区县节点报名表2.xlsx")
+	//services.GetRaceNodeWeight("assets/区县节点报名表2.xlsx")
 
 }

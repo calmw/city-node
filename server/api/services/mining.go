@@ -908,7 +908,7 @@ func ReadExcel(excelFile string) int {
 	}
 
 	f = xjexcel.ListToExcel(result, "团队充值", "详情")
-	fileName := fmt.Sprintf("./工作室充值权重2.xlsx")
+	fileName := fmt.Sprintf("./业绩.xlsx")
 	f.SaveAs(fileName)
 
 	return statecode.CommonSuccess

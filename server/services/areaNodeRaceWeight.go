@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"github.com/calmw/fdb"
+	json2 "github.com/goccy/go-json"
 	"github.com/shopspring/decimal"
 	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"gorm.io/gorm"
@@ -53,7 +54,7 @@ func SyncStatus(excelFile string) {
 		}
 		for j, colCell := range row {
 			if j == 3 {
-				fmt.Println(colCell)
+				fmt.Println(colCell, 123)
 				var location models2.UserLocation
 				where := "location like '%" + colCell + "%'"
 				err = db.Mysql.Model(models2.UserLocation{}).Where(where).First(&location).Error
@@ -67,6 +68,7 @@ func SyncStatus(excelFile string) {
 				// 查询下级用户缓存
 				userAddress := strings.Trim(strings.TrimSpace(strings.ToLower(colCell)), "\t")
 				cacheKey := "team-data" + userAddress
+				fmt.Println(cacheKey, 7777)
 				_, err = db.FDB.Get([]byte(cacheKey))
 				if err != nil {
 					if errors.Is(err, fdb.ErrKeyNotFound) {
@@ -184,7 +186,7 @@ func GetRaceNodeWeight(excelFile string) int {
 	}
 
 	f = xjexcel.ListToExcel(result, "团队充值", "详情")
-	fileName := fmt.Sprintf("./工作室充值权重2.xlsx")
+	fileName := fmt.Sprintf("./业绩.xlsx")
 	f.SaveAs(fileName)
 
 	return statecode.CommonSuccess
@@ -196,8 +198,18 @@ func GetWeight(user, cityId string, countTime []int) (error, decimal.Decimal, bo
 	var val string
 	valBytes, err := db.LevelDb.Get([]byte(key), nil)
 	if err != nil {
-		userLocation := models2.UserLocation{}
-		err = db.Mysql.Model(models2.UserLocation{}).Where("user=?", user).First(&userLocation).Error
+		locationBytes, err := db.FDB.Get([]byte(fmt.Sprintf("user_location_%s", user)))
+		if err != nil {
+			return err, decimal.Zero, inCity
+		}
+		var userLocation models2.UserLocation
+		err = json2.Unmarshal(locationBytes, &userLocation)
+		if err != nil {
+			return err, decimal.Zero, inCity
+		}
+
+		//userLocation := models2.UserLocation{}
+		//err = db.Mysql.Model(models2.UserLocation{}).Where("user=?", user).First(&userLocation).Error
 		if err == nil {
 			key = fmt.Sprintf("%s-%s", user, cityId)
 			if userLocation.CityId == cityId {
@@ -306,8 +318,17 @@ func GetRechargeWeight(user, start, end string) (error, decimal.Decimal) {
 func InCity(user, cityId string) bool {
 	var inCity bool
 	var key, val string
-	userLocation := models2.UserLocation{}
-	err := db.Mysql.Model(models2.UserLocation{}).Where("user=?", user).First(&userLocation).Error
+	locationBytes, err := db.FDB.Get([]byte(fmt.Sprintf("user_location_%s", user)))
+	if err != nil {
+		return false
+	}
+	var userLocation models2.UserLocation
+	err = json2.Unmarshal(locationBytes, &userLocation)
+	if err != nil {
+		return false
+	}
+	//userLocation := models2.UserLocation{}
+	//err := db.Mysql.Model(models2.UserLocation{}).Where("user=?", user).First(&userLocation).Error
 	if err == nil {
 		key = fmt.Sprintf("%s-%s", user, cityId)
 		if userLocation.CityId == cityId {
@@ -338,4 +359,31 @@ func InCity(user, cityId string) bool {
 		return inCity
 	}
 	return inCity
+}
+
+func SyncUserLocation() {
+	index := 0
+	for {
+		var locations []models2.UserLocation
+		db.Mysql.Model(&models2.UserLocation{}).Where("id>?", index*1000).Limit(1000).Find(&locations)
+
+		if len(locations) == 0 {
+			break
+		}
+
+		for _, location := range locations {
+
+			marshal, err := json.Marshal(location)
+			if err != nil {
+				log.Logger.Sugar().Error(err)
+				return
+			}
+			err = db.FDB.Set([]byte(fmt.Sprintf("user_location_%s", location.User)), time.Hour*24, marshal)
+			if err != nil {
+				log.Logger.Sugar().Error(err)
+				return
+			}
+		}
+		index++
+	}
 }
