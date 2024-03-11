@@ -978,6 +978,7 @@ func SyncAddPioneerInfoFromExcel(excelFile string) {
 	// 取得 Sheet1 表格中所有的行
 	rows, err := f.GetRows("Sheet1")
 
+forOut:
 	for i, row := range rows {
 		if i == 1 || i == 0 {
 			continue
@@ -997,6 +998,7 @@ func SyncAddPioneerInfoFromExcel(excelFile string) {
 					pioneer.AreaId = location.CountyId
 				} else {
 					fmt.Println(colCell, "该地区有问题", 123)
+					continue forOut
 				}
 
 			}
@@ -1015,7 +1017,7 @@ func SyncAddPioneerInfoFromExcel(excelFile string) {
 				}
 			}
 		}
-		fmt.Println(pioneer)
+		//fmt.Println(pioneer)
 		pioneers = append(pioneers, pioneer)
 	}
 

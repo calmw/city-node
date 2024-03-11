@@ -12,7 +12,6 @@ import (
 	"fmt"
 	"github.com/360EntSecGroup-Skylar/excelize/v2"
 	"github.com/calmw/fdb"
-	json2 "github.com/goccy/go-json"
 	"github.com/shopspring/decimal"
 	"github.com/xjieinfo/xjgo/xjcore/xjexcel"
 	"gorm.io/gorm"
@@ -54,7 +53,7 @@ func SyncStatus(excelFile string) {
 		}
 		for j, colCell := range row {
 			if j == 3 {
-				fmt.Println(colCell, 123)
+				fmt.Println(colCell)
 				var location models2.UserLocation
 				where := "location like '%" + colCell + "%'"
 				err = db.Mysql.Model(models2.UserLocation{}).Where(where).First(&location).Error
@@ -68,7 +67,6 @@ func SyncStatus(excelFile string) {
 				// 查询下级用户缓存
 				userAddress := strings.Trim(strings.TrimSpace(strings.ToLower(colCell)), "\t")
 				cacheKey := "team-data" + userAddress
-				fmt.Println(cacheKey, 7777)
 				_, err = db.FDB.Get([]byte(cacheKey))
 				if err != nil {
 					if errors.Is(err, fdb.ErrKeyNotFound) {
@@ -137,7 +135,8 @@ func GetRaceNodeWeight(excelFile string) int {
 
 		// 查询下级用户缓存
 		userAddress := node.Wallet
-		cacheKey := "team-data" + userAddress
+		cacheKey := "team-data" + strings.Trim(userAddress, "\t")
+		fmt.Println(cacheKey)
 		data, err := db.FDB.Get([]byte(cacheKey))
 		if errors.Is(err, fdb.ErrKeyNotFound) {
 			log.Logger.Sugar().Error("异步拉取数据", cacheKey)
@@ -185,8 +184,8 @@ func GetRaceNodeWeight(excelFile string) int {
 		result = append(result, node)
 	}
 
-	f = xjexcel.ListToExcel(result, "团队充值", "详情")
-	fileName := fmt.Sprintf("./业绩.xlsx")
+	f = xjexcel.ListToExcel(result, "业绩", "业绩详情")
+	fileName := fmt.Sprintf("./后备节点团队业绩.xlsx")
 	f.SaveAs(fileName)
 
 	return statecode.CommonSuccess
@@ -198,18 +197,12 @@ func GetWeight(user, cityId string, countTime []int) (error, decimal.Decimal, bo
 	var val string
 	valBytes, err := db.LevelDb.Get([]byte(key), nil)
 	if err != nil {
-		locationBytes, err := db.FDB.Get([]byte(fmt.Sprintf("user_location_%s", user)))
-		if err != nil {
-			return err, decimal.Zero, inCity
-		}
-		var userLocation models2.UserLocation
-		err = json2.Unmarshal(locationBytes, &userLocation)
-		if err != nil {
-			return err, decimal.Zero, inCity
-		}
-
 		//userLocation := models2.UserLocation{}
 		//err = db.Mysql.Model(models2.UserLocation{}).Where("user=?", user).First(&userLocation).Error
+		userLocation, err := GetUserLocationFromFdb(user)
+		//if err == nil {
+		//	key = fmt.Sprintf("%s-%s", user, cityId)
+		//}
 		if err == nil {
 			key = fmt.Sprintf("%s-%s", user, cityId)
 			if userLocation.CityId == cityId {
@@ -318,20 +311,13 @@ func GetRechargeWeight(user, start, end string) (error, decimal.Decimal) {
 func InCity(user, cityId string) bool {
 	var inCity bool
 	var key, val string
-	locationBytes, err := db.FDB.Get([]byte(fmt.Sprintf("user_location_%s", user)))
-	if err != nil {
-		return false
-	}
-	var userLocation models2.UserLocation
-	err = json2.Unmarshal(locationBytes, &userLocation)
-	if err != nil {
-		return false
-	}
 	//userLocation := models2.UserLocation{}
 	//err := db.Mysql.Model(models2.UserLocation{}).Where("user=?", user).First(&userLocation).Error
+
+	uerLocation, err := GetUserLocationFromFdb(user)
 	if err == nil {
 		key = fmt.Sprintf("%s-%s", user, cityId)
-		if userLocation.CityId == cityId {
+		if uerLocation.CityId == cityId {
 			inCity = true
 			val = "1"
 			err = db.LevelDb.Put([]byte(key), []byte(val), nil)
@@ -361,29 +347,48 @@ func InCity(user, cityId string) bool {
 	return inCity
 }
 
-func SyncUserLocation() {
-	index := 0
+func SyncUserLocationToFdb() {
+	i := 0
 	for {
 		var locations []models2.UserLocation
-		db.Mysql.Model(&models2.UserLocation{}).Where("id>?", index*1000).Limit(1000).Find(&locations)
-
-		if len(locations) == 0 {
-			break
-		}
-
-		for _, location := range locations {
-
-			marshal, err := json.Marshal(location)
-			if err != nil {
-				log.Logger.Sugar().Error(err)
-				return
+		err := db.Mysql.Model(models2.UserLocation{}).Where("id>?", i*1000).Limit(1000).Find(&locations).Error
+		if err == nil {
+			if len(locations) == 0 {
+				break
 			}
-			err = db.FDB.Set([]byte(fmt.Sprintf("user_location_%s", location.User)), time.Hour*24, marshal)
-			if err != nil {
-				log.Logger.Sugar().Error(err)
-				return
+			for _, location := range locations {
+				marshal, err := json.Marshal(location)
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
+				err = db.FDB.Set([]byte(fmt.Sprintf("location_info_%s", location.User)), time.Second*86400, marshal)
+				if err != nil {
+					fmt.Println(err)
+					return
+				}
 			}
+			i++
+		} else {
+			fmt.Println(err)
+			return
 		}
-		index++
 	}
+}
+
+func GetUserLocationFromFdb(user string) (models2.UserLocation, error) {
+	var location models2.UserLocation
+	marshal, err := db.FDB.Get([]byte(fmt.Sprintf("location_info_%s", user)))
+	if err != nil {
+		fmt.Println(err)
+		return models2.UserLocation{}, err
+	}
+
+	err = json.Unmarshal(marshal, &location)
+	if err != nil {
+		return models2.UserLocation{}, err
+	}
+
+	return location, nil
+
 }
