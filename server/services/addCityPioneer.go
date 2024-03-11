@@ -359,6 +359,7 @@ func AddPioneerBeth4FromDb() {
 					info.Pioneer,
 				)
 				if err == nil {
+					fmt.Println("重置先锋成功", info.OldAreaId, info.Pioneer)
 					break
 				}
 			}
@@ -377,24 +378,28 @@ func AddPioneerBeth4FromDb() {
 			)
 
 			if err == nil || strings.Contains(err.Error(), "can not set any more") {
+				fmt.Println("设置先锋成功", info.OldAreaId, info.Pioneer, err)
 				break
 			}
 			if err == nil || strings.Contains(err.Error(), "you are global node") {
 				log.Logger.Sugar().Info("全球节点")
+				fmt.Println("设置先锋成功", info.OldAreaId, info.Pioneer, err)
 				break
 			}
+
+			fmt.Println("设置先锋失败", info.OldAreaId, info.Pioneer, err)
 		}
-		err, cityIdBytes32 := blockchain2.PioneerChengShi(info.Pioneer)
-		err, levelChain := blockchain2.ChengShiLevel(cityIdBytes32)
-		var ok bool
-		if info.AreaId == strings.ToLower(blockchain2.ConvertAreaIdBtA(cityIdBytes32)) {
-			ok = true
-		}
-		fmt.Println(info.Pioneer, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
+		//err, cityIdBytes32 := blockchain2.PioneerChengShi(info.Pioneer)
+		//err, levelChain := blockchain2.ChengShiLevel(cityIdBytes32)
+		//var ok bool
+		//if info.AreaId == strings.ToLower(blockchain2.ConvertAreaIdBtA(cityIdBytes32)) {
+		//	ok = true
+		//}
+		//fmt.Println(info.Pioneer, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
+
 		db.Mysql.Model(&models.PioneerAddInfo{}).Where("pioneer=?", info.Pioneer).Update("is_set", 1)
 
 	}
-
 }
 
 func ReadExcel(excelFile string) {
