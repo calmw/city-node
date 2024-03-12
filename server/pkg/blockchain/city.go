@@ -862,7 +862,7 @@ func GetAllPioneer() {
 		}
 		pioneerInfo := models.Pioneer{}
 		create := false
-		err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=? and is_over_time=0", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
+		err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			log.Logger.Sugar().Error(err)
 			continue
