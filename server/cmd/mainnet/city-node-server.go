@@ -1,6 +1,7 @@
 package main
 
 import (
+	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
 	"city-node-server/services"
 )
@@ -33,9 +34,9 @@ func main() {
 	//services.ReadExcel("./assets/区县节点报名表2.xlsx")
 
 	/// 添加先锋
-	//blockchain.GetAllPioneer()
-	//services.SyncAddPioneerInfoFromExcel("./assets/修改后区县节点统计表3.10.xlsx")
-	services.AddPioneerBeth4FromDb()
+	blockchain.GetAllPioneer()
+	//services.SyncAddPioneerInfoFromExcel("./assets/区县节点报名表.xlsx")
+	//services.AddPioneerBeth4FromDb()
 	/// 添加先锋
 
 	//services.ReadExcel5("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx") // 查询用户所在城市的网体业绩

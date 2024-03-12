@@ -973,7 +973,7 @@ func GetAllPioneer() {
 			if failedAt != "" || isOverTime > 0 {
 				continue
 			}
-			db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).Updates(&models.Pioneer{
+			db.Mysql.Model(models.Pioneer{}).Where("pioneer=? and is_over_time=0", strings.ToLower(pioneer.String())).Updates(&models.Pioneer{
 				AreaId:         areaIdStr,
 				Location:       local.Location,
 				Pioneer:        strings.ToLower(pioneer.String()),
