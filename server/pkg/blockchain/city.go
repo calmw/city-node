@@ -26,7 +26,18 @@ type City struct {
 }
 
 func NewCity(cli *ethclient.Client) *City {
-	city, _ := intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), cli)
+	var city *intoCityNode.City
+	var err error
+	for i := 0; i < 10; i++ {
+		city, err = intoCityNode.NewCity(common.HexToAddress(CityNodeConfig.CityAddress), cli)
+		if err == nil {
+			break
+		}
+		time.Sleep(time.Second)
+	}
+	if city == nil {
+		panic(err)
+	}
 
 	return &City{
 		Cli:      cli,

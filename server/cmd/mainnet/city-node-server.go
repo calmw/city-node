@@ -1,7 +1,6 @@
 package main
 
 import (
-	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
 	"city-node-server/services"
 )
@@ -34,9 +33,9 @@ func main() {
 	//services.ReadExcel("./assets/区县节点报名表2.xlsx")
 
 	/// 添加先锋
-	blockchain.GetAllPioneer()
-	//services.SyncAddPioneerInfoFromExcel("./assets/区县节点报名表.xlsx")
-	//services.AddPioneerBeth4FromDb()
+	//blockchain.GetAllPioneer()
+	//services.SyncAddPioneerInfoFromExcel("./assets/区县节点报名表2.xlsx")
+	services.AddPioneerBeth4FromDb()
 	/// 添加先锋
 
 	//services.ReadExcel5("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx") // 查询用户所在城市的网体业绩
@@ -50,8 +49,8 @@ func main() {
 	//services.CheckLocation("./assets/越南2.xlsx") // 查看位置是否存在,把县城映射到省（越南等国家）
 
 	//err := services.RemovePioneer(
-	//	"0x04d2e819ac80f065817de42af3cf9131cae829e98e3a9887cfef49fc5080e2e6",
-	//	"0x17E56C5f4E271a2Ce0920580784C6397e247C9d9",
+	//	"0xf5dfc352bad4aad6e9a31a8cc0cd00ff6bde8a4cf8c3302dbf715cdb2e728e40",
+	//	"0x04AC71d61Ee8A74e522D35085CA117C9c9F4d933",
 	//)
 	//fmt.Println(err)
 

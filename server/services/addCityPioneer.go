@@ -389,13 +389,6 @@ func AddPioneerBeth4FromDb() {
 
 			fmt.Println("设置先锋失败", info.OldAreaId, info.Pioneer, err)
 		}
-		//err, cityIdBytes32 := blockchain2.PioneerChengShi(info.Pioneer)
-		//err, levelChain := blockchain2.ChengShiLevel(cityIdBytes32)
-		//var ok bool
-		//if info.AreaId == strings.ToLower(blockchain2.ConvertAreaIdBtA(cityIdBytes32)) {
-		//	ok = true
-		//}
-		//fmt.Println(info.Pioneer, err, strings.ToLower("0x"+hexutils.BytesToHex(blockchain2.Bytes32ToBytes(cityIdBytes32))), ok, levelChain)
 
 		db.Mysql.Model(&models.PioneerAddInfo{}).Where("pioneer=?", info.Pioneer).Update("is_set", 1)
 
@@ -1023,20 +1016,15 @@ forOut:
 			}
 		}
 		//fmt.Println(pioneer)
-		//if pioneer.PioneerAddress != "0xd46a804a12f585f6073e4834012b1394ed09a6f8" &&
-		//pioneer.PioneerAddress != "0x1a4296f375119442c0e8f9bbaff2c6e1d2f5f78d" &&
-		//pioneer.PioneerAddress != "0xbf9677aa0aedc5b9ef260ce2b25e2cc21716c6fd" &&
-		//pioneer.PioneerAddress != "0x5b8a405544138dbf96b4fcb40fbf256006fc96cc" &&
-		//pioneer.PioneerAddress != "0x2b5e630e7aa0a507b67aa07ba12b15100212f351" &&
-		//pioneer.PioneerAddress != "0x4b4251c8c46a61f2159cbf2d084a63f46a5d93ac" &&
-		if pioneer.PioneerAddress != strings.ToLower("0xa35C425Da9162CDA42afDEDeA3938a2b3e057d94") {
+		if pioneer.PioneerAddress == "0x9d8213d2e8b3277c970e0d4dc99f2202c6e75919" ||
+			pioneer.PioneerAddress == "0x89aa0acbdc006383fc26cb84ad5488cc6283217e" {
 			continue
 		}
 		pioneers = append(pioneers, pioneer)
 	}
 
 	fmt.Println(pioneers, city)
-	//SyncAddPioneerInfoToDb(pioneers, city)
+	SyncAddPioneerInfoToDb(pioneers, city)
 }
 
 func SyncAddPioneerInfoToDb(pioneers []Pioneer, city *blockchain2.City) {
