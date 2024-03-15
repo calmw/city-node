@@ -245,9 +245,6 @@ contract IntoCity is RoleAccess, Initializable {
         uint256 amount
     ) public onlyAdmin {
         IntoCityPioneer intoCityPioneer = IntoCityPioneer(cityPioneerAddress);
-        if (block.timestamp < intoCityPioneer.startTime()) {
-            return;
-        }
         IntoUserLocation intoUserLocation = IntoUserLocation(
             userLocationAddress
         );

@@ -988,12 +988,20 @@ forOut:
 				colCell = strings.TrimSpace(colCell)
 				area := strings.Split(colCell, " ")
 				var where string
+				if len(area) == 1 {
+					where = "city like '%" + area[0] + "%'"
+				} else {
+					where = "city like '%" + area[0] + "%' and county like '%" + area[1] + "%'"
+				}
 				pioneer.AreaName = colCell
-				where = "city like '%" + area[0] + "%' and county like '%" + area[1] + "%'"
 				fmt.Println(where)
 				err = db.Mysql.Model(models.UserLocation{}).Where(where).First(&location).Error
 				if err == nil {
-					pioneer.AreaId = location.CountyId
+					if len(area) == 1 {
+						pioneer.AreaId = location.CityId
+					} else {
+						pioneer.AreaId = location.CountyId
+					}
 				} else {
 					fmt.Println(colCell, "该地区有问题", 123)
 					continue forOut
@@ -1010,6 +1018,9 @@ forOut:
 				} else if colCell == "二线区县节点" {
 					pioneer.IsAreaNode = 1
 					pioneer.AreaLevel = 2
+				} else if colCell == "三线城市节点" {
+					pioneer.IsAreaNode = 0
+					pioneer.AreaLevel = 3
 				} else {
 					panic("节点级别错误")
 				}
