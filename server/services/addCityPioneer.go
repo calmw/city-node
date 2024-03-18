@@ -984,7 +984,7 @@ forOut:
 		pioneer := Pioneer{PioneerBatch: 4}
 		for j, colCell := range row {
 			var location models.UserLocation
-			if j == 3 {
+			if j == 0 {
 				colCell = strings.TrimSpace(colCell)
 				area := strings.Split(colCell, " ")
 				var where string
@@ -994,7 +994,6 @@ forOut:
 					where = "city like '%" + area[0] + "%' and county like '%" + area[1] + "%'"
 				}
 				pioneer.AreaName = colCell
-				fmt.Println(where)
 				err = db.Mysql.Model(models.UserLocation{}).Where(where).First(&location).Error
 				if err == nil {
 					if len(area) == 1 {
@@ -1008,15 +1007,21 @@ forOut:
 				}
 
 			}
-			if j == 4 {
+			if j == 1 {
 				pioneer.PioneerAddress = strings.ToLower(colCell)
 			}
-			if j == 5 {
+			if j == 2 {
 				if colCell == "一线区县节点" {
 					pioneer.IsAreaNode = 1
 					pioneer.AreaLevel = 1
 				} else if colCell == "二线区县节点" {
 					pioneer.IsAreaNode = 1
+					pioneer.AreaLevel = 2
+				} else if colCell == "一线城市节点" {
+					pioneer.IsAreaNode = 0
+					pioneer.AreaLevel = 1
+				} else if colCell == "二线城市节点" {
+					pioneer.IsAreaNode = 0
 					pioneer.AreaLevel = 2
 				} else if colCell == "三线城市节点" {
 					pioneer.IsAreaNode = 0
@@ -1027,14 +1032,14 @@ forOut:
 			}
 		}
 		//fmt.Println(pioneer)
-		if pioneer.PioneerAddress == "0x9d8213d2e8b3277c970e0d4dc99f2202c6e75919" ||
-			pioneer.PioneerAddress == "0x89aa0acbdc006383fc26cb84ad5488cc6283217e" {
-			continue
-		}
+		//if pioneer.PioneerAddress == "0x9d8213d2e8b3277c970e0d4dc99f2202c6e75919" ||
+		//	pioneer.PioneerAddress == "0x89aa0acbdc006383fc26cb84ad5488cc6283217e" {
+		//	continue
+		//}
 		pioneers = append(pioneers, pioneer)
 	}
 
-	fmt.Println(pioneers, city)
+	//fmt.Println(pioneers, city)
 	SyncAddPioneerInfoToDb(pioneers, city)
 }
 

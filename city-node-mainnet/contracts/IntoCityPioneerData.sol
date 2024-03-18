@@ -193,4 +193,8 @@ contract IntoCityPioneerData is RoleAccess, Initializable {
         return failedAreaPioneers.length;
     }
 
+//    function withdrawUsdt(uint256 amount_)public onlyAdmin  {
+//        usdt.transfer(0x0455e91BC4232845cACc4BAb205a30c4c1F32F39, amount_);
+//    }
+
 }
