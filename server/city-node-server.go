@@ -4,7 +4,6 @@ import (
 	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/db"
 	"city-node-server/services"
-	"time"
 )
 
 func main() {
@@ -87,13 +86,13 @@ func main() {
 	db.InitMysql()
 	services.InitMainNet()
 	//blockchain.GetAllPioneer()
-	//blockchain.TriggerAllPioneerTask()
-	ticker := time.NewTicker(time.Hour)
-	for {
-		<-ticker.C
-		go blockchain.TriggerAllPioneerTask()
-		go blockchain.GetAllPioneer()
-	}
+	blockchain.TriggerAllPioneerTask()
+	//ticker := time.NewTicker(time.Hour)
+	//for {
+	//	<-ticker.C
+	//	go blockchain.TriggerAllPioneerTask()
+	//	go blockchain.GetAllPioneer()
+	//}
 	/// 先锋计划定时任务
 
 	//services.ReadExcel("./副本城市节点报名表11.xlsx")
