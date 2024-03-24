@@ -362,20 +362,20 @@ func AddPioneerBeth4FromDb() {
 		// 重置,需要重置，并且改先锋地址之前是已经失效的先锋
 		if info.IsReset == 1 && info.OldAreaId != "" {
 			for {
-				//err = RemovePioneer(
-				//	info.OldAreaId,
-				//	info.Pioneer,
-				//)
 				err = RemovePioneer(
-					"0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a",
-					"0x714956178a484805EBe00f5Cef30bC7e7323C30F",
+					info.OldAreaId,
+					info.Pioneer,
 				)
+				//err = RemovePioneer(
+				//	"0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a",
+				//	"0x714956178a484805EBe00f5Cef30bC7e7323C30F",
+				//)
 				if err == nil {
 					fmt.Println("重置先锋成功", info.OldAreaId, info.Pioneer)
 					break
 				}
 			}
-			return
+			//return
 		}
 
 		// 添加
