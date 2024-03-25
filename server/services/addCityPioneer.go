@@ -395,6 +395,50 @@ func AddPioneerBeth4FromDb() {
 	}
 }
 
+type PioneerNotPay struct {
+	User      string `json:"user" excel:"column:B;desc:用户地址;width:30"`
+	Area      string `json:"area" excel:"column:C;desc:用户地区;width:30"`
+	IsArea    string `json:"is_area" excel:"column:D;desc:先锋类型;width:30"`
+	AreaLevel int64  `json:"area_level" excel:"column:E;desc:地区等级;width:30"`
+}
+
+func AddPioneerBeth4FromDb2() {
+
+	var pioneers []models.Pioneer
+
+	err := db.Mysql.Model(&models.Pioneer{}).Where("surety_usdt>0").Find(&pioneers).Error
+
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	//err, cli := blockchain2.Client(blockchain2.CityNodeConfig)
+	//if err != nil {
+	//	log.Logger.Sugar().Error(err)
+	//	return
+	//}
+	// 设置所需缴纳的TOX，城市等级
+	//cityPioneer := blockchain2.NewCityPioneer(cli)
+	var pioneerNotPays []PioneerNotPay
+	for _, info := range pioneers {
+		pt := "城市先锋"
+		if info.IsAreaNode > 0 {
+			pt = "区域先锋"
+		}
+		pioneerNotPays = append(pioneerNotPays, PioneerNotPay{
+			User:      info.Pioneer,
+			Area:      info.Location,
+			IsArea:    pt,
+			AreaLevel: info.AreaLevel,
+		})
+	}
+
+	// 保存excel
+	f := xjexcel.ListToExcel(pioneerNotPays, "四期交保证金用户", "数据详情")
+	f.SaveAs(fmt.Sprintf("四期交保证金用户.xlsx"))
+}
+
 func ReadExcel(excelFile string) {
 	var pioneers []Pioneer
 	var noLocationPioneers []Pioneer
