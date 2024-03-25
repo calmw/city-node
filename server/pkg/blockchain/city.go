@@ -873,13 +873,10 @@ func GetAllPioneer() {
 		}
 		pioneerInfo := models.Pioneer{}
 		create := false
-		err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).First(&pioneerInfo).Error
+		err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", strings.ToLower(pioneer.String())).Order("id desc").First(&pioneerInfo).Error
 		if err != nil && !errors.Is(err, gorm.ErrRecordNotFound) {
 			log.Logger.Sugar().Error(err)
 			continue
-		}
-		if errors.Is(err, gorm.ErrRecordNotFound) {
-			create = true
 		}
 		/// 查询状态
 		// 查询批次
@@ -921,6 +918,16 @@ func GetAllPioneer() {
 		isOverTime := int64(0)
 		if time.Now().Unix()/86400 > endTimestamp/86400 {
 			isOverTime = 1
+		}
+
+		//fmt.Println(errors.Is(err, gorm.ErrRecordNotFound), endTime, pioneerInfo.EndTime, pioneerInfo.Pioneer)
+		fmt.Println(errors.Is(err, gorm.ErrRecordNotFound), endTime, pioneerInfo.EndTime, pioneerInfo.Pioneer)
+		if errors.Is(err, gorm.ErrRecordNotFound) || pioneerInfo.EndTime != endTime {
+			create = true
+		}
+		var upgrade bool
+		if (create == false && (isOverTime == 1 && pioneerInfo.IsOverTime == 0)) || (failedAt != "" && create == false) {
+			upgrade = true
 		}
 		// 获取先锋绑定城市信息
 		areaIdStr := strings.ToLower("0x" + hexutils.BytesToHex(Bytes32ToBytes(areaID)))
@@ -979,11 +986,12 @@ func GetAllPioneer() {
 				SuretyUsdt:     suretyUsdt,
 				SuretyTox:      suretyTox,
 			})
-		} else {
+		}
+		if upgrade {
 			// 未到期，未考核失败的更新
-			if failedAt != "" || isOverTime > 0 {
-				continue
-			}
+			//if failedAt != "" || isOverTime > 0 {
+			//	continue
+			//}
 			db.Mysql.Model(models.Pioneer{}).Where("pioneer=? and is_over_time=0", strings.ToLower(pioneer.String())).Updates(&models.Pioneer{
 				AreaId:         areaIdStr,
 				Location:       local.Location,

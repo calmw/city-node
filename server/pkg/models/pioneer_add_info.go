@@ -4,6 +4,7 @@ type PioneerAddInfo struct {
 	Id            int32  `gorm:"column:id;primaryKey"`
 	AreaId        string `json:"area_id" gorm:"column:area_id"`
 	OldAreaId     string `json:"old_area_id" gorm:"column:old_area_id"`
+	OldPioneer    string `json:"old_pioneer" gorm:"column:old_pioneer"`
 	Location      string `json:"location" gorm:"column:location"`
 	Pioneer       string `json:"pioneer" gorm:"column:pioneer"`
 	AreaLevel     int64  `json:"area_level" gorm:"column:area_level"`

@@ -316,6 +316,14 @@ func AddPioneerBeth4FromDb() {
 		return
 	}
 
+	err, cli := blockchain2.Client(blockchain2.CityNodeConfig)
+	if err != nil {
+		log.Logger.Sugar().Error(err)
+		return
+	}
+
+	city := blockchain2.NewCity(cli)
+
 	for _, info := range pioneerAddInfos {
 		if info.PioneerBatch != 4 {
 			panic("pioneer batch error")
@@ -358,11 +366,16 @@ func AddPioneerBeth4FromDb() {
 					info.OldAreaId,
 					info.Pioneer,
 				)
+				//err = RemovePioneer(
+				//	"0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a",
+				//	"0x714956178a484805EBe00f5Cef30bC7e7323C30F",
+				//)
 				if err == nil {
 					fmt.Println("重置先锋成功", info.OldAreaId, info.Pioneer)
 					break
 				}
 			}
+			//return
 		}
 
 		// 添加
@@ -379,11 +392,34 @@ func AddPioneerBeth4FromDb() {
 
 			if err == nil || strings.Contains(err.Error(), "can not set any more") {
 				fmt.Println("设置先锋成功", info.OldAreaId, info.Pioneer, err)
+
+				for i := 0; i < 10; i++ {
+					pioneerCity, err := city.PioneerCity(info.Pioneer)
+					if err == nil && pioneerCity != "0x0000000000000000000000000000000000000000000000000000000000000000" {
+						fmt.Println("检测先锋成功", info.Location, info.Pioneer)
+						break
+					}
+					if i == 9 {
+						fmt.Println("检测先锋失败", info.Location, info.Pioneer)
+					}
+				}
+
 				break
 			}
 			if err == nil || strings.Contains(err.Error(), "you are global node") {
 				log.Logger.Sugar().Info("全球节点")
 				fmt.Println("设置先锋成功", info.OldAreaId, info.Pioneer, err)
+				for i := 0; i < 10; i++ {
+					pioneerCity, err := city.PioneerCity(info.Pioneer)
+					if err == nil && pioneerCity != "0x0000000000000000000000000000000000000000000000000000000000000000" {
+						fmt.Println("检测先锋成功", info.Location, info.Pioneer)
+						break
+					}
+					if i == 9 {
+						fmt.Println("检测先锋失败", info.Location, info.Pioneer)
+					}
+				}
+
 				break
 			}
 
@@ -1091,12 +1127,13 @@ func SyncAddPioneerInfoToDb(pioneers []Pioneer, city *blockchain2.City) {
 	for i, p := range pioneers {
 		isSet := int64(0)
 		isReset := int64(0)
-		var remark, oldAreaId string
+		var remark, oldAreaId, oldPioneer string
 		pioneerStatus := int64(0)
 		// 根据city_id判断该城市是否已经添加过先锋
 		var pioneer models.Pioneer
-		err := db.Mysql.Model(models.Pioneer{}).Where("area_id=?", p.AreaId).First(&pioneer).Debug().Error
+		err := db.Mysql.Model(models.Pioneer{}).Where("area_id=?", p.AreaId).Order("id desc").First(&pioneer).Debug().Error
 		if err == nil {
+			oldPioneer = pioneer.Pioneer
 			if pioneer.FailedAt != "" {
 				fmt.Println("该地区的先锋已经存在,但考核失败", i)
 				remark = "该地区的先锋已经存在,但考核失败"
@@ -1115,7 +1152,7 @@ func SyncAddPioneerInfoToDb(pioneers []Pioneer, city *blockchain2.City) {
 			}
 		}
 		pioneer = models.Pioneer{}
-		err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", p.PioneerAddress).First(&pioneer).Debug().Error
+		err = db.Mysql.Model(models.Pioneer{}).Where("pioneer=?", p.PioneerAddress).Order("id desc").First(&pioneer).Debug().Error
 		if err == nil {
 			oldAreaId = pioneer.AreaId
 			if pioneer.FailedAt != "" {
@@ -1163,6 +1200,7 @@ func SyncAddPioneerInfoToDb(pioneers []Pioneer, city *blockchain2.City) {
 		pioneerAddInfo = models.PioneerAddInfo{
 			AreaId:        p.AreaId,
 			OldAreaId:     oldAreaId,
+			OldPioneer:    oldPioneer,
 			Location:      p.AreaName,
 			Pioneer:       p.PioneerAddress,
 			AreaLevel:     p.AreaLevel,
