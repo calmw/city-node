@@ -37,7 +37,7 @@ func main() {
 	//services.SyncAddPioneerInfoFromExcel("./assets/区县节点报名表2.xlsx")
 	//services.AddPioneerBeth4FromDb()
 	/// 添加先锋
-	services.AddPioneerBeth4FromDb2()
+	//services.AddPioneerBeth4FromDb2()
 
 	//services.ReadExcel5("./assets/副本INTO工作室申请统计表(审核12月31日)发给技术.xlsx") // 查询用户所在城市的网体业绩
 	//services.ReadExcel5("./assets/INTO工作室补贴业绩查询1.31.xlsx") // 查询用户所在城市的网体业绩
