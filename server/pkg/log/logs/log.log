@@ -4693,3 +4693,60 @@
 {"level":"info","time":"2024-03-24T19:25:58.964+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_add_info` WHERE is_set=0 and pioneer_status=0","serviceName":"into"}
 {"level":"error","time":"2024-03-24T19:26:01.857+0800","line":"services/pioneer.go:28","msg":"invalid nonce; got 2803, expected 2804: invalid sequence: invalid sequence","serviceName":"into"}
 {"level":"info","time":"2024-03-24T19:26:05.374+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_add_info` SET `is_set`=1 WHERE pioneer='0x8595485fe2e08cabe52d591d356b8cfa4ade6cb2'","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:22.522+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:23.827+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:23.955+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `user_location` WHERE city like '%泰州市%' ORDER BY `user_location`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:24.079+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `user_location` WHERE city like '%金华市%' ORDER BY `user_location`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:24.528+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer` WHERE area_id='0xad1e2a3d586cb0bb665d7259e7521371730784148ba9a2e73fbac1ee79fdf5bb' ORDER BY id desc,`pioneer`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:24.750+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer` WHERE pioneer='0x8e36fb61627287f9cc08105c5ea578989a05a2c3' ORDER BY id desc,`pioneer`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:25.560+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_add_info` WHERE area_id='0xad1e2a3d586cb0bb665d7259e7521371730784148ba9a2e73fbac1ee79fdf5bb' ORDER BY `pioneer_add_info`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:25.783+0800","line":"db/mysql.go:74","msg":"INSERT INTO `pioneer_add_info` (`area_id`,`old_area_id`,`old_pioneer`,`location`,`pioneer`,`area_level`,`is_area_node`,`pioneer_batch`,`surety_usdt`,`surety_tox`,`is_set`,`is_reset`,`pioneer_status`,`remark`,`ctime`) VALUES ('0xad1e2a3d586cb0bb665d7259e7521371730784148ba9a2e73fbac1ee79fdf5bb','','0xf22fc6b430c265fc6ec39d434897ce4e0bc2fd21','泰州市','0x8e36fb61627287f9cc08105c5ea578989a05a2c3',3,0,4,0,0,1,1,0,'该地区的先锋已经存在,但已经到期;该地区已经录入过','2024-03-26 14:19:25')","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:26.005+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer` WHERE area_id='0x8791cf7226e6b3c30f0557f8f0aaa201d606061d431d70458876f22dca6bb210' ORDER BY id desc,`pioneer`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:26.225+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer` WHERE pioneer='0x0d72cb4c3186ae8d572bfffece4c639e52794344' ORDER BY id desc,`pioneer`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:26.670+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_add_info` WHERE area_id='0x8791cf7226e6b3c30f0557f8f0aaa201d606061d431d70458876f22dca6bb210' ORDER BY `pioneer_add_info`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:19:26.892+0800","line":"db/mysql.go:74","msg":"INSERT INTO `pioneer_add_info` (`area_id`,`old_area_id`,`old_pioneer`,`location`,`pioneer`,`area_level`,`is_area_node`,`pioneer_batch`,`surety_usdt`,`surety_tox`,`is_set`,`is_reset`,`pioneer_status`,`remark`,`ctime`) VALUES ('0x8791cf7226e6b3c30f0557f8f0aaa201d606061d431d70458876f22dca6bb210','','0xeaddeef3df4687d26bf6e160515abc424c55d4f4','金华市','0x0d72cb4c3186ae8d572bfffece4c639e52794344',2,0,4,0,0,1,1,0,'该地区的先锋已经存在,但已经到期;该地区已经录入过','2024-03-26 14:19:26')","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:27:17.363+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:27:18.704+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:27:18.932+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_add_info` WHERE is_set=0 and pioneer_status=0","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:27:22.726+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_add_info` SET `is_set`=1 WHERE pioneer='0x8e36fb61627287f9cc08105c5ea578989a05a2c3'","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:28:27.669+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:28:28.880+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:28:29.084+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_add_info` WHERE is_set=0 and pioneer_status=0","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:28:30.899+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2811, expected 2812: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:28:30.899+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2811, expected 2812: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:28:31.582+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2811, expected 2812: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:28:31.582+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2811, expected 2812: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:28:32.265+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2811, expected 2812: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:28:32.265+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2811, expected 2812: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:28:32.960+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2811, expected 2812: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:28:32.960+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2811, expected 2812: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:28:36.652+0800","line":"blockchain/city.go:71","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:28:36.653+0800","line":"services/pioneer.go:34","msg":"rpc error: code = Unknown desc = execution reverted: can not set any more","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:28:37.997+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_add_info` SET `is_set`=1 WHERE pioneer='0x8e36fb61627287f9cc08105c5ea578989a05a2c3'","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:30:33.051+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:30:34.387+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:30:34.595+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `pioneer_add_info` WHERE is_set=0 and pioneer_status=0","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:36.365+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:36.365+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:38.990+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:38.990+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:39.661+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:39.661+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:40.325+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:40.325+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:41.002+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:41.003+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:41.669+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:41.669+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:43.559+0800","line":"blockchain/city.go:61","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:43.560+0800","line":"services/pioneer.go:20","msg":"invalid nonce; got 2814, expected 2815: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:45.126+0800","line":"services/pioneer.go:28","msg":"invalid nonce; got 2815, expected 2816: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:45.952+0800","line":"blockchain/city.go:61","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:45.952+0800","line":"services/pioneer.go:20","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:46.617+0800","line":"blockchain/city.go:61","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:46.618+0800","line":"services/pioneer.go:20","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:47.289+0800","line":"blockchain/city.go:61","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:47.289+0800","line":"services/pioneer.go:20","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:49.482+0800","line":"blockchain/city.go:61","msg":": tx already in mempool","serviceName":"into"}
+{"level":"error","time":"2024-03-26T14:30:49.483+0800","line":"services/pioneer.go:20","msg":": tx already in mempool","serviceName":"into"}
+{"level":"info","time":"2024-03-26T14:30:52.845+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_add_info` SET `is_set`=1 WHERE pioneer='0x0d72cb4c3186ae8d572bfffece4c639e52794344'","serviceName":"into"}

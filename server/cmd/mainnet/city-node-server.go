@@ -34,7 +34,7 @@ func main() {
 
 	/// 添加先锋
 	//blockchain.GetAllPioneer()
-	//services.SyncAddPioneerInfoFromExcel("./assets/区县节点报名表2.xlsx")
+	services.SyncAddPioneerInfoFromExcel("./assets/区县节点报名表2.xlsx")
 	//services.AddPioneerBeth4FromDb()
 	/// 添加先锋
 	//services.AddPioneerBeth4FromDb2()

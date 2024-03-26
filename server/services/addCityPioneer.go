@@ -367,8 +367,8 @@ func AddPioneerBeth4FromDb() {
 					info.Pioneer,
 				)
 				//err = RemovePioneer(
-				//	"0x491f0fa71e9db46360a7ac880539f923cda458800f22fb344e10e98491f1f39a",
-				//	"0x714956178a484805EBe00f5Cef30bC7e7323C30F",
+				//	"0x8791cf7226e6b3c30f0557f8f0aaa201d606061d431d70458876f22dca6bb210",
+				//	"0xeaddeef3df4687d26bf6e160515abc424c55d4f4",
 				//)
 				if err == nil {
 					fmt.Println("重置先锋成功", info.OldAreaId, info.Pioneer)
