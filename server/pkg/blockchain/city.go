@@ -788,7 +788,6 @@ func TriggerAllPioneerTask() {
 			continue
 		}
 		status, err := cityPioneer.CheckPioneerDailyStatus(nil, day, pioneer)
-		//fmt.Println(pioneer.String(), err, day, i, status)
 		if err != nil {
 			log.Logger.Sugar().Error(err)
 			continue
