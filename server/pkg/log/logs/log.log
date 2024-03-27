@@ -4750,3 +4750,34 @@
 {"level":"error","time":"2024-03-26T14:30:49.482+0800","line":"blockchain/city.go:61","msg":": tx already in mempool","serviceName":"into"}
 {"level":"error","time":"2024-03-26T14:30:49.483+0800","line":"services/pioneer.go:20","msg":": tx already in mempool","serviceName":"into"}
 {"level":"info","time":"2024-03-26T14:30:52.845+0800","line":"db/mysql.go:74","msg":"UPDATE `pioneer_add_info` SET `is_set`=1 WHERE pioneer='0x0d72cb4c3186ae8d572bfffece4c639e52794344'","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:08:40.345+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:08:41.748+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:09:55.395+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:09:56.693+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:12:22.240+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:12:23.609+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:27:07.811+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:27:09.149+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"error","time":"2024-03-26T16:27:12.654+0800","line":"blockchain/appraise.go:210","msg":"invalid nonce; got 2821, expected 2822: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T16:27:14.697+0800","line":"blockchain/appraise.go:210","msg":"invalid nonce; got 2819, expected 2822: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:27:20.292+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:27:21.627+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"error","time":"2024-03-26T16:27:23.572+0800","line":"blockchain/appraise.go:210","msg":"invalid nonce; got 2823, expected 2824: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T16:27:24.614+0800","line":"blockchain/appraise.go:210","msg":"invalid nonce; got 2823, expected 2824: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:27:35.425+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:27:36.742+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"error","time":"2024-03-26T16:27:38.503+0800","line":"blockchain/appraise.go:210","msg":"invalid nonce; got 2827, expected 2828: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T16:27:39.210+0800","line":"blockchain/appraise.go:210","msg":"invalid nonce; got 2827, expected 2828: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T16:27:41.067+0800","line":"blockchain/appraise.go:210","msg":"invalid nonce; got 2827, expected 2828: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:27:45.546+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T16:27:46.889+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"error","time":"2024-03-26T16:27:50.252+0800","line":"blockchain/appraise.go:210","msg":"invalid nonce; got 2832, expected 2833: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"error","time":"2024-03-26T16:27:51.270+0800","line":"blockchain/appraise.go:210","msg":"invalid nonce; got 2830, expected 2833: invalid sequence: invalid sequence","serviceName":"into"}
+{"level":"info","time":"2024-03-26T17:36:04.508+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T18:19:55.086+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T18:19:56.735+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T18:33:57.652+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T18:33:58.967+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T18:35:29.437+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}
+{"level":"info","time":"2024-03-26T18:35:30.948+0800","line":"db/mysql.go:74","msg":"SELECT * FROM `config` WHERE id=1 ORDER BY `config`.`id` LIMIT 1","serviceName":"into"}
+{"level":"info","time":"2024-03-26T18:36:58.032+0800","line":"db/mysql.go:13","msg":"Init Mysql","serviceName":"into"}

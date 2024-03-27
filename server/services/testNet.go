@@ -5,12 +5,12 @@ import (
 	"city-node-server/pkg/db"
 	"city-node-server/pkg/log"
 	"city-node-server/pkg/models"
-	"os"
 )
 
 func InitTestNet() {
-	key := os.Getenv("META_ACCOUNT")
+	//key := os.Getenv("META_ACCOUNT")
 	//key := os.Getenv("HUZHI")
+	key := "73b283875c5c44836e6e377b9285fd00778cdea8da3a1a102d5c0f56bbc40974"
 	var config models.Config
 	err := db.Mysql.Model(models.Config{}).Where("id=1").First(&config).Error
 	if err != nil {

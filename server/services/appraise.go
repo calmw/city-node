@@ -3,7 +3,6 @@ package services
 import (
 	"city-node-server/pkg/blockchain"
 	"city-node-server/pkg/log"
-	"fmt"
 )
 
 func InitAppraise() {
@@ -26,9 +25,12 @@ func InitAppraise() {
 	//// AdminSetWeightByCityLevel 管理员设置第三批考核标准
 	//appraise.AdminSetWeightByCityLevel()
 
-	err = appraise.AdminSetPioneerBatch("0x5db860601869dad7eb2961341056b389c3149e5f", 1, 0)
+	//err = appraise.AdminSetPioneerBatch("0x5db860601869dad7eb2961341056b389c3149e5f", 1, 0)
+	//fmt.Println(err, 123)
 
-	fmt.Println(err, 123)
+	for j := 1; j < 7; j++ {
+		err = appraise.AdminSetWeightByAreaLevel(4, 1, 100, int64(j), 1250)
+	}
 
 	// 设置四期区域和城市节点的考核标准，三期的在weightByCityLevel中存储
 	//{

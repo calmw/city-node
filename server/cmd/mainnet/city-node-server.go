@@ -12,7 +12,7 @@ func main() {
 	//services.InitUserLocation()
 	//services.InitCityPioneer(86400)
 	//services.InitCity(86400)
-	//services.InitAppraise()
+	services.InitAppraise()
 	//services.InitCityPioneerData()
 
 	//services.AddPioneerBeth3() // 四期上线前可用，需要更新ABI
@@ -34,7 +34,7 @@ func main() {
 
 	/// 添加先锋
 	//blockchain.GetAllPioneer()
-	services.SyncAddPioneerInfoFromExcel("./assets/区县节点报名表2.xlsx")
+	//services.SyncAddPioneerInfoFromExcel("./assets/区县节点报名表2.xlsx")
 	//services.AddPioneerBeth4FromDb()
 	/// 添加先锋
 	//services.AddPioneerBeth4FromDb2()

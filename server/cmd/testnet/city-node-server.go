@@ -21,7 +21,7 @@ func main() {
 
 	//services.AddPioneerBeth3()
 
-	//taskTest()
+	taskTest()
 	// 四期设置
 	// 我的
 	// "0x3edf72f7ab938a14e6aae3701a1e5acbb2512c840a019c6ead9d01415dbac864",
@@ -73,6 +73,6 @@ func taskTest() {
 	s.ChangeLoc(time.UTC)
 	//_ = s.Every(3).Seconds().From(gocron.NextTick()).Do(services.AdminSetDelegateTask)
 	_ = s.Every(9).Seconds().From(gocron.NextTick()).Do(blockchain.TriggerAllPioneerTaskTestNet)
-	_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
+	//_ = s.Every(10).Seconds().From(gocron.NextTick()).Do(services.AdminSetRechargeAmountTask)
 	<-s.Start() // Start all the pending jobs
 }

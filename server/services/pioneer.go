@@ -110,7 +110,7 @@ func ResetYuBin() {
 		err := AddPioneerBatch4(
 			"0x3ebfe141b23e28220361b813ee0fd5b18eb15db214c58d20fa66c0875dbbb281",
 			"0xFf2B12085c7F7B8133eEf5006703A6c055a3ed7d",
-			1,
+			100,
 			10, //5000 6
 			5,  // 1000 3
 			4,
@@ -306,7 +306,7 @@ func ResetJingJing(pioneer string) {
 			err := AddPioneerBatch4(
 				"0xe5abc510cd002e604dff20e595f121e073dad93b136574a0cd571f1f407404a8",
 				"0xcD1f731A1529d5F8e8f8cA94dF6092B680C88e2E",
-				2,
+				100,
 				6, //5000 6
 				3, // 1000 3
 				4,
